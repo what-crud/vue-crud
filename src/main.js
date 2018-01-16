@@ -12,6 +12,7 @@ Vue.config.productionTip = false
 Vue.use(Vuetify);
 Vue.use(vueResource);
 
+Vue.http.options.emulateJSON = true;
 Vue.http.options.root = 'http://127.0.0.1:8000/api';
 
 Vue.http.interceptors.push((request, next) => {
@@ -20,7 +21,7 @@ Vue.http.interceptors.push((request, next) => {
   }
   next(response => {
     if (response.status === 400 || response.status === 401 || response.status === 403) {
-      store.dispatch('logout');
+      store.commit('auth/logout')
     }
   })
 });

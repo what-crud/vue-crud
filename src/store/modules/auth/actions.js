@@ -8,27 +8,34 @@ let actions = {
     Vue.http.post('auth/login', credential)
       .then((response) => response.json())
       .then((result) => {
-        localStorage.setItem('token', result.token);
-        localStorage.setItem('user', JSON.stringify(result.user));
-        commit('login');
-        router.push({
-          path: '/'
-        });
+        commit('login', result);
       });
   },
-
   logout({
     commit
   }) {
-    commit('logout');
-    router.push({
-      path: '/login'
-    });
     Vue.http.get('auth/logout')
       .then((response) => response.json())
       .then(() => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        commit('logout');
+      });
+  },
+  editUser({
+    commit
+  }, data) {
+    Vue.http.post('auth/user', data)
+      .then((response) => response.json())
+      .then((result) => {
+        commit('editUser', result);
+      });
+  },
+  editPassword({
+    commit
+  }, data) {
+    Vue.http.post('auth/user-password', data)
+      .then((response) => response.json())
+      .then((result) => {
+        commit('editPassword', result);
       });
   }
 }

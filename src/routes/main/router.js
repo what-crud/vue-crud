@@ -2,43 +2,30 @@ import Administration from './routes/administration/Index.vue'
 import administrationRoutes from './routes/administration/router'
 import Crm from './routes/crm/Index.vue'
 import crmRoutes from './routes/crm/router'
-import Wholesalers from './routes/wholesalers/Index.vue'
-import wholesalersRoutes from './routes/wholesalers/router'
-import Pharmacies from './routes/pharmacies/Index.vue'
-import pharmaciesRoutes from './routes/pharmacies/router'
-import Hospitals from './routes/hospitals/Index.vue'
-import hospitalsRoutes from './routes/hospitals/router'
+import someModule from './routes/some-module/Index.vue'
+import someModuleRoutes from './routes/some-module/router'
 
 let mainRoutes = [
     {
         path: 'administration',
         name: 'administration',
         component: Administration,
-        children: administrationRoutes
+        children: administrationRoutes,
+        meta: {guard: 'ADMIN'}
     },
     {
         path: 'crm',
         name: 'crm',
         component: Crm,
-        children: crmRoutes
+        children: crmRoutes,
+        meta: {guard: 'CRM'}
     },
     {
-        path: 'wholesalers',
-        name: 'wholesalers',
-        component: Wholesalers,
-        children: wholesalersRoutes
-    },
-    {
-        path: 'pharmacies',
-        name: 'pharmacies',
-        component: Pharmacies,
-        children: pharmaciesRoutes
-    },
-    {
-        path: 'hospitals',
-        name: 'hospitals',
-        component: Hospitals,
-        children: hospitalsRoutes
+        path: 'some-module',
+        name: 'someModule',
+        component: someModule,
+        children: someModuleRoutes,
+        meta: {guard: 'someModule'}
     },
 ];
 

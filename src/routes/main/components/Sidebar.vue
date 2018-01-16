@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer dark clipped fixed app v-model="$store.state.drawer" class="light-blue darken-4">
     <v-list dense>
-        <template v-for="(item, i) in items">
+        <template v-if="checkRole(item.guard)" v-for="(item, i) in items">
           <v-layout
             row
             v-if="item.heading"
@@ -24,7 +24,7 @@
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-title>
-                  {{ item.text }}
+                  {{ $t(item.text) }}
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -39,7 +39,7 @@
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-title>
-                  {{ child.text }}
+                  {{ $t(child.text) }}
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -50,7 +50,7 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>
-                {{ item.text }}
+                {{ $t(item.text) }}
               </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -60,6 +60,9 @@
 </template>
 
 <script>
+  import {
+    mapGetters
+  } from 'vuex'
 
   export default {
     data: () => ({
@@ -69,65 +72,93 @@
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
-          text: 'CRM',
+          text: 'crm.name',
           model: false,
+          guard: 'CRM',
           route: '/crm',
           children: [
-            { text: 'Firmy', route: '/companies' },
-            { text: 'Osoby', route: '/people' },
-            { text: 'Stanowiska', route: '/positions' },
+            { text: 'crm.companies', route: '/companies' },
+            { text: 'crm.people', route: '/people' },
+            { text: 'crm.positions', route: '/positions' },
           ]
         },
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
-          text: 'Hurtownie',
+          text: 'someModule.name',
           model: false,
-          route: '/wholesalers',
+          guard: 'someModule',
+          route: '/some-module',
           children: [
-            { text: 'Hurtownie', route: '/wholesalers' },
-            { text: 'Użytkownicy', route: '/users' },
+            { text: 'someModule.pageOne', route: '/page-one' },
+            { text: 'someModule.pageTwo', route: '/page-two' },
           ]
         },
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
-          text: 'Apteki',
+          text: 'admin.name',
           model: false,
-          route: '/pharmacies',
-          children: [
-            { text: 'Apteki', route: '/pharmacies' },
-            { text: 'Użytkownicy', route: '/users' },
-          ]
-        },
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          text: 'Szpitale',
-          model: false,
-          route: '/hospitals',
-          children: [
-            { text: 'Szpitale', route: '/hospitals' },
-            { text: 'Użytkownicy', route: '/users' },
-          ]
-        },
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          text: 'Administracja',
-          model: false,
+          guard: 'ADMIN',
           route: '/administration',
           children: [
-            { text: 'Użytkownicy', route: '/users' },
-            { text: 'Uprawnienia', route: '/permissions' },
-            { text: 'Użytkownicy - uprawnienia', route: '/user-permissions' },
+            { text: 'admin.users', route: '/users' },
+            { text: 'admin.permissions', route: '/permissions' },
+            { text: 'admin.userPermissions', route: '/user-permissions' },
           ]
         },
       ]
     }),
+    computed: {
+      ...mapGetters('auth', [
+        'checkRole',
+      ])
+    },
     props: {
       source: String
-    }
+    },
+    i18n: {
+      messages:{
+        pl: {
+          crm: {
+            name: 'CRM',
+            companies: 'Firmy',
+            people: 'Osoby',
+            positions: 'Stanowiska',
+          },
+          someModule: {
+            name: 'Jakiś moduł',
+            pageOne: 'Strona 1',
+            pageTwo: 'Strona 2',
+          },
+          admin: {
+            name: 'Administracja',
+            permissions: 'Uprawnienia',
+            users: 'Użytkownicy',
+            userPermissions: 'Użytkownicy - uprawnienia',
+          },
+        },
+        en: {
+          crm: {
+            name: 'CRM',
+            companies: 'Companies',
+            people: 'People',
+            positions: 'Positions',
+          },
+          someModule: {
+            name: 'Some module',
+            pageOne: 'Page 1',
+            pageTwo: 'Page 2',
+          },
+          admin: {
+            name: 'Administration',
+            permissions: 'Permissions',
+            users: 'Users',
+            userPermissions: 'Users - permissions',
+          },
+        }
+      }
+    },
   }
 </script>
 

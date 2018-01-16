@@ -6,8 +6,15 @@
       <v-container fluid fill-height>
         <v-layout>
           <v-flex xs12>
-            <v-card>
-              <router-view></router-view>
+            <v-card blue>
+              <v-card-title>
+                <div class="headline">test > test</div>
+                <v-spacer></v-spacer>
+                <img src="">
+              </v-card-title>
+              <v-card-title>
+                <router-view style="margin: 0 auto;"></router-view>
+              </v-card-title>
             </v-card>
           </v-flex>
         </v-layout>
@@ -17,7 +24,7 @@
     <back-top></back-top>
     <profile></profile>
     <help></help>
-</div>
+  </div>
 </template>
 
 <script>
@@ -40,12 +47,12 @@
       'isLogged'
     ]),
     components: {
-        Sidebar,
-        Toolbar,
-        Footnote,
-        BackTop,
-        Profile,
-        Help,
+      Sidebar,
+      Toolbar,
+      Footnote,
+      BackTop,
+      Profile,
+      Help,
     }
   }
 

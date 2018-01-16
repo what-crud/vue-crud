@@ -1,6 +1,6 @@
 <template>
   <div>
-    Hurtownie
+    Some module
     <router-view></router-view>
   </div>
 </template>

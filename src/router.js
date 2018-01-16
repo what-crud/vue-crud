@@ -16,7 +16,8 @@ const router = new Router({
       beforeEnter: (to, from, next) => {
         var auth = localStorage.getItem('token')
         if (!auth){
-            next('/login')
+            store.commit('auth/logout')
+            next()
         }
         else {
             next()
@@ -32,8 +33,20 @@ const router = new Router({
 })
 
 router.beforeEach(function (to, from, next) {
-  window.scrollTo(0, 0);
-  next()
+  let middleware
+  to.matched.some(m => middleware = m.meta.guard)
+  if(typeof middleware === "undefined") {
+    next()
+  } 
+  else{
+    if(store.getters['auth/checkRole'](middleware)){
+      window.scrollTo(0, 0);
+      next()
+    }
+    else{
+      next('/')
+    }
+  }
 });
 
 export default router
