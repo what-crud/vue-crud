@@ -1,5 +1,5 @@
 <template>
-    <v-footer class="pa-3 blue white--text" app>
+    <v-footer class="pa-3 white--text" :class="$store.state.primaryColor" app>
       <v-spacer></v-spacer>
       <div>© {{ new Date().getFullYear() }}</div>
     </v-footer>

@@ -34,6 +34,7 @@ const router = new Router({
 
 router.beforeEach(function (to, from, next) {
   let middleware
+  store.state.page = null
   to.matched.some(m => middleware = m.meta.guard)
   if(typeof middleware === "undefined") {
     next()
@@ -44,7 +45,7 @@ router.beforeEach(function (to, from, next) {
       next()
     }
     else{
-      next('/')
+      next('/home')
     }
   }
 });

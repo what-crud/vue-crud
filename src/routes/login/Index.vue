@@ -1,15 +1,15 @@
 <template>
-  <v-layout row wrap class="white">
-    <v-flex xs10 offset-xs1 sm8 offset-sm2 md6 offset-md3 lg4 offset-lg4 xl2 offset-xl5 class="parent text-xs-center light-blue--text text--darken-4">
-      <img class="logo" src="" style="width:300px;height:auto;">
+  <v-layout row wrap  :class="$store.state.secondaryColor">
+    <v-flex xs10 offset-xs1 sm8 offset-sm2 md6 offset-md3 lg4 offset-lg4 xl2 offset-xl5 class="parent text-xs-center red--text">
+      <img class="logo" src="../../assets/images/logo.png">
       <h3>{{ $t('login.title') }}</h3>
       <template>
-        <v-form v-model="valid" ref="form" lazy-validation>
-          <v-text-field :label="$t('login.email')" v-model="email" :rules="emailRules" required></v-text-field>
-          <v-text-field :label="$t('login.password')" v-model="password" :rules="passwordRules" :counter="30" required :append-icon="passAppendIcon"
+        <v-form v-model="valid" ref="form" lazy-validation v-on:submit.prevent>
+          <v-text-field dark :label="$t('login.email')" v-model="email" :rules="emailRules" required></v-text-field>
+          <v-text-field dark :label="$t('login.password')" v-model="password" :rules="passwordRules" :counter="30" required :append-icon="passAppendIcon"
             :append-icon-cb="() => (passwordHidden = !passwordHidden)" :type="passTextFieldType"></v-text-field>
-          <v-btn @click="login(credential)" :disabled="!valid" class="light-blue darken-4 white--text">
-            Zaloguj
+          <v-btn type="submit" @click="login(credential)" :disabled="!valid" dark :class="$store.state.primaryColor">
+            {{ $t('login.submit') }}
           </v-btn>
         </v-form>
       </template>
@@ -28,9 +28,7 @@
         valid: false,
         password: '',
         passwordRules: [
-          (v) => !!v || 'Hasło jest wymagane',
-          (v) => v && v.length >= 5 || 'Hasło musi mieć co najmniej 5 znaków',
-          (v) => v && v.length <= 30 || 'Hasło nie może być dłuższe niż 30 znaków',
+          (v) => !!v || 'Hasło jest wymagane'
         ],
         email: '',
         emailRules: [
@@ -41,18 +39,18 @@
       }
     },
     computed: {
-      credential: function () {
-        let email = this.email;
-        let password = this.password;
+      credential() {
+        let email = this.email
+        let password = this.password
         return {
           email,
           password
         }
       },
-      passTextFieldType: function () {
+      passTextFieldType() {
         return this.passwordHidden ? 'password' : 'text'
       },
-      passAppendIcon: function () {
+      passAppendIcon() {
         return this.passwordHidden ? 'visibility' : 'visibility_off'
       },
     },
@@ -65,16 +63,18 @@
       messages:{
         pl: {
           login: {
-            title: "CRM",
+            title: "CRUD oparty na Vue, Vuex i Vuetify",
             email: "E-mail",
             password: "Hasło",
+            submit: "Zaloguj"
           }
         },
         en: {
           login: {
-            title: "CRM",
+            title: "Vue - based CRUD application",
             email: "E-mail",
             password: "Password",
+            submit: "Submit"
           }
         }
       }
@@ -83,6 +83,13 @@
 
 </script>
 <style scoped>
+  .logo {
+    height: auto;
+    width: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .parent {
     height: 100vh;
     display: flex;

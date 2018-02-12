@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer dark clipped fixed app v-model="$store.state.drawer" class="light-blue darken-4">
+  <v-navigation-drawer dark clipped fixed app v-model="$store.state.drawer" :class="$store.state.secondaryColor">
     <v-list dense>
         <template v-if="checkRole(item.guard)" v-for="(item, i) in items">
           <v-layout
@@ -24,7 +24,7 @@
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-title>
-                  {{ $t(item.text) }}
+                  {{ $t('global.routes.' + item.text) }}
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -39,7 +39,7 @@
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-title>
-                  {{ $t(child.text) }}
+                  {{ $t('global.routes.' + child.text) }}
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -73,25 +73,67 @@
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
           text: 'crm.name',
-          model: false,
+          model: true,
           guard: 'CRM',
           route: '/crm',
           children: [
             { text: 'crm.companies', route: '/companies' },
             { text: 'crm.people', route: '/people' },
             { text: 'crm.positions', route: '/positions' },
+            { text: 'crm.companyComments', route: '/company-comments' },
+            { text: 'crm.personComments', route: '/person-comments' },
+            { text: 'crm.positionTasks', route: '/position-tasks' },
+            { text: 'crm.companyTypes', route: '/company-types' },
+            { text: 'crm.companyCommentTypes', route: '/company-comment-types' },
+            { text: 'crm.personCommentTypes', route: '/person-comment-types' },
+            { text: 'crm.tasks', route: '/tasks' },
+            // { text: 'crm.companyFiles', route: '/company-files' },
+            // { text: 'crm.personFiles', route: '/person-files' },
           ]
         },
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
-          text: 'someModule.name',
+          text: 'whs.name',
           model: false,
-          guard: 'someModule',
-          route: '/some-module',
+          guard: 'WHS',
+          route: '/wholesalers',
           children: [
-            { text: 'someModule.pageOne', route: '/page-one' },
-            { text: 'someModule.pageTwo', route: '/page-two' },
+            { text: 'whs.wholesalers', route: '/wholesalers' },
+            { text: 'whs.groups', route: '/groups' },
+            { text: 'whs.bigGroups', route: '/big-groups' },
+            { text: 'whs.clients', route: '/clients' },
+            { text: 'whs.clientTypes', route: '/client-types' },
+            { text: 'whs.wholesalerClients', route: '/wholesaler-clients' },
+            { text: 'whs.news', route: '/news' },
+            { text: 'whs.newsCategories', route: '/news-categories' },
+            { text: 'whs.users', route: '/users' },
+            { text: 'whs.permissions', route: '/permissions' },
+            { text: 'whs.userPermissions', route: '/user-permissions' },
+          ]
+        },
+        {
+          icon: 'keyboard_arrow_up',
+          'icon-alt': 'keyboard_arrow_down',
+          text: 'pha.name',
+          model: false,
+          guard: 'PHA',
+          route: '/pharmacies',
+          children: [
+            { text: 'pha.pharmacies', route: '/pharmacies' },
+            { text: 'pha.users', route: '/users' },
+          ]
+        },
+        {
+          icon: 'keyboard_arrow_up',
+          'icon-alt': 'keyboard_arrow_down',
+          text: 'hos.name',
+          model: false,
+          guard: 'HOS',
+          route: '/hospitals',
+          children: [
+            { text: 'hos.hospitals', route: '/hospitals' },
+            { text: 'hos.users', route: '/users' },
           ]
         },
         {
@@ -116,48 +158,6 @@
     },
     props: {
       source: String
-    },
-    i18n: {
-      messages:{
-        pl: {
-          crm: {
-            name: 'CRM',
-            companies: 'Firmy',
-            people: 'Osoby',
-            positions: 'Stanowiska',
-          },
-          someModule: {
-            name: 'Jakiś moduł',
-            pageOne: 'Strona 1',
-            pageTwo: 'Strona 2',
-          },
-          admin: {
-            name: 'Administracja',
-            permissions: 'Uprawnienia',
-            users: 'Użytkownicy',
-            userPermissions: 'Użytkownicy - uprawnienia',
-          },
-        },
-        en: {
-          crm: {
-            name: 'CRM',
-            companies: 'Companies',
-            people: 'People',
-            positions: 'Positions',
-          },
-          someModule: {
-            name: 'Some module',
-            pageOne: 'Page 1',
-            pageTwo: 'Page 2',
-          },
-          admin: {
-            name: 'Administration',
-            permissions: 'Permissions',
-            users: 'Users',
-            userPermissions: 'Users - permissions',
-          },
-        }
-      }
     },
   }
 </script>

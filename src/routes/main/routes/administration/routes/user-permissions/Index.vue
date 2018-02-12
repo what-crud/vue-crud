@@ -1,73 +1,106 @@
 <template>
-  <div>
-    <data-table :items="userPermissions" :headers="headers" :add.sync="add"></data-table>
-    <item-details :dialog.sync="add"></item-details>
-  </div>
+  <crud
+    :prefix="prefix"
+    :path="path"
+    :pageTitle="pageTitle"
+    :headers="headers"
+    :fieldsInfo="fieldsInfo"
+    :detailsTitle="$t('detailsTitle')"
+    :softDeletes="false"
+  >
+  </crud>
 </template>
 
 <script>
-  import DataTable from '@/components/DataTable.vue'
-  import ItemDetails from '@/components/ItemDetails.vue'
-  import {
-    mapGetters,
-    mapActions
-  } from 'vuex'
+  import Crud from '@/components/Crud.vue'
 
   export default {
     data() {
       return {
-        add: false,
+        prefix: 'admin',
+        path: 'user-permissions',
+        pageTitle: 'admin.userPermissions',
       }
     },
     computed: {
-      ...mapGetters('administration', [
-        'userPermissions',
-      ]),
-      headers: function () {
-        return [{
-            text: 'Id',
-            align: 'center',
+      fieldsInfo () {
+        return [
+          {
+            type: 'select',
+            url: 'admin/users',
+            list: {
+              value: 'id',
+              text: 'name',
+              data: []
+            },
+            column: 'user_id',
+            text: this.$t('fields.user'),
+          },
+          {
+            type: 'select',
+            url: 'admin/permissions',
+            list: {
+              value: 'id',
+              text: 'name',
+              data: []
+            },
+            column: 'permission_id',
+            text: this.$t('fields.permission'),
+          },
+        ]
+      },
+      headers () {
+        return [
+          {
+            text: this.$t('fields.id'),
             value: 'id'
           },
           {
-            text: 'Nazwa użytkownika',
-            align: 'center',
-            value: 'name'
+            text: this.$t('fields.user'),
+            value: 'user'
           },
           {
-            text: 'Kod uprawnienia',
-            align: 'center',
-            value: 'code'
-          }, {
-            text: 'Akcja',
-            align: 'center',
-            sortable: false,
+            text: this.$t('fields.userEmail'),
+            value: 'userEmail'
+          },
+          {
+            text: this.$t('fields.permission'),
+            value: 'permission'
+          },
+          {
+            text: this.$t('fields.permissionCode'),
+            value: 'permissionCode'
           },
         ]
-      }
-    },
-    created: function () {
-      this.getUserPermissions()
-
-    },
-    methods: {
-      openAddDialog: function () {
-        this.add = true
       },
-      ...mapActions('administration', [
-        'getUserPermissions',
-      ]),
     },
     components: {
-      DataTable,
-      ItemDetails
+      Crud
     },
     i18n: {
       messages: {
-        pl: {},
-        en: {}
+        pl: {
+          detailsTitle: 'Użytkownik - uprawnienie',
+          fields: {
+            id: 'Id',
+            user: 'Użytkownik',
+            userEmail: 'E-mail użytkownika',
+            permission: 'Uprawnienie',
+            permissionCode: 'Kod uprawnienia',
+          }
+        },
+        en: {
+          detailsTitle: 'User - permission',
+          fields: {
+            id: 'Id',
+            user: 'User',
+            userEmail: 'User\'s e-mail',
+            permission: 'Permission',
+            permissionCode: 'Permission code',
+          }
+        }
       }
-    }
+    },
   }
 
 </script>

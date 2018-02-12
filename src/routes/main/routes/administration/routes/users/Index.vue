@@ -1,14 +1,143 @@
 <template>
-    <div>
-        Użytkownicy
-    </div>
+  <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :headers="headers" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')"
+    :customButtons="buttons" :itemElements="itemElements" ref="crud">
+  </crud>
 </template>
 
 <script>
-    export default {
-        name: 'users',
-        data() {
-            return {}
+  import Vue from 'vue'
+  import Crud from '@/components/Crud.vue'
+  import {
+    mapActions,
+    mapMutations
+  } from 'vuex'
+
+  export default {
+    data() {
+      return {
+        prefix: 'admin',
+        path: 'users',
+        pageTitle: 'admin.users',
+      }
+    },
+    computed: {
+      itemElements() {
+        return {
+          userPermissions: {
+            title: this.$t('itemElements.userPermissions'),
+            url: 'admin/users/{id}/permissions',
+            controller: 'admin/user-permissions',
+            itemObject: 'permission_users',
+            column: 'name',
+            primaryId: 'user_id',
+            foreignId: 'permission_id',
+            icon: 'lock_open',
+            color: 'purple',
+            buttonText: this.$t('itemElements.userPermissions')
+          }
+        }
+      },
+      buttons() {
+        return [{
+          name: 'resetPassword',
+          icon: 'autorenew',
+          color: 'blue',
+          text: this.$t('buttons.resetPassword')
+        }]
+      },
+      fieldsInfo() {
+        return [{
+            type: 'input',
+            column: 'name',
+            text: this.$t('fields.name')
+          },
+          {
+            type: 'input',
+            column: 'email',
+            text: this.$t('fields.email')
+          },
+        ]
+      },
+      headers() {
+        return [{
+            text: this.$t('fields.id'),
+            value: 'id'
+          },
+          {
+            text: this.$t('fields.name'),
+            value: 'name'
+          },
+          {
+            text: this.$t('fields.email'),
+            value: 'email'
+          },
+          {
+            text: this.$t('fields.initialPassword'),
+            value: 'initialPassword'
+          },
+        ]
+      },
+    },
+    methods: {
+      ...mapMutations('crud', [
+        'alertSuccess',
+        'alertError'
+      ]),
+      ...mapActions('crud', [
+        'getItems',
+      ]),
+      custom(name, id) {
+        this[name](id)
+      },
+      resetPassword(id) {
+        Vue.http.put(this.prefix + '/' + this.path + '/' + id + '/reset-password')
+          .then((response) => {
+            this.alertSuccess(this.$t('passwordReseted'))
+            this.getItems()
+          })
+      },
+    },
+    components: {
+      Crud
+    },
+    i18n: {
+      messages: {
+        pl: {
+          detailsTitle: 'Użytkownik',
+          fields: {
+            id: 'Id',
+            name: 'Nazwa',
+            email: 'E-mail',
+            initialPassword: 'Hasło początkowe',
+          },
+          itemElements: {
+            userPermissions: 'Uprawnienia użytkownika'
+          },
+          buttons: {
+            resetPassword: 'Reset hasła'
+          },
+          passwordReseted: 'Hasło zostało zmienione',
+          passwordResetError: 'Błąd! Nie udało się zmienić hasła'
         },
-    }
+        en: {
+          detailsTitle: 'User',
+          fields: {
+            id: 'Id',
+            name: 'Name',
+            email: 'E-mail',
+            initialPassword: 'Initial password',
+          },
+          itemElements: {
+            userPermissions: 'User permissions'
+          },
+          buttons: {
+            resetPassword: 'Reset password'
+          },
+          passwordReseted: 'Password changed',
+          passwordResetError: 'Error! Password change unsuccessful'
+        }
+      }
+    },
+  }
+
 </script>

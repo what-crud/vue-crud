@@ -5,12 +5,13 @@ let mutations = {
     state.logged = 1
     let token = data.token
     let user = JSON.stringify(data.user)
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', user);
+
+    localStorage.setItem('token', token)
+    localStorage.setItem('user', user)
     state.token = token
     state.user = user
     router.push({
-      path: '/'
+      path: '/crm/companies'
     });
   },
   logout(state) {

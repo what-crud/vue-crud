@@ -1,6 +1,6 @@
 import "babel-polyfill"
 import Vue from 'vue'
-import i18n from './locales'
+import i18n from './locales/index.js'
 import router from '@/router'
 import vueResource from 'vue-resource'
 import store from '@/store/'
@@ -9,8 +9,8 @@ import App from '@/App'
 
 Vue.config.productionTip = false
 
-Vue.use(Vuetify);
-Vue.use(vueResource);
+Vue.use(Vuetify)
+Vue.use(vueResource)
 
 Vue.http.options.emulateJSON = true;
 Vue.http.options.root = 'http://127.0.0.1:8000/api';

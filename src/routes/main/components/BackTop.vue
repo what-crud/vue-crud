@@ -1,6 +1,6 @@
 <template>
   <span v-if="top > 0" @click.prevent="backTop">
-    <v-btn id="scroll" fab class="blue" floating>
+    <v-btn id="scroll" fab :class="$store.state.secondaryColor" floating>
       <v-icon class="white--text">keyboard_arrow_up</v-icon>
     </v-btn>
    <slot></slot>
@@ -21,17 +21,17 @@
         top: 0
       };
     },
-    created: function (){
+    created() {
         var that = this;
-        var timer = setInterval(function () {
+        var timer = setInterval(() => {
           that.top = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
         }, 20);
     },
     methods: {
-      backTop: function () {
+      backTop() {
         var that = this;
         var top = that.top;
-        var timer = setInterval(function () {
+        var timer = setInterval(() => {
           top -= Math.abs(top * that.speed);
           if (top <= 1) {
             top = 0;

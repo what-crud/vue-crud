@@ -1,17 +1,14 @@
-import Administration from './routes/administration/Index.vue'
-import administrationRoutes from './routes/administration/router'
+import Home from './routes/home/Index.vue'
 import Crm from './routes/crm/Index.vue'
 import crmRoutes from './routes/crm/router'
-import someModule from './routes/some-module/Index.vue'
-import someModuleRoutes from './routes/some-module/router'
+import Administration from './routes/administration/Index.vue'
+import administrationRoutes from './routes/administration/router'
 
 let mainRoutes = [
     {
-        path: 'administration',
-        name: 'administration',
-        component: Administration,
-        children: administrationRoutes,
-        meta: {guard: 'ADMIN'}
+        path: 'home',
+        name: 'home',
+        component: Home
     },
     {
         path: 'crm',
@@ -21,11 +18,11 @@ let mainRoutes = [
         meta: {guard: 'CRM'}
     },
     {
-        path: 'some-module',
-        name: 'someModule',
-        component: someModule,
-        children: someModuleRoutes,
-        meta: {guard: 'someModule'}
+        path: 'administration',
+        name: 'administration',
+        component: Administration,
+        children: administrationRoutes,
+        meta: {guard: 'ADMIN'}
     },
 ];
 

@@ -1,5 +1,5 @@
 let getters = {
-   lng: state => state.locale
+  lng: state => state.locale,
 }
 
 export default getters

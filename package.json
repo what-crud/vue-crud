@@ -1,7 +1,7 @@
 {
-  "name": "crm",
+  "name": "iqvia-crm-app",
   "version": "1.0.0",
-  "description": "CRM",
+  "description": "CRM działu Supplier Relations w IQVIA",
   "author": "Szczepan Masny <szczepanmasny@gmail.com>",
   "private": true,
   "scripts": {
@@ -10,13 +10,14 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "axios": "^0.17.1",
+    "babel-polyfill": "^6.26.0",
     "vue": "^2.5.2",
     "vue-i18n": "^7.3.3",
     "vue-resource": "^1.3.4",
     "vue-router": "^3.0.1",
     "vue-scrollto": "^2.8.0",
+    "vue2-editor": "^2.4.2",
     "vuetify": "^0.17.4",
     "vuex": "^3.0.1"
   },

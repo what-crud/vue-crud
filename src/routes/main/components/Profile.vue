@@ -9,7 +9,7 @@
         <!-- edit user form -->
         <v-form v-model="userValid">
           <v-card-text>
-            <v-alert v-if="userUpdated" color="success" icon="check_circle" value="true">
+            <v-alert v-if="userUpdated" outline color="success" icon="check_circle" value="true">
               {{ $t('user.updated') }}
             </v-alert>
             <v-text-field :label="$t('user.name')" v-model="user.name" :rules="userRules.name"></v-text-field>
@@ -24,10 +24,10 @@
         <!-- edit password form -->
         <v-form v-model="passwordValid">
           <v-card-text>
-            <v-alert v-if="userPasswordUpdated" color="success" icon="check_circle" value="true">
+            <v-alert v-if="userPasswordUpdated" outline color="success" icon="check_circle" value="true">
               {{ $t('password.updated') }}
             </v-alert>
-            <v-alert v-else-if="userPasswordUpdateError" color="error" icon="warning" value="true">
+            <v-alert v-else-if="userPasswordUpdateError" outline color="error" icon="warning" value="true">
               {{ $t('password.updateError') }}
               <br> {{ password.updateErrorMsg }}
             </v-alert>
@@ -94,7 +94,7 @@
         'userPasswordUpdateError',
         'userPasswordUpdateErrorMsg'
       ]),
-      userRules: function () {
+      userRules() {
         let self = this
         return {
           name: [
@@ -108,7 +108,7 @@
           ]
         }
       },
-      passwordRules: function () {
+      passwordRules() {
         let self = this
         return {
           old: [
@@ -129,21 +129,21 @@
         }
       },
     },
-    created: function () {
+    created() {
       this.getUser()
     },
     methods: {
-      clearPasswords: function () {
+      clearPasswords() {
         this.password.old = ''
         this.password.new = ''
         this.password.repeat = ''
       },
-      getUser: function () {
+      getUser() {
         let user = this.userInfo
         this.user.name = user.name
         this.user.email = user.email
       },
-      editPasswordAndClear: function () {
+      editPasswordAndClear() {
         this.editPassword(this.password)
         this.clearPasswords()
       },
