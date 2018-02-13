@@ -5,7 +5,8 @@
 
 ## Functions
 
-> The application contains a mechanism for managing the database tables. After adding table support to crud, the following record operations are possible:
+The application contains a mechanism for managing the database tables. After adding table support to crud, the following record operations are possible:
+
 * Store,
 * Update,
 * Suspend/Restore,
@@ -13,7 +14,8 @@
 * Multiple Suspend/Restore,
 * Multiple Delete
 
-> The record creation / editing form supports the following types of fields:
+The record creation / editing form supports the following types of fields:
+
 * Input,
 * Textarea,
 * Rich Text Box,
