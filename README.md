@@ -1,7 +1,7 @@
 # Vue - based REST-ful CRUD application
 
 > CRUD application written using Vue2, Vuex and Vuetify. The app uses REST API and JWT Tokens.
-> Demo application is available [here](http:/crud.id-a.pl). To get login and password, contact me on github.
+> Demo application is available [here](http:/crud.id-a.pl). To get login and password, contact me on my [personal site](http:/szczepanmasny.pl) or [company site](http://id-a.pl).
 
 ## Functions
 
