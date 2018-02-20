@@ -20,6 +20,15 @@ let actions = {
         commit('logout');
       });
   },
+  refreshToken({
+    commit
+  }, data) {
+    Vue.http.post('auth/refresh-token')
+      .then((response) => response.json())
+      .then((result) => {
+        commit('refreshToken', result);
+      });
+  },
   editUser({
     commit
   }, data) {

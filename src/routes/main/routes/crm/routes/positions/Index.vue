@@ -18,16 +18,22 @@
       itemElements() {
         return {
           positionTasks: {
-            title: this.$t('itemElements.positionTasks'),
+            title: this.$t('itemElements.positionTasks.title'),
             url: 'crm/positions/{id}/tasks',
             controller: 'crm/position-tasks',
             itemObject: 'task_positions',
-            column: 'name',
+            columns: [
+              {
+                obj: 'name',
+                name: 'task',
+                header: this.$t('itemElements.positionTasks.headers.task'),
+              },
+            ],
             primaryId: 'position_id',
             foreignId: 'task_id',
             icon: 'list',
             color: 'blue',
-            buttonText: this.$t('itemElements.positionTasks')
+            buttonText: this.$t('itemElements.positionTasks.title')
           }
         }
       },
@@ -163,7 +169,12 @@
             comment: 'Komentarz',
           },
           itemElements: {
-            positionTasks: 'Stanowisko - zadania'
+            positionTasks: {
+              title: 'Stanowisko - zadania',
+              headers: {
+                task: 'Zadanie'
+              }
+            }
           }
         },
         en: {
@@ -181,7 +192,12 @@
             comment: 'Comment',
           },
           itemElements: {
-            positionTasks: 'Position - tasks'
+            positionTasks: {
+              title: 'Position - tasks',
+              headers: {
+                task: 'Task'
+              }
+            }
           }
         }
       }

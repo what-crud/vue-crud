@@ -1,6 +1,6 @@
 <template>
-  <v-layout row wrap  :class="$store.state.secondaryColor">
-    <v-flex xs10 offset-xs1 sm8 offset-sm2 md6 offset-md3 lg4 offset-lg4 xl2 offset-xl5 class="parent text-xs-center red--text">
+  <v-layout row wrap  :class="white">
+    <v-flex xs10 offset-xs1 sm8 offset-sm2 md6 offset-md3 lg4 offset-lg4 xl2 offset-xl5 class="parent text-xs-center">
       <img class="logo" src="../../assets/images/logo.png">
       <h3>{{ $t('login.title') }}</h3>
       <template>

@@ -13,7 +13,7 @@ let state = {
     itemElements: {
       show: false,
       id: null,
-      column: '',
+      columns: [],
       controller: '',
       itemObject: '',
       primaryId: '',
@@ -21,8 +21,6 @@ let state = {
       title: '',
       url: '',
       data: [],
-      selected: [],
-      available: [],
     },
     availableElements: [],
   }

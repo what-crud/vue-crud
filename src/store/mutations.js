@@ -11,6 +11,9 @@ let mutations = {
   setPage(state, value) {
     state.page = value
   },
+  setLocale(state, locale) {
+    state.locale = locale
+  },
   // alerts
   alertSuccess(state, text) {
     state.alert.color = 'success'

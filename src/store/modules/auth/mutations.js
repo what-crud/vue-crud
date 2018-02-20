@@ -47,6 +47,11 @@ let mutations = {
         state.userPasswordUpdateError = false
       }, 3000)
     }
+  },
+  refreshToken(state, data) {
+    let token = data.token
+    localStorage.setItem('token', token)
+    state.token = token
   }
 }
 export default mutations

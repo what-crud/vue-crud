@@ -42,7 +42,13 @@ router.beforeEach(function (to, from, next) {
   else{
     if(store.getters['auth/checkRole'](middleware)){
       window.scrollTo(0, 0);
-      next()
+      
+      Vue.http.post('auth/refresh-token')
+        .then((response) => response.json())
+        .then((result) => {
+          store.commit('auth/refreshToken', result);
+          next()
+        });
     }
     else{
       next('/home')

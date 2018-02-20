@@ -24,16 +24,22 @@
       itemElements() {
         return {
           userPermissions: {
-            title: this.$t('itemElements.userPermissions'),
+            title: this.$t('itemElements.userPermissions.title'),
             url: 'admin/users/{id}/permissions',
             controller: 'admin/user-permissions',
             itemObject: 'permission_users',
-            column: 'name',
+            columns: [
+              {
+                obj: 'name',
+                name: 'permission',
+                header: this.$t('itemElements.userPermissions.headers.permission'),
+              },
+            ],
             primaryId: 'user_id',
             foreignId: 'permission_id',
             icon: 'lock_open',
             color: 'purple',
-            buttonText: this.$t('itemElements.userPermissions')
+            buttonText: this.$t('itemElements.userPermissions.title')
           }
         }
       },
@@ -111,7 +117,12 @@
             initialPassword: 'Hasło początkowe',
           },
           itemElements: {
-            userPermissions: 'Uprawnienia użytkownika'
+            userPermissions: {
+              title: 'Uprawnienia użytkownika',
+              headers: {
+                permission: 'Uprawnienie'
+              }
+            }
           },
           buttons: {
             resetPassword: 'Reset hasła'
@@ -128,7 +139,12 @@
             initialPassword: 'Initial password',
           },
           itemElements: {
-            userPermissions: 'User permissions'
+            userPermissions: {
+              title: 'User permissions',
+              headers: {
+                permission: 'Permission'
+              }
+            }
           },
           buttons: {
             resetPassword: 'Reset password'

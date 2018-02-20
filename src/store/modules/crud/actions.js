@@ -67,6 +67,20 @@ let actions = {
           dispatch('getItemElements')
         })
     },
+    addManyItemElements({commit, dispatch, state}, [params, successText, errorText]) {
+      Vue.http.post(state.itemElements.controller + '/multiple-add', params)
+        .then((response) => {
+          commit('alertSuccess', successText, { root: true })
+          dispatch('getItemElements')
+        })
+    },
+    removeManyItemElements({commit, dispatch, state}, [ids, successText, errorText]) {
+      Vue.http.post(state.itemElements.controller + '/multiple-delete', ids)
+        .then((response) => {
+          commit('alertSuccess', successText, { root: true })
+          dispatch('getItemElements')
+        })
+    },
 }
 
 export default actions

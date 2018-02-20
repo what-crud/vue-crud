@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="details.show" max-width="480">
+  <v-dialog v-model="details.show" max-width="600" style="position:static !important;">
     <v-card>
       <v-card-title class="headline">{{ title }}</v-card-title>
       <v-form v-model="details.formValid">
@@ -26,15 +26,32 @@
               :item-value="field.list.value" :label="field.text" bottom autocomplete></v-select>
 
             <!-- date picker -->
-            <v-dialog v-else-if="field.type == 'datePicker'" v-model="modal" lazy full-width width="290px">
-              <v-text-field slot="activator" :label="field.text" v-model="field.value" prepend-icon="event" readonly></v-text-field>
-              <v-date-picker :first-day-of-week="0" locale="pl" v-model="field.value" scrollable actions autosave></v-date-picker>
-            </v-dialog>
+
+            <v-menu
+            v-else-if="field.type == 'datePicker'"
+            lazy
+            :close-on-content-click="true"
+            v-model="field.show"
+            transition="scale-transition"
+            offset-y
+            full-width
+            :nudge-right="40"
+            min-width="290px"
+            :return-value.sync="field.value"
+          >
+            <v-text-field
+              slot="activator"
+              :label="field.text"
+              v-model="field.value"
+              prepend-icon="event"
+            ></v-text-field>
+            <v-date-picker v-model="field.value" no-title scrollable></v-date-picker>
+          </v-menu>
 
             <!-- rich text editor -->
             <template v-else-if="field.type == 'richTextBox'">
               <label>{{field.text}}</label>
-              <vue-editor v-model="field.value"></vue-editor>
+              <vue-editor id="editor" v-model="field.value" :editorOptions="{bounds: '#editor'}"></vue-editor>
               <br>
             </template>
 
@@ -52,7 +69,9 @@
 </template>
 <script>
   import Vue from 'vue'
-  import { VueEditor } from 'vue2-editor'
+  import {
+    VueEditor
+  } from 'vue2-editor'
   import {
     mapState,
     mapGetters,
@@ -62,7 +81,7 @@
 
   export default {
     components: {
-        VueEditor
+      VueEditor
     },
     props: [
       'title',
@@ -98,9 +117,6 @@
               }
             })
         }
-        else if (field.type == 'datePicker') {
-          //field.value = ''
-        }
       }
     },
     computed: {
@@ -112,8 +128,12 @@
         let result = this.fieldsInfo.map(field => {
           let rField = field
           rField.value = this.details.item[field.column]
-          if (field.type == 'select') {
-            rField.value = parseInt(this.details.item[field.column]) || 1
+          if (typeof rField.value != 'undefined') {
+            if (field.type == 'select') {
+              rField.value = parseInt(this.details.item[field.column]) || 1
+            } else if (field.type == 'datePicker') {
+              rField.value = this.details.item[field.column].substring(0, 10)
+            }
           }
           return rField
         })

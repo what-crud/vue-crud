@@ -103,8 +103,8 @@
         <!-- table fields -->
         <td v-if="key != 'active'" v-for="(field, key) in props.item" class="text-xs-center" v-html="field"></td>
       </template>
-      <template slot="pageText" slot-scope="{ pageStart, pageStop }">
-        {{ $t('from') }} {{ pageStart }} {{ $t('to') }} {{ pageStop }}
+      <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
+          {{ $t('records') }} {{ pageStart }} - {{ pageStop }} {{ $t('from') }} {{ itemsLength }}
       </template>
     </v-data-table>
   </v-card>
@@ -292,7 +292,6 @@
           obj
         ])
         this.getItemElements()
-        this.editItemElementsDialog()
       }
     },
     i18n: {
@@ -312,8 +311,8 @@
           noMatchingResults: "Nie znaleziono pasujących rekordów",
           noDataAvailable: "Brak danych",
           rowsPerPageText: "Rekordów na stronę:",
-          from: "od",
-          to: "do",
+          records: "Rekordy",
+          from: "z",
           add: "Dodaj",
           all: "Wszystko",
           buttons: {
@@ -341,8 +340,8 @@
           noMatchingResults: "No matching records found",
           noDataAvailable: "No data available",
           rowsPerPageText: "Rows per page:",
+          records: "Records",
           from: "from",
-          to: "to",
           add: "Add",
           all: "All",
           buttons: {

@@ -112,6 +112,20 @@ let actions = {
           dispatch('getPositionTasks', [positionId])
         })
     },
+    addManyPositionTasks({commit, dispatch, state}, [params, successText, errorText]) {
+      Vue.http.post(prefix + 'position-tasks/multiple-add', params)
+        .then((response) => {
+          commit('alertSuccess', successText, { root: true })
+          dispatch('getPositionTasks', [state.tasks.positionId])
+        })
+    },
+    removeManyPositionTasks({commit, dispatch, state}, [ids, successText, errorText]) {
+      Vue.http.post(prefix + 'position-tasks/multiple-delete', ids)
+        .then((response) => {
+          commit('alertSuccess', successText, { root: true })
+          dispatch('getPositionTasks', [state.tasks.positionId])
+        })
+    },
   }
   
   export default actions

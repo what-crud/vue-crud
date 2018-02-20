@@ -36,33 +36,19 @@ let mutations = {
     // item elements
     setItemElements(state, data) {
       state.itemElements.data = data
-      state.itemElements.selected= []
-      state.itemElements.available = []
-      for(let el of data) {
-        if(el[state.itemElements.itemObject].length > 0) {
-          state.itemElements.selected.push(el)
-        }
-        else {
-          state.itemElements.available.push(el)
-        }
-      }
     },
     resetItemElements(state) {
       state.itemElements.data = []
-      state.itemElements.selected= []
-      state.itemElements.available = []
     },
     setItemElementsInfo(state, [id, obj]) {
       state.itemElements.id = id
       state.itemElements.title = obj.title
       state.itemElements.url = obj.url
-      state.itemElements.column = obj.column
+      state.itemElements.columns = obj.columns
       state.itemElements.controller = obj.controller
       state.itemElements.itemObject = obj.itemObject
       state.itemElements.primaryId = obj.primaryId
       state.itemElements.foreignId = obj.foreignId
-    },
-    editItemElementsDialog(state){
       state.itemElements.show = true
     },
   }

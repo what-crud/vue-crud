@@ -34,8 +34,6 @@ let state = {
       show: false,
       positionId: null,
       data: [],
-      selected: [],
-      available: [],
     },
   }
   

@@ -87,29 +87,6 @@
             { text: 'crm.companyCommentTypes', route: '/company-comment-types' },
             { text: 'crm.personCommentTypes', route: '/person-comment-types' },
             { text: 'crm.tasks', route: '/tasks' },
-            // { text: 'crm.companyFiles', route: '/company-files' },
-            // { text: 'crm.personFiles', route: '/person-files' },
-          ]
-        },
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          text: 'whs.name',
-          model: false,
-          guard: 'WHS',
-          route: '/wholesalers',
-          children: [
-            { text: 'whs.wholesalers', route: '/wholesalers' },
-            { text: 'whs.groups', route: '/groups' },
-            { text: 'whs.bigGroups', route: '/big-groups' },
-            { text: 'whs.clients', route: '/clients' },
-            { text: 'whs.clientTypes', route: '/client-types' },
-            { text: 'whs.wholesalerClients', route: '/wholesaler-clients' },
-            { text: 'whs.news', route: '/news' },
-            { text: 'whs.newsCategories', route: '/news-categories' },
-            { text: 'whs.users', route: '/users' },
-            { text: 'whs.permissions', route: '/permissions' },
-            { text: 'whs.userPermissions', route: '/user-permissions' },
           ]
         },
         {
