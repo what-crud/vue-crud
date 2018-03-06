@@ -21,7 +21,7 @@ Vue.http.interceptors.push((request, next) => {
   }
   next(response => {
     if (response.status === 400 || response.status === 401 || response.status === 403) {
-      store.commit('auth/logout')
+      //store.commit('auth/logout')
     }
   })
 });
