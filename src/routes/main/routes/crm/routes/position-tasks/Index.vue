@@ -1,5 +1,5 @@
 <template>
-  <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :headers="headers" :fieldsInfo="fieldsInfo" :softDeletes="false"
+  <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :softDeletes="false"
     :detailsTitle="$t('detailsTitle')">
   </crud>
 </template>
@@ -22,7 +22,29 @@
     },
     computed: {
       fieldsInfo() {
-        return [{
+        return [
+          {
+            text: this.$t('fields.id'),
+            name: 'id',
+            details: false
+          },
+          {
+            text: this.$t('fields.positionPerson'),
+            name: 'positionPerson',
+            apiObject: {
+              name: 'position.person.fullname',
+            },
+            details: false
+          },
+          {
+            text: this.$t('fields.positionCompany'),
+            name: 'positionCompany',
+            apiObject: {
+              name: 'position.company.common_name',
+            },
+            details: false
+          },
+          {
             type: 'select',
             url: 'crm/positions',
             list: {
@@ -33,6 +55,10 @@
             },
             column: 'position_id',
             text: this.$t('fields.position'),
+            name: 'position',
+            apiObject: {
+              name: 'position.name',
+            },
           },
           {
             type: 'select',
@@ -44,29 +70,10 @@
             },
             column: 'task_id',
             text: this.$t('fields.task'),
-          },
-        ]
-      },
-      headers() {
-        return [{
-            text: this.$t('fields.id'),
-            value: 'id'
-          },
-          {
-            text: this.$t('fields.positionPerson'),
-            value: 'positionPerson'
-          },
-          {
-            text: this.$t('fields.positionCompany'),
-            value: 'positionCompany'
-          },
-          {
-            text: this.$t('fields.position'),
-            value: 'position'
-          },
-          {
-            text: this.$t('fields.task'),
-            value: 'task'
+            name: 'task',
+            apiObject: {
+              name: 'task.name',
+            },
           },
         ]
       },

@@ -18,7 +18,7 @@
                   </template>
                 </div>
               </v-card-title>
-              <v-card-text>
+              <v-card-text class="content-container">
                 <router-view style="margin: 0 auto;"></router-view>
                 <alert-box></alert-box>
               </v-card-text>
@@ -49,9 +49,11 @@
     data() {
       return {};
     },
-    computed: mapGetters([
-      'isLogged'
-    ]),
+    computed: {
+      ...mapGetters('auth', [
+        'isLogged'
+      ]),
+    },
     components: {
       Sidebar,
       Toolbar,
@@ -63,3 +65,8 @@
   }
 
 </script>
+<style scoped>
+  .content-container {
+    margin-bottom: 100px;
+  }
+</style>

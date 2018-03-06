@@ -32,21 +32,33 @@
         <span>{{ $t('buttons.deleteMany') }}</span>
       </v-tooltip>
 
+      <!-- Search in table -->
+      <v-spacer></v-spacer>
+      <v-text-field append-icon="search" :label="$t('search')" single-line hide-details v-model="search"></v-text-field>
+
       <!-- Select statuses (active/inactive) -->
       <template v-if="softDeletes">
         <v-spacer></v-spacer>
         <v-select :label="$t('status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value"
           multiple chips></v-select>
       </template>
-
-      <!-- Search in table -->
-      <v-spacer></v-spacer>
-      <v-text-field append-icon="search" :label="$t('search')" single-line hide-details v-model="search"></v-text-field>
     </v-card-title>
     <!-- Table -->
     <v-data-table
-    v-model="selected" select-all :rows-per-page-items="[10, 25, { text: $t('all'), value: -1 }]" light :headers="finalHeaders" :items="fiteredItems"
-      :search="search" :no-results-text="$t('noMatchingResults')" :no-data-text="$t('noDataAvailable')" :rows-per-page-text="$t('rowsPerPageText')">
+      class="datatable"
+      :disable-initial-sort="true"
+      :must-sort="true"
+      v-model="selected"
+      select-all
+      :rows-per-page-items="[10, 25, { text: $t('all'), value: -1 }]"
+      light
+      :headers="headers"
+      :items="filteredItems"
+      :search="search"
+      :no-results-text="$t('noMatchingResults')"
+      :no-data-text="$t('noDataAvailable')"
+      :rows-per-page-text="$t('rowsPerPageText')"
+    >
       <template slot="items" slot-scope="props">
         <td>
           <v-checkbox
@@ -55,7 +67,7 @@
           ></v-checkbox>
         </td>
         <!-- action buttons -->
-        <td class="text-xs-center">
+        <td>
           <!-- edit record -->
           <v-tooltip top v-if="editButton">
             <v-btn outline fab small class="xs" color="orange" @click="edit(props.item.id)" slot="activator">
@@ -65,7 +77,7 @@
           </v-tooltip>
           <!-- custom buttons -->
           <v-tooltip top v-for="(customButton) in customButtons" :key="customButton.name">
-            <v-btn outline fab small class="xs" :color="customButton.color" @click="custom(customButton.name, props.item.id)" slot="activator">
+            <v-btn outline fab small class="xs" :color="customButton.color" @click="custom(customButton.name, props.item)" slot="activator">
               <v-icon>{{ customButton.icon }}</v-icon>
             </v-btn>
             <span>{{ customButton.text }}</span>
@@ -79,7 +91,7 @@
           </v-tooltip>
           <!-- suspend/restore record (if soft deletes are enabled) -->
           <template v-if="softDeletes">
-            <v-tooltip top v-if="props.item.active == '1'">
+            <v-tooltip top v-if="props.item.meta.active == '1'">
               <v-btn outline fab small class="xs" color="red" @click="suspend(props.item.id)" slot="activator">
                 <v-icon>undo</v-icon>
               </v-btn>
@@ -99,9 +111,24 @@
             </v-btn>
             <span>{{ $t('buttons.delete') }}</span>
           </v-tooltip>
+          <!-- file mode -->
+          <template v-if="fileMode">
+            <v-tooltip top>
+              <v-btn outline fab small class="xs" color="blue" @click="download(props.item)" slot="activator">
+                <v-icon>file_download</v-icon>
+              </v-btn>
+              <span>{{ $t('buttons.download') }}</span>
+            </v-tooltip>
+            <v-tooltip top v-if="isImage(props.item.type)">
+              <v-btn outline fab small class="xs" color="blue" @click="showImage(props.item)" slot="activator">
+                <v-icon>search</v-icon>
+              </v-btn>
+              <span>{{ $t('buttons.show') }}</span>
+            </v-tooltip>
+          </template>
         </td>
         <!-- table fields -->
-        <td v-if="key != 'active'" v-for="(field, key) in props.item" class="text-xs-center" v-html="field"></td>
+        <td v-if="key != 'meta'" v-for="(field, key) in props.item" class="text-xs-center" v-html="field"></td>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
           {{ $t('records') }} {{ pageStart }} - {{ pageStop }} {{ $t('from') }} {{ itemsLength }}
@@ -117,14 +144,19 @@
     mapMutations,
     mapActions
   } from 'vuex'
+  import {
+    download
+  } from '@/helpers/functions.js'
 
   export default {
     props: [
-      'headers',
+      'tableFields',
       'softDeletes',
       'customButtons',
       'itemElements',
       'editButton',
+      'fileMode',
+      'meta',
     ],
     data() {
       return {
@@ -136,6 +168,9 @@
       }
     },
     computed: {
+      ...mapState([
+        'filesPath'
+      ]),
       ...mapState('crud', [
         'prefix',
         'path',
@@ -146,20 +181,26 @@
       selectedIds() {
         return this.selected.map(item => item.id)
       },
-      finalHeaders() {
-        let headers = this.headers.map(header => {
-          header.align = 'center'
-          return header
-        })
+      headers() {
         let actionHeader = [{
           text: this.$t('fields.action'),
           align: 'center',
           sortable: false,
         }]
+        let headers = this.tableFields.map(field => {
+          let header = {}
+          header.align = 'center'
+          header.text = field.text
+          header.value = field.name
+          if (field.sortable != undefined){
+            header.sortable = field.sortable
+          }
+          return header
+        })
         return [...actionHeader,...headers]
       },
       items() {
-        return this.itemsList(this.prefix + '/' + this.path)
+        return this.itemsList(this.tableFields, this.meta)
       },
       statuses() {
         return [{
@@ -172,8 +213,8 @@
           },
         ]
       },
-      fiteredItems() {
-        return this.softDeletes ? this.items.filter(item => this.selectedStatuses.includes(parseInt(item.active))) :
+      filteredItems() {
+        return this.softDeletes ? this.items.filter(item => this.selectedStatuses.includes(parseInt(item.meta.active))) :
           this.items
       },
     },
@@ -192,6 +233,7 @@
         'createItemDialog',
         'setItemElementsInfo',
         'editItemElementsDialog',
+        'openImageContainer'
       ]),
       ...mapActions('crud', [
         'getItems',
@@ -203,15 +245,15 @@
         'mulitipleItemsUpdate',
         'mulitipleItemsDelete'
       ]),
-      edit(id) {
+      edit (id) {
         this.getItem([id])
         this.editItemDialog(id)
       },
-      create() {
+      create () {
         this.resetItem()
         this.createItemDialog()
       },
-      suspend(id) {
+      suspend (id) {
         this.updateItem([
           id,
           {active: 0},
@@ -219,7 +261,7 @@
           this.$t('global.alerts.suspendError')
         ])
       },
-      restore(id) {
+      restore (id) {
         this.updateItem([
           id,
           {active: 1},
@@ -227,14 +269,14 @@
           this.$t('global.alerts.restoreError')
         ])
       },
-      destroy(id) {
+      destroy (id) {
         this.deleteItem([
           id,
           this.$t('global.alerts.deleted'),
           this.$t('global.alerts.deleteError')
         ])
       },
-      checkSelected(){
+      checkSelected () {
         if(this.selected.length == 0){
           this.alertError(this.$t('noItemsSelected'))
           return false
@@ -247,7 +289,7 @@
           }
         }
       },
-      suspendMany() {
+      suspendMany () {
         if(this.checkSelected()){
           this.mulitipleItemsUpdate([
             {
@@ -259,7 +301,7 @@
           ])
         }
       },
-      restoreMany() {
+      restoreMany () {
         if(this.checkSelected()){
           this.mulitipleItemsUpdate([
             {
@@ -271,7 +313,7 @@
           ])
         }
       },
-      destroyMany() {
+      destroyMany () {
         if(this.checkSelected()){
           this.mulitipleItemsDelete([
             {
@@ -282,17 +324,27 @@
           ])
         }
       },
-      custom(name, id) {
-        this.$parent.custom(name, id)
+      custom (name, item) {
+        this.$parent.custom(name, item)
       },
-      editItemElements(name, id) {
+      editItemElements (name, id) {
         let obj = this.itemElements[name]
         this.setItemElementsInfo([
           id,
           obj
         ])
         this.getItemElements()
-      }
+      },
+      download (item) {
+        download(this.filesPath + item.meta.path, item.filename)
+      },
+      isImage (mime) {
+        let supportedMimeTypes = ['image/jpeg', 'image/png']
+        return supportedMimeTypes.includes(mime)
+      },
+      showImage(image) {
+        this.openImageContainer(image)
+      },
     },
     i18n: {
       messages: {
@@ -323,6 +375,8 @@
             suspendMany: 'Zawieś wiele',
             restoreMany: 'Przywróć wiele',
             deleteMany: 'Usuń wiele',
+            download: 'Pobierz',
+            show: 'Pokaż',
           },
         },
         en: {
@@ -352,6 +406,8 @@
             suspendMany: 'Suspend many',
             restoreMany: 'Restore many',
             deleteMany: 'Delete many',
+            download: 'Download',
+            show: 'Show',
           },
         }
       }

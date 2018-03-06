@@ -1,5 +1,5 @@
 <template>
-  <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :headers="headers" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')"
+  <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')"
     :customButtons="buttons" :itemElements="itemElements" ref="crud">
   </crud>
 </template>
@@ -52,51 +52,45 @@
         }]
       },
       fieldsInfo() {
-        return [{
+        return [
+          {
+            text: this.$t('fields.id'),
+            name: 'id',
+            details: false,
+          },
+          {
             type: 'input',
             column: 'name',
-            text: this.$t('fields.name')
+            text: this.$t('fields.name'),
+            name: 'name'
           },
           {
             type: 'input',
             column: 'email',
-            text: this.$t('fields.email')
-          },
-        ]
-      },
-      headers() {
-        return [{
-            text: this.$t('fields.id'),
-            value: 'id'
-          },
-          {
-            text: this.$t('fields.name'),
-            value: 'name'
-          },
-          {
             text: this.$t('fields.email'),
-            value: 'email'
+            name: 'email'
           },
           {
             text: this.$t('fields.initialPassword'),
-            value: 'initialPassword'
+            name: 'initialPassword',
+            apiObject: {
+              name: 'initial_password',
+            },
+            details: false,
           },
         ]
       },
     },
     methods: {
-      ...mapMutations('crud', [
+      ...mapMutations([
         'alertSuccess',
         'alertError'
       ]),
       ...mapActions('crud', [
         'getItems',
       ]),
-      custom(name, id) {
-        this[name](id)
-      },
-      resetPassword(id) {
-        Vue.http.put(this.prefix + '/' + this.path + '/' + id + '/reset-password')
+      resetPassword(item) {
+        Vue.http.put(this.prefix + '/' + this.path + '/' + item.id + '/reset-password')
           .then((response) => {
             this.alertSuccess(this.$t('passwordReseted'))
             this.getItems()

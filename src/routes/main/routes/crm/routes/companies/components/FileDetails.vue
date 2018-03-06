@@ -1,9 +1,9 @@
 <template>
-  <v-dialog v-model="details.show" max-width="600" style="position:static !important;">
+  <v-dialog v-model="details.show" max-width="480">
     <v-card>
-      <v-card-title class="headline">{{ title }}</v-card-title>
+      <v-card-title class="headline">{{ $t('title') }}</v-card-title>
       <v-form v-model="details.formValid">
-        <v-card-text class="details-list">
+        <v-card-text>
 
           <div v-for="(field, i) in fields" :key="i">
 
@@ -17,44 +17,16 @@
 
             <!-- file upload -->
             <template v-else-if="field.type == 'file'">
-              <v-btn dark class="jbtn-file" :class="$store.state.secondaryColor">
-                {{ $t('upload') }}<input id="selectFile" type="file" @change="fileSelected" accept="*" :multiple="false" :disabled="false" ref="fileInput" >
+              <v-btn dark class="blue jbtn-file">
+                {{ $t('upload') }}
+                <input id="selectFile" type="file" @change="fileSelected" accept="*" :multiple="false"
+                  :disabled="false" ref="fileInput">
               </v-btn>
             </template>
 
             <!-- select -->
-            <v-select required v-else-if="field.type == 'select'" :rules="[]" :items="field.list.data" v-model="field.value" :item-text="field.list.text"
+            <v-select v-else-if="field.type == 'select'" required :rules="[]" :items="field.list.data" v-model="field.value" :item-text="field.list.text"
               :item-value="field.list.value" :label="field.text" bottom autocomplete></v-select>
-
-            <!-- date picker -->
-
-            <v-menu
-            v-else-if="field.type == 'datePicker'"
-            lazy
-            :close-on-content-click="true"
-            v-model="field.show"
-            transition="scale-transition"
-            offset-y
-            full-width
-            :nudge-right="40"
-            min-width="290px"
-            :return-value.sync="field.value"
-          >
-            <v-text-field
-              slot="activator"
-              :label="field.text"
-              v-model="field.value"
-              prepend-icon="event"
-            ></v-text-field>
-            <v-date-picker v-model="field.value" no-title scrollable></v-date-picker>
-          </v-menu>
-
-            <!-- rich text editor -->
-            <template v-else-if="field.type == 'richTextBox'">
-              <label>{{field.text}}</label>
-              <vue-editor id="editor" v-model="field.value" :editorOptions="{bounds: '#editor'}"></vue-editor>
-              <br>
-            </template>
 
           </div>
         </v-card-text>
@@ -71,9 +43,6 @@
 <script>
   import Vue from 'vue'
   import {
-    VueEditor
-  } from 'vue2-editor'
-  import {
     mapState,
     mapGetters,
     mapMutations,
@@ -81,12 +50,9 @@
   } from 'vuex'
 
   export default {
-    components: {
-      VueEditor
-    },
     props: [
-      'title',
-      'detailsFields',
+      'details',
+      'fieldsInfo',
     ],
     data() {
       return {
@@ -97,56 +63,27 @@
       }
     },
     created() {
-      this.resetItem()
-      this.upload.active = false
       for (let field of this.fields) {
         if (field.type == 'select') {
           Vue.http.get(field.url)
-            .then((response) => {
-              let items = response.body
-              if (typeof field.list.complexName != 'undefined') {
-                field.list.data = items.map(item => {
-                  let rItem = item
-                  let textArray = field.list.complexName.map(textInfo => {
-                    let splittedText = textInfo.split('.')
-                      .reduce(function (object, property) {
-                        return object[property];
-                      }, item);
-                    return splittedText
-                  })
-                  rItem.complexName = textArray.join(', ')
-                  return rItem
-                })
-              } else {
-                field.list.data = items
-              }
-            })
+            .then((response) => field.list.data = response.body)
         }
       }
     },
     computed: {
-      ...mapState('crud', [
-        'details',
-        'path',
-        'prefix'
-      ]),
       fields() {
         let self = this
-        let result = this.detailsFields.map(field => {
+        let result = this.fieldsInfo.map(field => {
           let rField = field
           rField.value = this.details.item[field.column]
-          if (typeof rField.value != 'undefined') {
-            if (field.type == 'select') {
-              rField.value = parseInt(this.details.item[field.column]) || 1
-            } else if (field.type == 'datePicker') {
-              rField.value = this.details.item[field.column].substring(0, 10)
-            }
+          if (field.type == 'select') {
+            rField.value = parseInt(this.details.item[field.column]) || 1
           }
           return rField
         })
         return result
       },
-      itemData() {
+      companyFileData() {
         let self = this
         let result = {}
         for (let field of this.fields) {
@@ -169,40 +106,25 @@
       },
     },
     methods: {
-      ...mapActions('crud', [
-        'updateItem',
-        'storeItem',
-      ]),
-      ...mapMutations('crud', [
-        'resetItem',
-      ]),
+      reset() {
+        this.$parent.reset()
+      },
       close() {
-        this.details.show = false
+        this.$parent.close()
       },
       update() {
-        this.close()
-        this.updateItem([
-          this.details.id,
-          this.itemData,
-          this.$t('global.alerts.updated'),
-          this.$t('global.alerts.updateError')
-        ])
+        this.$parent.update(this.details.id, this.companyFileData)
       },
       store() {
-        this.close()
-        this.storeItem([
-          this.itemData,
-          this.$t('global.alerts.stored'),
-          this.$t('global.alerts.storeError')
-        ])
+        this.$parent.store(this.companyFileData)
       },
       fileSelected(e) {
         let file = e.target.files[0]
         if (file) {
           let formData = new FormData();
           formData.append('file', file)
-          formData.append('module', this.prefix)
-          formData.append('folder', this.path)
+          formData.append('module', 'crm')
+          formData.append('folder', 'company-files')
           this.$http.post('files/file-upload',formData, {}).then((response) => {
             this.upload = {
               active: true,
@@ -221,6 +143,7 @@
     i18n: {
       messages: {
         pl: {
+          title: 'Plik',
           rules: {
             required: 'Pole jest wymagane',
             atLeast: 'Pole musi mieć przynajmniej',
@@ -231,6 +154,12 @@
             passwordMustDiffer: 'Nowe hasło musi się różnić od poprzedniego',
             passwordMustBeSame: 'Hasła nie mogą się różnić'
           },
+          alerts: {
+            updated: 'Zaktualizowano',
+            updateError: 'Błąd! Aktualizacja nie powiodła się',
+            stored: 'Dodano',
+            storeError: 'Błąd! Nie udało się dodać rekordu',
+          },
           buttons: {
             create: 'Utwórz',
             modify: 'Modyfikuj',
@@ -239,6 +168,7 @@
           upload: 'Wgraj plik'
         },
         en: {
+          title: 'File',
           rules: {
             required: 'Field is required',
             atLeast: 'Field must be at least',
@@ -248,6 +178,12 @@
             emailMustBeValid: 'E-mail must be valid',
             passwordMustDiffer: 'New password must be different from the old password',
             passwordMustBeSame: 'Password can\'t be different'
+          },
+          alerts: {
+            updated: 'Updated',
+            updateError: 'Error! Update unsuccessful',
+            stored: 'Dodano',
+            storeError: 'Error! Store unsuccessful',
           },
           buttons: {
             create: 'Create',
@@ -281,9 +217,5 @@
     outline: none;
     cursor: inherit;
     display: block;
-  }
-  .details-list {
-    max-height: 60vh;
-    overflow-y: auto;
   }
 </style>

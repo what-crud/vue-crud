@@ -33,6 +33,13 @@ let mutations = {
       state.details.formValid = true
       state.details.show = true
     },
+    setCreationMode(state, creationMode){
+      state.createdElement.mode = creationMode
+    },
+    setCreatedItemStatus(state, [created, id]){
+      state.createdElement.created = created
+      state.createdElement.id = id
+    },
     // item elements
     setItemElements(state, data) {
       state.itemElements.data = data
@@ -51,6 +58,14 @@ let mutations = {
       state.itemElements.foreignId = obj.foreignId
       state.itemElements.show = true
     },
+    openImageContainer(state, item) {
+      state.imageContainer.item = item
+      state.imageContainer.show = true
+    },
+    closeImageContainer(state) {
+      state.imageContainer.show = false
+      state.imageContainer.item = {}
+    }
   }
   
   export default mutations

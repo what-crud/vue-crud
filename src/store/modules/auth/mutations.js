@@ -3,6 +3,7 @@ import router from '@/router'
 let mutations = {
   login(state, data) {
     state.logged = 1
+    state.loginFailed = false
     let token = data.token
     let user = JSON.stringify(data.user)
 
@@ -10,19 +11,21 @@ let mutations = {
     localStorage.setItem('user', user)
     state.token = token
     state.user = user
-    router.push({
-      path: '/crm/companies'
-    });
+  },
+  loginWait(state, status) {
+    state.loginWait = status
+  },
+  loginFailed(state) {
+    state.loginFailed = true
   },
   logout(state) {
+    state.loginWait = false
+    state.loginFailed = false
     state.logged = 0
     state.user = null
     state.token = null
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    router.push({
-      path: '/login'
-    });
   },
   editUser(state, data) {
     let user = JSON.stringify(data)

@@ -17,7 +17,7 @@ const router = new Router({
         var auth = localStorage.getItem('token')
         if (!auth){
             store.commit('auth/logout')
-            next()
+            next('/login')
         }
         else {
             next()
@@ -48,6 +48,10 @@ router.beforeEach(function (to, from, next) {
         .then((result) => {
           store.commit('auth/refreshToken', result);
           next()
+        })
+        .catch((error) => {
+          store.commit('auth/logout')
+          next('/login')
         });
     }
     else{

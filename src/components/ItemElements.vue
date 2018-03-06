@@ -20,13 +20,20 @@
           </v-tooltip>
         </template>
 
+        <!-- Select statuses (added/no added) -->
+        <template>
+          <v-spacer></v-spacer>
+          <v-select :label="$t('status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value"
+            multiple chips></v-select>
+        </template>
+
         <!-- Search in table -->
         <v-spacer></v-spacer>
         <v-text-field append-icon="search" :label="$t('search')" single-line hide-details v-model="search"></v-text-field>
       </v-card-title>
       <!-- Table -->
       <v-data-table v-model="selected" :pagination.sync="pagination" select-all :rows-per-page-items="[10, 25, { text: $t('all'), value: -1 }]"
-        light :headers="headers" :items="items" :search="search" :no-results-text="$t('noMatchingResults')" :no-data-text="$t('noDataAvailable')"
+        light :headers="headers" :items="filteredItems" :search="search" :no-results-text="$t('noMatchingResults')" :no-data-text="$t('noDataAvailable')"
         :rows-per-page-text="$t('rowsPerPageText')">
         <template slot="items" slot-scope="props">
           <td>
@@ -51,7 +58,7 @@
             </template>
           </td>
           <!-- table fields -->
-          <td v-if="!['id', 'connectionId'].includes(key)" v-for="(field, key) in props.item" class="text-xs-center" v-html="field"></td>
+          <td v-if="!['id', 'connectionId', 'filterStatus'].includes(key)" v-for="(field, key) in props.item" class="text-xs-center" v-html="field"></td>
         </template>
         <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
           {{ $t('records') }} {{ pageStart }} - {{ pageStop }} {{ $t('from') }} {{ itemsLength }}
@@ -85,12 +92,24 @@
           sortBy: 'added',
           descending: true
         },
+        selectedStatuses: [1, 0],
       }
     },
     computed: {
       ...mapState('crud', [
         'itemElements',
       ]),
+      statuses() {
+        return [{
+            text: this.$t('status.added'),
+            value: 1
+          },
+          {
+            text: this.$t('status.noAdded'),
+            value: 0
+          },
+        ]
+      },
       headers() {
         let columns = this.itemElements.columns
         let headers = columns.map(column => {
@@ -127,15 +146,20 @@
           if (typeof item[statusObject] != 'undefined') {
             if (item[statusObject].length > 0) {
               rItem.added = '<span hidden>1</span>Tak'
+              rItem.filterStatus = 1
               rItem.connectionId = item[statusObject][0].id
             } else {
               rItem.added = '<span hidden>0</span>Nie'
+              rItem.filterStatus = 0
             }
           }
           return rItem
         })
         return items
-      }
+      },
+      filteredItems() {
+        return this.items.filter(item => this.selectedStatuses.includes(item.filterStatus))
+      },
     },
     methods: {
       ...mapActions('crud', [
@@ -207,6 +231,11 @@
             name: 'Nazwa',
             added: 'Dodano'
           },
+          status: {
+            title: "Status",
+            added: "Dodane",
+            noAdded: "Nie dodane",
+          },
           search: "Szukaj",
           noMatchingResults: "Nie znaleziono pasujących rekordów",
           noDataAvailable: "Brak danych",
@@ -232,6 +261,11 @@
             action: 'Action',
             name: 'Name',
             added: 'Added'
+          },
+          status: {
+            title: "Status",
+            added: "Added",
+            noAdded: "No added",
           },
           search: "Search",
           noMatchingResults: "No matching records found",

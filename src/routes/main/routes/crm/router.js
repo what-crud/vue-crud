@@ -9,7 +9,6 @@ import PersonComments from './routes/person-comments/Index.vue'
 import PositionTasks from './routes/position-tasks/Index.vue'
 
 import CompanyFiles from './routes/company-files/Index.vue'
-import PersonFiles from './routes/person-files/Index.vue'
 
 import CompanyTypes from './routes/company-types/Index.vue'
 
@@ -53,11 +52,6 @@ let crmRoutes = [
         path: 'company-files',
         name: 'companyFiles',
         component: CompanyFiles,
-    },
-    {
-        path: 'person-files',
-        name: 'personFiles',
-        component: PersonFiles,
     },
     {
         path: 'company-types',

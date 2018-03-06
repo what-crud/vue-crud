@@ -10,6 +10,11 @@ let state = {
       formValid: false,
       item: {},
     },
+    createdElement: {
+      mode: 'ignore',
+      created: false,
+      id: null,
+    },
     itemElements: {
       show: false,
       id: null,
@@ -23,6 +28,10 @@ let state = {
       data: [],
     },
     availableElements: [],
+    imageContainer: {
+      show: false,
+      item: {}
+    }
   }
   
   export default state

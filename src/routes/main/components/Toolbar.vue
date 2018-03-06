@@ -2,7 +2,7 @@
   <v-toolbar clipped-left dark fixed app :class="$store.state.primaryColor">
     <v-toolbar-side-icon @click.stop="$store.state.drawer = !$store.state.drawer"></v-toolbar-side-icon>
     <v-toolbar-title class="title">
-      <router-link to="/home">{{$store.state.title}}</router-link>
+        <router-link to="/home">{{$store.state.title}}</router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <img class="logo" src="../../../assets/images/logo.png">
@@ -20,7 +20,7 @@
     <v-btn icon @click.stop="openProfileDialog">
       <v-icon>perm_identity</v-icon>
     </v-btn>
-    <a v-on:click="logout">
+    <a v-on:click="logoutAttempt()">
       <v-btn icon>
         <v-icon>power_settings_new</v-icon>
       </v-btn>
@@ -56,6 +56,11 @@
       changeLocale (locale) {
         this.$i18n.locale = locale
         this.setLocale(locale)
+      },
+      logoutAttempt() {
+        this.logout().then(() => {
+          this.$router.push({path: '/login'})
+        })
       }
     },
   };
@@ -66,16 +71,14 @@
     color: inherit;
     text-decoration: none;
   }
-
   .logo {
-    height: 30px;
-    width: auto;
+    height:30px;
+    width:auto;
   }
-
   @media (max-width: 699px) {
     .logo {
 
-      display: none;
+      display:none;
     }
   }
 

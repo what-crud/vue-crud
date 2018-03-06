@@ -1,3 +1,5 @@
+import { humanFileSize } from '@/helpers/functions.js'
+
 let getters = {
   // company
   company: state => state.company,
@@ -25,6 +27,21 @@ let getters = {
       rObj.created = obj.created_at
       rObj.updated = obj.updated_at
       rObj.active = obj.active
+      return rObj
+    })
+  },
+  companyFiles: state => {
+    return state.companyFiles.map(obj => {
+      var rObj = {}
+      rObj.id = obj.id
+      rObj.filename = obj.filename
+      rObj.description = obj.description
+      rObj.type = obj.mime
+      rObj.size = humanFileSize(obj.size)
+      rObj.meta = {
+        active: obj.active,
+        path: obj.path
+      }
       return rObj
     })
   },

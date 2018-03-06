@@ -46,6 +46,25 @@ let actions = {
           dispatch('getCompany', [state.company.id])
         })
     },
+    // company files
+    getCompanyFile({commit, state}, [id]) {
+      Vue.http.get(prefix + 'company-files/' + id)
+        .then((response) => commit('setCompanyFile', response.body))
+    },
+    updateCompanyFile({commit, dispatch, state}, [id, params, successText]) {
+      Vue.http.put(prefix + 'company-files/' + id, params)
+        .then((response) => {
+          commit('alertSuccess', successText, { root: true })
+          dispatch('getCompany', [state.company.id])
+        })
+    },
+    storeCompanyFile({commit, dispatch, state}, [params, successText]) {
+      Vue.http.post(prefix + 'company-files', params)
+        .then((response) => {
+          commit('alertSuccess', successText, { root: true })
+          dispatch('getCompany', [state.company.id])
+        })
+    },
     // person
     getPerson({commit}, [id]) {
       Vue.http.get(prefix + 'people/' + id)

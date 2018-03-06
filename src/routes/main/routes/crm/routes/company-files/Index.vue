@@ -1,5 +1,5 @@
 <template>
-  <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :headers="headers" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
+  <crud :meta="meta" :fileMode="true" :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
   </crud>
 </template>
 
@@ -12,11 +12,22 @@
         prefix: 'crm',
         path: 'company-files',
         pageTitle: 'crm.companyFiles',
+        meta: [
+          {
+            name: 'path',
+          }
+        ]
       }
     },
     computed: {
       fieldsInfo () {
-        return [{
+        return [
+          {
+            text: this.$t('fields.id'),
+            name: 'id',
+            details: false,
+          },
+          {
             type: 'select',
             url: 'crm/companies',
             list: {
@@ -26,40 +37,45 @@
             },
             column: 'company_id',
             text: this.$t('fields.company'),
+            name: 'company',
+            apiObject: {
+              name: 'company.common_name',
+            }
           },
           {
-            type: 'input',
+            type: 'file',
             column: 'filename',
             text: this.$t('fields.file'),
+            name: 'filename',
           },
           {
-            type: 'input',
+            type: 'textarea',
             column: 'description',
             text: this.$t('fields.description'),
-          },
-        ]
-      },
-      headers () {
-        return [
-          {
-            text: this.$t('fields.id'),
-            value: 'id'
+            name: 'description',
           },
           {
-            text: this.$t('fields.company'),
-            value: 'company'
+            text: this.$t('fields.type'),
+            name: 'type',
+            apiObject: {
+              name: 'mime',
+            },
+            details: false,
           },
           {
-            text: this.$t('fields.file'),
-            value: 'filename'
-          },
-          {
-            text: this.$t('fields.description'),
-            value: 'description'
+            text: this.$t('fields.size'),
+            name: 'size',
+            apiObject: {
+              name: 'size',
+              functions: ['humanFileSize']
+            },
+            sortable: false,
+            details: false,
           },
         ]
       },
     },
+    methods: {},
     components: {
       Crud
     },
@@ -72,7 +88,9 @@
             company: 'Firma',
             file: 'Plik',
             description: 'Opis',
-          }
+            type: 'Typ pliku',
+            size: 'Rozmiar'
+          },
         },
         en: {
           detailsTitle: 'File',
@@ -81,7 +99,9 @@
             company: 'Company',
             file: 'File',
             description: 'Description',
-          }
+            type: 'File type',
+            size: 'Size'
+          },
         }
       }
     },

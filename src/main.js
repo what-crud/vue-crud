@@ -6,6 +6,7 @@ import vueResource from 'vue-resource'
 import store from '@/store/'
 import Vuetify from 'vuetify'
 import App from '@/App'
+import { config } from '@/config.js'
 
 Vue.config.productionTip = false
 
@@ -13,7 +14,8 @@ Vue.use(Vuetify)
 Vue.use(vueResource)
 
 Vue.http.options.emulateJSON = true;
-Vue.http.options.root = 'http://127.0.0.1:8000/api';
+// copy config.js.example to config.js and customize api configuration
+Vue.http.options.root = config.api.url + config.api.path.default
 
 Vue.http.interceptors.push((request, next) => {
   if (localStorage.getItem('token')) {

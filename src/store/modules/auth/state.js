@@ -5,7 +5,9 @@ let state = {
   userUpdated: false,
   userPasswordUpdated: false,
   userPasswordUpdateError: false,
-  userPasswordUpdateErrorMsg: ''
+  userPasswordUpdateErrorMsg: '',
+  loginWait: false,
+  loginFailed: false,
 }
 
 export default state

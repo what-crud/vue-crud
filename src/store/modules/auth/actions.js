@@ -2,23 +2,30 @@ import Vue from 'vue'
 import router from '@/router'
 
 let actions = {
-  login({
-    commit
-  }, credential) {
-    Vue.http.post('auth/login', credential)
-      .then((response) => response.json())
-      .then((result) => {
-        commit('login', result);
-      });
+  login({ commit }, credential) {
+    commit('loginWait', true)
+    return new Promise(resolve => {
+      Vue.http.post('auth/login', credential)
+        .then((response) => response.json())
+        .then((result) => {
+          commit('login', result)
+          resolve()
+        })
+        .catch(error => {
+          commit('loginWait', false)
+          commit('loginFailed')
+        })
+    })
   },
-  logout({
-    commit
-  }) {
-    Vue.http.get('auth/logout')
-      .then((response) => response.json())
-      .then(() => {
-        commit('logout');
-      });
+  logout({ commit }) {
+    return new Promise(resolve => {
+      Vue.http.get('auth/logout')
+        .then((response) => response.json())
+        .then(() => {
+          commit('logout');
+          resolve()
+        });
+    })
   },
   refreshToken({
     commit

@@ -25,7 +25,7 @@
       :search="search" :no-results-text="$t('noMatchingResults')" :no-data-text="$t('noDataAvailable')" :rows-per-page-text="$t('rowsPerPageText')">
       <template slot="items" slot-scope="props">
         <!-- action buttons -->
-        <td class="text-xs-center">
+        <td>
           <!-- edit record -->
           <v-tooltip top>
             <v-btn outline fab small class="xs" color="orange" @click="edit(props.item.id)" slot="activator">
@@ -33,16 +33,9 @@
             </v-btn>
             <span>{{ $t('buttons.edit') }}</span>
           </v-tooltip>
-          <!-- button for open modal with item elements -->
-          <v-tooltip top>
-            <v-btn outline fab small class="xs" color="blue" @click="editPositionTasks(props.item.id)" slot="activator">
-              <v-icon>list</v-icon>
-            </v-btn>
-            <span>{{ $t('buttons.tasks') }}</span>
-          </v-tooltip>
           <!-- suspend/restore record (if soft deletes are enabled) -->
           <template>
-            <v-tooltip top v-if="props.item.active == '1'">
+            <v-tooltip top v-if="props.item.meta.active == '1'">
               <v-btn outline fab small class="xs" color="red" @click="suspend(props.item.id)" slot="activator">
                 <v-icon>undo</v-icon>
               </v-btn>
@@ -55,9 +48,24 @@
               <span>{{ $t('buttons.restore') }}</span>
             </v-tooltip>
           </template>
+          <!-- file mode -->
+          <template>
+            <v-tooltip top>
+              <v-btn outline fab small class="xs" color="blue" @click="download(props.item)" slot="activator">
+                <v-icon>file_download</v-icon>
+              </v-btn>
+              <span>{{ $t('buttons.download') }}</span>
+            </v-tooltip>
+            <v-tooltip top v-if="isImage(props.item.type)">
+              <v-btn outline fab small class="xs" color="blue" @click="showImage(props.item)" slot="activator">
+                <v-icon>search</v-icon>
+              </v-btn>
+              <span>{{ $t('buttons.show') }}</span>
+            </v-tooltip>
+          </template>
         </td>
         <!-- table fields -->
-        <td v-if="key != 'active'" v-for="(field, key) in props.item" class="text-xs-center">
+        <td v-if="key != 'meta'" v-for="(field, key) in props.item" class="text-xs-center">
           {{ field }}
         </td>
       </template>
@@ -75,6 +83,9 @@
     mapMutations,
     mapActions
   } from 'vuex'
+  import {
+    download
+  } from '@/helpers/functions.js'
 
   export default {
     props: [
@@ -92,6 +103,9 @@
       }
     },
     computed: {
+      ...mapState([
+        'filesPath'
+      ]),
       finalHeaders() {
         let headers = this.headers.map(header => {
           header.align = 'center'
@@ -119,12 +133,15 @@
         ]
       },
       filteredItems() {
-        return this.items.filter(item => this.selectedStatuses.includes(parseInt(item.active)))
+        return this.items.filter(item => this.selectedStatuses.includes(parseInt(item.meta.active)))
       },
     },
     methods: {
       ...mapActions('crm', [
         'getPositionTasks'
+      ]),
+      ...mapMutations('crm', [,
+        'openImageContainer'
       ]),
       edit(id) {
         this.$parent.edit(id)
@@ -138,9 +155,16 @@
       restore(id) {
         this.$parent.restore(id)
       },
-      editPositionTasks(id) {
-        this.getPositionTasks([id])
-      }
+      download (item) {
+        download(this.filesPath + item.meta.path, item.filename)
+      },
+      isImage (mime) {
+        let supportedMimeTypes = ['image/jpeg', 'image/png']
+        return supportedMimeTypes.includes(mime)
+      },
+      showImage(image) {
+        this.openImageContainer(image)
+      },
     },
     i18n: {
       messages: {
@@ -165,7 +189,9 @@
             edit: 'Edytuj',
             suspend: 'Zawieś',
             restore: 'Przywróć',
-            tasks: 'Zadania'
+            tasks: 'Zadania',
+            download: 'Pobierz',
+            show: 'Pokaż',
           },
           alerts: {
             suspended: 'Zawieszono',
@@ -195,7 +221,9 @@
             edit: 'Edit',
             suspend: 'Suspend',
             restore: 'Restore',
-            tasks: 'Tasks'
+            tasks: 'Tasks',
+            download: 'Download',
+            show: 'Show',
           },
           alerts: {
             suspended: 'Suspended',

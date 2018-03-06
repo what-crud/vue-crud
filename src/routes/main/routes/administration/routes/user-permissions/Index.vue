@@ -3,7 +3,6 @@
     :prefix="prefix"
     :path="path"
     :pageTitle="pageTitle"
-    :headers="headers"
     :fieldsInfo="fieldsInfo"
     :detailsTitle="$t('detailsTitle')"
     :softDeletes="false"
@@ -26,6 +25,11 @@
       fieldsInfo () {
         return [
           {
+            text: this.$t('fields.id'),
+            name: 'id',
+            details: false,
+          },
+          {
             type: 'select',
             url: 'admin/users',
             list: {
@@ -35,6 +39,18 @@
             },
             column: 'user_id',
             text: this.$t('fields.user'),
+            name: 'user',
+            apiObject: {
+              name: 'user.name',
+            }
+          },
+          {
+            text: this.$t('fields.userEmail'),
+            name: 'userEmail',
+            apiObject: {
+              name: 'user.email',
+            },
+            details: false,
           },
           {
             type: 'select',
@@ -46,30 +62,10 @@
             },
             column: 'permission_id',
             text: this.$t('fields.permission'),
-          },
-        ]
-      },
-      headers () {
-        return [
-          {
-            text: this.$t('fields.id'),
-            value: 'id'
-          },
-          {
-            text: this.$t('fields.user'),
-            value: 'user'
-          },
-          {
-            text: this.$t('fields.userEmail'),
-            value: 'userEmail'
-          },
-          {
-            text: this.$t('fields.permission'),
-            value: 'permission'
-          },
-          {
-            text: this.$t('fields.permissionCode'),
-            value: 'permissionCode'
+            name: 'permission',
+            apiObject: {
+              name: 'permission.name',
+            }
           },
         ]
       },

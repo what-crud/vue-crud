@@ -23,6 +23,9 @@ let actions = {
       Vue.http.post(state.prefix + '/' + state.path, params)
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
+          if(state.createdElement.mode == 'inform'){
+            commit('setCreatedItemStatus', [true, response.body.id])
+          }
           dispatch('getItems', [state.prefix, state.path])
         })
     },

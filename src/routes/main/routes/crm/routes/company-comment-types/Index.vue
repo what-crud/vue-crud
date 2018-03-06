@@ -3,7 +3,6 @@
     :prefix="prefix"
     :path="path"
     :pageTitle="pageTitle"
-    :headers="headers"
     :fieldsInfo="fieldsInfo"
     :detailsTitle="$t('detailsTitle')"
   >
@@ -25,21 +24,15 @@
       fieldsInfo () {
         return [
           {
+            text: this.$t('fields.id'),
+            name: 'id',
+            details: false,
+          },
+          {
             type: 'input',
             column: 'name',
-            text: this.$t('fields.name')
-          },
-        ]
-      },
-      headers () {
-        return [
-          {
-            text: this.$t('fields.id'),
-            value: 'id'
-          },
-          {
             text: this.$t('fields.name'),
-            value: 'name'
+            name: 'name'
           },
         ]
       },

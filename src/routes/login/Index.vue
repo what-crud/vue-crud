@@ -1,23 +1,30 @@
 <template>
-  <v-layout row wrap  :class="white">
+  <v-layout v-if="loginWait" style="height:400px;max-height:70vh;" justify-center align-center>
+    <v-progress-circular indeterminate v-bind:size="100" v-bind:width="5" :color="$store.state.secondaryColor"></v-progress-circular>
+  </v-layout>
+  <v-layout v-else row wrap class="white">
     <v-flex xs10 offset-xs1 sm8 offset-sm2 md6 offset-md3 lg4 offset-lg4 xl2 offset-xl5 class="parent text-xs-center">
       <img class="logo" src="../../assets/images/logo.png">
       <h3>{{ $t('login.title') }}</h3>
       <template>
         <v-form v-model="valid" ref="form" lazy-validation v-on:submit.prevent>
-          <v-text-field dark :label="$t('login.email')" v-model="email" :rules="emailRules" required></v-text-field>
-          <v-text-field dark :label="$t('login.password')" v-model="password" :rules="passwordRules" :counter="30" required :append-icon="passAppendIcon"
+          <v-text-field :label="$t('login.email')" v-model="email" :rules="emailRules" required></v-text-field>
+          <v-text-field :label="$t('login.password')" v-model="password" :rules="passwordRules" :counter="30" required :append-icon="passAppendIcon"
             :append-icon-cb="() => (passwordHidden = !passwordHidden)" :type="passTextFieldType"></v-text-field>
-          <v-btn type="submit" @click="login(credential)" :disabled="!valid" dark :class="$store.state.primaryColor">
+          <v-btn type="submit" @click="loginAttempt()" :disabled="!valid" dark :class="$store.state.primaryColor">
             {{ $t('login.submit') }}
           </v-btn>
         </v-form>
       </template>
+      <v-alert class="login-failed" type="error" :value="loginFailed">
+        {{ $t('login.failed') }}
+      </v-alert>
     </v-flex>
   </v-layout>
 </template>
 <script>
   import {
+    mapState,
     mapActions
   } from 'vuex'
 
@@ -39,6 +46,10 @@
       }
     },
     computed: {
+      ...mapState('auth', [
+        'loginWait',
+        'loginFailed'
+      ]),
       credential() {
         let email = this.email
         let password = this.password
@@ -58,15 +69,21 @@
       ...mapActions('auth', [
         'login',
       ]),
+      loginAttempt() {
+        this.login(this.credential).then(() => {
+          this.$router.push({path: '/crm/companies'})
+        })
+      }
     },
     i18n: {
-      messages:{
+      messages: {
         pl: {
           login: {
             title: "CRUD oparty na Vue, Vuex i Vuetify",
             email: "E-mail",
             password: "Hasło",
-            submit: "Zaloguj"
+            submit: "Zaloguj",
+            failed: "Próba zalogowania nie powiodła się"
           }
         },
         en: {
@@ -74,7 +91,8 @@
             title: "Vue - based CRUD application",
             email: "E-mail",
             password: "Password",
-            submit: "Submit"
+            submit: "Submit",
+            failed: "Login attempt unsuccessful"
           }
         }
       }
@@ -89,12 +107,17 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-  }
+  } 
   .parent {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-
+  .login-failed {
+    width:100%;
+    position:absolute;
+    top: 0;
+    left:0;
+  }
 </style>

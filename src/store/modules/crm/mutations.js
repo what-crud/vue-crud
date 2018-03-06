@@ -10,6 +10,16 @@ let mutations = {
       state.company = data;
       state.companyPositions = state.company.positions
       state.companyComments = state.company.comments
+      state.companyFiles = state.company.files
+    },
+    // image container
+    openImageContainer(state, item) {
+      state.imageContainer.item = item
+      state.imageContainer.show = true
+    },
+    closeImageContainer(state) {
+      state.imageContainer.show = false
+      state.imageContainer.item = {}
     },
     // person
     showPersonDialog(state){
@@ -23,6 +33,28 @@ let mutations = {
       state.personPositions = state.person.positions
       state.personComments = state.person.comments
     },
+    // company file
+    editCompanyFileDialog(state, id){
+      state.companyFileDetails.action = 'edit'
+      state.companyFileDetails.id = id
+      state.companyFileDetails.formValid = true
+      state.companyFileDetails.show = true
+    },
+    createCompanyFileDialog(state){
+      state.companyFileDetails.action = 'create'
+      state.companyFileDetails.formValid = true
+      state.companyFileDetails.show = true
+    },
+    hideCompanyFileDialog(state){
+      state.companyFileDetails.show = false
+    },
+    resetCompanyFile(state) {
+      state.companyFileDetails.item = {}
+    },
+    setCompanyFile(state, data) {
+      state.companyFileDetails.item = data
+    },
+    // position
     editPositionDialog(state, id){
       state.positionDetails.action = 'edit'
       state.positionDetails.id = id

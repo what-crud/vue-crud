@@ -1,5 +1,5 @@
 <template>
-  <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :headers="headers" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
+  <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
   </crud>
 </template>
 
@@ -16,7 +16,13 @@
     },
     computed: {
       fieldsInfo () {
-        return [{
+        return [
+          {
+            text: this.$t('fields.id'),
+            name: 'id',
+            details: false
+          },
+          {
             type: 'select',
             url: 'crm/companies',
             list: {
@@ -26,6 +32,26 @@
             },
             column: 'company_id',
             text: this.$t('fields.company'),
+            name: 'company',
+            apiObject: {
+              name: 'company.common_name',
+            },
+          },
+          {
+            text: this.$t('fields.user'),
+            name: 'user',
+            apiObject: {
+              name: 'user.name',
+            },
+            details: false
+          },
+          {
+            text: this.$t('fields.userEmail'),
+            name: 'userEmail',
+            apiObject: {
+              name: 'user.email',
+            },
+            details: false
           },
           {
             type: 'select',
@@ -37,39 +63,20 @@
             },
             column: 'company_comment_type_id',
             text: this.$t('fields.commentType'),
+            name: 'companyCommentType',
+            apiObject: {
+              name: 'company_comment_type.name',
+            },
           },
           {
             type: 'textarea',
             column: 'content',
             text: this.$t('fields.content'),
-          },
-        ]
-      },
-      headers () {
-        return [
-          {
-            text: this.$t('fields.id'),
-            value: 'id'
-          },
-          {
-            text: this.$t('fields.company'),
-            value: 'company'
-          },
-          {
-            text: this.$t('fields.user'),
-            value: 'user'
-          },
-          {
-            text: this.$t('fields.userEmail'),
-            value: 'userEmail'
-          },
-          {
-            text: this.$t('fields.commentType'),
-            value: 'companyCommentType'
-          },
-          {
-            text: this.$t('fields.content'),
-            value: 'content'
+            name: 'content',
+            apiObject: {
+              name: 'content',
+              functions: ['croppedText']
+            },
           },
         ]
       },

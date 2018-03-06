@@ -9,7 +9,16 @@ let state = {
       company_type_id: null
     },
     companyPositions: [],
+    companyFiles: [],
     companyComments: [],
+    // company file
+    companyFileDetails: {
+      show: false,
+      id: null,
+      action: null,
+      formValid: false,
+      item: {},
+    },
     // people
     personDialog: false,
     people: [],
@@ -35,6 +44,11 @@ let state = {
       positionId: null,
       data: [],
     },
+    // image container
+    imageContainer: {
+      show: false,
+      item: {}
+    }
   }
   
   export default state

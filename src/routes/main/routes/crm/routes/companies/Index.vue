@@ -5,12 +5,13 @@
       :prefix="prefix"
       :path="path"
       :pageTitle="pageTitle"
-      :headers="headers"
       :fieldsInfo="fieldsInfo"
       :detailsTitle="$t('detailsTitle')"
-      :editButton="false">
+      :editButton="false"
+      :watchForCreation="true"
+    >
     </crud>
-    <company :fields="fields"></company>
+    <company :fields="companyFields"></company>
   </div>
 </template>
 
@@ -36,7 +37,23 @@
         pageTitle: 'crm.companies',
       }
     },
+    watch: {
+      itemCreated: function (newValue, oldValue) {
+        let created = this.createdElement.created
+        if (created){
+          let id = this.createdElement.id
+          this.setCreatedItemStatus([false, null])
+          this.goToCompany({id: id})
+        }
+      }
+    },
     computed: {
+      ...mapState('crud', [
+        'createdElement',
+      ]),
+      ...mapGetters('crud', [
+        'itemCreated',
+      ]),
       buttons () {
         return [{
           name: 'goToCompany',
@@ -45,20 +62,30 @@
           text: this.$t('buttons.goToCompany')
         }]
       },
-      fields () {
-        return [{
+      fieldsInfo () {
+        return [
+          {
+            text: this.$t('fields.id'),
+            name: 'id',
+            details: false,
+            hidden: true
+          },
+          {
             type: 'input',
             column: 'name',
             text: this.$t('fields.name'),
             grid: 'xs12 sm6 md4 lg6 xl4',
-            create: true,
+            name: 'name',
           },
           {
             type: 'input',
             column: 'common_name',
             text: this.$t('fields.commonName'),
             grid: 'xs12 sm6 md4 lg6 xl4',
-            create: true,
+            name: 'commonName',
+            apiObject: {
+              name: 'common_name',
+            },
           },
           {
             type: 'select',
@@ -71,7 +98,34 @@
             column: 'company_type_id',
             text: this.$t('fields.companyType'),
             grid: 'xs12 sm6 md4 lg6 xl4',
-            create: true,
+            name: 'companyType',
+            apiObject: {
+              name: 'company_type.name',
+            }
+          },
+          {
+            type: 'input',
+            column: 'nip',
+            text: this.$t('fields.nip'),
+            grid: 'xs12 sm6 md4 lg6 xl4',
+            name: 'nip',
+            details: false
+          },
+          {
+            type: 'input',
+            column: 'regon',
+            text: this.$t('fields.regon'),
+            grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
+          },
+          {
+            type: 'input',
+            column: 'krs',
+            text: this.$t('fields.krs'),
+            grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'select',
@@ -84,97 +138,137 @@
             column: 'street_prefix_id',
             text: this.$t('fields.streetPrefix'),
             grid: 'xs6 sm3 md2 lg3 xl2',
-            create: true,
+            name: 'streetPrefix',
+            apiObject: {
+              name: 'street_prefix.name',
+            },
+            details: false
+          },
+          {
+            text: this.$t('fields.address'),
+            name: 'address',
+            details: false,
+            hidden: true
           },
           {
             type: 'input',
             column: 'street',
             text: this.$t('fields.street'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'house_number',
             text: this.$t('fields.houseNumber'),
             grid: 'xs6 sm3 md2 lg3 xl2',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'apartment_number',
             text: this.$t('fields.apartmentNumber'),
             grid: 'xs6 sm3 md2 lg3 xl2',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'zip_code',
             text: this.$t('fields.zipCode'),
             grid: 'xs6 sm3 md2 lg3 xl2',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'city',
             text: this.$t('fields.city'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            name: 'city',
+            details: false
           },
           {
             type: 'input',
             column: 'borough',
             text: this.$t('fields.borough'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'county',
             text: this.$t('fields.county'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'voivodship',
             text: this.$t('fields.voivodship'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'email',
             text: this.$t('fields.email'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'web_page',
             text: this.$t('fields.webPage'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'fax',
             text: this.$t('fields.fax'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'coordinates_lat',
             text: this.$t('fields.coordinatesLat'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'coordinates_lng',
             text: this.$t('fields.coordinatesLng'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'checkbox',
             column: 'coordinates_checked',
             text: this.$t('fields.coordinatesChecked'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'google_map_place',
             text: this.$t('fields.googleMapPlace'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'select',
@@ -187,109 +281,91 @@
             column: 'correspondence_street_prefix_id',
             text: this.$t('fields.correspondenceStreetPrefix'),
             grid: 'xs6 sm3 md2 lg3 xl2',
-            create: true,
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'correspondence_street',
             text: this.$t('fields.correspondenceStreet'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'correspondence_house_number',
             text: this.$t('fields.correspondenceHouseNumber'),
             grid: 'xs6 sm3 md2 lg3 xl2',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'correspondence_apartment_number',
             text: this.$t('fields.correspondenceApartmentNumber'),
             grid: 'xs6 sm3 md2 lg3 xl2',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'correspondence_zip_code',
             text: this.$t('fields.correspondenceZipCode'),
             grid: 'xs6 sm3 md2 lg3 xl2',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'correspondence_city',
             text: this.$t('fields.correspondenceCity'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'correspondence_borough',
             text: this.$t('fields.correspondenceBorough'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'correspondence_county',
             text: this.$t('fields.correspondenceCounty'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
           {
             type: 'input',
             column: 'correspondence_voivodship',
             text: this.$t('fields.correspondenceVoivodship'),
             grid: 'xs12 sm6 md4 lg6 xl4',
+            table: false,
+            details: false
           },
         ]
       },
-      fieldsInfo () {
-        return this.fields.filter(field => field.create)
-      },
-      headers () {
-        return [{
-            text: this.$t('fields.id'),
-            value: 'id'
-          },
-          {
-            text: this.$t('fields.companyType'),
-            value: 'companyType'
-          },
-          {
-            text: this.$t('fields.name'),
-            value: 'name'
-          },
-          {
-            text: this.$t('fields.commonName'),
-            value: 'commonName'
-          },
-          {
-            text: this.$t('fields.streetPrefix'),
-            value: 'streetPrefix'
-          },
-          {
-            text: this.$t('fields.address'),
-            value: 'address'
-          },
-          {
-            text: this.$t('fields.city'),
-            value: 'city'
-          },
-          {
-            text: this.$t('fields.nip'),
-            value: 'nip'
-          },
-        ]
+      companyFields () {
+        return this.fieldsInfo.filter(field => field.hidden != true)
       },
     },
     methods: {
       ...mapMutations('crm', [
         'showCompanyDialog'
       ]),
+      ...mapMutations('crud', [
+        'setCreatedItemStatus'
+      ]),
       ...mapActions('crm', [
         'getCompany'
       ]),
-      custom (name, id) {
-        this[name](id)
-      },
-      goToCompany (id) {
-        this.getCompany([id])
+      goToCompany (item) {
+        this.getCompany([item.id])
         this.showCompanyDialog()
       },
     },
