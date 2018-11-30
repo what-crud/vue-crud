@@ -1,3 +1,6 @@
+<p align="center">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/18534115/49319435-29ccf000-f4fd-11e8-9fc6-8678864132bd.png">
+</p>
 
 # Vue - based REST-ful CRUD application
 
@@ -45,3 +48,4 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
