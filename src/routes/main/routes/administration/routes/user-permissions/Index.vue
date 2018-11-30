@@ -5,13 +5,13 @@
     :pageTitle="pageTitle"
     :fieldsInfo="fieldsInfo"
     :detailsTitle="$t('detailsTitle')"
-    :softDeletes="false"
+    deleteMode="hard"
   >
   </crud>
 </template>
 
 <script>
-  import Crud from '@/components/Crud.vue'
+  import Crud from '@/crud/components/Crud.vue'
 
   export default {
     data() {

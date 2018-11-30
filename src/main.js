@@ -17,13 +17,23 @@ Vue.http.options.emulateJSON = true;
 // copy config.js.example to config.js and customize api configuration
 Vue.http.options.root = config.api.url + config.api.path.default
 
+if ('-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style) { // detect it's IE11
+  window.addEventListener("hashchange", function(event) {
+    var currentPath = window.location.hash.slice(1);
+    if (router.path !== currentPath) {
+      router.push(currentPath)
+    }
+  }, false)
+}
+
 Vue.http.interceptors.push((request, next) => {
   if (localStorage.getItem('token')) {
     request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
   }
   next(response => {
     if (response.status === 400 || response.status === 401 || response.status === 403) {
-      //store.commit('auth/logout')
+      store.commit('auth/logout')
+      router.push({path: '/login'})
     }
   })
 });

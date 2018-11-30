@@ -1,0 +1,158 @@
+<template>
+  <div style="position:relative;">
+    <div>
+      <component
+        :is="componentLoader"
+        :meta="meta"
+        :customButtons="customButtons"
+        :itemElements="itemElements"
+        :deleteMode="deleteMode"
+        :editButton="editButton"
+        :fileMode="fileMode"
+        :tableFields="tableFields"
+        :primaryKey="primaryKey"
+        :activeColumnName="activeColumnName"
+      ></component>
+      <item-details :title="detailsTitle" :detailsFields="detailsFields"></item-details>
+      <item-elements></item-elements>
+      <image-container></image-container>
+    </div>
+    <div class="details-loader-container">
+      <v-layout v-if="detailsLoading" class="details-loader" justify-center align-center>
+        <v-progress-circular indeterminate :size="100" :width="3" :class="$store.state.primaryColor"></v-progress-circular>
+      </v-layout>
+    </div>
+  </div>
+</template>
+
+<script>
+
+import ItemDetails from '../components/ItemDetails.vue'
+import ItemElements from '../components/ItemElements.vue'
+import ImageContainer from '../components/ImageContainer.vue'
+import {
+  mapState,
+  mapGetters,
+  mapMutations,
+  mapActions
+} from 'vuex'
+
+export default {
+  components: {
+    ItemDetails,
+    ItemElements,
+    ImageContainer
+  },
+  props: {
+    prefix: String,
+    path: String,
+    fieldsInfo: Array,
+    detailsTitle: String,
+    pageTitle: String,
+    editButton: {
+      type: Boolean,
+      default: true
+    },
+    deleteMode: {
+      type: String,
+      validator: function (value) {
+        return ['none', 'soft', 'hard', 'both'].indexOf(value) !== -1
+      },
+      default: 'soft'
+    },
+    customHeaderButtons: {
+      type: Array,
+      default: () => []
+    },
+    customButtons: {
+      type: Array,
+      default: () => []
+    },
+    meta: {
+      type: Array,
+      default: () => []
+    },
+    itemElements: {
+      type: Object,
+      default: () => {}
+    },
+    fileMode: {
+      type: Boolean,
+      default: false
+    },
+    watchForCreation: {
+      type: Boolean,
+      default: false
+    },
+    primaryKey: {
+      type: String,
+      default: 'id'
+    },
+    activeColumnName: {
+      type: String,
+      default: 'active'
+    },
+    mode: {
+      type: String,
+      validator: function (value) {
+        return ['ClientSide', 'ServerSide'].indexOf(value) !== -1
+      },
+      default: 'ClientSide'
+    },
+  },
+  data() {
+    return {}
+  },
+  computed: {
+    ...mapState('crud', [
+      'detailsLoading'
+    ]),
+    tableFields() {
+      return this.fieldsInfo.filter(field => field.table != false && field.type != 'divider')
+    },
+    detailsFields() {
+      return this.fieldsInfo.filter(field => field.details != false && field.type != 'divider')
+    },
+    componentLoader () { 
+      return () => import('./DataTable' + this.mode + '.vue')
+    }
+  },
+  created() {
+    this.setPrefix(this.prefix)
+    this.setPath(this.path)
+    this.setPage(this.pageTitle)
+    let creationMode = this.watchForCreation ? 'inform' : 'ignore'
+    this.setCreationMode(creationMode)
+  },
+  methods: {
+    ...mapMutations([
+      'setPage',
+    ]),
+    ...mapMutations('crud', [
+      'setPrefix',
+      'setPath',
+      'setCreationMode',
+    ]),
+    custom(name, item) {
+      this.$parent[name](item)
+    },
+  },
+}
+
+</script>
+
+<style scoped>
+  .details-loader-container {
+    position: absolute;
+    top:200px;
+    text-align: center;
+    width: 100%;
+  }
+  .details-loader {
+    height:100px !important;
+    width:100px;
+    background-color:rgba(255, 255, 255, 0.6);
+    border-radius:100%;
+    display: inline-block;
+  }
+</style>

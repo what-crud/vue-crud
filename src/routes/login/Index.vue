@@ -1,18 +1,28 @@
 <template>
-  <v-layout v-if="loginWait" style="height:400px;max-height:70vh;" justify-center align-center>
-    <v-progress-circular indeterminate v-bind:size="100" v-bind:width="5" :color="$store.state.secondaryColor"></v-progress-circular>
+  <v-layout v-if="loginWait" class="login-loader" justify-center align-center>
+    <v-progress-circular indeterminate v-bind:size="100" v-bind:width="5" :style="'color: ' + $store.state.primaryColor"></v-progress-circular>
   </v-layout>
-  <v-layout v-else row wrap class="white">
+  <v-layout v-else row wrap class="white" :style="'color: ' + $store.state.primaryColor" ma-3>
     <v-flex xs10 offset-xs1 sm8 offset-sm2 md6 offset-md3 lg4 offset-lg4 xl2 offset-xl5 class="parent text-xs-center">
-      <img class="logo" src="../../assets/images/logo.png">
-      <h3>{{ $t('login.title') }}</h3>
+      <img class="logo" :src="require(`@/assets/images/${$store.state.logoLg}`)">
+      <h1 class="app-title">{{ $t('login.title') }}</h1>
       <template>
-        <v-form v-model="valid" ref="form" lazy-validation v-on:submit.prevent>
+        <v-form v-model="valid" ref="form" lazy-validation v-on:submit.prevent>          
+          <v-menu bottom left v-if="$store.state.localeSelectable">
+            <v-btn icon slot="activator" dark :style="'background-color: ' + $store.state.secondaryColor">
+              <v-icon>translate</v-icon>
+            </v-btn>
+            <v-list>
+              <v-list-tile v-for="(locale, i) in locales" :key="i" @click="changeLocale(locale.name)">
+                <v-list-tile-title>{{ locale.text }}</v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
           <v-text-field :label="$t('login.email')" v-model="email" :rules="emailRules" required></v-text-field>
           <v-text-field :label="$t('login.password')" v-model="password" :rules="passwordRules" :counter="30" required :append-icon="passAppendIcon"
             :append-icon-cb="() => (passwordHidden = !passwordHidden)" :type="passTextFieldType"></v-text-field>
-          <v-btn type="submit" @click="loginAttempt()" :disabled="!valid" dark :class="$store.state.primaryColor">
-            {{ $t('login.submit') }}
+          <v-btn type="submit" @click="loginAttempt()" :disabled="!valid" :style="'background-color: ' + $store.state.primaryColor" class="white--text">
+              {{ $t('login.submit') }}
           </v-btn>
         </v-form>
       </template>
@@ -25,6 +35,7 @@
 <script>
   import {
     mapState,
+    mapMutations,
     mapActions
   } from 'vuex'
 
@@ -50,6 +61,9 @@
         'loginWait',
         'loginFailed'
       ]),
+      ...mapState([
+        'locales',
+      ]),
       credential() {
         let email = this.email
         let password = this.password
@@ -66,12 +80,19 @@
       },
     },
     methods: {
+      ...mapMutations([
+        'setLocale',
+      ]),
       ...mapActions('auth', [
         'login',
       ]),
+      changeLocale (locale) {
+        this.$i18n.locale = locale
+        this.setLocale(locale)
+      },   
       loginAttempt() {
         this.login(this.credential).then(() => {
-          this.$router.push({path: '/crm/companies'})
+          this.$router.push({path: '/home'})
         })
       }
     },
@@ -79,20 +100,20 @@
       messages: {
         pl: {
           login: {
-            title: "CRUD oparty na Vue, Vuex i Vuetify",
+            title: "Vue CRUD",
             email: "E-mail",
             password: "Hasło",
-            submit: "Zaloguj",
-            failed: "Próba zalogowania nie powiodła się"
+            failed: "Próba zalogowania nie powiodła się",
+            submit: 'Zaloguj'
           }
         },
         en: {
           login: {
-            title: "Vue - based CRUD application",
+            title: "Vue CRUD",
             email: "E-mail",
             password: "Password",
-            submit: "Submit",
-            failed: "Login attempt unsuccessful"
+            failed: "Login attempt unsuccessful",
+            submit: 'Submit'
           }
         }
       }
@@ -101,15 +122,24 @@
 
 </script>
 <style scoped>
+  .app-title {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 30px;
+  }
+  .login-loader {
+    height:400px;
+    max-height:70vh;
+  }
   .logo {
-    height: auto;
-    width: 150px;
     display: block;
     margin-left: auto;
     margin-right: auto;
-  } 
+    width:300px;
+    height:auto;
+  }
   .parent {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

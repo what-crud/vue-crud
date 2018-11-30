@@ -20,7 +20,13 @@ const router = new Router({
             next('/login')
         }
         else {
-            next()
+          Vue.http.get('auth/user')
+            .then(response => {
+              next()
+            }, response => {
+              next('/login')
+            });
+          //store.dispatch('auth/getUser').then(next())
         }
       }
     },
@@ -42,20 +48,13 @@ router.beforeEach(function (to, from, next) {
   else{
     if(store.getters['auth/checkRole'](middleware)){
       window.scrollTo(0, 0);
-      
-      Vue.http.post('auth/refresh-token')
-        .then((response) => response.json())
-        .then((result) => {
-          store.commit('auth/refreshToken', result);
-          next()
-        })
-        .catch((error) => {
-          store.commit('auth/logout')
-          next('/login')
-        });
+      next()
+    }
+    else if (store.getters['auth/isLogged']) {
+      next('/home')
     }
     else{
-      next('/home')
+      next('/login')
     }
   }
 });

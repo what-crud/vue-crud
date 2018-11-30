@@ -4,10 +4,14 @@ import router from '@/router'
 
 //crud
 import crud from './modules/crud/'
-//modules
-import administration from './modules/administration/'
+
+// auth
+
 import auth from './modules/auth/'
-import crm from './modules/crm/'
+
+//modules
+import administration from '@/routes/main/routes/administration/store/'
+import crm from '@/routes/main/routes/crm/store/'
 
 import state from './state'
 import getters from './getters'

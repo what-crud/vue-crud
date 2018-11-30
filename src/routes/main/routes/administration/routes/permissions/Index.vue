@@ -5,12 +5,13 @@
     :pageTitle="pageTitle"
     :fieldsInfo="fieldsInfo"
     :detailsTitle="$t('detailsTitle')"
+    :itemElements="itemElements"
   >
   </crud>
 </template>
 
 <script>
-  import Crud from '@/components/Crud.vue'
+  import Crud from '@/crud/components/Crud.vue'
 
   export default {
     data() {
@@ -21,6 +22,28 @@
       }
     },
     computed: {
+      itemElements() {
+        return {
+          permissionUsers: {
+            title: this.$t('itemElements.permissionUsers.title'),
+            url: 'admin/permissions/{id}/users',
+            controller: 'admin/user-permissions',
+            itemObject: 'user_permissions',
+            columns: [
+              {
+                obj: 'name',
+                name: 'name',
+                header: this.$t('itemElements.permissionUsers.headers.user'),
+              },
+            ],
+            primaryId: 'permission_id',
+            foreignId: 'user_id',
+            icon: 'people',
+            color: 'purple',
+            buttonText: this.$t('itemElements.permissionUsers.title')
+          },
+        }
+      },
       fieldsInfo () {
         return [
           {
@@ -54,7 +77,15 @@
             id: 'Id',
             name: 'Nazwa',
             code: 'Kod',
-          }
+          },
+          itemElements: {
+            permissionUsers: {
+              title: 'Użytkownicy posiadający dane uprawnienie',
+              headers: {
+                user: 'Użytkownik',
+              }
+            }
+          },
         },
         en: {
           detailsTitle: 'Permission',
@@ -62,7 +93,15 @@
             id: 'Id',
             name: 'Name',
             code: 'Code',
-          }
+          },
+          itemElements: {
+            permissionUsers: {
+              title: 'Users with this permission',
+              headers: {
+                user: 'User',
+              }
+            }
+          },
         }
       }
     },

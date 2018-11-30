@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container fluid fill-height style="min-height:80vh">
     <v-layout justify-center align-center>
-      <img src="../../../../assets/images/logo.png" width="200">
+      <img :src="require(`@/assets/images/${$store.state.logoLg}`)" width="400">
     </v-layout>
   </v-container>
 </template>

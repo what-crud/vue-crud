@@ -6,7 +6,7 @@
 
 <script>
   import Vue from 'vue'
-  import Crud from '@/components/Crud.vue'
+  import Crud from '@/crud/components/Crud.vue'
   import {
     mapActions,
     mapMutations

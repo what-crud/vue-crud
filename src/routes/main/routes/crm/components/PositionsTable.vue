@@ -3,10 +3,12 @@
     <v-card-title>
 
       <!-- Dialog for creating item -->
-      <v-btn outline color="green" @click="create()">
-        <v-icon>add</v-icon>
-        {{ $t('add') }}
-      </v-btn>
+      <v-tooltip top>
+        <v-btn fab small dark color="green" @click="create()" slot="activator">
+          <v-icon>add</v-icon>
+        </v-btn>
+        <span>{{ $t('add') }}</span>
+      </v-tooltip>
 
       <!-- Select statuses (active/inactive) -->
       <template>
@@ -25,17 +27,17 @@
       :search="search" :no-results-text="$t('noMatchingResults')" :no-data-text="$t('noDataAvailable')" :rows-per-page-text="$t('rowsPerPageText')">
       <template slot="items" slot-scope="props">
         <!-- action buttons -->
-        <td class="text-xs-center">
+        <td class="text-xs-center cell-nowrap">
           <!-- edit record -->
           <v-tooltip top>
-            <v-btn outline fab small class="xs" color="orange" @click="edit(props.item.id)" slot="activator">
+            <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.id)" slot="activator">
               <v-icon>edit</v-icon>
             </v-btn>
             <span>{{ $t('buttons.edit') }}</span>
           </v-tooltip>
           <!-- button for open modal with item elements -->
           <v-tooltip top>
-            <v-btn outline fab small class="xs" color="blue" @click="editPositionTasks(props.item.id)" slot="activator">
+            <v-btn fab small class="xs white--text" color="blue" @click="editPositionTasks(props.item.id)" slot="activator">
               <v-icon>list</v-icon>
             </v-btn>
             <span>{{ $t('buttons.tasks') }}</span>
@@ -43,13 +45,13 @@
           <!-- suspend/restore record (if soft deletes are enabled) -->
           <template>
             <v-tooltip top v-if="props.item.active == '1'">
-              <v-btn outline fab small class="xs" color="red" @click="suspend(props.item.id)" slot="activator">
+              <v-btn fab small class="xs white--text" color="red" @click="suspend(props.item.id)" slot="activator">
                 <v-icon>undo</v-icon>
               </v-btn>
               <span>{{ $t('buttons.suspend') }}</span>
             </v-tooltip>
             <v-tooltip top v-else>
-              <v-btn outline fab small class="xs" color="green" @click="restore(props.item.id)" slot="activator">
+              <v-btn fab small class="xs white--text" color="green" @click="restore(props.item.id)" slot="activator">
                 <v-icon>redo</v-icon>
               </v-btn>
               <span>{{ $t('buttons.restore') }}</span>
@@ -57,7 +59,7 @@
           </template>
         </td>
         <!-- table fields -->
-        <td v-if="key != 'active'" v-for="(field, key) in props.item" class="text-xs-center">
+        <td v-if="key != 'active'" v-for="(field, key) in props.item" :key="key" class="text-xs-center">
           {{ field }}
         </td>
       </template>

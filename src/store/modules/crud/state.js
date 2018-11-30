@@ -2,7 +2,10 @@ let state = {
     prefix: '',
     path: '',
     tableReady: false,
+    detailsLoading: false,
     items: [],
+    totalItems: 0,
+    loading: true,
     details: {
       show: false,
       id: null,
@@ -31,7 +34,16 @@ let state = {
     imageContainer: {
       show: false,
       item: {}
-    }
+    },
+    selectedIds: [],
+    // refresh table
+    refreshTable: false,
+    // extended details
+    detailsDialog: false,
+    item: {},
+    itemIdColumn: '',
+    childItemsMapping: [],
+    childItems: {},
   }
   
   export default state

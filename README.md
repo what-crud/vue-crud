@@ -1,3 +1,4 @@
+
 # Vue - based REST-ful CRUD application
 
 > CRUD application written using Vue2, Vuex and Vuetify. The app uses REST API and JWT Tokens.

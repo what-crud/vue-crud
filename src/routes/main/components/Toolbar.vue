@@ -1,13 +1,15 @@
 <template>
-  <v-toolbar clipped-left dark fixed app :class="$store.state.primaryColor">
+  <v-toolbar clipped-left dark fixed app :style="'background-color: ' + $store.state.primaryColor">
     <v-toolbar-side-icon @click.stop="$store.state.drawer = !$store.state.drawer"></v-toolbar-side-icon>
     <v-toolbar-title class="title">
         <router-link to="/home">{{$store.state.title}}</router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <img class="logo" src="../../../assets/images/logo.png">
+    <span class="logo-background">
+      <img class="logo" :src="require(`@/assets/images/${$store.state.logoSm}`)">
+    </span>
     <v-spacer></v-spacer>
-    <v-menu bottom left>
+    <v-menu bottom left v-if="$store.state.localeSelectable">
       <v-btn icon slot="activator" dark>
         <v-icon>translate</v-icon>
       </v-btn>
@@ -30,7 +32,7 @@
 
 <script>
   import {
-    mapState,
+    mapState,    
     mapMutations,
     mapActions
   } from 'vuex'
@@ -44,7 +46,7 @@
       ...mapState([
         'locales',
       ]),
-    },
+    },   
     methods: {
       ...mapActions('auth', [
         'logout',
@@ -56,7 +58,7 @@
       changeLocale (locale) {
         this.$i18n.locale = locale
         this.setLocale(locale)
-      },
+      },      
       logoutAttempt() {
         this.logout().then(() => {
           this.$router.push({path: '/login'})
@@ -72,8 +74,11 @@
     text-decoration: none;
   }
   .logo {
-    height:30px;
+    height:50px;
     width:auto;
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 35px;
+    padding: 5px 25px 5px 25px;
   }
   @media (max-width: 699px) {
     .logo {

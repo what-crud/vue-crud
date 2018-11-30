@@ -1,8 +1,10 @@
 <template>
-    <v-footer class="pa-3 white--text" :class="$store.state.primaryColor" app>
+    <div>
+    <!-- <v-footer :class="$store.state.primaryColor" class="pa-3 white--text" app>
       <v-spacer></v-spacer>
       <div>© {{ new Date().getFullYear() }}</div>
-    </v-footer>
+    </v-footer> -->
+    </div>
 </template>
 <script>
     export default {

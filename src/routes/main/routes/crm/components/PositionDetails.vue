@@ -69,7 +69,7 @@
         })
         return result
       },
-      positionData() {
+      itemData() {
         let self = this
         let result = {}
         for (let field of this.fields) {
@@ -95,10 +95,10 @@
         this.$parent.close()
       },
       update() {
-        this.$parent.update(this.details.id, this.positionData)
+        this.$parent.update(this.details.id, this.itemData)
       },
       store() {
-        this.$parent.store(this.positionData)
+        this.$parent.store(this.itemData)
       },
     },
     i18n: {

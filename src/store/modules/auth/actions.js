@@ -27,6 +27,18 @@ let actions = {
         });
     })
   },
+  getUser({ commit }) {
+    return new Promise(resolve => {
+      Vue.http.get('auth/user')
+        .then((response) => response.json())
+        .then(() => {
+          if (response.status === 400 || response.status === 401 || response.status === 403) {
+            commit('logout')
+          }
+          resolve()
+        });
+    })
+  },
   refreshToken({
     commit
   }, data) {

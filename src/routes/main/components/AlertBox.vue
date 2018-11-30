@@ -1,7 +1,9 @@
 <template>
-  <v-alert v-model="alert.show" class="alert" :color="alert.color" :icon="alert.icon" value="true">
-    {{ alert.text }}
-  </v-alert>
+  <v-layout justify-center align-center>
+    <v-alert v-model="alert.show" class="alert" :type="alert.type" value="true" transition="scale-transition">
+      <span v-html="alert.text"></span>
+    </v-alert>
+  </v-layout>
 </template>
 <script>
   import {
@@ -21,8 +23,9 @@
 <style scoped>
   .alert {
     position: fixed;
-    bottom: 20px;
-    z-index: 100000
+    top: 40vh;
+    margin: auto;
+    z-index: 100000;
   }
 
 </style>

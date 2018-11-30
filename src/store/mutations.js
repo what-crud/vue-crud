@@ -16,18 +16,26 @@ let mutations = {
   },
   // alerts
   alertSuccess(state, text) {
-    state.alert.color = 'success'
-    state.alert.icon = 'check_circle'
+    state.alert.type = 'success'
     state.alert.text = text
     state.alert.show = 1
     setTimeout(() => state.alert.show = 0, 2000);
   },
-  alertError(state, text) {
-      state.alert.color = 'error'
-      state.alert.icon = 'warning'
+  alertValidationError(state, obj) {
+      state.alert.type = 'warning'
+      let text = ""
+      for (let key in obj) {
+        text += '<div><strong>' + key + ': </strong>' + obj[key].join(', ') + '</div>'
+      }
       state.alert.text = text
       state.alert.show = 1
-      setTimeout(() => state.alert.show = 0, 2000);
+      setTimeout(() => state.alert.show = 0, 4000);
+  },
+  alertError(state, text) {
+      state.alert.type = 'error'
+      state.alert.text = text
+      state.alert.show = 1
+      setTimeout(() => state.alert.show = 0, 4000);
   }
 }
 

@@ -1,21 +1,24 @@
 import { config } from '@/config.js'
 
 let state = {
-  title: "CRUD",
+  title: "Vue CRUD",
   locale: 'pl',
   locales: [
     {name: 'pl', text: 'Polski'},
     {name: 'en', text: 'English'}
-  ], 
+  ],
+  localeSelectable: true,
+  primaryColor: 'rgb(52, 73, 94)',
+  secondaryColor: 'rgb(65, 184, 131)',
+  primaryTheme: 'dark',
+  secondaryTheme: 'dark',
   module: null,
   page: null,
   drawer: true,
   activeModule: "",
   profileDialog: false,
   superuser: false,
-  primaryColor: 'green',
-  secondaryColor: 'grey darken-4', 
-  historyPermission: true, 
+  historyPermission: true,
   alert: {
     show: false,
     color: '',
@@ -23,6 +26,8 @@ let state = {
     icon: ''
   },
   filesPath: config.api.url + config.api.path.files,
+  logoLg: 'vue-crud-lg.png',
+  logoSm: 'vue-crud-sm.png'
 }
 
 export default state

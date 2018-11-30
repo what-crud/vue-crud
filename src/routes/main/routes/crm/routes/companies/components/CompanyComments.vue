@@ -1,66 +1,26 @@
 <template>
   <div>
-    <comments :data="companyComments" :commentTypes="commentTypes"></comments>
+      <company-comments-table
+        :fieldsInfo="fileteredTableFields"
+        :loader="loader" :tableData="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"
+        deleteMode="soft"
+      ></company-comments-table>
+      <company-comment-details :details="details" :fieldsInfo="fileteredDetailsFields"></company-comment-details>
   </div>
 </template>
 
 <script>
-  import Vue from 'vue'
-  import Comments from '../../../components/Comments.vue'
-  import {
-    mapState,
-    mapGetters,
-    mapMutations,
-    mapActions
-  } from 'vuex'
+import FieldsInfoMixin from '../../company-comments/mixins/fields.js'
+import LocalesMixin from '../../company-comments/mixins/locales.js'
+import CompanyCommentsChildMixin from "@/crud/mixins/child.js";
+import ChildrenTable from "@/crud/components/ChildrenTable.vue";
+import ChildDetails from "@/crud/components/ChildDetails.vue";
 
-  export default {
-    name: 'companyComments',
-    components: {
-      Comments
-    },
-    data() {
-      return {
-        commentTypes: {
-          idColumn: 'id',
-          textColumn: 'name',
-          data: []
-        },
-      }
-    },
-    computed: {
-      ...mapGetters('crm', [
-        'company',
-        'companyComments'
-      ])
-    },
-    created () {
-      Vue.http.get('crm/company-comment-types')
-        .then((response) => this.commentTypes.data = response.body)
-    },
-    methods: {
-      ...mapActions('crm', [
-        'storeCompanyComment',
-        'suspendCompanyComment'
-      ]),
-      store (content, commentTypeId) {
-        let comment = {
-          'company_id': this.company.id,
-          'company_comment_type_id': commentTypeId,
-          'content': content
-        }
-        this.storeCompanyComment([
-          comment,
-          this.$t('global.alerts.stored')
-        ])
-      },
-      suspend (commentId) {
-        this.suspendCompanyComment([
-          commentId,
-          this.$t('global.alerts.suspended')
-        ])
-      }
-    },
-  }
-
+export default {
+  mixins: [FieldsInfoMixin, LocalesMixin, CompanyCommentsChildMixin],
+  components: {
+    "company-comments-table": ChildrenTable,
+    "company-comment-details": ChildDetails
+  },
+};
 </script>

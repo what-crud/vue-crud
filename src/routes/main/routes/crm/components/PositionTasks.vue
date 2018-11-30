@@ -8,13 +8,13 @@
         <!-- add/remove connection -->
         <template>
           <v-tooltip top>
-            <v-btn outline fab small color="red" @click="removeMany()" slot="activator">
+            <v-btn class="white--text" fab small color="red" @click="removeMany()" slot="activator">
               <v-icon>undo</v-icon>
             </v-btn>
             <span>{{ $t('buttons.removeMany') }}</span>
           </v-tooltip>
           <v-tooltip top>
-            <v-btn outline fab small color="green" @click="addMany()" slot="activator">
+            <v-btn class="white--text" fab small color="green" @click="addMany()" slot="activator">
               <v-icon>redo</v-icon>
             </v-btn>
             <span>{{ $t('buttons.addMany') }}</span>
@@ -38,13 +38,13 @@
             <!-- add/remove connection (if soft deletes are enabled) -->
             <template>
               <v-tooltip top v-if="props.item.added == '<span hidden>1</span>Tak'">
-                <v-btn outline fab small class="xs" color="red" @click="remove(props.item.connectionId)" slot="activator">
+                <v-btn fab small class="xs white--text" color="red" @click="remove(props.item.connectionId)" slot="activator">
                   <v-icon>undo</v-icon>
                 </v-btn>
                 <span>{{ $t('buttons.remove') }}</span>
               </v-tooltip>
               <v-tooltip top v-else>
-                <v-btn outline fab small class="xs" color="green" @click="add(props.item.id)" slot="activator">
+                <v-btn fab small class="xs white--text" color="green" @click="add(props.item.id)" slot="activator">
                   <v-icon>redo</v-icon>
                 </v-btn>
                 <span>{{ $t('buttons.add') }}</span>
@@ -52,7 +52,7 @@
             </template>
           </td>
           <!-- table fields -->
-          <td v-if="!['id', 'connectionId'].includes(key)" v-for="(field, key) in props.item" class="text-xs-center" v-html="field"></td>
+          <td v-if="!['id', 'connectionId'].includes(key)" v-for="(field, key) in props.item" :key="key" class="text-xs-center" v-html="field"></td>
         </template>
         <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
           {{ $t('records') }} {{ pageStart }} - {{ pageStop }} {{ $t('from') }} {{ itemsLength }}

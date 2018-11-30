@@ -1,12 +1,12 @@
 <template>
-  <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :softDeletes="false"
+  <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" deleteMode="hard"
     :detailsTitle="$t('detailsTitle')">
   </crud>
 </template>
 
 <script>
   import Vue from 'vue'
-  import Crud from '@/components/Crud.vue'
+  import Crud from '@/crud/components/Crud.vue'
   import {
     mapActions,
     mapMutations

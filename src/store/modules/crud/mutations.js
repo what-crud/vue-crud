@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 let mutations = {
     // page info
     setPrefix(state, prefix) {
@@ -11,11 +13,25 @@ let mutations = {
       state.items = data
       state.tableReady = true
     },
+    startLoadingServerSide(state) {
+      state.loading = true
+    },
+    setItemsServerSide(state, data) {
+      state.items = data.data
+      state.totalItems = data.total
+      state.loading = false
+    },
     resetItems(state) {
       state.items = []
       state.tableReady = false
     },
+    setSelectedIds(state, items) {
+      state.selectedIds = items.map(item => item.id);
+    },
     // details item
+    setDetailsLoader(state, bool) {
+      state.detailsLoading = bool
+    },
     setItem(state, data) {
       state.details.item = data
     },
@@ -30,6 +46,11 @@ let mutations = {
     },
     createItemDialog(state){
       state.details.action = 'create'
+      state.details.formValid = true
+      state.details.show = true
+    },
+    multipleEditDialog(state){
+      state.details.action = 'multiedit'
       state.details.formValid = true
       state.details.show = true
     },
@@ -65,7 +86,76 @@ let mutations = {
     closeImageContainer(state) {
       state.imageContainer.show = false
       state.imageContainer.item = {}
-    }
+    },
+    // refresh table
+    refreshTable(state){
+      state.refreshTable = true
+      setTimeout(() => state.refreshTable = false, 2000);
+    },
+    // extended details
+    showItemDetailsDialog(state){
+      state.detailsDialog = true
+    },
+    hideItemDetailsDialog(state){
+      state.detailsDialog = false
+    },
+    setChildItemsMapping(state, data){
+      state.childItemsMapping = data
+      for(let childItem of data){
+        Vue.set(state.childItems, childItem.name,  {
+          items: [],
+          details: {
+            show: false,
+            id: null,
+            action: null,
+            formValid: false,
+            item: {},
+          }
+        })
+      }
+    },
+    setIdColumn(state, data){
+      state.itemIdColumn = data
+    },
+    itemDetails(state, data) { 
+      state.item = data
+      for(let childItem of state.childItemsMapping){
+        let child = state.childItems[childItem.name]
+        child.items = state.item[childItem.objName]
+        Vue.set(state.childItems, childItem.name, child)
+      }
+    },
+    // child
+    editChildDialog(state, [id, childItemName]){
+      let child = state.childItems[childItemName]
+      child.details.action = 'edit'
+      child.details.id = id
+      child.details.formValid = true
+      child.details.show = true
+      Vue.set(state.childItems, childItemName, child)
+    },
+    createChildDialog(state, childItemName){
+      let child = state.childItems[childItemName]
+      child.details.action = 'create'
+      child.details.formValid = true
+      child.details.show = true
+      Vue.set(state.childItems, childItemName, child)
+    },
+    hideChildDialog(state, childItemName){
+      let child = state.childItems[childItemName]
+      child.details.show = false
+      Vue.set(state.childItems, childItemName, child)
+    },
+    resetChild(state, childItemName) {
+      let child = state.childItems[childItemName]
+      child.details.item = {}
+      Vue.set(state.childItems, childItemName, child)
+    },
+    setChild(state, [data, childItemName]) {
+      let child = state.childItems[childItemName]
+      child.details.item = data
+      Vue.set(state.childItems, childItemName, child)
+    },
   }
   
   export default mutations

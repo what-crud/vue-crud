@@ -1,66 +1,26 @@
 <template>
   <div>
-    <comments :data="personComments" :commentTypes="commentTypes"></comments>
+      <person-comments-table
+        :fieldsInfo="fileteredTableFields"
+        :loader="loader" :tableData="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"
+        deleteMode="soft"
+      ></person-comments-table>
+      <person-comment-details :details="details" :fieldsInfo="fileteredDetailsFields"></person-comment-details>
   </div>
 </template>
 
 <script>
-  import Vue from 'vue'
-  import Comments from '../../../components/Comments.vue'
-  import {
-    mapState,
-    mapGetters,
-    mapMutations,
-    mapActions
-  } from 'vuex'
+import FieldsInfoMixin from '../../person-comments/mixins/fields.js'
+import LocalesMixin from '../../person-comments/mixins/locales.js'
+import CompanyCommentsChildMixin from "@/crud/mixins/child.js";
+import ChildrenTable from "@/crud/components/ChildrenTable.vue";
+import ChildDetails from "@/crud/components/ChildDetails.vue";
 
-  export default {
-    name: 'personComments',
-    components: {
-      Comments
-    },
-    data() {
-      return {
-        commentTypes: {
-          idColumn: 'id',
-          textColumn: 'name',
-          data: []
-        },
-      }
-    },
-    computed: {
-      ...mapGetters('crm', [
-        'person',
-        'personComments'
-      ])
-    },
-    created () {
-      Vue.http.get('crm/person-comment-types')
-        .then((response) => this.commentTypes.data = response.body)
-    },
-    methods: {
-      ...mapActions('crm', [
-        'storePersonComment',
-        'suspendPersonComment'
-      ]),
-      store (content, commentTypeId) {
-        let comment = {
-          'person_id': this.person.id,
-          'person_comment_type_id': commentTypeId,
-          'content': content
-        }
-        this.storePersonComment([
-          comment,
-          this.$t('global.alerts.stored')
-        ])
-      },
-      suspend (commentId) {
-        this.suspendPersonComment([
-          commentId,
-          this.$t('global.alerts.suspended')
-        ])
-      }
-    },
-  }
-
+export default {
+  mixins: [FieldsInfoMixin, LocalesMixin, CompanyCommentsChildMixin],
+  components: {
+    "person-comments-table": ChildrenTable,
+    "person-comment-details": ChildDetails
+  },
+};
 </script>
