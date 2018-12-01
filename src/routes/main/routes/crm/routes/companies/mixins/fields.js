@@ -10,13 +10,6 @@ export default {
         },
         {
           type: 'input',
-          column: 'name',
-          text: this.$t('fields.name'),
-          grid: 'xs12 sm6 md4 lg6 xl4',
-          name: 'name',
-        },
-        {
-          type: 'input',
           column: 'common_name',
           text: this.$t('fields.commonName'),
           grid: 'xs12 sm6 md4 lg6 xl4',
@@ -24,6 +17,13 @@ export default {
           apiObject: {
             name: 'common_name',
           },
+        },
+        {
+          type: 'input',
+          column: 'name',
+          text: this.$t('fields.name'),
+          grid: 'xs12 sm6 md4 lg6 xl4',
+          name: 'name',
         },
         {
           type: 'select',

@@ -1,15 +1,15 @@
 <template>
   <v-layout v-if="loginWait" class="login-loader" justify-center align-center>
-    <v-progress-circular indeterminate v-bind:size="100" v-bind:width="5" :style="'color: ' + $store.state.primaryColor"></v-progress-circular>
+    <v-progress-circular indeterminate v-bind:size="100" v-bind:width="5" color="primary"></v-progress-circular>
   </v-layout>
-  <v-layout v-else row wrap class="white" :style="'color: ' + $store.state.primaryColor" ma-3>
+  <v-layout v-else row wrap class="white" color="primary" ma-3>
     <v-flex xs10 offset-xs1 sm8 offset-sm2 md6 offset-md3 lg4 offset-lg4 xl2 offset-xl5 class="parent text-xs-center">
       <img class="logo" :src="require(`@/assets/images/${$store.state.logoLg}`)">
       <h1 class="app-title">{{ $t('login.title') }}</h1>
       <template>
         <v-form v-model="valid" ref="form" lazy-validation v-on:submit.prevent>          
           <v-menu bottom left v-if="$store.state.localeSelectable">
-            <v-btn icon slot="activator" dark :style="'background-color: ' + $store.state.secondaryColor">
+            <v-btn icon slot="activator" dark class="secondary">
               <v-icon>translate</v-icon>
             </v-btn>
             <v-list>
@@ -21,7 +21,7 @@
           <v-text-field :label="$t('login.email')" v-model="email" :rules="emailRules" required></v-text-field>
           <v-text-field :label="$t('login.password')" v-model="password" :rules="passwordRules" :counter="30" required :append-icon="passAppendIcon"
             :append-icon-cb="() => (passwordHidden = !passwordHidden)" :type="passTextFieldType"></v-text-field>
-          <v-btn type="submit" @click="loginAttempt()" :disabled="!valid" :style="'background-color: ' + $store.state.primaryColor" class="white--text">
+          <v-btn type="submit" @click="loginAttempt()" :disabled="!valid" class="primary white--text">
               {{ $t('login.submit') }}
           </v-btn>
         </v-form>

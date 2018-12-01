@@ -2,14 +2,12 @@ import { config } from '@/config.js'
 
 let state = {
   title: "Vue CRUD",
-  locale: 'pl',
+  locale: localStorage.getItem('locale'),
   locales: [
+    {name: 'en', text: 'English'},
     {name: 'pl', text: 'Polski'},
-    {name: 'en', text: 'English'}
   ],
   localeSelectable: true,
-  primaryColor: 'rgb(52, 73, 94)',
-  secondaryColor: 'rgb(65, 184, 131)',
   primaryTheme: 'dark',
   secondaryTheme: 'dark',
   module: null,

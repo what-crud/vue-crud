@@ -13,6 +13,6 @@ const messages = {
 }
 
 export default new VueI18n({
-  locale: store.state.locale,
+  locale: store.getters.lng,
   messages,
 })

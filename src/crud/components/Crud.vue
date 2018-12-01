@@ -19,7 +19,7 @@
     </div>
     <div class="details-loader-container">
       <v-layout v-if="detailsLoading" class="details-loader" justify-center align-center>
-        <v-progress-circular indeterminate :size="100" :width="3" :class="$store.state.primaryColor"></v-progress-circular>
+        <v-progress-circular indeterminate :size="100" :width="3" color="primary"></v-progress-circular>
       </v-layout>
     </div>
   </div>

@@ -1,11 +1,11 @@
 <template>
   <v-card>
-    <v-card-text dark :class="$store.state.secondaryColor" class="white--text">
+    <v-card-text dark class="secondary white--text">
       <h4 style="text-transform:uppercase;">{{ title }}</h4>
     </v-card-text>
     <v-card-text class="details-container">
       <v-layout row wrap>
-        <v-flex :class="field.grid" v-for="(field, i) in fields" :key="i" pr-2>
+        <v-flex class="field" :class="field.grid" v-for="(field, i) in fields" :key="i" pr-2>
 
           <!-- divider -->
           <h3 v-if="field.type == 'divider'" class="text-xs-center section-header">{{ field.text }}</h3>
@@ -271,5 +271,10 @@ export default {
   padding-left: 5px;
   color: rgba(0, 0, 0, 0.54);
   font-size: 16px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>

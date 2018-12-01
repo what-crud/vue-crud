@@ -11,6 +11,7 @@
       :watchForCreation="true"
       primaryKey="id"
       deleteMode="soft"
+      mode="ServerSide"
     ></crud>
     <item-details :fields="itemFields"></item-details>
   </div>

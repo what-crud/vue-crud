@@ -68,7 +68,7 @@
         <v-flex xs12 lg8 text-xs-left text-lg-right>
           <!-- Search by fields -->
           <v-menu offset-y :close-on-content-click="false">
-            <v-btn small fab dark slot="activator" :style="'background-color: ' + $store.state.primaryColor">
+            <v-btn small fab dark slot="activator" class="primary">
               <v-icon>filter_list</v-icon>
             </v-btn>
             <v-list style="overflow-y:false;">

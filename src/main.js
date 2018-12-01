@@ -10,7 +10,17 @@ import { config } from '@/config.js'
 
 Vue.config.productionTip = false
 
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#34495e',
+    secondary: '#41b883',
+    accent: '#82B1FF',
+    error: '#FF5252',
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FFC107'
+  }
+})
 Vue.use(vueResource)
 
 Vue.http.options.emulateJSON = true;

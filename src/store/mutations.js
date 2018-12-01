@@ -12,6 +12,7 @@ let mutations = {
     state.page = value
   },
   setLocale(state, locale) {
+    localStorage.setItem('locale', locale)
     state.locale = locale
   },
   // alerts

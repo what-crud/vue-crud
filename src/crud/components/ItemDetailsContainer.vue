@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="detailsDialog" fullscreen transition="dialog-bottom-transition" :overlay=true>
     <v-card class="dialog-content">
-      <v-toolbar style="flex: 0 0 auto;" dark :class="$store.state.primaryColor">
+      <v-toolbar style="flex: 0 0 auto;" dark class="primary">
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon @click.native="close()" dark>
@@ -15,7 +15,7 @@
           </v-flex>
           <v-flex xs12 lg7 pa-3>
             <v-card class="children-tabs">
-              <v-tabs :color="$store.state.secondaryColor" dark :slider-color="$store.state.primaryColor">
+              <v-tabs color="secondary" dark slider-color="primary">
                 <slot></slot>
               </v-tabs>
             </v-card>
