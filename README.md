@@ -2,7 +2,12 @@
   <img width="300" height="auto" src="https://user-images.githubusercontent.com/18534115/49319435-29ccf000-f4fd-11e8-9fc6-8678864132bd.png">
 </p>
 
-# Vue - based REST-ful CRUD application
+# Vue CRUD
+## Vue - based REST-ful CRUD application
+[![GitHub Release](https://github-basic-badges.herokuapp.com/release/kennedyoliveira/github-basic-badges.svg)]()
+[![GitHub Download Count](https://github-basic-badges.herokuapp.com/downloads/kennedyoliveira/github-basic-badges/total.svg)]()
+[![GitHub Issues Open](https://github-basic-badges.herokuapp.com/issues/kennedyoliveira/github-basic-badges.svg)]()
+
 
 > CRUD application written using Vue2, Vuex and Vuetify. The app uses REST API and JWT Tokens.
 > Demo application is available [here](http:/crud.id-a.pl). To get login and password, contact me on my [personal site](http:/szczepanmasny.pl) or [company site](http://id-a.pl).
