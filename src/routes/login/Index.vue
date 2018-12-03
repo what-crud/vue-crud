@@ -5,7 +5,7 @@
   <v-layout v-else row wrap class="white" color="primary" ma-3>
     <v-flex xs10 offset-xs1 sm8 offset-sm2 md6 offset-md3 lg4 offset-lg4 xl2 offset-xl5 class="parent text-xs-center">
       <img class="logo" :src="require(`@/assets/images/${$store.state.logoLg}`)">
-      <h1 class="app-title">{{ $t('login.title') }}</h1>
+      <h1 class="app-title primary--text">{{ $t('login.title') }}</h1>
       <template>
         <v-form v-model="valid" ref="form" lazy-validation v-on:submit.prevent>          
           <v-menu bottom left v-if="$store.state.localeSelectable">
