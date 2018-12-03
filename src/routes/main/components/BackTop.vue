@@ -1,6 +1,6 @@
 <template>
   <span v-if="top > 0" @click.prevent="backTop">
-    <v-btn id="scroll" fab class="blue" floating>
+    <v-btn id="scroll" fab class="secondary" floating>
       <v-icon class="white--text">keyboard_arrow_up</v-icon>
     </v-btn>
    <slot></slot>
