@@ -1,55 +1,117 @@
 <template>
   <v-dialog persistent v-model="details.show" max-width="600" style="position:static !important;">
     <v-card>
-      <v-card-title class="headline">
-        {{ details.action == 'multiedit' ? $t('multipleUpdateTitle') : title }}
-      </v-card-title>
+      <v-card-title
+        class="headline"
+      >{{ details.action == 'multiedit' ? $t('multipleUpdateTitle') : title }}</v-card-title>
       <v-form v-model="details.formValid">
         <v-card-text class="details-list">
-
-          <div v-for="(field, i) in fields" :key="i" v-if="field.multipleUpdate || details.action != 'multiedit'">
+          <div
+            v-for="(field, i) in fields"
+            :key="i"
+            v-if="field.multipleUpdate || details.action != 'multiedit'"
+          >
             <v-layout row wrap>
-              <v-flex class="sm1" v-if="details.action == 'multiedit'" >
+              <v-flex class="sm1" v-if="details.action == 'multiedit'">
                 <input type="checkbox" v-model="field.updateColumn">
               </v-flex>
               <v-flex :class="details.action == 'multiedit' ? 'sm11' : 'sm12'">
-
                 <!-- input -->
-                <v-text-field hide-details :required="isRequired(field.required)" v-if="field.type == 'input'" :label="field.text"
-                  v-model="field.value"></v-text-field>
+                <v-text-field
+                  hide-details
+                  :required="isRequired(field.required)"
+                  v-if="field.type == 'input'"
+                  :label="field.text"
+                  v-model="field.value"
+                ></v-text-field>
 
                 <!-- number -->
-                <v-text-field hide-details :required="isRequired(field.required)" v-else-if="field.type == 'number'" :label="field.text"
-                  v-model="field.value" type="number" step="1" min="0"></v-text-field>
+                <v-text-field
+                  hide-details
+                  :required="isRequired(field.required)"
+                  v-else-if="field.type == 'number'"
+                  :label="field.text"
+                  v-model="field.value"
+                  type="number"
+                  step="1"
+                  min="0"
+                ></v-text-field>
 
                 <!-- decimal -->
-                <v-text-field hide-details :required="isRequired(field.required)" v-else-if="field.type == 'decimal'" :label="field.text"
-                  v-model="field.value" type="number" step="0.01" min="0"></v-text-field>
+                <v-text-field
+                  hide-details
+                  :required="isRequired(field.required)"
+                  v-else-if="field.type == 'decimal'"
+                  :label="field.text"
+                  v-model="field.value"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                ></v-text-field>
 
                 <!--date -->
-                <v-text-field hide-details :required="isRequired(field.required)" v-else-if="field.type == 'date'" :label="field.text"
-                  v-model="field.value" mask="####-##-##" return-masked-value></v-text-field>
+                <v-text-field
+                  hide-details
+                  :required="isRequired(field.required)"
+                  v-else-if="field.type == 'date'"
+                  :label="field.text"
+                  v-model="field.value"
+                  mask="####-##-##"
+                  return-masked-value
+                ></v-text-field>
 
                 <!--time -->
-                <v-text-field hide-details :required="isRequired(field.required)"  v-else-if="field.type == 'time'" :label="field.text" v-model="field.value" mask="##:##" return-masked-value></v-text-field>
+                <v-text-field
+                  hide-details
+                  :required="isRequired(field.required)"
+                  v-else-if="field.type == 'time'"
+                  :label="field.text"
+                  v-model="field.value"
+                  mask="##:##"
+                  return-masked-value
+                ></v-text-field>
 
                 <!--datetime -->
-                <v-text-field hide-details :required="isRequired(field.required)"  v-else-if="field.type == 'datetime'" :label="field.text" v-model="field.value" mask="####-##-## ##:##:##" return-masked-value></v-text-field>
+                <v-text-field
+                  hide-details
+                  :required="isRequired(field.required)"
+                  v-else-if="field.type == 'datetime'"
+                  :label="field.text"
+                  v-model="field.value"
+                  mask="####-##-## ##:##:##"
+                  return-masked-value
+                ></v-text-field>
 
                 <!-- text area -->
-                <v-text-field hide-details :required="isRequired(field.required)" v-else-if="field.type == 'textarea'" :label="field.text"
-                  v-model="field.value" multi-line></v-text-field>
+                <v-text-field
+                  hide-details
+                  :required="isRequired(field.required)"
+                  v-else-if="field.type == 'textarea'"
+                  :label="field.text"
+                  v-model="field.value"
+                  multi-line
+                ></v-text-field>
 
                 <!-- file upload -->
                 <template v-else-if="field.type == 'file'">
                   <v-btn dark class="blue jbtn-file">
-                    {{ $t('upload') }}<input id="selectFile" type="file" @change="fileSelected" accept="*" :multiple="false" :disabled="false" ref="fileInput" >
+                    {{ $t('upload') }}
+                    <input
+                      id="selectFile"
+                      type="file"
+                      @change="fileSelected"
+                      accept="*"
+                      :multiple="false"
+                      :disabled="false"
+                      ref="fileInput"
+                    >
                   </v-btn>
                 </template>
 
                 <!-- select -->
                 <template v-else-if="field.type == 'select'">
-                  <v-select v-if="field.async"
+                  <v-select
+                    v-if="field.async"
                     hide-details
                     :required="isRequired(field.required)"
                     :loading="searchLoading['search_' + field.name]"
@@ -63,7 +125,8 @@
                     bottom
                     autocomplete
                   ></v-select>
-                  <v-select v-else
+                  <v-select
+                    v-else
                     hide-details
                     :required="isRequired(field.required)"
                     :items="field.list.data"
@@ -77,33 +140,36 @@
                 </template>
 
                 <!-- date picker -->
-
                 <v-menu
-                v-else-if="field.type == 'datePicker'"
-                lazy
-                :close-on-content-click="true"
-                v-model="field.show"
-                transition="scale-transition"
-                offset-y
-                full-width
-                :nudge-right="40"
-                min-width="290px"
-                :return-value.sync="field.value"
-              >
-                <v-text-field
-                  hide-details
-                  slot="activator"
-                  :label="field.text"
-                  v-model="field.value"
-                  prepend-icon="event"
-                ></v-text-field>
-                <v-date-picker v-model="field.value" no-title scrollable></v-date-picker>
-              </v-menu>
+                  v-else-if="field.type == 'datePicker'"
+                  lazy
+                  :close-on-content-click="true"
+                  v-model="field.show"
+                  transition="scale-transition"
+                  offset-y
+                  full-width
+                  :nudge-right="40"
+                  min-width="290px"
+                  :return-value.sync="field.value"
+                >
+                  <v-text-field
+                    hide-details
+                    slot="activator"
+                    :label="field.text"
+                    v-model="field.value"
+                    prepend-icon="event"
+                  ></v-text-field>
+                  <v-date-picker v-model="field.value" no-title scrollable></v-date-picker>
+                </v-menu>
 
                 <!-- rich text editor -->
                 <template v-else-if="field.type == 'richTextBox'">
                   <label>{{field.text}}</label>
-                  <vue-editor id="editor" v-model="field.value" :editorOptions="{bounds: '#editor'}"></vue-editor>
+                  <vue-editor
+                    id="editor"
+                    v-model="field.value"
+                    :editorOptions="{bounds: '#editor'}"
+                  ></vue-editor>
                   <br>
                 </template>
 
@@ -112,7 +178,6 @@
                   <input type="checkbox" color="blue" :label="field.text" v-model="field.value">
                   <label class="checkbox-label">{{field.text}}</label>
                 </span>
-            
               </v-flex>
             </v-layout>
           </div>
@@ -120,9 +185,27 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="black" flat="flat" @click.native="close()">{{ $t('buttons.close') }}</v-btn>
-          <v-btn :disabled="!details.formValid" v-if="details.action == 'create'" color="green" flat="flat" @click="store()">{{ $t('buttons.create') }}</v-btn>
-          <v-btn :disabled="!details.formValid" v-else-if="details.action == 'edit'" color="orange" flat="flat" @click="update()">{{ $t('buttons.modify') }}</v-btn>
-          <v-btn :disabled="!details.formValid" v-else-if="details.action == 'multiedit'" color="orange" flat="flat" @click="updateSelected()">{{ $t('buttons.modifySelected') }}</v-btn>
+          <v-btn
+            :disabled="!details.formValid"
+            v-if="details.action == 'create'"
+            color="green"
+            flat="flat"
+            @click="store()"
+          >{{ $t('buttons.create') }}</v-btn>
+          <v-btn
+            :disabled="!details.formValid"
+            v-else-if="details.action == 'edit'"
+            color="orange"
+            flat="flat"
+            @click="update()"
+          >{{ $t('buttons.modify') }}</v-btn>
+          <v-btn
+            :disabled="!details.formValid"
+            v-else-if="details.action == 'multiedit'"
+            color="orange"
+            flat="flat"
+            @click="updateSelected()"
+          >{{ $t('buttons.modifySelected') }}</v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -147,7 +230,7 @@ export default {
       },
       searchPhrases: {},
       searchLoading: {},
-      searchData: {},
+      searchData: {}
     };
   },
   created() {
@@ -161,10 +244,9 @@ export default {
         if (field.async) {
           this.$set(this.searchPhrases, "search_" + field.name, "");
           this.$set(this.searchLoading, "search_" + field.name, false);
-          this.$set(this.searchData, "search_" + field.name, [])
-          this.$set(field.list, 'oldSearch', "")
-        }
-        else {
+          this.$set(this.searchData, "search_" + field.name, []);
+          this.$set(field.list, "oldSearch", "");
+        } else {
           field.list.data = [];
           let selectItems;
           Vue.http.get(url).then(response => {
@@ -202,7 +284,7 @@ export default {
   watch: {
     details: {
       handler(val) {
-        if (val.show == true && val.action == 'edit') {
+        if (val.show == true && val.action == "edit") {
           for (let field of this.fields) {
             if (field.type == "select") {
               if (field.async) {
@@ -239,13 +321,19 @@ export default {
     },
     searchPhrases: {
       handler(val) {
-        for (let field of this.fields) {
-          if (field.type == "select") {
-            if (field.async) {
-              let search = val["search_" + field.name]
-              if (search != null && search != undefined && search != field.list.oldSearch) {
-                field.list.oldSearch = search
-                let data
+        setTimeout(() => {
+          for (let field of this.fields) {
+            if (field.type == "select" && field.async) {
+              let search = val["search_" + field.name];
+              let newSearch = this.searchPhrases["search_" + field.name];
+              if (
+                search != null &&
+                search != undefined &&
+                search != field.list.oldSearch &&
+                search == newSearch
+              ) {
+                field.list.oldSearch = search;
+                let data;
                 let url = field.url + "/phrase/" + val["search_" + field.name];
                 this.$set(this.searchLoading, "search_" + field.name, true);
                 Vue.http.get(url).then(response => {
@@ -269,11 +357,11 @@ export default {
                     data = items;
                   }
                   this.$set(this.searchData, "search_" + field.name, data);
-                })
+                });
               }
             }
           }
-        }
+        }, 500);
       },
       deep: true
     }
@@ -339,7 +427,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("crud", ["updateItem", "storeItem", "mulitipleItemsUpdate",]),
+    ...mapActions("crud", ["updateItem", "storeItem", "mulitipleItemsUpdate"]),
     ...mapMutations("crud", ["resetItem"]),
     close() {
       this.details.show = false;
@@ -369,11 +457,10 @@ export default {
       ]);
     },
     updateSelected() {
-      let filteredFields = this.fields
-        .filter(field => field.updateColumn)
-      let keyValuePairs = {}
+      let filteredFields = this.fields.filter(field => field.updateColumn);
+      let keyValuePairs = {};
       for (let field of filteredFields) {
-        keyValuePairs[field.column] = field.value
+        keyValuePairs[field.column] = field.value;
       }
       this.mulitipleItemsUpdate([
         {

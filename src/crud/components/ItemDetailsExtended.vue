@@ -6,26 +6,63 @@
     <v-card-text class="details-container">
       <v-layout row wrap>
         <v-flex class="field" :class="field.grid" v-for="(field, i) in fields" :key="i" pr-2>
-
           <!-- divider -->
           <h3 v-if="field.type == 'divider'" class="text-xs-center section-header">{{ field.text }}</h3>
 
           <!-- input -->
-          <v-text-field hide-details v-if="field.type == 'input'" :label="field.text" v-model="field.value" @focus="remember(field)" @blur="update(field)" :disabled="field.disabled"></v-text-field>
+          <v-text-field
+            hide-details
+            v-if="field.type == 'input'"
+            :label="field.text"
+            v-model="field.value"
+            @focus="remember(field)"
+            @blur="update(field)"
+            :disabled="field.disabled"
+          ></v-text-field>
 
           <!-- decimal -->
-          <v-text-field hide-details v-else-if="field.type == 'decimal'" :label="field.text" v-model="field.value" type="number" step="0.01" min="0" @focus="remember(field)" @blur="update(field)" :disabled="field.disabled"></v-text-field>
+          <v-text-field
+            hide-details
+            v-else-if="field.type == 'decimal'"
+            :label="field.text"
+            v-model="field.value"
+            type="number"
+            step="0.01"
+            min="0"
+            @focus="remember(field)"
+            @blur="update(field)"
+            :disabled="field.disabled"
+          ></v-text-field>
 
           <!--date -->
-          <v-text-field hide-details v-else-if="field.type == 'date'" :label="field.text" v-model="field.value" mask="####-##-##" return-masked-value @focus="remember(field)" @blur="update(field)" :disabled="field.disabled"></v-text-field>
+          <v-text-field
+            hide-details
+            v-else-if="field.type == 'date'"
+            :label="field.text"
+            v-model="field.value"
+            mask="####-##-##"
+            return-masked-value
+            @focus="remember(field)"
+            @blur="update(field)"
+            :disabled="field.disabled"
+          ></v-text-field>
 
           <!-- text area -->
-          <v-text-field hide-details v-else-if="field.type == 'textarea'" :label="field.text" v-model="field.value" multi-line @focus="remember(field)" @blur="update(field)" :disabled="field.disabled" ></v-text-field>
-
+          <v-text-field
+            hide-details
+            v-else-if="field.type == 'textarea'"
+            :label="field.text"
+            v-model="field.value"
+            multi-line
+            @focus="remember(field)"
+            @blur="update(field)"
+            :disabled="field.disabled"
+          ></v-text-field>
 
           <!-- select -->
           <template v-else-if="field.type == 'select'">
-            <v-select v-if="field.async"
+            <v-select
+              v-if="field.async"
               hide-details
               :loading="searchLoading['search_' + field.name]"
               :items="searchData['search_' + field.name]"
@@ -40,7 +77,8 @@
               @focus="remember(field)"
               @change="update(field)"
             ></v-select>
-            <v-select v-else
+            <v-select
+              v-else
               hide-details
               :items="field.list.data"
               v-model="field.value"
@@ -56,7 +94,15 @@
 
           <!-- checkbox -->
           <span v-else-if="field.type == 'checkbox'">
-            <input hide-details color="blue" type="checkbox" :label="field.text" v-model="field.value" @focus="remember(field)" @change="update(field)">
+            <input
+              hide-details
+              color="blue"
+              type="checkbox"
+              :label="field.text"
+              v-model="field.value"
+              @focus="remember(field)"
+              @change="update(field)"
+            >
             <label class="checkbox-label">{{field.text}}</label>
           </span>
         </v-flex>
@@ -168,20 +214,21 @@ export default {
     },
     searchPhrases: {
       handler(val) {
-        for (let field of this.fields) {
-          if (field.type == "select") {
-            if (field.async) {
+        setTimeout(() => {
+          for (let field of this.fields) {
+            if (field.type == "select" && field.async) {
               let search = val["search_" + field.name];
+              let newSearch = this.searchPhrases["search_" + field.name];
               if (
                 search != null &&
                 search != undefined &&
-                search != field.list.oldSearch
+                search != field.list.oldSearch &&
+                search == newSearch
               ) {
                 field.list.oldSearch = search;
                 let data;
                 let url = field.url + "/phrase/" + val["search_" + field.name];
                 this.$set(this.searchLoading, "search_" + field.name, true);
-                let self = this;
                 Vue.http.get(url).then(response => {
                   this.$set(this.searchLoading, "search_" + field.name, false);
                   let items = response.body;
@@ -207,7 +254,7 @@ export default {
               }
             }
           }
-        }
+        }, 500);
       },
       deep: true
     }

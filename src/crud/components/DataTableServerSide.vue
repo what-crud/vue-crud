@@ -244,18 +244,6 @@ export default {
         this.getItemsServerSide([this.params]);
       }
     },
-    newSearchRequest(val) {
-      this.newSearchRequest = false
-      if (val && !this.searching) {
-        this.searching = true
-        this.getItemsServerSide([this.params]).then(response => {
-          this.searching = false
-          if(this.newSearchRequest){
-            this.searchItems()
-          }
-        })
-      }
-    }
   },
   methods: {
     ...mapActions("crud", ["getItemsServerSide"]),
@@ -268,8 +256,13 @@ export default {
       this.searchItems()
     },
     searchItems(){
-      this.newSearchRequest = false
-      setTimeout(() => this.newSearchRequest = true, 100)
+      let params1 = JSON.stringify(this.params)
+      setTimeout(() => {
+        let params2 = JSON.stringify(this.params)
+        if(params1 === params2){
+          this.getItemsServerSide([this.params])
+        }
+      }, 500)
     },
   }
 };
