@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer dark clipped fixed app v-model="$store.state.drawer" class="secondary" value="false">
+  <v-navigation-drawer dark clipped fixed app v-model="$store.state.drawer" class="secondary main-sidebar" value="false" width="220">
     <v-list dense>
       <template v-if="checkRole(item.guard)" v-for="(item) in items">
         <v-list-group v-model="item.model" :key="item.text" :prepend-icon="item.model ? item.icon : item['icon-alt']"
