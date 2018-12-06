@@ -249,6 +249,7 @@ export default {
     },
     close() {
       this.itemElements.show = false;
+      this.$parent.itemElementsClosed();
     },
     clearSelected() {
       this.selected = [];

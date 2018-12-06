@@ -11,10 +11,10 @@ let mutations = {
     // table items
     setItems(state, data) {
       state.items = data
-      state.tableReady = true
+      state.loading = false
     },
-    startLoadingServerSide(state) {
-      state.loading = true
+    setLoadingStatus(state, val) {
+      state.loading = val
     },
     setItemsServerSide(state, data) {
       state.items = data.data
@@ -23,7 +23,6 @@ let mutations = {
     },
     resetItems(state) {
       state.items = []
-      state.tableReady = false
     },
     setSelectedIds(state, items) {
       state.selectedIds = items.map(item => item.id);
@@ -89,8 +88,8 @@ let mutations = {
     },
     // refresh table
     refreshTable(state){
-      state.refreshTable = true
-      setTimeout(() => state.refreshTable = false, 2000);
+      state.tableRefreshing = true
+      setTimeout(() => state.tableRefreshing = false, 2000);
     },
     // extended details
     showItemDetailsDialog(state){

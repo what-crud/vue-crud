@@ -80,6 +80,21 @@
             </v-btn>
             <span>{{ $t('buttons.edit') }}</span>
           </v-tooltip>
+          <!-- buttons for open modal with item elements -->
+          <v-tooltip top v-for="(button, key) in itemElements" :key="key">
+            <v-btn
+              outline
+              fab
+              small
+              class="xs white--text"
+              :color="button.color"
+              @click="editItemElements(key, props.item.meta.id)"
+              slot="activator"
+            >
+              <v-icon>{{ button.icon }}</v-icon>
+            </v-btn>
+            <span>{{ button.buttonText }}</span>
+          </v-tooltip>
           <!-- suspend/restore record (if soft deletes are enabled) -->
           <template v-if="['soft', 'both'].includes(deleteMode)">
             <v-tooltip top v-if="props.item.meta.active == '1'">
@@ -111,7 +126,7 @@
       </template>
     </v-data-table>
     <div class="details-loader-container">
-      <v-layout v-if="loader" class="details-loader" justify-center align-center>
+      <v-layout v-if="detailsLoader" class="details-loader" justify-center align-center>
         <v-progress-circular indeterminate :size="100" :width="3" color="primary"></v-progress-circular>
       </v-layout>
     </div>
@@ -171,7 +186,7 @@ export default {
       type: Array,
       default: () => []
     },
-    loader: {
+    detailsLoader: {
       type: Boolean,
       default: false
     }
@@ -188,6 +203,13 @@ export default {
     },
   },
   methods: {
+    ...mapMutations("crud", [
+      "setItemElementsInfo",
+      "editItemElementsDialog",
+    ]),
+    ...mapActions("crud", [
+      "getItemElements",
+    ]),
     edit(id) {
       this.$parent.edit(id);
     },
@@ -215,7 +237,13 @@ export default {
       let obj = this.filterColumns
       obj[index].value = val
       this.$set(this, 'filterColumns', obj)
-    }
+    },
+    editItemElements(name, id) {
+      let obj = this.itemElements[name];
+      console.log (obj)
+      this.setItemElementsInfo([id, obj]);
+      this.getItemElements();
+    },
   }
 };
 </script>

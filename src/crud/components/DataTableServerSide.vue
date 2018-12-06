@@ -209,7 +209,7 @@ export default {
       });
   },
   computed: {
-    ...mapState("crud", ["totalItems", "loading", "detailsDialog", "refreshTable"]),
+    ...mapState("crud", ["totalItems", "loading", "detailsDialog", "tableRefreshing"]),
     params() {
       return {
         sortBy: this.pagination.sortBy,
@@ -239,7 +239,7 @@ export default {
     selectedStatuses(val) {
       this.getItemsServerSide([this.params]);
     },
-    refreshTable(val) {
+    tableRefreshing(val) {
       if (val) {
         this.getItemsServerSide([this.params]);
       }

@@ -45,16 +45,6 @@ export default {
           name: 'name'
         },
         {
-          text: this.$t('fields.tasks'),
-          name: 'tasks',
-          apiObject: {
-            name: 'position_tasks',
-            functions: ['listTasks']
-          },
-          details: false,
-          hidden: true
-        },
-        {
           type: 'input',
           column: 'email',
           text: this.$t('fields.email'),
@@ -67,6 +57,16 @@ export default {
           text: this.$t('fields.phone'),
           required: false,
           name: 'phone'
+        },
+        {
+          text: this.$t('fields.tasks'),
+          name: 'tasks',
+          apiObject: {
+            name: 'position_tasks',
+            functions: ['listTasks']
+          },
+          details: false,
+          hidden: true
         },
         {
           type: 'input',

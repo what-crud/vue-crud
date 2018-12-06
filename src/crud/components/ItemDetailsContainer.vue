@@ -1,12 +1,27 @@
 <template>
   <v-dialog v-model="detailsDialog" fullscreen transition="dialog-bottom-transition" :overlay=true>
     <v-card class="dialog-content">
-      <v-toolbar style="flex: 0 0 auto;" dark class="primary">
-        <v-toolbar-title>{{ title }}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn icon @click.native="close()" dark>
-          <v-icon>close</v-icon>
-        </v-btn>
+      <v-toolbar dark class="primary">
+        <v-layout row wrap justify-center align-center>
+          <v-flex class="xs4 text-xs-left">
+            <v-toolbar-title>{{ title }}</v-toolbar-title>
+          </v-flex>
+          <v-flex class="xs4 text-xs-center">
+            <div class="details-loader-container">
+              <v-layout v-if="detailsLoading" class="details-loader" justify-center align-center>
+                <v-progress-circular indeterminate :size="50" :width="2" color="white"></v-progress-circular>
+              </v-layout>
+            </div>
+          </v-flex>
+          <v-flex class="xs4 text-xs-right">
+            <v-btn icon dark @click.native="refresh()">
+              <v-icon>refresh</v-icon>
+            </v-btn>
+            <v-btn icon @click.native="close()" dark>
+              <v-icon>close</v-icon>
+            </v-btn>
+          </v-flex>
+        </v-layout>
       </v-toolbar>
       <div grid-list-md text-xs-center>
         <v-layout row wrap>
@@ -50,12 +65,16 @@
     },
     computed: {
       ...mapState('crud', [
+        'item',
+        'itemIdColumn',
+        'detailsLoading',
         'detailsDialog',
       ]),
     },
     methods: {
       ...mapActions('crud', [
-        'getItems'
+        'getItems',
+        "getItemDetails",
       ]),
       ...mapMutations('crud', [
         'hideItemDetailsDialog',
@@ -66,6 +85,9 @@
         if (event.which == 27) {
           this.close()
         }
+      },
+      refresh() {
+       this.getItemDetails([this.item[this.itemIdColumn]])
       },
       close() {
         this.hideItemDetailsDialog()

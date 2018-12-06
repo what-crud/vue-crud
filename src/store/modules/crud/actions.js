@@ -4,12 +4,16 @@ import router from '@/router'
 let actions = {
     // table data
     getItems({commit, state}) {
+      commit('setLoadingStatus', true)
       Vue.http.get(state.prefix + '/' + state.path)
-        .then((response) => commit('setItems', response.body))
+        .then((response) => {
+          commit('setItems', response.body)
+          commit('setLoadingStatus', false)
+        })
     },
     getItemsServerSide({commit, state}, [params]) {
       return new Promise((resolve, reject) => {
-        commit('startLoadingServerSide')
+        commit('setLoadingStatus', true)
         Vue.http.post(state.prefix + '/' + state.path + '/async-data', params)
           .then((response) => {
             commit('setItemsServerSide', response.body)

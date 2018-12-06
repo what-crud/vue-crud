@@ -39,7 +39,8 @@ export default {
           restoreSelected: "Przywróć zaznaczone",
           deleteSelected: "Usuń zaznaczone",
           download: "Pobierz",
-          show: "Pokaż"
+          show: "Pokaż",
+          refreshTable: "Odswież tabelę"
         }
       },
       en: {
@@ -80,7 +81,8 @@ export default {
           restoreSelected: "Restore selected",
           deleteSelected: "Delete selected",
           download: "Download",
-          show: "Show"
+          show: "Show",
+          refreshTable: "Refresh table"
         }
       }
     }

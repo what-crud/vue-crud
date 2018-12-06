@@ -63,6 +63,21 @@
             </v-btn>
             <span>{{ $t('buttons.deleteSelected') }}</span>
           </v-tooltip>
+          <!-- Refresh table -->
+          <v-tooltip top>
+            <v-btn 
+              outline
+              class="white--text"
+              fab
+              small
+              color="blue"
+              @click="refreshTable()"
+              slot="activator"
+            >
+              <v-icon>refresh</v-icon>
+            </v-btn>
+            <span>{{ $t('buttons.refreshTable') }}</span>
+          </v-tooltip>
         </v-flex>
 
         <v-flex xs12 lg8 text-xs-left text-lg-right>
@@ -136,7 +151,7 @@
       :no-results-text="$t('noMatchingResults')"
       :no-data-text="$t('noDataAvailable')"
       :rows-per-page-text="$t('rowsPerPageText')"
-      :loading="!tableReady"
+      :loading="loading"
     >
       <template slot="items" slot-scope="props">
         <td>
@@ -308,7 +323,7 @@ export default {
     });
   },
   computed: {
-    ...mapState("crud", ['tableReady', "detailsDialog", "refreshTable"]),
+    ...mapState("crud", ['loading', "detailsDialog", "tableRefreshing"]),
   },
   watch: {
     detailsDialog(val) {
@@ -316,13 +331,14 @@ export default {
         this.getItems();
       }
     },
-    refreshTable(val) {
+    tableRefreshing(val) {
       if (val) {
         this.getItems();
       }
     }
   },
   methods: {
+    ...mapMutations("crud", ["refreshTable"]),
     ...mapActions("crud", ["getItems"])
   }
 };

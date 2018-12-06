@@ -2,7 +2,7 @@
   <div>
       <sales-invoice-positions-table
         :fieldsInfo="fileteredTableFields"
-        :loader="loader" :tableData="childrenList(fileteredTableFields, [], 'id', childItemName)"
+        :detailsLoader="detailsLoader" :tableData="childrenList(fileteredTableFields, [], 'id', childItemName)"
       ></sales-invoice-positions-table>
       <sales-invoice-position-details :details="salesInvoicePositionDetails" :fieldsInfo="fileteredDetailsFields"></sales-invoice-position-details>
   </div>

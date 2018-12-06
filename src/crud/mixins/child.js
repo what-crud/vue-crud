@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      loader: false
+      detailsLoader: false
     }
   },
   computed: {
@@ -51,16 +51,17 @@ export default {
       'createChildDialog',
     ]),
     ...mapActions('crud', [
+      "getItemDetails",
       'updateChild',
       'storeChild',
       'getChild',
       'deleteChild'
     ]),
     edit(id) {
-      this.loader = true
+      this.detailsLoader = true
       this.getChild([id, this.path, this.childItemName]).then(response => {
         this.editChildDialog([id, this.childItemName])
-        this.loader = false
+        this.detailsLoader = false
       })
     },
     create() {
@@ -121,5 +122,8 @@ export default {
         this.path
       ])
     },
+    itemElementsClosed(){
+      this.getItemDetails([this.item[this.itemIdColumn]])
+    }
   },
 }

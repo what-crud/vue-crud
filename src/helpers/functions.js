@@ -50,7 +50,7 @@ let functionsList = {
   listTasks: (param) => {
     return param ? param.map(obj => {
       return obj.task.name
-    }).join(', ') : ''
+    }).join('<br>') : ''
   },
   lastReset: (param) => {
     if (param.length > 0) {

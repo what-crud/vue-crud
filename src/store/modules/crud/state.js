@@ -36,8 +36,8 @@ let state = {
       item: {}
     },
     selectedIds: [],
-    // refresh table
-    refreshTable: false,
+    // tableRefreshing
+    tableRefreshing: false,
     // extended details
     detailsDialog: false,
     item: {},

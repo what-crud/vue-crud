@@ -2,7 +2,7 @@
   <div>
       <company-comments-table
         :fieldsInfo="fileteredTableFields"
-        :loader="loader" :tableData="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"
+        :detailsLoader="detailsLoader" :tableData="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"
         deleteMode="soft"
       ></company-comments-table>
       <company-comment-details :details="details" :fieldsInfo="fileteredDetailsFields"></company-comment-details>

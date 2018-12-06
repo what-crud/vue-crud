@@ -128,7 +128,8 @@ export default {
     ...mapMutations([
       'setPage',
     ]),
-    ...mapMutations('crud', [
+    ...mapMutations("crud", [
+      "refreshTable",
       'setPrefix',
       'setPath',
       'setCreationMode',
@@ -136,6 +137,9 @@ export default {
     custom(name, item) {
       this.$parent[name](item)
     },
+    itemElementsClosed(){
+      this.refreshTable()
+    }
   },
 }
 
