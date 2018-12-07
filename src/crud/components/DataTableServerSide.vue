@@ -41,6 +41,21 @@
             </v-btn>
             <span>{{ $t('buttons.deleteSelected') }}</span>
           </v-tooltip>
+          <!-- Refresh table -->
+          <v-tooltip top>
+            <v-btn 
+              outline
+              class="white--text"
+              fab
+              small
+              color="blue"
+              @click="refreshTable()"
+              slot="activator"
+            >
+              <v-icon>refresh</v-icon>
+            </v-btn>
+            <span>{{ $t('buttons.refreshTable') }}</span>
+          </v-tooltip>
 
         </v-flex>
 
@@ -246,6 +261,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations("crud", ["refreshTable"]),
     ...mapActions("crud", ["getItemsServerSide"]),
     updateColumnFilterModeEvent(val, index) {
       this.updateColumnFilterMode(val, index)

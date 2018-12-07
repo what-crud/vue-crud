@@ -51,7 +51,7 @@
         email: '',
         emailRules: [
           (v) => !!v || 'Padanie adresu e-mail jest wymagane',
-          (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Niepoprawny format adresu e-mail'
+          (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(v) || 'Niepoprawny format adresu e-mail'
         ],
         passwordHidden: true,
       }

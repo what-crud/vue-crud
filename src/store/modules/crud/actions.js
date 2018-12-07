@@ -9,7 +9,9 @@ let actions = {
         .then((response) => {
           commit('setItems', response.body)
           commit('setLoadingStatus', false)
-        })
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
+        });
     },
     getItemsServerSide({commit, state}, [params]) {
       return new Promise((resolve, reject) => {
@@ -19,7 +21,7 @@ let actions = {
             commit('setItemsServerSide', response.body)
             resolve()
           }), error => {
-            reject(error);
+            commit('alertError', error.statusText, { root: true })
           }
       })
     },
@@ -33,7 +35,7 @@ let actions = {
             commit('setDetailsLoader', false)
             resolve()
           }), error => {
-            reject(error);
+            commit('alertError', error.statusText, { root: true })
           }
       })
     },
@@ -50,9 +52,9 @@ let actions = {
           else if (response.body.status == -2) {
             commit('alertValidationError', response.body.msg, { root: true })
           }
-        }, response => {
-          commit('alertError', errorText, { root: true })
-        });
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
+        })
     },
     storeItem({commit, dispatch, state}, [params, successText, errorText]) {
       Vue.http.post(state.prefix + '/' + state.path, params)
@@ -70,8 +72,8 @@ let actions = {
           if(state.createdElement.mode == 'inform'){
             commit('setCreatedItemStatus', [true, response.body.id])
           }
-        }, response => {
-          commit('alertError', errorText, { root: true })
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
         });
     },
     deleteItem({commit, dispatch, state}, [id, successText, errorText]) {
@@ -79,8 +81,8 @@ let actions = {
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           commit('refreshTable')
-        }, response => {
-          commit('alertError', errorText, { root: true })
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
         });
     },
     mulitipleItemsUpdate({commit, dispatch, state}, [params, successText, errorText]){
@@ -88,8 +90,8 @@ let actions = {
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           commit('refreshTable')
-        }, response => {
-          commit('alertError', errorText, { root: true })
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
         });
     },
     mulitipleItemsDelete({commit, dispatch, state}, [ids, successText, errorText]){
@@ -97,8 +99,8 @@ let actions = {
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           commit('refreshTable')
-        }, response => {
-          commit('alertError', errorText, { root: true })
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
         });
     },
     // item elements
@@ -112,8 +114,8 @@ let actions = {
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           dispatch('getItemElements')
-        }, response => {
-          commit('alertError', errorText, { root: true })
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
         });
     },
     removeItemElement({commit, dispatch, state}, [id, successText, errorText]) {
@@ -121,8 +123,8 @@ let actions = {
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           dispatch('getItemElements')
-        }, response => {
-          commit('alertError', errorText, { root: true })
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
         });
     },
     addManyItemElements({commit, dispatch, state}, [params, successText, errorText]) {
@@ -130,8 +132,8 @@ let actions = {
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           dispatch('getItemElements')
-        }, response => {
-          commit('alertError', errorText, { root: true })
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
         });
     },
     removeManyItemElements({commit, dispatch, state}, [ids, successText, errorText]) {
@@ -139,8 +141,8 @@ let actions = {
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           dispatch('getItemElements')
-        }, response => {
-          commit('alertError', errorText, { root: true })
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
         });
     },
     // extented details
@@ -153,7 +155,7 @@ let actions = {
             commit('setDetailsLoader', false)
             resolve()
           }), error => {
-            reject(error);
+            commit('alertError', error.statusText, { root: true })
           }
       })
     },
@@ -170,8 +172,8 @@ let actions = {
             commit('alertValidationError', response.body.msg, { root: true })
           }
           dispatch('getItemDetails', [state.item[state.itemIdColumn]])
-        }, response => {
-          commit('alertError', errorText, { root: true })
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
         });
     },
     // child details
@@ -188,6 +190,8 @@ let actions = {
             commit('alertValidationError', response.body.msg, { root: true })
           }
           dispatch('getItemDetails', [state.item[state.itemIdColumn]])
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
         })
     },
     deleteChild({commit, dispatch, state}, [id, successText, errorText, path]) {
@@ -203,8 +207,8 @@ let actions = {
             commit('alertValidationError', response.body.msg, { root: true })
           }
           dispatch('getItemDetails', [state.item[state.itemIdColumn]])
-        }, response => {
-          commit('alertError', errorText, { root: true })
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
         });
     },
     storeChild({commit, dispatch, state}, [params, successText, path]) {
@@ -212,6 +216,8 @@ let actions = {
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           dispatch('getItemDetails', [state.item[state.itemIdColumn]])
+        }, error => {
+          commit('alertError', error.statusText, { root: true })
         })
     },
     getChild({commit, state}, [id, path, childItemName]) {
@@ -220,9 +226,9 @@ let actions = {
           .then((response) => {
             commit('setChild', [response.body, childItemName])
             resolve()
-          }), error => {
-            reject(error);
-          }
+          }, error => {
+            commit('alertError', error.statusText, { root: true })
+          })
       })
     },
 }

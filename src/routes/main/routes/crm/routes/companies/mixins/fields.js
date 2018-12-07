@@ -42,16 +42,6 @@ export default {
           }
         },
         {
-          text: this.$t('fields.businessAreas'),
-          name: 'businessAreas',
-          apiObject: {
-            name: 'company_business_areas',
-            functions: ['list']
-          },
-          details: false,
-          hidden: true
-        },
-        {
           type: 'input',
           column: 'nip',
           text: this.$t('fields.nip'),

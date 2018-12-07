@@ -9,7 +9,6 @@
       :detailsTitle="$t('detailsTitle')"
       :editButton="false"
       :watchForCreation="true"
-      :itemElements="itemElements"
       primaryKey="id"
       deleteMode="soft"
     ></crud>
@@ -53,28 +52,6 @@ export default {
           text: this.$t("buttons.goToItem")
         },
       ]
-    },
-    itemElements() {
-      return {
-        companyBusinessAreas: {
-          title: this.$t('itemElements.companyBusinessAreas.title'),
-          url: 'crm/companies/{id}/business-areas',
-          controller: 'crm/company-business-areas',
-          itemObject: 'business_area_companies',
-          columns: [
-            {
-              obj: 'name',
-              name: 'name',
-              header: this.$t('itemElements.companyBusinessAreas.headers.businessArea'),
-            },
-          ],
-          primaryId: 'company_id',
-          foreignId: 'business_area_id',
-          icon: 'business',
-          color: 'purple',
-          buttonText: this.$t('itemElements.companyBusinessAreas.title')
-        },
-      }
     },
   },
   methods: {

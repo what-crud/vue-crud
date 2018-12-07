@@ -71,6 +71,21 @@
             name: 'email'
           },
           {
+            type: 'select',
+            url: 'admin/user-types',
+            list: {
+              value: 'id',
+              text: 'name',
+              data: []
+            },
+            column: 'user_type_id',
+            text: this.$t('fields.userType'),
+            name: 'user_type',
+            apiObject: {
+              name: 'user_type.name',
+            }
+          },
+          {
             text: this.$t('fields.initialPassword'),
             name: 'initialPassword',
             apiObject: {
@@ -109,6 +124,7 @@
             name: 'Nazwa',
             email: 'E-mail',
             initialPassword: 'Hasło początkowe',
+            userType: 'Typ użytkownika'
           },
           itemElements: {
             userPermissions: {
@@ -131,6 +147,7 @@
             name: 'Name',
             email: 'E-mail',
             initialPassword: 'Initial password',
+            userType: 'User type'
           },
           itemElements: {
             userPermissions: {

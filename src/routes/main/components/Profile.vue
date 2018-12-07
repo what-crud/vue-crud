@@ -100,11 +100,11 @@
           name: [
             (v) => !!v || self.$t('rules.required'),
             (v) => v.length < 100 || self.$t('rules.less') + ' 100 ' + self.$t('rules.characters'),
-            (v) => v.length > 5 || self.$t('rules.more') + ' 5 ' + self.$t('rules.characters'),
+            (v) => v.length > 4 || self.$t('rules.more') + ' 4 ' + self.$t('rules.characters'),
           ],
           email: [
             (v) => !!v || self.$t('rules.required'),
-            (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || self.$t('rules.emailMustBeValid')
+            (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(v) || self.$t('rules.emailMustBeValid')
           ]
         }
       },
