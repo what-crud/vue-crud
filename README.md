@@ -13,11 +13,11 @@ Vue CRUD is Vue - based REST-ful CRUD application.
 In progress
 
 ## Demo version
-Demo application is available [here](http:/crud.id-a.pl).\
+Demo application is available <a href="http:/crud.id-a.pl" target="_blank">here</a>\
 Credentials with limited privileges (readonly):\
 Login:  guest@vue.crud\
 Pass:   ajSGenC0\
-To get full user account, contact me on my [company site](http://id-a.pl).
+To get full user account, contact me on my <a href="http://id-a.pl" target="_blank">company site</a>.
 
 ## Functions
 
@@ -74,7 +74,7 @@ export const config = {
 ```
 
 To share the api, you can use any programming language and framework. But if you want to test the solution quickly, or you do not know how to get started, you can download my API created in PHP and Laravel:
-[szczepanmasny/laravel-api](https://github.com/szczepanmasny/laravel-api).
+<a href="https://github.com/szczepanmasny/laravel-api" target="_blank">szczepanmasny/laravel-api</a>.
 
 ## Build Setup
 
