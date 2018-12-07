@@ -78,7 +78,64 @@ To share the api, you can use any programming language and framework. But if you
 
 ## Table management
 
-Servicing the table requires creating a component with the configuration of the given table (field names and types, information about soft or hard deletion of records, reference to the source table in the case of foreign keys, etc.). Next and last step is to add routing to a given page and put a link to it in the sidebar.
+Servicing the table requires creating a component with the configuration of the given table (field names and types, information about soft or hard deletion of records, reference to the source table in the case of foreign keys, etc.). Next step is to add routing to a given page:
+* src\routes\main\router.js:
+``` js
+import Home from './routes/home/Index.vue'
+import Crm from './routes/crm/Index.vue'
+import crmRoutes from './routes/crm/router'
+import Administration from './routes/administration/Index.vue'
+import administrationRoutes from './routes/administration/router'
+/* import here 
+
+let mainRoutes = [
+    {
+        path: 'home',
+        name: 'home',
+        component: Home
+    },
+    {
+        path: 'crm',
+        name: 'crm',
+        component: Crm,
+        children: crmRoutes,
+        meta: {guard: 'CRM'}
+    },
+    {
+        path: 'administration',
+        name: 'administration',
+        component: Administration,
+        children: administrationRoutes,
+        meta: {guard: 'ADMIN'}
+    },
+    /* add your module here */
+];
+
+export default mainRoutes;
+```
+* src\routes\main\routes\[your-module-directory]\router.js:
+``` js
+import FirstTable from './routes/first-table/Index.vue'
+import SecondTable from './routes/second-table/Index.vue'
+
+let yourModuleRoutes = [
+    {
+        path: 'first-table',
+        name: 'your-module.first-table',
+        component: FirstTable,
+    },
+    {
+        path: 'second-table',
+        name: 'your-module.second-table',
+        component: SecondTable,
+    },
+];
+
+export default yourModuleRoutes;
+```
+Finally, add a link to the page in the menu:
+* src\routes\main\components\Sidebar.vue:
+
 
 ## Build Setup
 
