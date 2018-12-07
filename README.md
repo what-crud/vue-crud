@@ -17,7 +17,7 @@ Demo application is available [here](http:/crud.id-a.pl).\
 Credentials with limited privileges (readonly):\
 Login:  guest@vue.crud\
 Pass:   ajSGenC0\
-To get full user account, contact me on my [personal site](http:/szczepanmasny.pl) or [company site](http://id-a.pl).
+To get full user account, contact me on my [company site](http://id-a.pl).
 
 ## Functions
 
