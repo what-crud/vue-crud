@@ -86,7 +86,7 @@ import Crm from './routes/crm/Index.vue'
 import crmRoutes from './routes/crm/router'
 import Administration from './routes/administration/Index.vue'
 import administrationRoutes from './routes/administration/router'
-/* import here 
+/* import here */
 
 let mainRoutes = [
     {
@@ -135,7 +135,47 @@ export default yourModuleRoutes;
 ```
 Finally, add a link to the page in the menu:
 * src\routes\main\components\Sidebar.vue:
+``` js
+import { mapGetters } from "vuex";
 
+export default {
+  data: () => ({
+    dialog: false,
+    drawer: null,
+    items: [
+      /* existing modules here */
+      
+      /* your module: */
+      // START
+      {
+        icon: "keyboard_arrow_up",
+        "icon-alt": "keyboard_arrow_down",
+        text: "yourModule.name",
+        model: false,
+        guard: "YOUR_MODULE_API_GUARD_NAME",
+        route: "/your-module-path",
+        children: [
+          {
+            text: "your-module.first-table",
+            route: "/first-table"
+          },
+          {
+            text: "your-module.second-table",
+            route: "/second-table"
+          },
+        ]
+      }
+      // END
+    ]
+  }),
+  computed: {
+    ...mapGetters("auth", ["checkRole"])
+  },
+  props: {
+    source: String
+  }
+};
+```
 
 ## Build Setup
 
