@@ -73,6 +73,9 @@ export const config = {
 }
 ```
 
+To share the api, you can use any programming language and framework. But if you want to test the solution quickly, or you do not know how to get started, you can download my API created in PHP and Laravel:
+[szczepanmasny/laravel-api](https://github.com/szczepanmasny/laravel-api).
+
 ## Table management
 
 Servicing the table requires creating a component with the configuration of the given table (field names and types, information about soft or hard deletion of records, reference to the source table in the case of foreign keys, etc.). Next and last step is to add routing to a given page and put a link to it in the sidebar.
