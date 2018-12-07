@@ -52,9 +52,26 @@ Each version has its own filtering system:
 * Search phrase in whole table,
 * Search phrase in selected column (exact, like and list mode)
 
-Besides, datatable mechanism allows selection of the number of records per page, page transition and sorting.\
+Another functions and features:
+* datatable mechanism allows selection of the number of records per page, page transition and sorting,
+* management of a child table from the parent table module,
+* language versions,
+* simple configuration of themes,
 
-The application has a solution enabling management of a child table from the parent table module.\
+## API
+
+To connect with API you have to create config.js in 'src' folder. You should use config.js.example template to do this:
+``` js
+export const config = {
+    api: {
+        url: 'http://127.0.0.1:8000/', /* your API url */
+        path: {
+            default: 'api',
+            files: 'storage/'
+        }
+    }
+}
+```
 
 ## Table management
 
