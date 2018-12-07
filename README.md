@@ -3,10 +3,21 @@
 </p>
 
 # Vue CRUD
-## Vue - based REST-ful CRUD application
-
 > CRUD application written using Vue2, Vuex and Vuetify. The app uses REST API and JWT Tokens.
-> Demo application is available [here](http:/crud.id-a.pl). To get login and password, contact me on my [personal site](http:/szczepanmasny.pl) or [company site](http://id-a.pl).
+
+## About
+Vue CRUD is Vue - based REST-ful CRUD application.
+
+## Documentation
+
+In progress
+
+## Demo version
+Demo application is available [here](http:/crud.id-a.pl).\
+Credentials with limited privileges (readonly):\
+Login:  guest@vue.crud\
+Pass:   ajSGenC0\
+To get full user account, contact me on my [personal site](http:/szczepanmasny.pl) or [company site](http://id-a.pl).
 
 ## Functions
 
@@ -16,17 +27,34 @@ The application contains a mechanism for managing the database tables. After add
 * Update,
 * Suspend/Restore,
 * Delete,
+* Multiple update,
 * Multiple Suspend/Restore,
 * Multiple Delete
 
 The record creation / editing form supports the following types of fields:
 
 * Input,
+* Number,
+* Decimal
 * Textarea,
 * Rich Text Box,
-* Select,
+* Select (list from related table),
 * Datepicker,
 * Timepicker
+* Checkbox
+
+Datatable is available in 2 versions:
+* Client side (small tables < 2000 records)
+* Server side (> 2000 records)
+
+Each version has its own filtering system:
+* Show active/inactive records,
+* Search phrase in whole table,
+* Search phrase in selected column (exact, like and list mode)
+
+Besides, datatable mechanism allows selection of the number of records per page, page transition and sorting.\
+
+The application has a solution enabling management of a child table from the parent table module.\
 
 ## Table management
 
@@ -47,8 +75,6 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## License
 [MIT](https://opensource.org/licenses/MIT)
