@@ -76,6 +76,26 @@ export const config = {
 To share the api, you can use any programming language and framework. But if you want to test the solution quickly, or you do not know how to get started, you can download my API created in PHP and Laravel:
 [szczepanmasny/laravel-api](https://github.com/szczepanmasny/laravel-api).
 
+## Build Setup
+
+You must have node.js installed to use npm. You can use yarn if you prefer.
+``` bash
+# install dependencies
+npm install
+## or
+yarn install
+
+# serve with hot reload at localhost:8080
+npm run dev
+## or
+yarn run dev
+
+# build for production with minification
+npm run build
+## or
+yarn run build
+```
+
 ## Table management
 
 Servicing the table requires creating a component with the configuration of the given table (field names and types, information about soft or hard deletion of records, reference to the source table in the case of foreign keys, etc.). Next step is to add routing to a given page:
@@ -175,22 +195,6 @@ export default {
     source: String
   }
 };
-```
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
 ## License
