@@ -71,59 +71,61 @@
       :no-data-text="$t('noDataAvailable')"
       :rows-per-page-text="$t('rowsPerPageText')">
       <template slot="items" slot-scope="props">
-        <!-- action buttons -->
-        <td class="cell-nowrap">
-          <!-- edit record -->
-          <v-tooltip top v-if="editButton">
-            <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id)" slot="activator">
-              <v-icon>edit</v-icon>
-            </v-btn>
-            <span>{{ $t('buttons.edit') }}</span>
-          </v-tooltip>
-          <!-- buttons for open modal with item elements -->
-          <v-tooltip top v-for="(button, key) in itemElements" :key="key">
-            <v-btn
-              outline
-              fab
-              small
-              class="xs white--text"
-              :color="button.color"
-              @click="editItemElements(key, props.item.meta.id)"
-              slot="activator"
-            >
-              <v-icon>{{ button.icon }}</v-icon>
-            </v-btn>
-            <span>{{ button.buttonText }}</span>
-          </v-tooltip>
-          <!-- suspend/restore record (if soft deletes are enabled) -->
-          <template v-if="['soft', 'both'].includes(deleteMode)">
-            <v-tooltip top v-if="props.item.meta.active == '1'">
-              <v-btn fab small outline class="xs white--text" color="red" @click="suspend(props.item.meta.id)" slot="activator">
-                <v-icon>undo</v-icon>
+        <tr @dblclick="rowDblclickAction(props.item.meta.id)">
+          <!-- action buttons -->
+          <td class="cell-nowrap">
+            <!-- edit record -->
+            <v-tooltip top v-if="editButton">
+              <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id)" slot="activator">
+                <v-icon>edit</v-icon>
               </v-btn>
-              <span>{{ $t('buttons.suspend') }}</span>
+              <span>{{ $t('buttons.edit') }}</span>
             </v-tooltip>
-            <v-tooltip top v-else>
-              <v-btn fab small outline class="xs white--text" color="green" @click="restore(props.item.meta.id)" slot="activator">
-                <v-icon>redo</v-icon>
+            <!-- buttons for open modal with item elements -->
+            <v-tooltip top v-for="(button, key) in itemElements" :key="key">
+              <v-btn
+                outline
+                fab
+                small
+                class="xs white--text"
+                :color="button.color"
+                @click="editItemElements(key, props.item.meta.id)"
+                slot="activator"
+              >
+                <v-icon>{{ button.icon }}</v-icon>
               </v-btn>
-              <span>{{ $t('buttons.restore') }}</span>
+              <span>{{ button.buttonText }}</span>
             </v-tooltip>
-          </template>
-          <!-- hard delete -->
-          <v-tooltip top v-if="['hard', 'both'].includes(deleteMode)">
-            <v-btn outline fab small class="xs white--text" color="red" @click="destroy(props.item.meta.id)" slot="activator">
-              <v-icon>delete</v-icon>
-            </v-btn>
-            <span>{{ $t('buttons.delete') }}</span>
-          </v-tooltip>
-        </td>
-        <!-- table fields -->
-        <td v-if="key != 'meta'" v-for="(field, key) in props.item" :key="key" max-width="20px !important;">
-          <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
-          <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
-          <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
-        </td>
+            <!-- suspend/restore record (if soft deletes are enabled) -->
+            <template v-if="['soft', 'both'].includes(deleteMode)">
+              <v-tooltip top v-if="props.item.meta.active == '1'">
+                <v-btn fab small outline class="xs white--text" color="red" @click="suspend(props.item.meta.id)" slot="activator">
+                  <v-icon>undo</v-icon>
+                </v-btn>
+                <span>{{ $t('buttons.suspend') }}</span>
+              </v-tooltip>
+              <v-tooltip top v-else>
+                <v-btn fab small outline class="xs white--text" color="green" @click="restore(props.item.meta.id)" slot="activator">
+                  <v-icon>redo</v-icon>
+                </v-btn>
+                <span>{{ $t('buttons.restore') }}</span>
+              </v-tooltip>
+            </template>
+            <!-- hard delete -->
+            <v-tooltip top v-if="['hard', 'both'].includes(deleteMode)">
+              <v-btn outline fab small class="xs white--text" color="red" @click="destroy(props.item.meta.id)" slot="activator">
+                <v-icon>delete</v-icon>
+              </v-btn>
+              <span>{{ $t('buttons.delete') }}</span>
+            </v-tooltip>
+          </td>
+          <!-- table fields -->
+          <td v-if="key != 'meta'" v-for="(field, key) in props.item" :key="key" max-width="20px !important;">
+            <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
+            <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
+            <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
+          </td>
+        </tr>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
           {{ $t('records') }} {{ pageStart }} - {{ pageStop }} {{ $t('from') }} {{ itemsLength }}
@@ -248,6 +250,11 @@ export default {
       this.setItemElementsInfo([id, obj]);
       this.getItemElements();
     },
+    rowDblclickAction(id){
+      if(this.editButton){
+        this.edit(id)
+      }
+    }
   }
 };
 </script>

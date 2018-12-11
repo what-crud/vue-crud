@@ -118,80 +118,82 @@
       :loading="loading"
     >
       <template slot="items" slot-scope="props">
-        <td>
-          <v-checkbox
-            hide-details
-            v-model="props.selected"
-            color="black"
-          ></v-checkbox>
-        </td>
-        <!-- action buttons -->
-        <td class="cell-nowrap">
-          <!-- edit record -->
-          <v-tooltip top v-if="editButton">
-            <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id)" slot="activator">
-              <v-icon>edit</v-icon>
-            </v-btn>
-            <span>{{ $t('buttons.edit') }}</span>
-          </v-tooltip>
-          <!-- custom buttons -->
-          <v-tooltip top v-for="(customButton) in customButtons" :key="customButton.name">
-            <v-btn fab :disabled="!props.item.meta.buttons[customButton.name]" small class="xs white--text" :color="customButton.color" @click="custom(customButton.name, props.item)" slot="activator">
-              <v-icon>{{ customButton.icon }}</v-icon>
-            </v-btn>
-            <span>{{ customButton.text }}</span>
-          </v-tooltip>
-          <!-- buttons for open modal with item elements -->
-          <v-tooltip top v-for="(button, key) in itemElements" :key="key">
-            <v-btn outline fab small class="xs white--text" :color="button.color" @click="editItemElements(key, props.item.meta.id)" slot="activator">
-              <v-icon>{{ button.icon }}</v-icon>
-            </v-btn>
-            <span>{{ button.buttonText }}</span>
-          </v-tooltip>
-          <!-- suspend/restore record (if soft deletes are enabled) -->
-          <template v-if="['soft', 'both'].includes(deleteMode)">
-            <v-tooltip top v-if="props.item.meta.active == '1'">
-              <v-btn outline fab small class="xs white--text" color="red" @click="suspend(props.item.meta.id)" slot="activator">
-                <v-icon>undo</v-icon>
+        <tr @dblclick="rowDblclickAction(props.item)">
+          <td>
+            <v-checkbox
+              hide-details
+              v-model="props.selected"
+              color="black"
+            ></v-checkbox>
+          </td>
+          <!-- action buttons -->
+          <td class="cell-nowrap">
+            <!-- edit record -->
+            <v-tooltip top v-if="editButton">
+              <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id)" slot="activator">
+                <v-icon>edit</v-icon>
               </v-btn>
-              <span>{{ $t('buttons.suspend') }}</span>
+              <span>{{ $t('buttons.edit') }}</span>
             </v-tooltip>
-            <v-tooltip top v-else>
-              <v-btn outline fab small class="xs white--text" color="green" @click="restore(props.item.meta.id)" slot="activator">
-                <v-icon>redo</v-icon>
+            <!-- custom buttons -->
+            <v-tooltip top v-for="(customButton) in customButtons" :key="customButton.name">
+              <v-btn fab :disabled="!props.item.meta.buttons[customButton.name]" small class="xs white--text" :color="customButton.color" @click="custom(customButton.name, props.item)" slot="activator">
+                <v-icon>{{ customButton.icon }}</v-icon>
               </v-btn>
-              <span>{{ $t('buttons.restore') }}</span>
+              <span>{{ customButton.text }}</span>
             </v-tooltip>
-          </template>
-          <!-- hard delete -->
-          <v-tooltip top v-if="['hard', 'both'].includes(deleteMode)">
-            <v-btn outline fab small class="xs white--text" color="red" @click="destroy(props.item.meta.id)" slot="activator">
-              <v-icon>delete</v-icon>
-            </v-btn>
-            <span>{{ $t('buttons.delete') }}</span>
-          </v-tooltip>
-          <!-- file mode -->
-          <template v-if="fileMode">
-            <v-tooltip top>
-              <v-btn outline fab small class="xs white--text" color="blue" @click="download(props.item)" slot="activator">
-                <v-icon>file_download</v-icon>
+            <!-- buttons for open modal with item elements -->
+            <v-tooltip top v-for="(button, key) in itemElements" :key="key">
+              <v-btn outline fab small class="xs white--text" :color="button.color" @click="editItemElements(key, props.item.meta.id)" slot="activator">
+                <v-icon>{{ button.icon }}</v-icon>
               </v-btn>
-              <span>{{ $t('buttons.download') }}</span>
+              <span>{{ button.buttonText }}</span>
             </v-tooltip>
-            <v-tooltip top v-if="isImage(props.item.type)">
-              <v-btn outline fab small class="xs white--text" color="blue" @click="showImage(props.item)" slot="activator">
-                <v-icon>search</v-icon>
+            <!-- suspend/restore record (if soft deletes are enabled) -->
+            <template v-if="['soft', 'both'].includes(deleteMode)">
+              <v-tooltip top v-if="props.item.meta.active == '1'">
+                <v-btn outline fab small class="xs white--text" color="red" @click="suspend(props.item.meta.id)" slot="activator">
+                  <v-icon>undo</v-icon>
+                </v-btn>
+                <span>{{ $t('buttons.suspend') }}</span>
+              </v-tooltip>
+              <v-tooltip top v-else>
+                <v-btn outline fab small class="xs white--text" color="green" @click="restore(props.item.meta.id)" slot="activator">
+                  <v-icon>redo</v-icon>
+                </v-btn>
+                <span>{{ $t('buttons.restore') }}</span>
+              </v-tooltip>
+            </template>
+            <!-- hard delete -->
+            <v-tooltip top v-if="['hard', 'both'].includes(deleteMode)">
+              <v-btn outline fab small class="xs white--text" color="red" @click="destroy(props.item.meta.id)" slot="activator">
+                <v-icon>delete</v-icon>
               </v-btn>
-              <span>{{ $t('buttons.show') }}</span>
+              <span>{{ $t('buttons.delete') }}</span>
             </v-tooltip>
-          </template>
-        </td>
-        <!-- table fields -->
-        <td v-if="key != 'meta'" v-for="(field, key) in props.item" :key="key" max-width="20px !important;">
-          <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
-          <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
-          <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
-        </td>
+            <!-- file mode -->
+            <template v-if="fileMode">
+              <v-tooltip top>
+                <v-btn outline fab small class="xs white--text" color="blue" @click="download(props.item)" slot="activator">
+                  <v-icon>file_download</v-icon>
+                </v-btn>
+                <span>{{ $t('buttons.download') }}</span>
+              </v-tooltip>
+              <v-tooltip top v-if="isImage(props.item.type)">
+                <v-btn outline fab small class="xs white--text" color="blue" @click="showImage(props.item)" slot="activator">
+                  <v-icon>search</v-icon>
+                </v-btn>
+                <span>{{ $t('buttons.show') }}</span>
+              </v-tooltip>
+            </template>
+          </td>
+          <!-- table fields -->
+          <td v-if="key != 'meta'" v-for="(field, key) in props.item" :key="key" max-width="20px !important;">
+            <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
+            <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
+            <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
+          </td>
+        </tr>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
           {{ $t('records') }} {{ pageStart }} - {{ pageStop }} {{ $t('from') }} {{ itemsLength }}

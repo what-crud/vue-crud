@@ -179,6 +179,23 @@ export default {
       this.setItemElementsInfo([id, obj]);
       this.getItemElements();
     },
+    rowDblclickAction(item) {
+      if(this.editButton){
+        this.edit(item.meta.id)
+      }
+      else {
+        let goToItemButton = false
+        for(let button of this.customButtons) {
+          if (button.name == 'goToItem') {
+            goToItemButton = true
+            break
+          }
+        }
+        if(goToItemButton){
+          this.custom('goToItem', item)
+        }
+      }
+    },
     download(item) {
       download(this.filesPath + item.meta.path, item.filename);
     },
