@@ -42,6 +42,7 @@
                 flat
                 :item-text="field.list.text"
                 :item-value="field.list.value"
+                item-disabled="itemDisabled"
                 :label="field.text"
                 bottom
                 autocomplete
@@ -53,6 +54,7 @@
                 v-model="field.value"
                 :item-text="field.list.text"
                 :item-value="field.list.value"
+                item-disabled="itemDisabled"
                 :label="field.text"
                 bottom
                 autocomplete
@@ -116,12 +118,16 @@ export default {
           this.$set(field.list, 'oldSearch', "")
         }
         else {
+          field.list.data = [];
+          let selectItems;
           Vue.http.get(url).then(response => {
             let items = response.body;
-            if (typeof field.list.complexName != "undefined") {
-              field.list.loading = false;
-              field.list.data = items.map(item => {
-                let rItem = item;
+            selectItems = items.map(item => {
+              let rItem = item;
+              if (typeof field.list.activeColumn != "undefined") {
+                rItem.itemDisabled = item[field.list.activeColumn] == 0 ? true : false
+              }
+              if (typeof field.list.complexName != "undefined") {
                 let textArray = field.list.complexName.map(textInfo => {
                   let splittedText = textInfo
                     .split(".")
@@ -131,10 +137,16 @@ export default {
                   return splittedText;
                 });
                 rItem.complexName = textArray.join(", ");
-                return rItem;
-              });
+              }
+              return rItem;
+            });
+            if (!field.required) {
+              let nullElement = {};
+              nullElement[field.list.value] = "";
+              nullElement[field.list.text] = "-";
+              field.list.data = [nullElement, ...selectItems];
             } else {
-              field.list.data = items;
+              field.list.data = selectItems;
             }
           });
         }
@@ -152,9 +164,10 @@ export default {
         let rField = field;
         rField.value = this.details.item[field.column];
         if (field.type == "select") {
+          let defaultVal = field.list.default || 1
           rField.value = field.stringId
             ? this.details.item[field.column]
-            : parseInt(this.details.item[field.column]) || 1;
+            : parseInt(this.details.item[field.column]) || defaultVal;
         }
         if (field.apiObject){
           if (field.apiObject.useFunctionsInDetails){

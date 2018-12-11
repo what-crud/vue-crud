@@ -187,7 +187,11 @@
           </template>
         </td>
         <!-- table fields -->
-        <td v-if="key != 'meta'" v-for="(field, key) in props.item" :key="key" class="cell-nowrap" v-html="field" max-width="20px !important;"></td>
+        <td v-if="key != 'meta'" v-for="(field, key) in props.item" :key="key" max-width="20px !important;">
+          <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
+          <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
+          <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
+        </td>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
           {{ $t('records') }} {{ pageStart }} - {{ pageStop }} {{ $t('from') }} {{ itemsLength }}

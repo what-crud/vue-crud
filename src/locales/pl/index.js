@@ -5,5 +5,8 @@ export default {
     global: {
       alerts: alerts,
       routes: routes
-    }
+    },
+    buttons: {
+      goToItem: "Szczegóły",
+    },
 }

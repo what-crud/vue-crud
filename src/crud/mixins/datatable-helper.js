@@ -8,6 +8,19 @@ export default {
       pagination: {},
     };
   },
+  filters: {
+    cropped(field) {
+      let rField
+      let maxLength = 40
+      if (typeof field === 'string' || field instanceof String) {
+        rField = field.length <= maxLength ? field : field.substring(0, maxLength - 3) + '...'
+      }
+      else {
+        rField = field
+      }
+      return rField
+    }
+  },
   computed: {
     headers() {
       let actionHeader = [{text: this.$t("fields.action"),sortable: false}]
@@ -21,6 +34,13 @@ export default {
         return header;
       });
       return [...actionHeader, ...headers];
+    },
+    columnTextModes() {
+      let columnTextModes = {}
+      for(let field of this.tableFields) {
+        columnTextModes[field.name.toLowerCase()] = field.textMode || 'cropped'
+      }
+      return columnTextModes
     },
     statuses() {
       return [
