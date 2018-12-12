@@ -9,6 +9,10 @@ table.table
     tbody
         tr
             cursor:pointer !important
+            &.row-active
+                box-shadow:5px 0px 0px 0px rgb(76, 175, 80) inset;
+            &.row-inactive
+                box-shadow:5px 0px 0px 0px rgb(244, 67, 54) inset;
             td, th
                 height: 30px !important
                 padding: 0px 5px 0px 5px !important

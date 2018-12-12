@@ -118,7 +118,7 @@
       :loading="loading"
     >
       <template slot="items" slot-scope="props">
-        <tr @dblclick="rowDblclickAction(props.item)">
+        <tr @dblclick="rowDblclickAction(props.item)" :class="activityClass(props.item.meta.active)">
           <td>
             <v-checkbox
               hide-details

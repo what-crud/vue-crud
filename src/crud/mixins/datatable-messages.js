@@ -13,7 +13,8 @@ export default {
         noItemsSelected: "Nie wybrano żadnego elementu",
         confirm: "Czy na pewno chcesz to zrobić?",
         fields: {
-          action: "Akcja"
+          action: "Akcja",
+          status: 'Status'
         },
         status: {
           title: "Statusy",
@@ -55,7 +56,8 @@ export default {
         noItemsSelected: "No items selected",
         confirm: "Are you sure?",
         fields: {
-          action: "Action"
+          action: "Action",
+          status: 'Status'
         },
         status: {
           title: "Statuses",

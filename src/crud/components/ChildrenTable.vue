@@ -71,7 +71,7 @@
       :no-data-text="$t('noDataAvailable')"
       :rows-per-page-text="$t('rowsPerPageText')">
       <template slot="items" slot-scope="props">
-        <tr @dblclick="rowDblclickAction(props.item.meta.id)">
+        <tr @dblclick="rowDblclickAction(props.item.meta.id)" :class="activityClass(props.item.meta.active)">
           <!-- action buttons -->
           <td class="cell-nowrap">
             <!-- edit record -->

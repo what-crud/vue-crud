@@ -72,6 +72,13 @@ export default {
     },
   },
   methods: {
+    activityClass(isActive) {
+      let className = ""
+      if(['soft', 'both'].includes(this.deleteMode)){
+        className = parseInt(isActive) == 1 ? 'row-active' : 'row-inactive'
+      }
+      return className
+    },
     updateColumnFilterMode(val, index) {
       let obj = this.filterColumns
       obj[index].mode = val
