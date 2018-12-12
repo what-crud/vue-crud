@@ -1,6 +1,5 @@
 <template>
   <v-toolbar clipped-left dark fixed app color="primary">
-    <v-toolbar-side-icon @click.stop="$store.state.drawer = !$store.state.drawer"></v-toolbar-side-icon>
     <v-toolbar-title class="title">
         <router-link to="/home">{{$store.state.title}}</router-link>
     </v-toolbar-title>

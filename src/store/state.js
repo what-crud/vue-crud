@@ -12,7 +12,7 @@ let state = {
   secondaryTheme: 'dark',
   module: null,
   page: null,
-  drawer: true,
+  sidebarMini: true,
   activeModule: "",
   profileDialog: false,
   superuser: false,

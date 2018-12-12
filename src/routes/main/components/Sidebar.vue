@@ -1,8 +1,17 @@
 <template>
-  <v-navigation-drawer dark clipped fixed app v-model="$store.state.drawer" class="secondary main-sidebar" value="false" width="220">
+  <div @click="click()" @mouseleave="mouseleave()">
+  <v-navigation-drawer
+    permanent
+    :mini-variant="$store.state.sidebarMini"
+    dark clipped
+    fixed
+    app
+    class="secondary main-sidebar"
+    mini-variant-width="60"
+  >
     <v-list dense>
       <template v-if="checkRole(item.guard)" v-for="(item) in items">
-        <v-list-group v-model="item.model" :key="item.text" :prepend-icon="item.model ? item.icon : item['icon-alt']"
+        <v-list-group v-model="item.model" :key="item.text" :prepend-icon="item.icon"
           append-icon="">
           <v-list-tile slot="activator">
             <v-list-tile-content>
@@ -10,34 +19,60 @@
                 {{ $t('global.routes.' + item.text) }}
               </v-list-tile-title>
             </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile v-for="(child, i) in item.children" :key="i" :href="'#' + item.route + child.route">
-            <v-list-tile-action v-if="child.icon">
-              <v-icon>{{ child.icon }}</v-icon>
+            <v-list-tile-action v-if="item.icon">
+              <v-icon>{{ item.model ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
             </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>
-                {{ $t('global.routes.' + child.text) }}
-              </v-list-tile-title>
-            </v-list-tile-content>
           </v-list-tile>
+          <template v-if="!$store.state.sidebarMini">
+            <v-list-tile v-for="(child, i) in item.children" :key="i" :href="'#' + item.route + child.route">
+              <v-list-tile-action v-if="child.icon">
+                <v-icon>{{ child.icon }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ $t('global.routes.' + child.text) }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </template>
         </v-list-group>
       </template>
     </v-list>
   </v-navigation-drawer>
+  </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
+  computed: {
+    ...mapState(["sidebarMini", "sidebar"]),
+    ...mapGetters("auth", ["checkRole"])
+  },
+  props: {
+    source: String
+  },
+  methods: {
+    ...mapMutations([
+      'toggleSidebarWidth',
+      'setSidebarWidth'
+    ]),
+    click() {
+      if(this.sidebarMini) {
+        this.setSidebarWidth(false)
+      }
+    },
+    mouseleave() {
+      this.setSidebarWidth(true)
+    }
+  },
   data: () => ({
+    setSidebarMini: false,
     dialog: false,
-    drawer: null,
     items: [
       {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
+        icon: "people",
         text: "crm.name",
         model: false,
         guard: "CRM",
@@ -90,8 +125,7 @@ export default {
         ]
       },
       {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
+        icon: "person_add_disabled",
         text: "admin.name",
         model: false,
         guard: "ADMIN",

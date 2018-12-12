@@ -15,6 +15,9 @@ let mutations = {
     localStorage.setItem('locale', locale)
     state.locale = locale
   },
+  setSidebarWidth(state, mini) {
+    state.sidebarMini = mini
+  },
   // alerts
   alertSuccess(state, text) {
     state.alert.type = 'success'
