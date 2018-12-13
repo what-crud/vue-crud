@@ -4,59 +4,15 @@
       <v-layout row wrap>
 
         <v-flex xs12 lg4>
-
-          <!-- Dialog for creating item -->
-          <v-tooltip top>
-            <v-btn fab dark color="green" @click="create()" slot="activator">
-              <v-icon>add</v-icon>
-            </v-btn>
-            <span>{{ $t('add') }}</span>
-          </v-tooltip>
-          <!-- Multiple edit -->
-          <v-tooltip top>
-            <v-btn fab small dark color="orange" @click="editSelected()" slot="activator">
-              <v-icon>edit</v-icon>
-            </v-btn>
-            <span>{{ $t('buttons.editSelected') }}</span>
-          </v-tooltip>
-          <!-- suspend/restore record (if soft deletes are enabled) -->
-          <template v-if="['soft', 'both'].includes(deleteMode)">
-            <v-tooltip top>
-              <v-btn outline class="white--text" fab small color="red" @click="suspendSelected" slot="activator">
-                <v-icon>undo</v-icon>
-              </v-btn>
-              <span>{{ $t('buttons.suspendSelected') }}</span>
-            </v-tooltip>
-            <v-tooltip top>
-              <v-btn outline class="white--text" fab small color="green" @click="restoreSelected" slot="activator">
-                <v-icon>redo</v-icon>
-              </v-btn>
-              <span>{{ $t('buttons.restoreSelected') }}</span>
-            </v-tooltip>
-          </template>
-          <!-- hard delete -->
-          <v-tooltip top v-if="['hard', 'both'].includes(deleteMode)">
-            <v-btn outline class="white--text" fab small color="red" @click="destroySelected" slot="activator">
-              <v-icon>delete</v-icon>
-            </v-btn>
-            <span>{{ $t('buttons.deleteSelected') }}</span>
-          </v-tooltip>
-          <!-- Refresh table -->
-          <v-tooltip top>
-            <v-btn 
-              outline
-              class="white--text"
-              fab
-              small
-              color="blue"
-              @click="refreshTable()"
-              slot="activator"
-            >
-              <v-icon>refresh</v-icon>
-            </v-btn>
-            <span>{{ $t('buttons.refreshTable') }}</span>
-          </v-tooltip>
-
+          <data-table-controls
+            :deleteMode="deleteMode"
+            @create="create"
+            @editSelected="editSelected"
+            @suspendSelected="suspendSelected"
+            @restoreSelected="restoreSelected"
+            @destroySelected="destroySelected"
+            @refreshTable="refreshTable"
+          ></data-table-controls>
         </v-flex>
 
         <v-flex xs12 lg8 text-xs-left text-lg-right>
@@ -84,7 +40,7 @@
 
           <!-- Search in table -->
           <span style="display:inline-block;margin-left:50px;width:250px;">
-            <v-text-field append-icon="search" :label="$t('search')" single-line hide-details v-model="search" min-width="200" @input="searchItems()"></v-text-field>
+            <v-text-field append-icon="search" :label="$t('search')" single-line hide-details v-model="search" min-width="200" @input="searchItems(true)"></v-text-field>
           </span>
 
           <!-- Select statuses (active/inactive) -->
@@ -118,85 +74,26 @@
       :loading="loading"
     >
       <template slot="items" slot-scope="props">
-        <tr @dblclick="rowDblclickAction(props.item)" :class="activityClass(props.item.meta.active)">
-          <td>
-            <v-checkbox
-              hide-details
-              v-model="props.selected"
-              color="black"
-            ></v-checkbox>
-          </td>
-          <!-- action buttons -->
-          <td class="cell-nowrap">
-            <!-- edit record -->
-            <v-tooltip top v-if="editButton">
-              <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id)" slot="activator">
-                <v-icon>edit</v-icon>
-              </v-btn>
-              <span>{{ $t('buttons.edit') }}</span>
-            </v-tooltip>
-            <!-- custom buttons -->
-            <v-tooltip top v-for="(customButton) in customButtons" :key="customButton.name">
-              <v-btn fab :disabled="!props.item.meta.buttons[customButton.name]" small class="xs white--text" :color="customButton.color" @click="custom(customButton.name, props.item)" slot="activator">
-                <v-icon>{{ customButton.icon }}</v-icon>
-              </v-btn>
-              <span>{{ customButton.text }}</span>
-            </v-tooltip>
-            <!-- buttons for open modal with item elements -->
-            <v-tooltip top v-for="(button, key) in itemElements" :key="key">
-              <v-btn outline fab small class="xs white--text" :color="button.color" @click="editItemElements(key, props.item.meta.id)" slot="activator">
-                <v-icon>{{ button.icon }}</v-icon>
-              </v-btn>
-              <span>{{ button.buttonText }}</span>
-            </v-tooltip>
-            <!-- suspend/restore record (if soft deletes are enabled) -->
-            <template v-if="['soft', 'both'].includes(deleteMode)">
-              <v-tooltip top v-if="props.item.meta.active == '1'">
-                <v-btn outline fab small class="xs white--text" color="red" @click="suspend(props.item.meta.id)" slot="activator">
-                  <v-icon>undo</v-icon>
-                </v-btn>
-                <span>{{ $t('buttons.suspend') }}</span>
-              </v-tooltip>
-              <v-tooltip top v-else>
-                <v-btn outline fab small class="xs white--text" color="green" @click="restore(props.item.meta.id)" slot="activator">
-                  <v-icon>redo</v-icon>
-                </v-btn>
-                <span>{{ $t('buttons.restore') }}</span>
-              </v-tooltip>
-            </template>
-            <!-- hard delete -->
-            <v-tooltip top v-if="['hard', 'both'].includes(deleteMode)">
-              <v-btn outline fab small class="xs white--text" color="red" @click="destroy(props.item.meta.id)" slot="activator">
-                <v-icon>delete</v-icon>
-              </v-btn>
-              <span>{{ $t('buttons.delete') }}</span>
-            </v-tooltip>
-            <!-- file mode -->
-            <template v-if="fileMode">
-              <v-tooltip top>
-                <v-btn outline fab small class="xs white--text" color="blue" @click="download(props.item)" slot="activator">
-                  <v-icon>file_download</v-icon>
-                </v-btn>
-                <span>{{ $t('buttons.download') }}</span>
-              </v-tooltip>
-              <v-tooltip top v-if="isImage(props.item.type)">
-                <v-btn outline fab small class="xs white--text" color="blue" @click="showImage(props.item)" slot="activator">
-                  <v-icon>search</v-icon>
-                </v-btn>
-                <span>{{ $t('buttons.show') }}</span>
-              </v-tooltip>
-            </template>
-          </td>
-          <!-- table fields -->
-          <td v-if="key != 'meta'" v-for="(field, key) in props.item" :key="key" max-width="20px !important;">
-            <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
-            <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
-            <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
-          </td>
-        </tr>
+        <data-table-row
+          :props="props"
+          :editButton='editButton'
+          :customButtons='customButtons'
+          :deleteMode='deleteMode'
+          :itemElements="itemElements"
+          :fileMode="fileMode"
+          :columnTextModes="columnTextModes"
+          @edit="edit"
+          @custom="custom"
+          @suspend="suspend"
+          @restore="restore"
+          @destroy="destroy"
+          @editItemElements="editItemElements"
+          @download="download"
+          @showImage="showImage"
+        ></data-table-row>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
-          {{ $t('records') }} {{ pageStart }} - {{ pageStop }} {{ $t('from') }} {{ itemsLength }}
+        <data-table-footer @setPage="setPage" :pagination="pagination" :pageStart="pageStart" :pageStop="pageStop" :itemsLength="itemsLength"></data-table-footer>
       </template>
     </v-data-table>
   </v-card>
@@ -205,15 +102,15 @@
 <script>
 import MainMixin from "../mixins/datatable-main.js";
 import HelperMixin from "../mixins/datatable-helper.js";
-import MessagesMixin from "../mixins/datatable-messages.js";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
-  mixins: [MainMixin, HelperMixin, MessagesMixin],
+  mixins: [MainMixin, HelperMixin],
   data() {
     return {
       searching: false,
-      newSearchRequest: false
+      newSearchRequest: false,
+      ignorePaginationWatcher: false
     };
   },
   created () {
@@ -243,12 +140,15 @@ export default {
         deleteMode: this.deleteMode,
         activeColumnName: this.activeColumnName
       };
-    }
+    },
   },
   watch: {
     pagination: {
       handler() {
-        this.getItemsServerSide([this.params]);
+        if(!this.ignorePaginationWatcher){
+          this.searchItems(false);
+        }
+        this.ignorePaginationWatcher = false
       },
       deep: true
     },
@@ -258,7 +158,7 @@ export default {
       }
     },
     selectedStatuses(val) {
-      this.getItemsServerSide([this.params]);
+       this.searchItems(true);
     },
     tableRefreshing(val) {
       if (val) {
@@ -271,13 +171,17 @@ export default {
     ...mapActions("crud", ["getItemsServerSide"]),
     updateColumnFilterModeEvent(val, index) {
       this.updateColumnFilterMode(val, index)
-      this.searchItems()
+      this.searchItems(true)
     },
     filterColumnsEvent(val, index) {
       this.updateFilterColumns(val, index)
-      this.searchItems()
+      this.searchItems(true)
     },
-    searchItems(){
+    searchItems(resetPage){
+      if (resetPage){
+        this.ignorePaginationWatcher = true
+        this.pagination.page = 1
+      }
       let params1 = JSON.stringify(this.params)
       setTimeout(() => {
         let params2 = JSON.stringify(this.params)

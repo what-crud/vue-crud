@@ -7,8 +7,14 @@ import {
 import {
   download
 } from "@/helpers/functions.js";
+import DataTableRow from "../components/DataTableRow.vue";
+import DataTableControls from "../components/DataTableControls.vue";
 
 export default {
+  components: {
+    DataTableRow,
+    DataTableControls,
+  },
   props: [
     "tableFields",
     "deleteMode",

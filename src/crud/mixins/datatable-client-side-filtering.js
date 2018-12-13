@@ -11,6 +11,11 @@ export default {
         return item;
       });
     },
+    watch: {
+      selectedStatuses(val) {
+         this.pagination.page = 1
+      },
+    },
     computed: {
       filteredItems() {
   

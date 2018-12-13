@@ -1,4 +1,11 @@
+import DataTableFooter from "../components/DataTableFooter.vue";
+import MessagesMixin from "./messages-datatable.js";
+
 export default {
+  mixins: [MessagesMixin],
+  components: {
+    DataTableFooter
+  },
   data() {
     return {
       selectedStatuses: [1],
@@ -7,19 +14,6 @@ export default {
       search: "",
       pagination: {},
     };
-  },
-  filters: {
-    cropped(field) {
-      let rField
-      let maxLength = 40
-      if (typeof field === 'string' || field instanceof String) {
-        rField = field.length <= maxLength ? field : field.substring(0, maxLength - 3) + '...'
-      }
-      else {
-        rField = field
-      }
-      return rField
-    }
   },
   computed: {
     headers() {
@@ -72,13 +66,6 @@ export default {
     },
   },
   methods: {
-    activityClass(isActive) {
-      let className = ""
-      if(['soft', 'both'].includes(this.deleteMode)){
-        className = parseInt(isActive) == 1 ? 'row-active' : 'row-inactive'
-      }
-      return className
-    },
     updateColumnFilterMode(val, index) {
       let obj = this.filterColumns
       obj[index].mode = val
@@ -88,6 +75,9 @@ export default {
       let obj = this.filterColumns
       obj[index].value = val
       this.$set(this, 'filterColumns', obj)
+    },
+    setPage(page){
+      this.pagination.page = parseInt(page)
     }
   }
 };

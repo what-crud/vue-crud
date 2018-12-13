@@ -64,6 +64,7 @@
       :disable-initial-sort="true"
       :must-sort="true"
       :rows-per-page-items="[10, 25, { text: $t('all'), value: -1 }]"
+      :pagination.sync="pagination"
       light
       :headers="headers"
       :items="filteredItems"
@@ -128,7 +129,7 @@
         </tr>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
-          {{ $t('records') }} {{ pageStart }} - {{ pageStop }} {{ $t('from') }} {{ itemsLength }}
+        <data-table-footer @setPage="setPage" :pagination="pagination" :pageStart="pageStart" :pageStop="pageStop" :itemsLength="itemsLength"></data-table-footer>
       </template>
     </v-data-table>
     <div class="details-loader-container">
@@ -142,11 +143,10 @@
 <script>
 import ClientSideFilteringMixin from "../mixins/datatable-client-side-filtering.js";
 import HelperMixin from "../mixins/datatable-helper.js";
-import MessagesMixin from "../mixins/datatable-messages.js";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
-  mixins: [ClientSideFilteringMixin, HelperMixin, MessagesMixin],
+  mixins: [ClientSideFilteringMixin, HelperMixin],
   props: {
     fieldsInfo: Array,
     deleteMode: {
@@ -200,6 +200,19 @@ export default {
   data() {
     return {};
   },
+  filters: {
+    cropped(field) {
+      let rField
+      let maxLength = 40
+      if (typeof field === 'string' || field instanceof String) {
+        rField = field.length <= maxLength ? field : field.substring(0, maxLength - 3) + '...'
+      }
+      else {
+        rField = field
+      }
+      return rField
+    }
+  },
   computed: {
     tableFields() {
       return this.fieldsInfo.filter(field => field.table != false && field.type != 'divider');
@@ -216,6 +229,13 @@ export default {
     ...mapActions("crud", [
       "getItemElements",
     ]),
+    activityClass(isActive) {
+      let className = ""
+      if(['soft', 'both'].includes(this.deleteMode)){
+        className = parseInt(isActive) == 1 ? 'row-active' : 'row-inactive'
+      }
+      return className
+    },
     edit(id) {
       this.$parent.edit(id);
     },
