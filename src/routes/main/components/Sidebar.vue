@@ -147,11 +147,5 @@ export default {
       }
     ]
   }),
-  computed: {
-    ...mapGetters("auth", ["checkRole"])
-  },
-  props: {
-    source: String
-  }
 };
 </script>

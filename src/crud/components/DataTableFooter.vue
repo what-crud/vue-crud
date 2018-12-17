@@ -25,7 +25,7 @@ export default {
   ],
   computed: {
     calcPages() {
-      return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+      return Math.ceil(this.itemsLength / this.pagination.rowsPerPage)
     },
   },
   methods: {
