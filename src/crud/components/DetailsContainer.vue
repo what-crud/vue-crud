@@ -15,11 +15,11 @@
       <v-text-field v-else-if="field.type == 'date'" :label="field.text" v-model="field.value" mask="####-##-##" @blur="update(field)" :disabled="field.disabled"></v-text-field>
 
       <!-- text area -->
-      <v-text-field v-else-if="field.type == 'textarea'" :label="field.text" v-model="field.value" multi-line @blur="update(field)" :disabled="field.disabled"></v-text-field>
+      <v-textarea v-else-if="field.type == 'textarea'" :label="field.text" v-model="field.value" @blur="update(field)" :disabled="field.disabled"></v-textarea>
 
       <!-- select -->
-      <v-select v-else-if="field.type == 'select'" :items="field.list.data" v-model="field.value" :item-text="field.list.text" :item-value="field.list.value"
-        :label="field.text" bottom autocomplete @change="update(field)"></v-select>
+      <v-autocomplete v-else-if="field.type == 'select'" :items="field.list.data" v-model="field.value" :item-text="field.list.text" :item-value="field.list.value"
+        :label="field.text" menu-props="bottom" @change="update(field)"></v-autocomplete>
 
       <!-- checkbox -->
       <v-checkbox color="blue" v-else-if="field.type == 'checkbox'" :label="field.text" v-model="field.value" @change="update(field)"></v-checkbox>

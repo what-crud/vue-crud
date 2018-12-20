@@ -1,11 +1,15 @@
-// main.styl
-@import '~vuetify/src/stylus/main'
-
 .main-sidebar
-    .list__tile
-        height: 30px !important
+    .link
+        .v-list__tile
+            height: 30px !important
+            
+.main-card
+    background-color: #f2f2f2 !important
 
-table.table
+.table-controls
+    padding: 0 !important
+    
+table.v-table
     td, th
         box-shadow: 1px 0px 0px 0px #eee
     tbody
@@ -20,7 +24,7 @@ table.table
                 height: 30px !important
                 padding: 0px 5px 0px 5px !important
 
-table.table thead tr:not(.datatable__progress)
+table.v-table thead tr:not(.v-datatable__progress)
     height: 30px
     th 
         padding-left: 5px !important
@@ -55,17 +59,12 @@ button.xs
 .cell-nowrap
     white-space: nowrap !important
 
-.children-tabs .tabs__items
+.children-tabs .v-window
     max-height:calc(100vh - 150px)
     overflow-y: auto
-    > .tabs__content > .card--flat > .card__text
+    .v-window-item > .v-card--flat > .v-card__text
         padding: 0
 
-.table-controls
-    padding: 0 !important
-
-.main-card
-    background-color: #f2f2f2 !important
 
 .filter-column-input
     padding: 0 !important

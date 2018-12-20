@@ -32,11 +32,11 @@
               <br> {{ password.updateErrorMsg }}
             </v-alert>
             <v-text-field :label="$t('password.old')" v-model="password.old" :rules="passwordRules.old" :append-icon="e1 ? 'visibility' : 'visibility_off'"
-              :append-icon-cb="() => (e1 = !e1)" :type="e1 ? 'password' : 'text'" counter></v-text-field>
+              @click:append="() => (e1 = !e1)" :type="e1 ? 'password' : 'text'" counter></v-text-field>
             <v-text-field :label="$t('password.new')" v-model="password.new" :rules="passwordRules.new" min="8" :append-icon="e2 ? 'visibility' : 'visibility_off'"
-              :append-icon-cb="() => (e2 = !e2)" :type="e2 ? 'password' : 'text'" counter></v-text-field>
+              @click:append="() => (e2 = !e2)" :type="e2 ? 'password' : 'text'" counter></v-text-field>
             <v-text-field :label="$t('password.repeat')" v-model="password.repeat" :rules="passwordRules.repeat" min="8" :append-icon="e3 ? 'visibility' : 'visibility_off'"
-              :append-icon-cb="() => (e3 = !e3)" :type="e3 ? 'password' : 'text'" counter></v-text-field>
+              @click:append="() => (e3 = !e3)" :type="e3 ? 'password' : 'text'" counter></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-btn class="blue--text" flat @click="clearPasswords()">{{ $t('password.clear') }}</v-btn>

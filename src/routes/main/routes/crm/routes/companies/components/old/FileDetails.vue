@@ -12,8 +12,8 @@
               v-model="field.value"></v-text-field>
 
             <!-- text area -->
-            <v-text-field required v-else-if="field.type == 'textarea'" :rules="field.required == false ? [] : rules.input" :label="field.text"
-              v-model="field.value" multi-line></v-text-field>
+            <v-textarea required v-else-if="field.type == 'textarea'" :rules="field.required == false ? [] : rules.input" :label="field.text"
+              v-model="field.value"></v-textarea>
 
             <!-- file upload -->
             <template v-else-if="field.type == 'file'">
@@ -25,8 +25,8 @@
             </template>
 
             <!-- select -->
-            <v-select v-else-if="field.type == 'select'" required :rules="[]" :items="field.list.data" v-model="field.value" :item-text="field.list.text"
-              :item-value="field.list.value" :label="field.text" bottom autocomplete></v-select>
+            <v-autocomplete v-else-if="field.type == 'select'" required :rules="[]" :items="field.list.data" v-model="field.value" :item-text="field.list.text"
+              :item-value="field.list.value" :label="field.text" menu-props="bottom"></v-autocomplete>
 
           </div>
         </v-card-text>

@@ -22,7 +22,7 @@
             </v-btn>
             <v-list style="overflow-y:false;">
               <v-list-tile v-for="(item, index) in filterColumns" :key="index">
-                <v-select
+                <v-autocomplete
                   :items="filterModes"
                   v-model="item.mode"
                   item-text="text"
@@ -30,7 +30,7 @@
                   :label="$t('filterModes.label')"
                   hide-details
                   @input="updateColumnFilterMode($event, index)"
-                ></v-select>
+                ></v-autocomplete>
                 <v-text-field
                   v-model="item.value"
                   hide-details
@@ -56,7 +56,7 @@
           <!-- Select statuses (active/inactive) -->
           <template v-if="['soft', 'both'].includes(deleteMode)">
             <span style="display:inline-block;margin-left:50px;width:250px;">
-              <v-select
+              <v-autocomplete
                 :label="$t('status.title')"
                 v-bind:items="statuses"
                 v-model="selectedStatuses"
@@ -65,7 +65,7 @@
                 item-value="value"
                 multiple
                 chips
-              ></v-select>
+              ></v-autocomplete>
             </span>
           </template>
         </v-flex>

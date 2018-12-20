@@ -20,7 +20,7 @@
           </v-menu>
           <v-text-field :label="$t('login.email')" v-model="email" :rules="emailRules" required></v-text-field>
           <v-text-field :label="$t('login.password')" v-model="password" :rules="passwordRules" :counter="30" required :append-icon="passAppendIcon"
-            :append-icon-cb="() => (passwordHidden = !passwordHidden)" :type="passTextFieldType"></v-text-field>
+          @click:append="() => (passwordHidden = !passwordHidden)" :type="passTextFieldType"></v-text-field>
           <v-btn type="submit" @click="loginAttempt()" :disabled="!valid" class="primary white--text">
               {{ $t('login.submit') }}
           </v-btn>

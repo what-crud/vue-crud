@@ -24,7 +24,7 @@
             </v-list-tile-action>
           </v-list-tile>
           <template v-if="!$store.state.sidebarMini">
-            <v-list-tile v-for="(child, i) in item.children" :key="i" :href="'#' + item.route + child.route">
+            <v-list-tile v-for="(child, i) in item.children" :key="i" :href="'#' + item.route + child.route" class="link">
               <v-list-tile-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-tile-action>
@@ -149,3 +149,6 @@ export default {
   }),
 };
 </script>
+<style scoped>
+  
+</style>

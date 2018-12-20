@@ -48,20 +48,19 @@
           ></v-text-field>
 
           <!-- text area -->
-          <v-text-field
+          <v-textarea
             hide-details
             v-else-if="field.type == 'textarea'"
             :label="field.text"
             v-model="field.value"
-            multi-line
             @focus="remember(field)"
             @blur="update(field)"
             :disabled="field.disabled"
-          ></v-text-field>
+          ></v-textarea>
 
           <!-- select -->
           <template v-else-if="field.type == 'select'">
-            <v-select
+            <v-autocomplete
               v-if="field.async"
               hide-details
               :loading="searchLoading['search_' + field.name]"
@@ -73,12 +72,12 @@
               :item-value="field.list.value"
               item-disabled="itemDisabled"
               :label="field.text"
-              bottom
-              autocomplete
+              menu-props="bottom"
+             
               @focus="remember(field)"
               @change="update(field)"
-            ></v-select>
-            <v-select
+            ></v-autocomplete>
+            <v-autocomplete
               v-else
               hide-details
               :items="field.list.data"
@@ -87,11 +86,11 @@
               :item-value="field.list.value"
               item-disabled="itemDisabled"
               :label="field.text"
-              bottom
-              autocomplete
+              menu-props="bottom"
+             
               @focus="remember(field)"
               @change="update(field)"
-            ></v-select>
+            ></v-autocomplete>
           </template>
 
           <!-- checkbox -->

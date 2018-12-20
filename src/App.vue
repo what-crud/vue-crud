@@ -9,5 +9,5 @@
 </script>
 
 <style lang="stylus">
-  @import './stylus/main'
+  @import "./assets/stylus/main.styl";
 </style>

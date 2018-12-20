@@ -8,7 +8,7 @@
       <img class="logo" :src="require(`@/assets/images/${$store.state.logoSm}`)">
     </span>
     <v-spacer></v-spacer>
-    <v-menu bottom left v-if="$store.state.localeSelectable">
+    <v-menu menu-props="bottom" left v-if="$store.state.localeSelectable">
       <v-btn icon slot="activator" dark>
         <v-icon>translate</v-icon>
       </v-btn>

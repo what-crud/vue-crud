@@ -11,7 +11,7 @@
         </div>
         <img :src="image" style="max-height: 50vh;">
       </v-card-text>
-      <v-card-media></v-card-media>
+      <v-responsive></v-responsive>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn flat color="black" @click="closeImageContainer()">{{ $t('buttons.close') }}</v-btn>

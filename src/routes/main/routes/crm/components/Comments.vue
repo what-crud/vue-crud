@@ -4,11 +4,11 @@
       <v-card-text>
         <v-layout row wrap>
           <v-flex xs12 md8>
-            <v-text-field v-model="commentContent" :label="$t('newComment')" rows="3" multi-line></v-text-field>
+            <v-textarea v-model="commentContent" :label="$t('newComment')" rows="3"></v-textarea>
           </v-flex>
           <v-flex xs12 md4 text-xs-center>
-            <v-select :items="commentTypes.data" :label="$t('commentType')" :item-text="commentTypes.textColumn" :item-value="commentTypes.idColumn"
-              v-model="selectedCommentType" bottom></v-select>
+            <v-autocomplete :items="commentTypes.data" :label="$t('commentType')" :item-text="commentTypes.textColumn" :item-value="commentTypes.idColumn"
+              v-model="selectedCommentType" menu-props="bottom"></v-autocomplete>
             <v-btn outline color="green" @click="store()">
               {{ $t('buttons.store') }}
             </v-btn>

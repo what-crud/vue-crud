@@ -83,14 +83,13 @@
                 ></v-text-field>
 
                 <!-- text area -->
-                <v-text-field
+                <v-textarea
                   hide-details
                   :required="isRequired(field.required)"
                   v-else-if="field.type == 'textarea'"
                   :label="field.text"
                   v-model="field.value"
-                  multi-line
-                ></v-text-field>
+                ></v-textarea>
 
                 <!-- file upload -->
                 <template v-else-if="field.type == 'file'">
@@ -110,7 +109,7 @@
 
                 <!-- select -->
                 <template v-else-if="field.type == 'select'">
-                  <v-select
+                  <v-autocomplete
                     v-if="field.async"
                     hide-details
                     :required="isRequired(field.required)"
@@ -123,10 +122,10 @@
                     :item-value="field.list.value"
                     item-disabled="itemDisabled"
                     :label="field.text"
-                    bottom
-                    autocomplete
-                  ></v-select>
-                  <v-select
+                    menu-props="bottom"
+                   
+                  ></v-autocomplete>
+                  <v-autocomplete
                     v-else
                     hide-details
                     :required="isRequired(field.required)"
@@ -136,9 +135,9 @@
                     :item-value="field.list.value"
                     item-disabled="itemDisabled"
                     :label="field.text"
-                    bottom
-                    autocomplete
-                  ></v-select>
+                    menu-props="bottom"
+                   
+                  ></v-autocomplete>
                 </template>
 
                 <!-- date picker -->

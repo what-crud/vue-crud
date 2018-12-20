@@ -27,12 +27,12 @@
             <v-text-field :required="isRequired(field.required)" hide-details v-else-if="field.type == 'datetime'" :label="field.text" v-model="field.value" mask="####-##-## ##:##:##" return-masked-value></v-text-field>
 
             <!-- text area -->
-            <v-text-field :required="isRequired(field.required)" hide-details v-else-if="field.type == 'textarea'" :label="field.text"
-              v-model="field.value" multi-line></v-text-field>
+            <v-textarea :required="isRequired(field.required)" hide-details v-else-if="field.type == 'textarea'" :label="field.text"
+              v-model="field.value"></v-textarea>
 
             <!-- select -->
             <template v-else-if="field.type == 'select'">
-              <v-select v-if="field.async"
+              <v-autocomplete v-if="field.async"
                 hide-details
                 :required="isRequired(field.required)"
                 :loading="searchLoading['search_' + field.name]"
@@ -44,10 +44,10 @@
                 :item-value="field.list.value"
                 item-disabled="itemDisabled"
                 :label="field.text"
-                bottom
-                autocomplete
-              ></v-select>
-              <v-select v-else
+                menu-props="bottom
+               
+              ></v-autocomplete>
+              <v-autocomplete v-else
                 hide-details
                 :required="isRequired(field.required)"
                 :items="field.list.data"
@@ -56,9 +56,9 @@
                 :item-value="field.list.value"
                 item-disabled="itemDisabled"
                 :label="field.text"
-                bottom
-                autocomplete
-              ></v-select>
+                menu-props="bottom"
+               
+              ></v-autocomplete>
             </template>
             
             <span v-else-if="field.type == 'checkbox'">

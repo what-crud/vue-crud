@@ -13,8 +13,8 @@
       <!-- Select statuses (active/inactive) -->
       <template>
         <v-spacer></v-spacer>
-        <v-select :label="$t('status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value"
-          multiple chips></v-select>
+        <v-autocomplete :label="$t('status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value"
+          multiple chips></v-autocomplete>
       </template>
 
       <!-- Search in table -->

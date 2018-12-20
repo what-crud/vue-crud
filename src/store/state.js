@@ -1,15 +1,12 @@
 import { config } from '@/config.js'
 
 let state = {
-  title: "Vue CRUD",
+  title: config.title,
   locale: localStorage.getItem('locale'),
-  locales: [
-    {name: 'en', text: 'English'},
-    {name: 'pl', text: 'Polski'},
-  ],
-  localeSelectable: true,
-  primaryTheme: 'dark',
-  secondaryTheme: 'dark',
+  locales: config.locales,
+  localeSelectable: config.localeSelectable,
+  primaryTheme: config.primaryTheme,
+  secondaryTheme: config.secondaryTheme,
   module: null,
   page: null,
   sidebarMini: true,
@@ -24,8 +21,8 @@ let state = {
     icon: ''
   },
   filesPath: config.api.url + config.api.path.files,
-  logoLg: 'vue-crud-lg.png',
-  logoSm: 'vue-crud-sm.png'
+  logoLg: config.logoLg,
+  logoSm: config.logoSm
 }
 
 export default state
