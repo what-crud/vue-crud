@@ -1,18 +1,12 @@
-export const config = {
+export const configParams = {
     title: "Vue CRUD",
-    api: {
-        url: 'http://crm-api.id-a.pl/',
-        path: {
-            default: 'api',
-            files: 'storage/'
-        }
-    },
     logoLg: 'vue-crud-lg.png',
     logoSm: 'vue-crud-sm.png',
     locales: [
       {name: 'en', text: 'English'},
       {name: 'pl', text: 'Polski'},
     ],
+    defaultLocale: 'en',
     localeSelectable: true,
     iconfont: 'md',
     primaryTheme: 'dark',
