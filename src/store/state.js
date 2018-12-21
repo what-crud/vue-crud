@@ -1,12 +1,13 @@
-import { config } from '@/config.js'
+import { configApi } from '@/config/api.js'
+import { configParams } from '@/config/params.js'
 
 let state = {
-  title: config.title,
+  title: configParams.title,
   locale: localStorage.getItem('locale'),
-  locales: config.locales,
-  localeSelectable: config.localeSelectable,
-  primaryTheme: config.primaryTheme,
-  secondaryTheme: config.secondaryTheme,
+  locales: configParams.locales,
+  localeSelectable: configParams.localeSelectable,
+  primaryTheme: configParams.primaryTheme,
+  secondaryTheme: configParams.secondaryTheme,
   module: null,
   page: null,
   sidebarMini: true,
@@ -20,9 +21,9 @@ let state = {
     text: '',
     icon: ''
   },
-  filesPath: config.api.url + config.api.path.files,
-  logoLg: config.logoLg,
-  logoSm: config.logoSm
+  filesPath: configApi.url + configApi.path.files,
+  logoLg: configParams.logoLg,
+  logoSm: configParams.logoSm
 }
 
 export default state
