@@ -58,144 +58,25 @@ Another functions and features:
 * language versions,
 * simple configuration of themes,
 
-## API
+## Screens
 
-To connect with API you have to create config.js in 'src' folder. You should use config.js.example template to do this:
-``` js
-export const config = {
-    api: {
-        url: 'http://127.0.0.1:8000/', /* your API url */
-        path: {
-            default: 'api',
-            files: 'storage/'
-        }
-    }
-}
-```
+#### Login page:
+![login-page](https://user-images.githubusercontent.com/18534115/50349695-f77f4300-053c-11e9-8cc7-8e9fa3ddfd9e.jpg)
 
-To share the api, you can use any programming language and framework. But if you want to test the solution quickly, or you do not know how to get started, you can download my API created in PHP and Laravel:
-<a href="https://github.com/szczepanmasny/laravel-api" target="_blank">szczepanmasny/laravel-api</a>.
+#### Home page:
+![home-page](https://user-images.githubusercontent.com/18534115/50349693-f77f4300-053c-11e9-9a64-aa04fa7cb1d6.jpg)
 
-## Build Setup
+#### Sidebar:
+![sidebar](https://user-images.githubusercontent.com/18534115/50349688-f6e6ac80-053c-11e9-9fe7-ddf0e89c33d5.jpg)
 
-You must have node.js installed to use npm. You can use yarn if you prefer.
-``` bash
-# install dependencies
-npm install
-## or
-yarn install
+#### CRUD table:
+![crud-table](https://user-images.githubusercontent.com/18534115/50349689-f6e6ac80-053c-11e9-86cf-335609b640d3.jpg)
 
-# serve with hot reload at localhost:8080
-npm run dev
-## or
-yarn run dev
+#### Item details:
+![item-details](https://user-images.githubusercontent.com/18534115/50349694-f77f4300-053c-11e9-9f34-dd9fa69f2a8d.jpg)
 
-# build for production with minification
-npm run build
-## or
-yarn run build
-```
-
-## Table management
-
-Servicing the table requires creating a component with the configuration of the given table (field names and types, information about soft or hard deletion of records, reference to the source table in the case of foreign keys, etc.). Next step is to add routing to a given page:
-* src\routes\main\router.js:
-``` js
-import Home from './routes/home/Index.vue'
-import Crm from './routes/crm/Index.vue'
-import crmRoutes from './routes/crm/router'
-import Administration from './routes/administration/Index.vue'
-import administrationRoutes from './routes/administration/router'
-/* import here */
-
-let mainRoutes = [
-    {
-        path: 'home',
-        name: 'home',
-        component: Home
-    },
-    {
-        path: 'crm',
-        name: 'crm',
-        component: Crm,
-        children: crmRoutes,
-        meta: {guard: 'CRM'}
-    },
-    {
-        path: 'administration',
-        name: 'administration',
-        component: Administration,
-        children: administrationRoutes,
-        meta: {guard: 'ADMIN'}
-    },
-    /* add your module here */
-];
-
-export default mainRoutes;
-```
-* src\routes\main\routes\[your-module-directory]\router.js:
-``` js
-import FirstTable from './routes/first-table/Index.vue'
-import SecondTable from './routes/second-table/Index.vue'
-
-let yourModuleRoutes = [
-    {
-        path: 'first-table',
-        name: 'your-module.first-table',
-        component: FirstTable,
-    },
-    {
-        path: 'second-table',
-        name: 'your-module.second-table',
-        component: SecondTable,
-    },
-];
-
-export default yourModuleRoutes;
-```
-Finally, add a link to the page in the menu:
-* src\routes\main\components\Sidebar.vue:
-``` js
-import { mapGetters } from "vuex";
-
-export default {
-  data: () => ({
-    dialog: false,
-    drawer: null,
-    items: [
-      /* existing modules here */
-      
-      /* your module: */
-      // START
-      {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "yourModule.name",
-        model: false,
-        guard: "YOUR_MODULE_API_GUARD_NAME",
-        route: "/your-module-path",
-        children: [
-          {
-            text: "your-module.first-table",
-            route: "/first-table"
-          },
-          {
-            text: "your-module.second-table",
-            route: "/second-table"
-          },
-        ]
-      }
-      // END
-    ]
-  }),
-  computed: {
-    ...mapGetters("auth", ["checkRole"])
-  },
-  props: {
-    source: String
-  }
-};
-```
+#### Extended details:
+![extended-details](https://user-images.githubusercontent.com/18534115/50349691-f77f4300-053c-11e9-8886-d7c5ab1ffbc4.jpg)
 
 ## License
 [MIT](https://opensource.org/licenses/MIT)
