@@ -1,16 +1,19 @@
 module.exports = {
   title: 'Vue CRUD',
-  description: 'Just playing around',
+  description: 'Vue.js based REST-ful CRUD application',
+  head: [
+    ['link', { rel: 'icon', href: '/images/icon/favicon.png' }]
+  ],
   themeConfig: {
     logo: '/images/logo/vue-crud-sm.png',
     nav: [
       {
         text: 'Guide',
-        link: '/guide/'
+        link: '/guide/essentials/introduction'
       },
       {
         text: 'API',
-        link: '/api/'
+        link: '/api/api/getting-started'
       },
       {
         text: 'Demo',
@@ -57,26 +60,31 @@ module.exports = {
           title: 'Modules',
           collapsable: false,
           children: [
-            '/guide/essentials/introduction',
-            '/guide/essentials/installation',
-            '/guide/essentials/configuration',
+            '/guide/modules/router',
+            '/guide/modules/home-page',
+            '/guide/modules/admin-module',
+            '/guide/modules/creating-own-modules',
           ]
         },
         {
           title: 'Table management',
           collapsable: false,
           children: [
-            '/guide/essentials/introduction',
-            '/guide/essentials/installation',
-            '/guide/essentials/configuration',
+            '/guide/table-management/basics',
+            '/guide/table-management/large-tables',
+            '/guide/table-management/extended-details',
+            '/guide/table-management/item-elements',
           ]
         },
       ],
-
       '/api/': [
-        '',
-        'three',
-        'four'
+        {
+          title: 'API',
+          collapsable: false,
+          children: [
+            '/api/api/getting-started',
+          ]
+        },
       ],
       // fallback
       '/': [

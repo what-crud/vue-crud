@@ -2,13 +2,13 @@
 home: true
 heroImage: /images/logo/vue-crud-lg.png
 actionText: Get Started →
-actionLink: /guide/
+actionLink: /guide/essentials/introduction
 features:
-- title: Simplicity First
-  details: Minimal setup with markdown-centered project structure helps you focus on writing.
-- title: Vue-Powered
-  details: Enjoy the dev experience of Vue + webpack, use Vue components in markdown, and develop custom themes with Vue.
-- title: Performant
-  details: VuePress generates pre-rendered static HTML for each page, and runs as an SPA once a page is loaded.
+- title: Single Page App
+  details: Application is build as SPA (Single Page Application) so it works much faster than apps based on Wordpress, Joomla, etc.
+- title: Uses Vue.js ecosystem
+  details: Vue CRUD uses the vue along with its ecosystem. Enjoy the benefits of the most popular JS framework in the world
+- title: Works with REST API
+  details: The application architecture is adapted to work with REST API
 footer: MIT Licensed | Copyright © 2018-present Szczepan Masny
 ---
