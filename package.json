@@ -6,9 +6,7 @@
   "author": "Szczepan Masny <szczepanmasny@gmail.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "docs:build": "vuepress build docs",
-    "docs:dev": "vuepress dev docs"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
