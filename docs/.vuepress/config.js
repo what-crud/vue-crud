@@ -57,9 +57,10 @@ module.exports = {
           title: 'Modules',
           collapsable: false,
           children: [
+            '/guide/modules/router',
             '/guide/modules/home-page',
             '/guide/modules/admin-module',
-            '/guide/modules/creating-modules',
+            '/guide/modules/creating-own-modules',
           ]
         },
         {
