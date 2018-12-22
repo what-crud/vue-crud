@@ -10,7 +10,7 @@ Vue CRUD is Vue - based REST-ful CRUD application.
 
 ## Documentation
 
-In progress
+To check out docs, visit <a href="https://vue-crud.github.io/" target="_blank">vue-crud.github.io</a>.
 
 ## Demo version
 Demo application is available <a href="http://crud.id-a.pl" target="_blank">here</a>\
