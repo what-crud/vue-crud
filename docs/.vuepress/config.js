@@ -1,6 +1,9 @@
 module.exports = {
   title: 'Vue CRUD',
   description: 'Vue.js based REST-ful CRUD application',
+  head: [
+    ['link', { rel: 'icon', href: '/images/icon/favicon.png' }]
+  ],
   themeConfig: {
     logo: '/images/logo/vue-crud-sm.png',
     nav: [
