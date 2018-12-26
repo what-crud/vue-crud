@@ -14,7 +14,7 @@ Vue CRUD is Vue - based REST-ful CRUD application.
 To check out docs, visit <a href="https://vue-crud.github.io/" target="_blank">vue-crud.github.io</a>.
 
 ## Demo version
-Demo application is available <a href="http://crud.id-a.pl" target="_blank">here</a>\
+Here is available <a href="http://crud.id-a.pl" target="_blank">demo application</a>.\
 Credentials with limited privileges (readonly):\
 Login:  guest@vue.crud\
 Pass:   ajSGenC0\
