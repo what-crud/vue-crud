@@ -57,26 +57,6 @@ Another functions and features:
 * language versions,
 * simple configuration of themes,
 
-## Screens
-
-#### Login page:
-![login-page](https://user-images.githubusercontent.com/18534115/50349695-f77f4300-053c-11e9-8cc7-8e9fa3ddfd9e.jpg)
-
-#### Home page:
-![home-page](https://user-images.githubusercontent.com/18534115/50349693-f77f4300-053c-11e9-9a64-aa04fa7cb1d6.jpg)
-
-#### Sidebar:
-![sidebar](https://user-images.githubusercontent.com/18534115/50349688-f6e6ac80-053c-11e9-9fe7-ddf0e89c33d5.jpg)
-
-#### CRUD table:
-![crud-table](https://user-images.githubusercontent.com/18534115/50349689-f6e6ac80-053c-11e9-86cf-335609b640d3.jpg)
-
-#### Item details:
-![item-details](https://user-images.githubusercontent.com/18534115/50349694-f77f4300-053c-11e9-9f34-dd9fa69f2a8d.jpg)
-
-#### Extended details:
-![extended-details](https://user-images.githubusercontent.com/18534115/50349691-f77f4300-053c-11e9-8886-d7c5ab1ffbc4.jpg)
-
 ## License
 [MIT](https://opensource.org/licenses/MIT)
 
