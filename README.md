@@ -1,14 +1,12 @@
 <p align="center">
   <img width="300" height="auto" src="https://user-images.githubusercontent.com/18534115/49319435-29ccf000-f4fd-11e8-9fc6-8678864132bd.png">
 </p>
+<h1 align="center">Vue CRUD</h1>
 
-# Vue CRUD [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Vue%20CRUD%20-%20create%20rapid%20cms%20or%20crm%20in%20a%20few%20minutes&url=https://github.com/szczepanmasny/vue-crud&via=froala&hashtags=vue,crud,vuex,jwt,spa,js,vuetify,crm,cms)
-
-> CRUD application written using Vue.js 2.x, Vuex and Vuetify. The app uses REST API and JWT Tokens.
+![vue-crud](https://user-images.githubusercontent.com/18534115/50497274-5b6ea380-0a36-11e9-8dd6-2a7bc6875fe6.gif)
 
 ## About
-Vue CRUD is Vue - based REST-ful CRUD application.
-
+CRUD application written using Vue.js 2.x, Vuex and Vuetify. The app uses REST API and JWT Tokens.
 ## Documentation
 
 To check out docs, visit <a href="https://vue-crud.github.io/" target="_blank">vue-crud.github.io</a>.
