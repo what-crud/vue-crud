@@ -23,7 +23,8 @@ let state = {
   },
   filesPath: configApi.url + configApi.path.files,
   logoLg: configParams.logoLg,
-  logoSm: configParams.logoSm
+  logoSm: configParams.logoSm,
+  sidebarItems: configParams.sidebarItems
 }
 
 export default state

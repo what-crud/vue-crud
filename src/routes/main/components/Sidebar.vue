@@ -10,7 +10,7 @@
     mini-variant-width="60"
   >
     <v-list dense>
-      <template v-if="checkRole(item.guard)" v-for="(item) in items">
+      <template v-if="checkRole(item.guard)" v-for="(item) in sidebarItems">
         <v-list-group v-model="item.model" :key="item.text" :prepend-icon="item.icon"
           append-icon="">
           <v-list-tile slot="activator">
@@ -47,7 +47,7 @@ import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["sidebarMini", "sidebar"]),
+    ...mapState(["sidebarMini", "sidebar", "sidebarItems"]),
     ...mapGetters("auth", ["checkRole"])
   },
   props: {
@@ -65,87 +65,14 @@ export default {
     },
     mouseleave() {
       this.setSidebarWidth(true)
+      for(let item of this.sidebarItems){
+        item.model = false
+      }
     }
   },
   data: () => ({
     setSidebarMini: false,
-    dialog: false,
-    items: [
-      {
-        icon: "people",
-        text: "crm.name",
-        model: false,
-        guard: "CRM",
-        route: "/crm",
-        children: [
-          {
-            text: "crm.companies",
-            route: "/companies"
-          },
-          {
-            text: "crm.companyTypes",
-            route: "/company-types"
-          },
-          {
-            text: "crm.companyFiles",
-            route: "/company-files"
-          },
-          {
-            text: "crm.companyComments",
-            route: "/company-comments"
-          },
-          {
-            text: "crm.companyCommentTypes",
-            route: "/company-comment-types"
-          },
-          {
-            text: "crm.people",
-            route: "/people"
-          },
-          {
-            text: "crm.personComments",
-            route: "/person-comments"
-          },
-          {
-            text: "crm.personCommentTypes",
-            route: "/person-comment-types"
-          },
-          {
-            text: "crm.positions",
-            route: "/positions"
-          },
-          {
-            text: "crm.positionTasks",
-            route: "/position-tasks"
-          },
-          {
-            text: "crm.tasks",
-            route: "/tasks"
-          }
-        ]
-      },
-      {
-        icon: "person_add_disabled",
-        text: "admin.name",
-        model: false,
-        guard: "ADMIN",
-        route: "/administration",
-        children: [
-          {
-            text: "admin.users",
-            route: "/users"
-          },
-          {
-            text: "admin.permissions",
-            route: "/permissions"
-          },
-          {
-            text: "admin.userPermissions",
-            route: "/user-permissions"
-          }
-        ]
-      }
-    ]
+    dialog: false
   }),
 };
 </script>

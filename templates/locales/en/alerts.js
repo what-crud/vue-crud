@@ -1,7 +1,7 @@
 export default {
   updated: 'Updated',
   updateError: 'Error! Update unsuccessful',
-  stored: 'Dodano',
+  stored: 'Stored',
   storeError: 'Error! Store unsuccessful',
   suspended: 'Suspended',
   suspendError: 'Error! Suspend unsuccessful',
