@@ -81,7 +81,7 @@
 </template>
 <script>
 import Vue from "vue";
-import { functionsList } from "@/helpers/functions.js";
+import { fieldModifiers } from "@/config/field-modifiers.js";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
@@ -172,7 +172,7 @@ export default {
         if (field.apiObject){
           if (field.apiObject.useFunctionsInDetails){
             let functions = field.apiObject.functions || []
-            let availableFunctions = functionsList
+            let availableFunctions = fieldModifiers
 
             for (let i = 0; i < functions.length; i++) {
               let functionName = functions[i]

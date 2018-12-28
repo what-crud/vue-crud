@@ -1,3 +1,5 @@
+import { fieldModifiers } from "@/config/field-modifiers.js";
+
 function parseIntIfNumber(str) {
   return !/\D/.test(str) ? parseInt(str) : str
 }
@@ -26,38 +28,6 @@ function humanFileSize(bytes, si) {
   } while (Math.abs(bytes) >= thresh && u < units.length - 1);
   return bytes.toFixed(1) + ' ' + units[u];
 }
-
-let functionsList = {
-  humanFileSize: (param) => {
-    return humanFileSize(param)
-  },
-  dateFromTimestamp: (param) => {
-    return param.substring(0, 10)
-  },
-  timeFromTimestamp: (param) => {
-    let tmp = param || ''
-    return tmp.substring(0, 5)
-  },
-  datetimeFromTimestamp: (param) => {
-    return '<nobr>' + param.substring(0, 19) + '</nobr>'
-  },
-  croppedText: (param) => {
-    return (param == null || param.length < 100) ? param : param.substring(0, 100) + '...'
-  },
-  list: (param) => {
-    return param ? param.map(obj => obj.tableList).join(', ') : ''
-  },
-  listTasks: (param) => {
-    return param ? param.map(obj => {
-      return obj.task.name
-    }).join('<br>') : ''
-  },
-  lastReset: (param) => {
-    if (param.length > 0) {
-      return '<nobr>' + param[param.length - 1].reset_time.substring(0, 19) + '</nobr>'
-    }
-  }
-};
 
 function getItemsList(obj, fields, meta, primaryKey, customButtons, activeColumnName) {
   var rObj = {}
@@ -117,7 +87,7 @@ function getItemsList(obj, fields, meta, primaryKey, customButtons, activeColumn
           }, obj)
 
       let functions = info.functions || []
-      let availableFunctions = functionsList
+      let availableFunctions = fieldModifiers
 
       for (let i = 0; i < functions.length; i++) {
         let functionName = functions[i]
@@ -143,6 +113,5 @@ export {
   parseIntIfNumber,
   download,
   humanFileSize,
-  getItemsList,
-  functionsList
+  getItemsList
 }

@@ -2,32 +2,24 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '@/router'
 
-//crud
-import crud from './modules/crud/'
-
-// auth
-
-import auth from './modules/auth/'
-
-//modules
-import administration from '@/routes/main/routes/administration/store/'
-import crm from '@/routes/main/routes/crm/store/'
-
+// main store
 import state from './state'
 import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
 
-Vue.use(Vuex);
+// crud
+import crud from './modules/crud/'
+// auth
+import auth from './modules/auth/'
 
-const modules = {
-  //crud
-  crud: crud,
-  //modules
-  administration: administration,
-  auth: auth,
-  crm: crm,
-}
+let mainModules = {crud, auth}
+
+import customModules from '@/config/store-modules.js'
+const modules = Object.assign(customModules, mainModules);
+
+console.log(modules)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules,
