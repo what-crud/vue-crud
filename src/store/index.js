@@ -18,7 +18,6 @@ let mainModules = {crud, auth}
 import customModules from '@/config/store-modules.js'
 const modules = Object.assign(customModules, mainModules);
 
-console.log(modules)
 Vue.use(Vuex);
 
 export default new Vuex.Store({
