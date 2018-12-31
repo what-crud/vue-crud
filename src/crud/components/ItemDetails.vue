@@ -507,7 +507,8 @@ export default {
         let formData = new FormData();
         formData.append("file", file);
         formData.append("module", this.prefix);
-        formData.append("folder", this.path);
+        formData.append("table", this.path);
+        formData.append("field", field.column);
         this.$http.post(this.uploadPath, formData, {}).then(response => {
           field.value = JSON.stringify({
             filename: file.name,
