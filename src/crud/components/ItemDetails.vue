@@ -441,8 +441,8 @@ export default {
   methods: {
     ...mapActions("crud", ["updateItem", "storeItem", "mulitipleItemsUpdate"]),
     ...mapMutations("crud", ["resetItem"]),
+    ...mapMutations(["alertValidationError", "alertError"]),
     fileUploadBtn(status) {
-      console.log(status)
       let btnClasses = {
         ready: 'primary',
         success: 'success',
@@ -510,15 +510,26 @@ export default {
         formData.append("table", this.path);
         formData.append("field", field.column);
         this.$http.post(this.uploadPath, formData, {}).then(response => {
-          field.value = JSON.stringify({
-            filename: file.name,
-            mime: file.type,
-            size: file.size,
-            path: response.body,
-            uploaded: 1
-          })
+          if(response.body.status == 0){
+            field.value = JSON.stringify({
+              filename: file.name,
+              mime: file.type,
+              size: file.size,
+              path: response.body.path,
+              uploaded: 1
+            })
+            this.$set(this.uploadStatuses, field.name, 'success');
+          }
+          else {
+            this.$set(this.uploadStatuses, field.name, 'error');
+            if (response.body.status == -1) {
+              this.alertError(response.body.msg)
+            }
+            else if (response.body.status == -2) {
+              this.alertValidationError(response.body.msg)
+            }
+          }
           this.$set(this.uploadLoaders, field.name, false);
-          this.$set(this.uploadStatuses, field.name, 'success');
         }, error => {
           this.$set(this.uploadLoaders, field.name, false);
           this.$set(this.uploadStatuses, field.name, 'error');
