@@ -4,9 +4,6 @@ import {
   mapMutations,
   mapActions
 } from "vuex";
-import {
-  download
-} from "@/helpers/functions.js";
 import DataTableRow from "../components/DataTableRow.vue";
 import DataTableControls from "../components/DataTableControls.vue";
 
@@ -21,7 +18,6 @@ export default {
     "customButtons",
     "itemElements",
     "editButton",
-    "fileMode",
     "meta",
     "primaryKey",
     "activeColumnName"
@@ -68,7 +64,6 @@ export default {
       "multipleEditDialog",
       "setItemElementsInfo",
       "editItemElementsDialog",
-      "openImageContainer",
       "setSelectedIds"
     ]),
     ...mapActions("crud", [
@@ -201,16 +196,6 @@ export default {
           this.custom('goToItem', item)
         }
       }
-    },
-    download(item) {
-      download(this.filesPath + item.meta.path, item.filename);
-    },
-    isImage(mime) {
-      let supportedMimeTypes = ["image/jpeg", "image/png"];
-      return supportedMimeTypes.includes(mime);
-    },
-    showImage(image) {
-      this.openImageContainer(image);
     },
   },
 };

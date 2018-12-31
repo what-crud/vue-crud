@@ -1,7 +1,4 @@
 let fieldModifiers = {
-  humanFileSize: (param) => {
-    return humanFileSize(param)
-  },
   dateFromTimestamp: (param) => {
     return param.substring(0, 10)
   },
@@ -17,6 +14,11 @@ let fieldModifiers = {
   },
   list: (param) => {
     return param ? param.map(obj => obj.tableList).join(', ') : ''
+  },
+  listTasks: (param) => {
+    return param ? param.map(obj => {
+      return obj.task.name
+    }).join('<br>') : ''
   },
   lastReset: (param) => {
     if (param.length > 0) {

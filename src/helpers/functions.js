@@ -7,7 +7,8 @@ function parseIntIfNumber(str) {
 function download(path, filename) {
   var a = document.createElement('a')
   a.href = path + '/' + filename
-  a.download = filename
+  a.download
+  a.target = "_blank"
   a.click();
 }
 

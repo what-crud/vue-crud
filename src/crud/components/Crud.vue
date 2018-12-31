@@ -8,7 +8,6 @@
         :itemElements="itemElements"
         :deleteMode="deleteMode"
         :editButton="editButton"
-        :fileMode="fileMode"
         :tableFields="tableFields"
         :primaryKey="primaryKey"
         :activeColumnName="activeColumnName"
@@ -75,10 +74,6 @@ export default {
     itemElements: {
       type: Object,
       default: () => {}
-    },
-    fileMode: {
-      type: Boolean,
-      default: false
     },
     watchForCreation: {
       type: Boolean,

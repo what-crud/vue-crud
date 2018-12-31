@@ -52,42 +52,34 @@
         </v-btn>
         <span>{{ $t('buttons.delete') }}</span>
       </v-tooltip>
-      <!-- file mode -->
-      <template v-if="fileMode">
-        <v-tooltip top>
-          <v-btn outline fab small class="xs white--text" color="blue" @click="download(props.item)" slot="activator">
-            <v-icon>file_download</v-icon>
-          </v-btn>
-          <span>{{ $t('buttons.download') }}</span>
-        </v-tooltip>
-        <v-tooltip top v-if="isImage(props.item.type)">
-          <v-btn outline fab small class="xs white--text" color="blue" @click="showImage(props.item)" slot="activator">
-            <v-icon>search</v-icon>
-          </v-btn>
-          <span>{{ $t('buttons.show') }}</span>
-        </v-tooltip>
-      </template>
     </td>
     <!-- table fields -->
     <td v-if="key != 'meta'" v-for="(field, key) in props.item" :key="key">
       <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
       <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
       <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
+      <span v-else-if="columnTextModes[key] == 'file'">
+        <file-details :field="fileFieldToJSON(field)"></file-details>
+      </span>
     </td>
   </tr>
 </template>
 
 <script>
 import MessagesMixin from "../mixins/messages-datatable-row.js";
+import FileDetails from './FileDetails.vue'
+
 export default {
   mixins: [MessagesMixin],
+  components: {
+    FileDetails 
+  },
   props: [
     'props',
     'editButton',
     'customButtons',
     'deleteMode',
     'itemElements',
-    "fileMode",
     "columnTextModes"
   ],
   filters: {
@@ -101,9 +93,12 @@ export default {
         rField = field
       }
       return rField
-    }
+    },
   },
   methods: {
+    fileFieldToJSON(field) {
+      return JSON.parse(field)
+    },
     activityClass(isActive) {
       let className = ""
       if(['soft', 'both'].includes(this.deleteMode)){
@@ -133,13 +128,7 @@ export default {
     suspend(id) {this.$emit('suspend', id)},
     restore(id) {this.$emit('restore', id)},
     destroy(id) {this.$emit('destroy', id)},
-    editItemElements(name, id) {this.$emit('editItemElements', name, id)},
-    download(item) {this.$emit('download', item)},
-    isImage(mime) {
-      let supportedMimeTypes = ["image/jpeg", "image/png"];
-      return supportedMimeTypes.includes(mime);
-    },
-    showImage(image) {this.$emit('showImage', image)},
+    editItemElements(name, id) {this.$emit('editItemElements', name, id)}
   }
 };
 </script>

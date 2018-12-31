@@ -92,20 +92,24 @@
                 ></v-textarea>
 
                 <!-- file upload -->
-                <template v-else-if="field.type == 'file'">
-                  <v-btn dark class="blue jbtn-file">
+                <div v-else-if="field.type == 'file'" class="file-container">
+                  <div class="field-label">{{ field.text }}</div>
+                  <v-btn dark class="jbtn-file" :loading="uploadLoaders[field.name]" :class="fileUploadBtn(uploadStatuses[field.name])">
                     {{ $t('upload') }}
+                    <v-icon dark right>
+                      {{ fileUploadIcon(uploadStatuses[field.name]) }}
+                    </v-icon>
                     <input
-                      id="selectFile"
+                      :id="field.name"
                       type="file"
-                      @change="fileSelected"
+                      @change="fileSelected($event, field)"
                       accept="*"
                       :multiple="false"
                       :disabled="false"
                       ref="fileInput"
                     >
                   </v-btn>
-                </template>
+                </div>
 
                 <!-- select -->
                 <template v-else-if="field.type == 'select'">
@@ -225,10 +229,8 @@ export default {
   props: ["title", "detailsFields"],
   data() {
     return {
-      upload: {
-        active: false,
-        data: {}
-      },
+      uploadStatuses: {},
+      uploadLoaders: {},
       searchPhrases: {},
       searchLoading: {},
       searchData: {}
@@ -236,11 +238,14 @@ export default {
   },
   created() {
     this.resetItem();
-    this.upload.active = false;
     for (let field of this.fields) {
       field.required = field.required == false ? false : true;
       field.updateColumn = false;
-      if (field.type == "select") {
+      if (field.type == "file") {
+        this.$set(this.uploadLoaders, field.name, false);
+        this.$set(this.uploadStatuses, field.name, 'ready');
+      }
+      else if (field.type == "select") {
         let url = field.url;
         if (field.async) {
           this.$set(this.searchPhrases, "search_" + field.name, "");
@@ -286,6 +291,14 @@ export default {
   watch: {
     details: {
       handler(val) {
+        if (val.show == true) {
+          for (let field of this.fields) {
+            if (field.type == "file") {
+              this.$set(this.uploadLoaders, field.name, false);
+              this.$set(this.uploadStatuses, field.name, 'ready');
+            }
+          }
+        }
         if (val.show == true && val.action == "edit") {
           for (let field of this.fields) {
             if (field.type == "select") {
@@ -369,6 +382,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(["uploadPath"]),
     ...mapState("crud", ["details", "path", "prefix", "selectedIds"]),
     fields() {
       let self = this;
@@ -415,11 +429,6 @@ export default {
       for (let field of this.fields) {
         result[field.column] = field.value ? field.value : null;
       }
-      if (this.upload.active) {
-        for (let key in this.upload.data) {
-          result[key] = this.upload.data[key];
-        }
-      }
       return result;
     },
     rules() {
@@ -432,6 +441,23 @@ export default {
   methods: {
     ...mapActions("crud", ["updateItem", "storeItem", "mulitipleItemsUpdate"]),
     ...mapMutations("crud", ["resetItem"]),
+    fileUploadBtn(status) {
+      console.log(status)
+      let btnClasses = {
+        ready: 'primary',
+        success: 'success',
+        error: 'error'
+      }
+      return btnClasses[status]
+    },
+    fileUploadIcon(status) {
+      let icons = {
+        ready: 'save_alt',
+        success: 'check',
+        error: 'close'
+      }
+      return icons[status]
+    },
     close() {
       this.details.show = false;
     },
@@ -474,27 +500,30 @@ export default {
         this.$t("global.alerts.suspendError")
       ]);
     },
-    fileSelected(e) {
+    fileSelected(e, field) {
       let file = e.target.files[0];
       if (file) {
+        this.$set(this.uploadLoaders, field.name, true);
         let formData = new FormData();
         formData.append("file", file);
         formData.append("module", this.prefix);
         formData.append("folder", this.path);
-        this.$http.post("files/file-upload", formData, {}).then(response => {
-          this.upload = {
-            active: true,
-            data: {
-              filename: file.name,
-              mime: file.type,
-              size: file.size,
-              path: response.body,
-              uploaded: 1
-            }
-          };
-        });
+        this.$http.post(this.uploadPath, formData, {}).then(response => {
+          field.value = JSON.stringify({
+            filename: file.name,
+            mime: file.type,
+            size: file.size,
+            path: response.body,
+            uploaded: 1
+          })
+          this.$set(this.uploadLoaders, field.name, false);
+          this.$set(this.uploadStatuses, field.name, 'success');
+        }, error => {
+          this.$set(this.uploadLoaders, field.name, false);
+          this.$set(this.uploadStatuses, field.name, 'error');
+        })
       }
-    }
+    },
   },
   i18n: {
     messages: {
@@ -545,10 +574,18 @@ export default {
 </script>
 
 <style scoped>
+.field-label {
+  font-size:12px;
+  color:#777;
+}
+.file-container {
+  margin-top:4px;
+}
 .jbtn-file {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  margin: 0px;
 }
 .jbtn-file input[type="file"] {
   position: absolute;

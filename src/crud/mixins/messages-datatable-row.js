@@ -7,8 +7,6 @@ export default {
           suspend: "Zawieś",
           restore: "Przywróć",
           delete: "Usuń",
-          download: "Pobierz",
-          show: "Pokaż",
         }
       },
       en: {
@@ -17,8 +15,6 @@ export default {
           suspend: "Suspend",
           restore: "Restore",
           delete: "Delete",
-          download: "Download",
-          show: "Show",
         }
       }
     }

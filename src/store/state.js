@@ -21,7 +21,8 @@ let state = {
     text: '',
     icon: ''
   },
-  filesPath: configApi.url + configApi.path.files,
+  filesPath: configApi.url + configApi.path.storage,
+  uploadPath: configApi.url + configApi.path.default + '/' + configApi.path.upload,
   logoLg: configParams.logoLg,
   logoSm: configParams.logoSm,
   sidebarItems: configParams.sidebarItems

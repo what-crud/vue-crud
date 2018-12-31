@@ -5,9 +5,9 @@
       </v-card-title>
       <v-card-text>
         <div>
-          <h3 class="headline mb-0">{{ imageContainer.item.description }}</h3>
-          <div>{{ imageContainer.item.filename }}</div>
-          <div>{{ imageContainer.item.size }}</div>
+          <h1>{{ imageContainer.item.filename }}</h1>
+          <div>{{ imageContainer.item.mime }}</div>
+          <div>{{ imageContainer.item.size | fileSize }}</div>
         </div>
         <img :src="image" style="max-height: 50vh;">
       </v-card-text>
@@ -22,6 +22,9 @@
 
 <script>
   import {
+    humanFileSize
+  } from '@/helpers/functions'
+  import {
     mapState,
     mapMutations
   } from 'vuex'
@@ -35,7 +38,12 @@
         'imageContainer'
       ]),
       image() {
-          return this.imageContainer.item.meta ? this.filesPath + this.imageContainer.item.meta.path + '/' + this.imageContainer.item.filename : ''
+        return this.filesPath + this.imageContainer.item.path + '/' + this.imageContainer.item.filename
+      }
+    },
+    filters: {
+      fileSize(size) {
+        return humanFileSize(size)
       }
     },
     methods: {
@@ -58,5 +66,4 @@
       }
     }
   }
-
 </script>

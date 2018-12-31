@@ -80,7 +80,6 @@
           :customButtons='customButtons'
           :deleteMode='deleteMode'
           :itemElements="itemElements"
-          :fileMode="fileMode"
           :columnTextModes="columnTextModes"
           @edit="edit"
           @custom="custom"
@@ -88,8 +87,6 @@
           @restore="restore"
           @destroy="destroy"
           @editItemElements="editItemElements"
-          @download="download"
-          @showImage="showImage"
         ></data-table-row>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">

@@ -7335,11 +7335,6 @@ vue-template-es2015-compiler@^1.6.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
   integrity sha512-x3LV3wdmmERhVCYy3quqA57NJW7F3i6faas++pJQWtknWT+n7k30F4TVdHvCLn48peTJFRvCpxs3UuFPqgeELg==
 
-vue-upload-component@^2.8.16:
-  version "2.8.16"
-  resolved "https://registry.yarnpkg.com/vue-upload-component/-/vue-upload-component-2.8.16.tgz#cf8c9c7d6b342a5e0485d6955cebd22f31806ed2"
-  integrity sha512-aDFKA1lpZojNFzSeC9iGah5qupj1ZhUCDjYFk4FyMNrUXhICSBicc+zzXGB1gQtoqjbmPjrWLZ/r2ejJ+iCcsA==
-
 vue2-editor@^2.6.6:
   version "2.6.6"
   resolved "https://registry.yarnpkg.com/vue2-editor/-/vue2-editor-2.6.6.tgz#567f7c2aabdd10d465756da7aebf568ee34ebbc5"

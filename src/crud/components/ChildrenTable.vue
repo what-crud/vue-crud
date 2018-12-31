@@ -176,10 +176,6 @@ export default {
       type: Boolean,
       default: true
     },
-    fileMode: {
-      type: Boolean,
-      default: false
-    },
     meta: {
       type: Array,
       default: () => []
