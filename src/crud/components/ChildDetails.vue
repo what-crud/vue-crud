@@ -44,7 +44,7 @@
                 :item-value="field.list.value"
                 item-disabled="itemDisabled"
                 :label="field.text"
-                menu-props="bottom
+                menu-props="bottom"
                
               ></v-autocomplete>
               <v-autocomplete v-else
