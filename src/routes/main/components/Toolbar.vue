@@ -4,9 +4,7 @@
         <router-link to="/home">{{$store.state.title}}</router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <span class="logo-background">
-      <img class="logo" :src="require(`@/assets/images/${$store.state.logoSm}`)">
-    </span>
+    <img class="logo" :src="require(`@/assets/images/${$store.state.logoSm}`)">
     <v-spacer></v-spacer>
     <v-menu menu-props="bottom" left v-if="$store.state.localeSelectable">
       <v-btn icon slot="activator" dark>
@@ -75,9 +73,6 @@
   .logo {
     height:50px;
     width:auto;
-    background-color: rgba(255,255,255,0.2);
-    border-radius: 35px;
-    padding: 5px 25px 5px 25px;
   }
   @media (max-width: 699px) {
     .logo {

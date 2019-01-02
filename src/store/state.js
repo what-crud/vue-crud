@@ -25,7 +25,9 @@ let state = {
   uploadPath: configApi.url + configApi.path.default + '/' + configApi.path.upload,
   logoLg: configParams.logoLg,
   logoSm: configParams.logoSm,
-  sidebarItems: configParams.sidebarItems
+  sidebarItems: configParams.sidebarItems,
+  footer: configParams.footer,
+  footerText: configParams.footerText
 }
 
 export default state

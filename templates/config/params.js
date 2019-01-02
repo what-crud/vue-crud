@@ -25,6 +25,8 @@ export const configParams = {
         success: '#4CAF50',
         warning: '#FFC107'
     },
+    footer: false,
+    footerText: '© 2019',
     sidebarItems: [
         {
             icon: "people",
