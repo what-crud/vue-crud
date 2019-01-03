@@ -1,10 +1,10 @@
 <template>
   <span>
     <span>
-      {{ $t('records') }} {{ pageStart }} - {{ pageStop }} {{ $t('from') }} {{ itemsLength }}
+      {{ $t('global.datatable.records') }} {{ pageStart }} - {{ pageStop }} {{ $t('global.datatable.from') }} {{ itemsLength }}
     </span>
     <span style="margin-left:30px;">
-      {{ $t('page') }}:
+      {{ $t('global.datatable.page') }}:
       &nbsp;
       <span style="width:50px;display:inline-block !important;">
         <v-text-field :value="pagination.page" @input="setPage($event)" type="number" min="1" :max="calcPages"></v-text-field>
@@ -14,9 +14,7 @@
 </template>
 
 <script>
-import MessagesMixin from "../mixins/messages-datatable-footer.js";
 export default {
-  mixins: [MessagesMixin],
   props: [
     'pageStart',
     'pageStop',

@@ -16,7 +16,7 @@
 
         <v-flex xs12 lg8 text-xs-left text-lg-right>
           <!-- Search by fields -->
-          <v-menu offset-y :close-on-content-click="false">
+          <v-menu offset-y :close-on-content-click="false" style="margin-right:30px;">
             <v-btn small fab dark slot="activator" class="primary">
               <v-icon>filter_list</v-icon>
             </v-btn>
@@ -27,7 +27,7 @@
                   v-model="item.mode"
                   item-text="text"
                   item-value="name"
-                  :label="$t('filterModes.label')"
+                  :label="$t('global.datatable.filterModes.label')"
                   hide-details
                   @input="updateColumnFilterMode($event, index)"
                 ></v-autocomplete>
@@ -42,10 +42,10 @@
           </v-menu>
 
           <!-- Search in table -->
-          <span style="display:inline-block;margin-left:50px;width:250px;">
+          <span style="margin-right:30px;display:inline-block;width:250px;">
             <v-text-field
               append-icon="search"
-              :label="$t('search')"
+              :label="$t('global.datatable.search')"
               single-line
               hide-details
               v-model="search"
@@ -55,9 +55,9 @@
 
           <!-- Select statuses (active/inactive) -->
           <template v-if="['soft', 'both'].includes(deleteMode)">
-            <span style="display:inline-block;margin-left:50px;width:250px;">
+            <span style="margin-right:30px;display:inline-block;width:250px;">
               <v-autocomplete
-                :label="$t('status.title')"
+                :label="$t('global.datatable.status.title')"
                 v-bind:items="statuses"
                 v-model="selectedStatuses"
                 single-line
@@ -68,6 +68,14 @@
               ></v-autocomplete>
             </span>
           </template>
+
+          <v-tooltip left>
+            <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator">
+              <v-icon>save_alt</v-icon>
+            </v-btn>
+            <span>{{ $t('global.datatable.buttons.copyToExcel') }}</span>
+          </v-tooltip>
+
         </v-flex>
       </v-layout>
     </v-card-title>
@@ -78,14 +86,14 @@
       :must-sort="true"
       v-model="selected"
       select-all="black"
-      :rows-per-page-items="[20, 50, { text: $t('all'), value: -1 }]"
+      :rows-per-page-items="[20, 50, { text: $t('global.datatable.all'), value: -1 }]"
       :pagination.sync="pagination"
       light
       :headers="headers"
       :items="filteredItems"
-      :no-results-text="$t('noMatchingResults')"
-      :no-data-text="$t('noDataAvailable')"
-      :rows-per-page-text="$t('rowsPerPageText')"
+      :no-results-text="$t('global.datatable.noMatchingResults')"
+      :no-data-text="$t('global.datatable.noDataAvailable')"
+      :rows-per-page-text="$t('global.datatable.rowsPerPageText')"
       :loading="loading"
     >
       <template slot="items" slot-scope="props">
@@ -152,7 +160,7 @@ export default {
   },
   methods: {
     ...mapMutations("crud", ["refreshTable"]),
-    ...mapActions("crud", ["getItems"])
+    ...mapActions("crud", ["getItems"]),
   }
 };
 </script>

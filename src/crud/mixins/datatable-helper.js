@@ -1,8 +1,6 @@
 import DataTableFooter from "../components/DataTableFooter.vue";
-import MessagesMixin from "./messages-datatable.js";
 
 export default {
-  mixins: [MessagesMixin],
   components: {
     DataTableFooter
   },
@@ -16,8 +14,7 @@ export default {
     };
   },
   computed: {
-    headers() {
-      let actionHeader = [{text: this.$t("fields.action"),sortable: false}]
+    cleanHeaders() {
       let headers = this.tableFields.map(field => {
         let header = {};
         header.text = field.text;
@@ -27,7 +24,14 @@ export default {
         }
         return header;
       });
-      return [...actionHeader, ...headers];
+      return headers
+    },
+    headers() {
+      let actionHeader = [{
+        text: this.$t("global.datatable.fields.action"),
+        sortable: false
+      }];
+      return [...actionHeader, ...this.cleanHeaders];
     },
     columnTextModes() {
       let columnTextModes = {}
@@ -39,11 +43,11 @@ export default {
     statuses() {
       return [
         {
-          text: this.$t("status.active"),
+          text: this.$t("global.datatable.status.active"),
           value: 1
         },
         {
-          text: this.$t("status.inactive"),
+          text: this.$t("global.datatable.status.inactive"),
           value: 0
         }
       ];
@@ -52,15 +56,15 @@ export default {
       return [
         {
           name: 'like',
-          text: this.$t('filterModes.options.like')
+          text: this.$t('global.datatable.filterModes.options.like')
         },
         {
           name: 'equals',
-          text: this.$t('filterModes.options.equals')
+          text: this.$t('global.datatable.filterModes.options.equals')
         },
         {
           name: 'list',
-          text: this.$t('filterModes.options.list')
+          text: this.$t('global.datatable.filterModes.options.list')
         },
       ]
     },

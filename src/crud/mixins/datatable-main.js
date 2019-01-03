@@ -34,22 +34,6 @@ export default {
     selectedIds() {
       return this.selected.map(item => item.id);
     },
-    headers() {
-      let actionHeader = [{
-        text: this.$t("fields.action"),
-        sortable: false
-      }];
-      let headers = this.tableFields.map(field => {
-        let header = {};
-        header.text = field.text;
-        header.value = field.name.toLowerCase();
-        if (field.sortable != undefined) {
-          header.sortable = field.sortable;
-        }
-        return header;
-      });
-      return [...actionHeader, ...headers];
-    },
     items() {
       return this.itemsList(this.tableFields, this.meta, this.primaryKey, this.customButtons, this.activeColumnName);
     },
@@ -115,10 +99,10 @@ export default {
     },
     checkSelected() {
       if (this.selected.length == 0) {
-        this.alertError(this.$t("noItemsSelected"));
+        this.alertError(this.$t("global.datatable.noItemsSelected"));
         return false;
       } else {
-        if (confirm(this.$t("confirm"))) {
+        if (confirm(this.$t("global.datatable.confirm"))) {
           return true;
         } else {
           return false;
@@ -127,7 +111,7 @@ export default {
     },
     editSelected() {
       if (this.selected.length == 0) {
-        this.alertError(this.$t("noItemsSelected"));
+        this.alertError(this.$t("global.datatable.noItemsSelected"));
         return false;
       }
       else {

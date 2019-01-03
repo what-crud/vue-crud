@@ -14,7 +14,7 @@
         <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id)" slot="activator">
           <v-icon>edit</v-icon>
         </v-btn>
-        <span>{{ $t('buttons.edit') }}</span>
+        <span>{{ $t('global.datatable.buttons.edit') }}</span>
       </v-tooltip>
       <!-- custom buttons -->
       <v-tooltip top v-for="(customButton) in customButtons" :key="customButton.name">
@@ -36,13 +36,13 @@
           <v-btn outline fab small class="xs white--text" color="red" @click="suspend(props.item.meta.id)" slot="activator">
             <v-icon>undo</v-icon>
           </v-btn>
-          <span>{{ $t('buttons.suspend') }}</span>
+          <span>{{ $t('global.datatable.buttons.suspend') }}</span>
         </v-tooltip>
         <v-tooltip top v-else>
           <v-btn outline fab small class="xs white--text" color="green" @click="restore(props.item.meta.id)" slot="activator">
             <v-icon>redo</v-icon>
           </v-btn>
-          <span>{{ $t('buttons.restore') }}</span>
+          <span>{{ $t('global.datatable.buttons.restore') }}</span>
         </v-tooltip>
       </template>
       <!-- hard delete -->
@@ -50,7 +50,7 @@
         <v-btn outline fab small class="xs white--text" color="red" @click="destroy(props.item.meta.id)" slot="activator">
           <v-icon>delete</v-icon>
         </v-btn>
-        <span>{{ $t('buttons.delete') }}</span>
+        <span>{{ $t('global.datatable.buttons.delete') }}</span>
       </v-tooltip>
     </td>
     <!-- table fields -->
@@ -66,11 +66,9 @@
 </template>
 
 <script>
-import MessagesMixin from "../mixins/messages-datatable-row.js";
 import FileDetails from './FileDetails.vue'
 
 export default {
-  mixins: [MessagesMixin],
   components: {
     FileDetails 
   },

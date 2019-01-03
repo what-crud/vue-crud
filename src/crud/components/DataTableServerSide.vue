@@ -18,7 +18,7 @@
         <v-flex xs12 lg8 text-xs-left text-lg-right>
 
           <!-- Search by fields -->
-          <v-menu offset-y :close-on-content-click="false">
+          <v-menu offset-y :close-on-content-click="false" style="margin-right:30px;">
             <v-btn small fab dark slot="activator" class="primary">
               <v-icon>filter_list</v-icon>
             </v-btn>
@@ -29,7 +29,7 @@
                   v-model="item.mode"
                   item-text="text"
                   item-value="name"
-                  :label="$t('filterModes.label')"
+                  :label="$t('global.datatable.filterModes.label')"
                   hide-details
                   @input="updateColumnFilterModeEvent($event, index)"
                 ></v-autocomplete>
@@ -39,14 +39,14 @@
           </v-menu>
 
           <!-- Search in table -->
-          <span style="display:inline-block;margin-left:50px;width:250px;">
-            <v-text-field append-icon="search" :label="$t('search')" single-line hide-details v-model="search" min-width="200" @input="searchItems(true)"></v-text-field>
+          <span style="margin-right:30px;display:inline-block;width:250px;">
+            <v-text-field append-icon="search" :label="$t('global.datatable.search')" single-line hide-details v-model="search" min-width="200" @input="searchItems(true)"></v-text-field>
           </span>
 
           <!-- Select statuses (active/inactive) -->
           <template v-if="['soft', 'both'].includes(deleteMode)">
-            <span style="display:inline-block;margin-left:50px;width:250px;">
-              <v-autocomplete :label="$t('status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value" multiple chips></v-autocomplete>
+            <span style="margin-right:30px;display:inline-block;width:250px;">
+              <v-autocomplete :label="$t('global.datatable.status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value" multiple chips></v-autocomplete>
             </span>
           </template>
 
@@ -67,9 +67,9 @@
       light
       :headers="headers"
       :items="items"
-      :no-results-text="$t('noMatchingResults')"
-      :no-data-text="$t('noDataAvailable')"
-      :rows-per-page-text="$t('rowsPerPageText')"
+      :no-results-text="$t('global.datatable.noMatchingResults')"
+      :no-data-text="$t('global.datatable.noDataAvailable')"
+      :rows-per-page-text="$t('global.datatable.rowsPerPageText')"
       :total-items="totalItems"
       :loading="loading"
     >

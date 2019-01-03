@@ -88,4 +88,25 @@ export default {
         return items;
       }
     },
+    methods: {
+      exportToExcel() {
+        let headers = this.cleanHeaders.map(header => header.text)
+        let data = this.filteredItems.map(item => {
+          let row = []
+          for(let header of this.cleanHeaders){
+            row.push(item[header.value])
+          }
+          return row
+        })
+        import('@/vendor/Export2Excel').then(excel => {
+          excel.export_json_to_excel({
+            header: headers,
+            data: data,
+            filename: 'excel-list',
+            autoWidth: true,
+            bookType: 'xlsx'
+          })
+        })
+      }
+    }
   };

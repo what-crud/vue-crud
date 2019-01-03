@@ -9,7 +9,7 @@
             <v-btn fab small dark color="green" @click="create()" slot="activator">
               <v-icon>add</v-icon>
             </v-btn>
-            <span>{{ $t('add') }}</span>
+            <span>{{ $t('global.datatable.add') }}</span>
           </v-tooltip>
           <!-- custom buttons -->
           <v-tooltip top v-for="(customHeaderButton) in customHeaderButtons" :key="customHeaderButton.name">
@@ -23,7 +23,7 @@
         <v-flex xs12 xl8 text-xs-left text-xl-right>
 
           <!-- Search by fields -->
-          <v-menu offset-y :close-on-content-click="false">
+          <v-menu offset-y :close-on-content-click="false" style="margin-right:30px;">
             <v-btn small fab dark slot="activator" class="primary">
               <v-icon>filter_list</v-icon>
             </v-btn>
@@ -34,7 +34,7 @@
                   v-model="item.mode"
                   item-text="text"
                   item-value="name"
-                  :label="$t('filterModes.label')"
+                  :label="$t('global.datatable.filterModes.label')"
                   hide-details
                   @input="updateColumnFilterMode($event, index)"
                 ></v-autocomplete>
@@ -44,16 +44,23 @@
           </v-menu>
 
           <!-- Search in table -->
-          <span style="display:inline-block;margin-left:50px;width:250px;">
-            <v-text-field append-icon="search" :label="$t('search')" single-line hide-details v-model="search" min-width="200"></v-text-field>
+          <span style="margin-right:30px;display:inline-block;width:250px;">
+            <v-text-field append-icon="search" :label="$t('global.datatable.search')" single-line hide-details v-model="search" min-width="200"></v-text-field>
           </span>
 
           <!-- Select statuses (active/inactive) -->
           <template v-if="['soft', 'both'].includes(deleteMode)">
-            <span style="display:inline-block;margin-left:50px;width:250px;">
-              <v-autocomplete :label="$t('status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value" multiple chips></v-autocomplete>
+            <span style="margin-right:30px;display:inline-block;width:250px;">
+              <v-autocomplete :label="$t('global.datatable.status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value" multiple chips></v-autocomplete>
             </span>
           </template>
+
+          <v-tooltip left>
+            <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator">
+              <v-icon>save_alt</v-icon>
+            </v-btn>
+            <span>{{ $t('global.datatable.buttons.copyToExcel') }}</span>
+          </v-tooltip>
 
         </v-flex>
       </v-layout>
@@ -63,14 +70,14 @@
     <v-data-table 
       :disable-initial-sort="true"
       :must-sort="true"
-      :rows-per-page-items="[10, 25, { text: $t('all'), value: -1 }]"
+      :rows-per-page-items="[10, 25, { text: $t('global.datatable.all'), value: -1 }]"
       :pagination.sync="pagination"
       light
       :headers="headers"
       :items="filteredItems"
-      :no-results-text="$t('noMatchingResults')"
-      :no-data-text="$t('noDataAvailable')"
-      :rows-per-page-text="$t('rowsPerPageText')">
+      :no-results-text="$t('global.datatable.noMatchingResults')"
+      :no-data-text="$t('global.datatable.noDataAvailable')"
+      :rows-per-page-text="$t('global.datatable.rowsPerPageText')">
       <template slot="items" slot-scope="props">
         <tr @dblclick="rowDblclickAction(props.item.meta.id)" :class="activityClass(props.item.meta.active)">
           <!-- action buttons -->
@@ -80,7 +87,7 @@
               <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id)" slot="activator">
                 <v-icon>edit</v-icon>
               </v-btn>
-              <span>{{ $t('buttons.edit') }}</span>
+              <span>{{ $t('global.datatable.buttons.edit') }}</span>
             </v-tooltip>
             <!-- buttons for open modal with item elements -->
             <v-tooltip top v-for="(button, key) in itemElements" :key="key">
@@ -103,13 +110,13 @@
                 <v-btn fab small outline class="xs white--text" color="red" @click="suspend(props.item.meta.id)" slot="activator">
                   <v-icon>undo</v-icon>
                 </v-btn>
-                <span>{{ $t('buttons.suspend') }}</span>
+                <span>{{ $t('global.datatable.buttons.suspend') }}</span>
               </v-tooltip>
               <v-tooltip top v-else>
                 <v-btn fab small outline class="xs white--text" color="green" @click="restore(props.item.meta.id)" slot="activator">
                   <v-icon>redo</v-icon>
                 </v-btn>
-                <span>{{ $t('buttons.restore') }}</span>
+                <span>{{ $t('global.datatable.buttons.restore') }}</span>
               </v-tooltip>
             </template>
             <!-- hard delete -->
@@ -117,7 +124,7 @@
               <v-btn outline fab small class="xs white--text" color="red" @click="destroy(props.item.meta.id)" slot="activator">
                 <v-icon>delete</v-icon>
               </v-btn>
-              <span>{{ $t('buttons.delete') }}</span>
+              <span>{{ $t('global.datatable.buttons.delete') }}</span>
             </v-tooltip>
           </td>
           <!-- table fields -->
