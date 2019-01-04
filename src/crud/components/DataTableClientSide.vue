@@ -70,7 +70,7 @@
           </template>
 
           <v-tooltip left>
-            <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator">
+            <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator" :loading="excelLoading">
               <v-icon>save_alt</v-icon>
             </v-btn>
             <span>{{ $t('global.datatable.buttons.copyToExcel') }}</span>

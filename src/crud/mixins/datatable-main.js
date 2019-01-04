@@ -28,7 +28,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["filesPath"]),
+    ...mapState(["filesPath", 'page']),
     ...mapState("crud", ["prefix", "path"]),
     ...mapGetters("crud", ["itemsList"]),
     selectedIds() {
@@ -37,6 +37,9 @@ export default {
     items() {
       return this.itemsList(this.tableFields, this.meta, this.primaryKey, this.customButtons, this.activeColumnName);
     },
+    excelName() {
+      return this.$t('global.routes.' + this.page)
+    }
   },
   methods: {
     ...mapMutations(["alertError"]),

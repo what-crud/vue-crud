@@ -11,6 +11,7 @@ export default {
       tmp: "",
       search: "",
       pagination: {},
+      excelLoading: false
     };
   },
   computed: {

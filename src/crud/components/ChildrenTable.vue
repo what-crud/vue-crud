@@ -56,7 +56,7 @@
           </template>
 
           <v-tooltip left>
-            <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator">
+            <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator" :loading="excelLoading">
               <v-icon>save_alt</v-icon>
             </v-btn>
             <span>{{ $t('global.datatable.buttons.copyToExcel') }}</span>
@@ -155,6 +155,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   mixins: [ClientSideFilteringMixin, HelperMixin],
   props: {
+    title: String,
     fieldsInfo: Array,
     deleteMode: {
       type: String,
@@ -217,12 +218,17 @@ export default {
     }
   },
   computed: {
+    ...mapState(['page']),
+    ...mapState("crud", ["prefix", "path"]),
     tableFields() {
       return this.fieldsInfo.filter(field => field.table != false && field.type != 'divider');
     },
     items() {
       return this.tableData;
     },
+    excelName() {
+      return this.$t('global.routes.' + this.page) + ' - ' + this.title
+    }
   },
   methods: {
     ...mapMutations("crud", [

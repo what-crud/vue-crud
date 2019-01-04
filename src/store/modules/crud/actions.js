@@ -16,7 +16,7 @@ let actions = {
     getItemsServerSide({commit, state}, [params]) {
       return new Promise((resolve, reject) => {
         commit('setLoadingStatus', true)
-        Vue.http.post(state.prefix + '/' + state.path + '/async-data', params)
+        Vue.http.post(state.prefix + '/' + state.path + '/search', params)
           .then((response) => {
             commit('setItemsServerSide', response.body)
             resolve()

@@ -50,6 +50,13 @@
             </span>
           </template>
 
+          <v-tooltip left>
+            <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator" :loading="excelLoading">
+              <v-icon>save_alt</v-icon>
+            </v-btn>
+            <span>{{ $t('global.datatable.buttons.copyToExcel') }}</span>
+          </v-tooltip>
+
         </v-flex>
 
       </v-layout>
@@ -97,9 +104,11 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import MainMixin from "../mixins/datatable-main.js";
 import HelperMixin from "../mixins/datatable-helper.js";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import { getItemsList } from '@/helpers/functions.js'
 
 export default {
   mixins: [MainMixin, HelperMixin],
@@ -135,7 +144,8 @@ export default {
         filterColumns: this.filterColumns,
         selectedStatuses: this.selectedStatuses,
         deleteMode: this.deleteMode,
-        activeColumnName: this.activeColumnName
+        activeColumnName: this.activeColumnName,
+        mode: 'paginate'
       };
     },
   },
@@ -187,6 +197,43 @@ export default {
         }
       }, 500)
     },
+    exportToExcel() {
+      this.excelLoading = true
+      let headers = this.cleanHeaders.map(header => header.text)
+      let params = {}
+      for(let key in this.params){
+        params[key] = this.params[key]
+      }
+      params.mode = 'all'
+      let filteredItems
+      Vue.http.post(this.prefix + '/' + this.path + '/search', params)
+        .then((response) => {
+          let items = response.body
+          filteredItems = items.map(obj => {
+            return getItemsList(obj, this.tableFields, this.meta, this.primaryKey, this.customButtons, this.activeColumnName)
+          })
+          let data = filteredItems.map(item => {
+            let row = []
+            for(let header of this.cleanHeaders){
+              row.push(item[header.value])
+            }
+            return row
+          })
+          import('@/vendor/Export2Excel').then(excel => {
+            this.excelLoading = false
+            excel.export_json_to_excel({
+              header: headers,
+              data: data,
+              filename: this.excelName,
+              autoWidth: true,
+              bookType: 'xlsx'
+            })
+          })
+        }), error => {
+          this.excelLoading = false
+          commit('alertError', error.statusText, { root: true })
+        }
+    }
   }
 };
 </script>

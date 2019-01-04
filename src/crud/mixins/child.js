@@ -7,6 +7,7 @@ import {
 
 export default {
   props: {
+    title: String,
     path: String,
     childItemName: String,
     fkName: String,
@@ -27,7 +28,8 @@ export default {
   computed: {
     ...mapState('crud', [
       'childItems',
-      'itemIdColumn'
+      'itemIdColumn',
+      'childTitle'
     ]),
     ...mapGetters('crud', [
       'item',
@@ -49,6 +51,7 @@ export default {
       'resetChild',
       'editChildDialog',
       'createChildDialog',
+      'setChildTitle'
     ]),
     ...mapActions('crud', [
       "getItemDetails",
