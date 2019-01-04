@@ -38,7 +38,7 @@
         'imageContainer'
       ]),
       image() {
-        return this.filesPath + this.imageContainer.item.path + '/' + this.imageContainer.item.filename
+        return this.imageContainer.show ? this.filesPath + this.imageContainer.item.path + '/' + this.imageContainer.item.filename : ''
       }
     },
     filters: {
