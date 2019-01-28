@@ -1,84 +1,79 @@
 <template>
   <v-card>
-    <v-card-title class="card-title table-controls">
-      <v-layout row wrap>
-        <v-flex xs12 lg4>
-          <data-table-controls
-            :deleteMode="deleteMode"
-            @create="create"
-            @editSelected="editSelected"
-            @suspendSelected="suspendSelected"
-            @restoreSelected="restoreSelected"
-            @destroySelected="destroySelected"
-            @refreshTable="refreshTable"
-          ></data-table-controls>
-        </v-flex>
-
-        <v-flex xs12 lg8 text-xs-left text-lg-right>
-          <!-- Search by fields -->
-          <v-menu offset-y :close-on-content-click="false" style="margin-right:30px;">
-            <v-btn small fab dark slot="activator" class="primary">
-              <v-icon>filter_list</v-icon>
-            </v-btn>
-            <v-list style="overflow-y:false;">
-              <v-list-tile v-for="(item, index) in filterColumns" :key="index">
-                <v-autocomplete
-                  :items="filterModes"
-                  v-model="item.mode"
-                  item-text="text"
-                  item-value="name"
-                  :label="$t('global.datatable.filterModes.label')"
-                  hide-details
-                  @input="updateColumnFilterMode($event, index)"
-                ></v-autocomplete>
-                <v-text-field
-                  v-model="item.value"
-                  hide-details
-                  :label="item.text"
-                  @input="updateFilterColumns($event, index)"
-                ></v-text-field>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
-
-          <!-- Search in table -->
-          <span style="margin-right:30px;display:inline-block;width:250px;">
-            <v-text-field
-              append-icon="search"
-              :label="$t('global.datatable.search')"
-              single-line
-              hide-details
-              v-model="search"
-              min-width="200"
-            ></v-text-field>
-          </span>
-
-          <!-- Select statuses (active/inactive) -->
-          <template v-if="['soft', 'both'].includes(deleteMode)">
-            <span style="margin-right:30px;display:inline-block;width:250px;">
+    <data-table-controls
+      :deleteMode="deleteMode"
+      @create="create"
+      @editSelected="editSelected"
+      @suspendSelected="suspendSelected"
+      @restoreSelected="restoreSelected"
+      @destroySelected="destroySelected"
+      @refreshTable="refreshTable"
+      @clearFilters="clearFilters"
+    >
+      <template slot="center">
+        <!-- Search by fields -->
+        <v-menu offset-y :close-on-content-click="false" style="margin-right:30px;">
+          <v-btn small fab dark slot="activator" class="primary">
+            <v-icon>filter_list</v-icon>
+          </v-btn>
+          <v-list style="overflow-y:false;">
+            <v-list-tile v-for="(item, index) in filterColumns" :key="index">
               <v-autocomplete
-                :label="$t('global.datatable.status.title')"
-                v-bind:items="statuses"
-                v-model="selectedStatuses"
-                single-line
+                :items="filterModes"
+                v-model="item.mode"
                 item-text="text"
-                item-value="value"
-                multiple
-                chips
+                item-value="name"
+                :label="$t('global.datatable.filterModes.label')"
+                hide-details
+                @input="updateColumnFilterMode($event, index)"
               ></v-autocomplete>
-            </span>
-          </template>
+              <v-text-field
+                v-model="item.value"
+                hide-details
+                :label="item.text"
+                @input="updateFilterColumns($event, index)"
+              ></v-text-field>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
 
-          <v-tooltip left>
-            <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator" :loading="excelLoading">
-              <v-icon>save_alt</v-icon>
-            </v-btn>
-            <span>{{ $t('global.datatable.buttons.copyToExcel') }}</span>
-          </v-tooltip>
+        <!-- Search in table -->
+        <span style="margin-right:30px;display:inline-block;width:250px;">
+          <v-text-field
+            append-icon="search"
+            :label="$t('global.datatable.search')"
+            single-line
+            hide-details
+            v-model="search"
+            min-width="200"
+          ></v-text-field>
+        </span>
 
-        </v-flex>
-      </v-layout>
-    </v-card-title>
+        <!-- Select statuses (active/inactive) -->
+        <template v-if="['soft', 'both'].includes(deleteMode)">
+          <span style="margin-right:30px;display:inline-block;width:250px;">
+            <v-autocomplete
+              :label="$t('global.datatable.status.title')"
+              v-bind:items="statuses"
+              v-model="selectedStatuses"
+              single-line
+              item-text="text"
+              item-value="value"
+              multiple
+              chips
+            ></v-autocomplete>
+          </span>
+        </template>
+      </template>
+      <template slot="right">
+        <v-tooltip left>
+          <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator" :loading="excelLoading">
+            <v-icon>save_alt</v-icon>
+          </v-btn>
+          <span>{{ $t('global.datatable.buttons.copyToExcel') }}</span>
+        </v-tooltip>
+      </template>
+    </data-table-controls>
     <!-- Table -->
     <v-data-table
       class="datatable"
@@ -164,5 +159,3 @@ export default {
   }
 };
 </script>
-<style scoped>
-</style>

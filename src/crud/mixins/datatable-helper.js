@@ -83,6 +83,14 @@ export default {
     },
     setPage(page){
       this.pagination.page = parseInt(page)
+    },
+    clearFilters() {
+      for(let column of this.filterColumns){
+        column.value = ''
+      }
+      this.pagination.page = 1
+      this.search = ""
+      this.selectedStatuses = [1]
     }
   }
 };

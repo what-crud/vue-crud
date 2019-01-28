@@ -41,6 +41,7 @@ export default {
     show: "Pokaż",
     refreshTable: "Odswież tabelę",
     copyToExcel: 'Kopiuj do Excela',
+    clearFilters: 'Wyczyść filtry'
   }
 }
   

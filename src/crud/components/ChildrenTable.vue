@@ -3,7 +3,7 @@
     <v-card-title class="card-title table-controls">
       <v-layout row wrap>
 
-        <v-flex xs12 xl4>
+        <v-flex xs12 xl2>
           <!-- Dialog for creating item -->
           <v-tooltip top v-if="createButton">
             <v-btn fab small dark color="green" @click="create()" slot="activator">
@@ -20,7 +20,7 @@
           </v-tooltip>
         </v-flex>
 
-        <v-flex xs12 xl8 text-xs-left text-xl-right>
+        <v-flex xs12 xl10 text-xs-left text-xl-right>
 
           <!-- Search by fields -->
           <v-menu offset-y :close-on-content-click="false" style="margin-right:30px;">
@@ -54,6 +54,21 @@
               <v-autocomplete :label="$t('global.datatable.status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value" multiple chips></v-autocomplete>
             </span>
           </template>
+
+          <!-- Clear filters -->
+          <v-tooltip top>
+            <v-btn 
+              class="white--text"
+              fab
+              small
+              color="red"
+              @click="clearFilters()"
+              slot="activator"
+            >
+              <v-icon>delete_sweep</v-icon>
+            </v-btn>
+            <span>{{ $t('global.datatable.buttons.clearFilters') }}</span>
+          </v-tooltip>
 
           <v-tooltip left>
             <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator" :loading="excelLoading">
