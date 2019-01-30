@@ -27,6 +27,7 @@ export const configParams = {
     },
     footer: false,
     footerText: '© 2019',
+    sidebarExpandOn: 'mouseover',
     sidebarItems: [
         {
             icon: "people",

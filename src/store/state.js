@@ -11,6 +11,7 @@ let state = {
   module: null,
   page: null,
   sidebarMini: true,
+  sidebarExpandOn: configParams.sidebarExpandOn || 'mouseover',
   activeModule: "",
   profileDialog: false,
   superuser: false,

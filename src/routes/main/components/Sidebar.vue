@@ -1,5 +1,5 @@
 <template>
-  <div @click="click()" @mouseleave="mouseleave()">
+  <div @click="click()" @mouseover="mouseover()" @mouseleave="mouseleave()">
   <v-navigation-drawer
     permanent
     :mini-variant="$store.state.sidebarMini"
@@ -47,7 +47,7 @@ import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["sidebarMini", "sidebar", "sidebarItems"]),
+    ...mapState(["sidebarMini", "sidebar", "sidebarItems", "sidebarExpandOn"]),
     ...mapGetters("auth", ["checkRole"])
   },
   props: {
@@ -59,7 +59,12 @@ export default {
       'setSidebarWidth'
     ]),
     click() {
-      if(this.sidebarMini) {
+      if(this.sidebarMini && this.sidebarExpandOn == 'click') {
+        this.setSidebarWidth(false)
+      }
+    },
+    mouseover() {
+      if(this.sidebarMini && this.sidebarExpandOn == 'mouseover') {
         this.setSidebarWidth(false)
       }
     },

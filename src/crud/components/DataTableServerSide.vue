@@ -189,6 +189,17 @@ export default {
         }
       }, 500)
     },
+    moveDetailsItem(page, index){
+      this.ignorePaginationWatcher = true
+      this.pagination.page = page
+      this.getItemsServerSide([this.params]).then(response => {
+        let newItemId = this.items[index].meta.id
+        this.setCurrentItem({id:newItemId, index:index})
+        this.getItemDetails([newItemId]).then(response => {
+          this.showItemDetailsDialog();
+        })
+      })
+    },
     exportToExcel() {
       this.excelLoading = true
       let headers = this.cleanHeaders.map(header => header.text)

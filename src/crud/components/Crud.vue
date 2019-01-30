@@ -129,8 +129,8 @@ export default {
       'setPath',
       'setCreationMode',
     ]),
-    custom(name, item) {
-      this.$parent[name](item)
+    custom(name, item, index) {
+      this.$parent[name](item, index)
     },
     itemElementsClosed(){
       this.refreshTable()

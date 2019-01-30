@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     ...mapState(["filesPath", 'page']),
-    ...mapState("crud", ["prefix", "path"]),
+    ...mapState("crud", ["prefix", "path", 'nextItem', 'moveItemRun', 'moveItemDirection', "currentItemIndex"]),
     ...mapGetters("crud", ["itemsList"]),
     selectedIds() {
       return this.selected.map(item => item.id);
@@ -41,9 +41,51 @@ export default {
       return this.$t('global.routes.' + this.page)
     }
   },
+  watch: {
+    moveItemRun(val){
+      if (val) {
+        let moveItemDirection = this.moveItemDirection
+        let currentIndex = this.currentItemIndex
+        let page = this.pagination.page
+        let rowsPerPage = this.pagination.rowsPerPage
+        let totalItems = this.totalItems
+        let possible = true
+        if(moveItemDirection == 'previous'){
+          if(currentIndex > 0) {
+            currentIndex -= 1
+          }
+          else if (page > 1){
+            page -= 1
+            currentIndex = rowsPerPage - 1
+          }
+          else {
+            possible = false
+          }
+        }
+        else if(moveItemDirection == 'next'){
+          if(currentIndex < rowsPerPage - 1 && (page - 1) * rowsPerPage + currentIndex + 1 < totalItems) {
+            currentIndex += 1
+          }
+          else if (page < Math.ceil(totalItems/rowsPerPage)){
+            page += 1
+            currentIndex = 0
+          }
+          else {
+            possible = false
+          }
+        }
+        if(possible) {
+          this.moveDetailsItem(page, currentIndex)
+        }
+        this.moveItem(['', false])
+      }
+    }
+  },
   methods: {
     ...mapMutations(["alertError"]),
     ...mapMutations("crud", [
+      "showItemDetailsDialog",
+      "setCurrentItem",
       "resetItems",
       "resetItem",
       "editItemDialog",
@@ -51,7 +93,9 @@ export default {
       "multipleEditDialog",
       "setItemElementsInfo",
       "editItemElementsDialog",
-      "setSelectedIds"
+      "setSelectedIds",
+      "setCurrentItem",
+      "moveItem"
     ]),
     ...mapActions("crud", [
       "getItem",
@@ -60,9 +104,11 @@ export default {
       "deleteItem",
       "getItemElements",
       "mulitipleItemsUpdate",
-      "mulitipleItemsDelete"
+      "mulitipleItemsDelete",
+      "getItemDetails"
     ]),
-    edit(id) {
+    edit(id, index) {
+      this.setCurrentItem({id:id, index:index})
       this.getItem([id]).then(response => {
         this.editItemDialog(id);
       })
@@ -159,8 +205,8 @@ export default {
         ]);
       }
     },
-    custom(name, item) {
-      this.$parent.custom(name, item);
+    custom(name, item, index) {
+      this.$parent.custom(name, item, index);
     },
     editItemElements(name, id) {
       let obj = this.itemElements[name];
