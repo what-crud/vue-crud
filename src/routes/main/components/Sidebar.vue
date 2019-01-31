@@ -10,7 +10,7 @@
     mini-variant-width="60"
   >
     <v-list dense>
-      <template v-if="checkRole(item.guard)" v-for="(item) in sidebarItems">
+      <template v-if="checkPermission(item.guard)" v-for="(item) in sidebarItems">
         <v-list-group v-model="item.model" :key="item.text" :prepend-icon="item.icon"
           append-icon="">
           <v-list-tile slot="activator">
@@ -48,7 +48,7 @@ import { mapState, mapGetters, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapState(["sidebarMini", "sidebar", "sidebarItems", "sidebarExpandOn"]),
-    ...mapGetters("auth", ["checkRole"])
+    ...mapGetters("auth", ["checkPermission"])
   },
   props: {
     source: String

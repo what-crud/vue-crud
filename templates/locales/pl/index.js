@@ -16,7 +16,4 @@ export default {
       details,
       itemElements,
     },
-    buttons: {
-      goToItem: "Szczegóły",
-    },
 }

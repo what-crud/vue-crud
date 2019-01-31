@@ -25,7 +25,7 @@ export default {
           name: "goToItem",
           icon: "forward",
           color: "blue",
-          text: this.$t("buttons.goToItem")
+          text: this.$t("global.details.title")
         }
       ];
     },
@@ -43,18 +43,4 @@ export default {
       })
     }
   },
-  i18n: {
-    messages: {
-      pl: {
-        buttons: {
-          goToItem: "Szczegóły"
-        },
-      },
-      en: {
-        buttons: {
-          goToItem: "Details"
-        },
-      }
-    }
-  }
 };
