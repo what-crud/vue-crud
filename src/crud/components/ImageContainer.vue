@@ -14,7 +14,7 @@
       <v-responsive></v-responsive>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn flat color="black" @click="closeImageContainer()">{{ $t('buttons.close') }}</v-btn>
+        <v-btn flat color="black" @click="closeImageContainer()">{{ $t('global.details.buttons.close') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -51,19 +51,5 @@
         'closeImageContainer'
       ])
     },
-    i18n: {
-      messages: {
-        pl: {
-          buttons: {
-            close: 'Zamknij',
-          },
-        },
-        en: {
-          buttons: {
-            close: 'Close',
-          },
-        },
-      }
-    }
   }
 </script>

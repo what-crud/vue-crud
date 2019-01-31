@@ -1,7 +1,7 @@
 <template>
   <v-dialog persistent v-model="details.show" max-width="480">
     <v-card>
-      <v-card-title class="headline">{{ $t('title') }}</v-card-title>
+      <v-card-title class="headline">{{ $t('global.details.title') }}</v-card-title>
       <v-form v-model="details.formValid">
         <v-card-text>
 
@@ -71,9 +71,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="black" flat="flat" @click.native="close()">{{ $t('buttons.close') }}</v-btn>
-          <v-btn :disabled="!details.formValid" v-if="details.action == 'create'" color="green" flat="flat" @click="store()">{{ $t('buttons.create') }}</v-btn>
-          <v-btn :disabled="!details.formValid" v-else-if="details.action == 'edit'" color="blue" flat="flat" @click="update()">{{ $t('buttons.modify') }}</v-btn>
+          <v-btn color="black" flat="flat" @click.native="close()">{{ $t('global.details.buttons.close') }}</v-btn>
+          <v-btn :disabled="!details.formValid" v-if="details.action == 'create'" color="green" flat="flat" @click="store()">{{ $t('global.details.buttons.create') }}</v-btn>
+          <v-btn :disabled="!details.formValid" v-else-if="details.action == 'edit'" color="blue" flat="flat" @click="update()">{{ $t('global.details.buttons.modify') }}</v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -196,7 +196,7 @@ export default {
     rules() {
       let self = this;
       return {
-        input: [v => !!v || self.$t("rules.required")]
+        input: [v => !!v || self.$t("global.details.rules.required")]
       };
     }
   },
@@ -294,59 +294,6 @@ export default {
       this.$parent.store(this.itemData);
     }
   },
-  i18n: {
-    messages: {
-      pl: {
-        title: "Szczegóły",
-        rules: {
-          required: "Pole jest wymagane",
-          atLeast: "Pole musi mieć przynajmniej",
-          less: "Pole musi mieć mniej niż",
-          more: "Pole musi mieć więcej niż",
-          characters: "znaków",
-          emailMustBeValid: "E-mail musi mieć poprawny format",
-          passwordMustDiffer: "Nowe hasło musi się różnić od poprzedniego",
-          passwordMustBeSame: "Hasła nie mogą się różnić"
-        },
-        alerts: {
-          updated: "Zaktualizowano",
-          updateError: "Błąd! Aktualizacja nie powiodła się",
-          stored: "Dodano",
-          storeError: "Błąd! Nie udało się dodać rekordu"
-        },
-        buttons: {
-          create: "Utwórz",
-          modify: "Modyfikuj",
-          close: "Zamknij"
-        }
-      },
-      en: {
-        title: "Details",
-        rules: {
-          required: "Field is required",
-          atLeast: "Field must be at least",
-          less: "Field must be less than",
-          more: "Pole musi mieć more than",
-          characters: "characters",
-          emailMustBeValid: "E-mail must be valid",
-          passwordMustDiffer:
-            "New password must be different from the old password",
-          passwordMustBeSame: "Password can't be different"
-        },
-        alerts: {
-          updated: "Updated",
-          updateError: "Error! Update unsuccessful",
-          stored: "Dodano",
-          storeError: "Error! Store unsuccessful"
-        },
-        buttons: {
-          create: "Create",
-          modify: "Modify",
-          close: "Close"
-        }
-      }
-    }
-  }
 };
 </script>
 <style scoped>
