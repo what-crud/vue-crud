@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title
         class="headline"
-      >{{ details.action == 'multiedit' ? $t('multipleUpdateTitle') : title }}</v-card-title>
+      >{{ details.action == 'multiedit' ? $t('global.details.multipleUpdateTitle') : title }}</v-card-title>
       <v-form v-model="details.formValid">
         <v-card-text class="details-list">
           <div
@@ -95,7 +95,7 @@
                 <div v-else-if="field.type == 'file'" class="file-container">
                   <div class="field-label">{{ field.text }}</div>
                   <v-btn dark class="jbtn-file" :loading="uploadLoaders[field.name]" :class="fileUploadBtn(uploadStatuses[field.name])">
-                    {{ $t('upload') }}
+                    {{ $t('global.details.files.upload') }}
                     <v-icon dark right>
                       {{ fileUploadIcon(uploadStatuses[field.name]) }}
                     </v-icon>
@@ -189,28 +189,28 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="black" flat="flat" @click.native="close()">{{ $t('buttons.close') }}</v-btn>
+          <v-btn color="black" flat="flat" @click.native="close()">{{ $t('global.details.buttons.close') }}</v-btn>
           <v-btn
             :disabled="!details.formValid"
             v-if="details.action == 'create'"
             color="green"
             flat="flat"
             @click="store()"
-          >{{ $t('buttons.create') }}</v-btn>
+          >{{ $t('global.details.buttons.create') }}</v-btn>
           <v-btn
             :disabled="!details.formValid"
             v-else-if="details.action == 'edit'"
             color="orange"
             flat="flat"
             @click="update()"
-          >{{ $t('buttons.modify') }}</v-btn>
+          >{{ $t('global.details.buttons.modify') }}</v-btn>
           <v-btn
             :disabled="!details.formValid"
             v-else-if="details.action == 'multiedit'"
             color="orange"
             flat="flat"
             @click="updateSelected()"
-          >{{ $t('buttons.modifySelected') }}</v-btn>
+          >{{ $t('global.details.buttons.modifySelected') }}</v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -434,7 +434,7 @@ export default {
     rules() {
       let self = this;
       return {
-        input: [v => !!v || self.$t("rules.required")]
+        input: [v => !!v || self.$t("global.details.rules.required")]
       };
     }
   },
@@ -537,51 +537,6 @@ export default {
       }
     },
   },
-  i18n: {
-    messages: {
-      pl: {
-        multipleUpdateTitle: "Aktualizacja wielu rekordów",
-        rules: {
-          required: "Pole jest wymagane",
-          atLeast: "Pole musi mieć przynajmniej",
-          less: "Pole musi mieć mniej niż",
-          more: "Pole musi mieć więcej niż",
-          characters: "znaków",
-          emailMustBeValid: "E-mail musi mieć poprawny format",
-          passwordMustDiffer: "Nowe hasło musi się różnić od poprzedniego",
-          passwordMustBeSame: "Hasła nie mogą się różnić"
-        },
-        buttons: {
-          create: "Utwórz",
-          modify: "Modyfikuj",
-          modifySelected: "Modyfikuj wybrane rekordy",
-          close: "Zamknij"
-        },
-        upload: "Wgraj plik"
-      },
-      en: {
-        multipleUpdateTitle: "Multiple records update",
-        rules: {
-          required: "Field is required",
-          atLeast: "Field must be at least",
-          less: "Field must be less than",
-          more: "Pole musi mieć more than",
-          characters: "characters",
-          emailMustBeValid: "E-mail must be valid",
-          passwordMustDiffer:
-            "New password must be different from the old password",
-          passwordMustBeSame: "Password can't be different"
-        },
-        buttons: {
-          create: "Create",
-          modify: "Modify",
-          modifySelected: "Modify selected records",
-          close: "Close"
-        },
-        upload: "Upload file"
-      }
-    }
-  }
 };
 </script>
 

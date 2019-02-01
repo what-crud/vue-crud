@@ -1,5 +1,5 @@
 <template>
-  <div @click="click()" @mouseleave="mouseleave()">
+  <div @click="click()" @mouseover="mouseover()" @mouseleave="mouseleave()">
   <v-navigation-drawer
     permanent
     :mini-variant="$store.state.sidebarMini"
@@ -10,7 +10,7 @@
     mini-variant-width="60"
   >
     <v-list dense>
-      <template v-if="checkRole(item.guard)" v-for="(item) in sidebarItems">
+      <template v-if="checkPermission(item.guard)" v-for="(item) in sidebarItems">
         <v-list-group v-model="item.model" :key="item.text" :prepend-icon="item.icon"
           append-icon="">
           <v-list-tile slot="activator">
@@ -47,8 +47,8 @@ import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["sidebarMini", "sidebar", "sidebarItems"]),
-    ...mapGetters("auth", ["checkRole"])
+    ...mapState(["sidebarMini", "sidebar", "sidebarItems", "sidebarExpandOn"]),
+    ...mapGetters("auth", ["checkPermission"])
   },
   props: {
     source: String
@@ -59,7 +59,12 @@ export default {
       'setSidebarWidth'
     ]),
     click() {
-      if(this.sidebarMini) {
+      if(this.sidebarMini && this.sidebarExpandOn == 'click') {
+        this.setSidebarWidth(false)
+      }
+    },
+    mouseover() {
+      if(this.sidebarMini && this.sidebarExpandOn == 'mouseover') {
         this.setSidebarWidth(false)
       }
     },

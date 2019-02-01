@@ -23,9 +23,22 @@ let mutations = {
     },
     resetItems(state) {
       state.items = []
+      state.currentItemId = null
+      state.currentItemIndex = null
     },
     setSelectedIds(state, items) {
       state.selectedIds = items.map(item => item.id);
+    },
+    setCurrentItem(state, item){
+      state.currentItemId = item.id
+      state.currentItemIndex = item.index
+    },
+    moveItem(state, [direction, run]) {
+      state.moveItemRun = run
+      state.moveItemDirection = direction
+    },
+    setNextItem(state, bool) {
+      state.previousItem = bool
     },
     // details item
     setDetailsLoader(state, bool) {

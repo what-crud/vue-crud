@@ -6,11 +6,14 @@ let mutations = {
     state.loginFailed = false
     let token = data.token
     let user = JSON.stringify(data.user)
+    let permissions = JSON.stringify(data.permissions)
 
     localStorage.setItem('token', token)
     localStorage.setItem('user', user)
+    localStorage.setItem('permissions', permissions)
     state.token = token
     state.user = user
+    state.permissions = permissions
   },
   loginWait(state, status) {
     state.loginWait = status

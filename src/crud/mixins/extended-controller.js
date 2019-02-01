@@ -25,7 +25,7 @@ export default {
           name: "goToItem",
           icon: "forward",
           color: "blue",
-          text: this.$t("buttons.goToItem")
+          text: this.$t("global.details.title")
         }
       ];
     },
@@ -34,26 +34,13 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("crud", ["showItemDetailsDialog", "setCreatedItemStatus"]),
+    ...mapMutations("crud", ["showItemDetailsDialog", "setCreatedItemStatus", "setCurrentItem"]),
     ...mapActions("crud", ["getItemDetails"]),
-    goToItem(item) {
+    goToItem(item, index) {
+      this.setCurrentItem({id:item.id, index:index})
       this.getItemDetails([item.id]).then(response => {
         this.showItemDetailsDialog();
       })
     }
   },
-  i18n: {
-    messages: {
-      pl: {
-        buttons: {
-          goToItem: "Szczegóły"
-        },
-      },
-      en: {
-        buttons: {
-          goToItem: "Details"
-        },
-      }
-    }
-  }
 };

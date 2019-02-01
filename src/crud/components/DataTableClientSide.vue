@@ -140,6 +140,9 @@ export default {
   },
   computed: {
     ...mapState("crud", ['loading', "detailsDialog", "tableRefreshing"]),
+    totalItems() {
+      return this.filteredItems.length
+    }
   },
   watch: {
     detailsDialog(val) {
@@ -151,11 +154,20 @@ export default {
       if (val) {
         this.getItems();
       }
-    }
+    },
   },
   methods: {
     ...mapMutations("crud", ["refreshTable"]),
     ...mapActions("crud", ["getItems"]),
+    moveDetailsItem(page, index){
+      this.pagination.page = page
+      let realIndex = (page - 1) * this.pagination.rowsPerPage + index
+      let newItemId = this.filteredItems[realIndex].meta.id
+      this.setCurrentItem({id:newItemId, index:index})
+      this.getItemDetails([newItemId]).then(response => {
+        this.showItemDetailsDialog();
+      })
+    }
   }
 };
 </script>

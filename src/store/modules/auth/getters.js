@@ -1,11 +1,10 @@
 let getters = {
   isLogged: state => state.logged,
-  userRoles: state => {
-    let arr = state.user != null ? JSON.parse(state.user).user_permissions : []
-    return arr
+  userPermissions: state => {
+    return JSON.parse(state.permissions) || []
   },
-  checkRole: (state, getters) => roleCode => {
-    let result = getters.userRoles.filter(el => el.permission.code == roleCode).length > 0 ? true : false
+  checkPermission: (state, getters) => roleCode => {
+    let result = getters.userPermissions.filter(el => el == roleCode).length > 0 ? true : false
     return result;
   },
   userInfo: state => {

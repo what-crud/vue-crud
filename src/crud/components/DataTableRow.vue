@@ -1,5 +1,5 @@
 <template>
-  <tr @dblclick="rowDblclickAction(props.item)" :class="activityClass(props.item.meta.active)">
+  <tr @dblclick="rowDblclickAction(props.item, props.index)" :class="[activityClass(props.item.meta.active), currentClass(props.item.meta.id)]">
     <td>
       <v-checkbox
         hide-details
@@ -11,14 +11,14 @@
     <td class="cell-nowrap">
       <!-- edit record -->
       <v-tooltip top v-if="editButton">
-        <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id)" slot="activator">
+        <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id, props.index)" slot="activator">
           <v-icon>edit</v-icon>
         </v-btn>
         <span>{{ $t('global.datatable.buttons.edit') }}</span>
       </v-tooltip>
       <!-- custom buttons -->
       <v-tooltip top v-for="(customButton) in customButtons" :key="customButton.name">
-        <v-btn fab :disabled="!props.item.meta.buttons[customButton.name]" small class="xs white--text" :color="customButton.color" @click="custom(customButton.name, props.item)" slot="activator">
+        <v-btn fab :disabled="!props.item.meta.buttons[customButton.name]" small class="xs white--text" :color="customButton.color" @click="custom(customButton.name, props.item, props.index)" slot="activator">
           <v-icon>{{ customButton.icon }}</v-icon>
         </v-btn>
         <span>{{ customButton.text }}</span>
@@ -67,6 +67,7 @@
 
 <script>
 import FileDetails from './FileDetails.vue'
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -93,6 +94,9 @@ export default {
       return rField
     },
   },
+  computed: {
+    ...mapState("crud", ['currentItemId']),
+  },
   methods: {
     fileFieldToJSON(field) {
       return JSON.parse(field)
@@ -104,9 +108,13 @@ export default {
       }
       return className
     },
-    rowDblclickAction(item) {
+    currentClass(itemId) {
+      let currentId = this.currentItemId
+      return itemId == currentId ? 'secondary' : ''
+    },
+    rowDblclickAction(item, index) {
       if(this.editButton){
-        this.edit(item.meta.id)
+        this.edit(item.meta.id, index)
       }
       else {
         let goToItemButton = false
@@ -117,12 +125,12 @@ export default {
           }
         }
         if(goToItemButton){
-          this.custom('goToItem', item)
+          this.custom('goToItem', item, index)
         }
       }
     },
-    edit(id) {this.$emit('edit', id)},
-    custom(name, item) {this.$emit('custom', name, item)},
+    edit(id, index) {this.$emit('edit', id, index)},
+    custom(name, item, index) {this.$emit('custom', name, item, index)},
     suspend(id) {this.$emit('suspend', id)},
     restore(id) {this.$emit('restore', id)},
     destroy(id) {this.$emit('destroy', id)},

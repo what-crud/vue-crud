@@ -6,6 +6,10 @@ let state = {
     items: [],
     totalItems: 0,
     loading: true,
+    currentItemId: null,
+    currentItemIndex: null,
+    moveItemRun: false,
+    moveItemDirection: null,
     details: {
       show: false,
       id: null,

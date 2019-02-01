@@ -7,8 +7,8 @@
 
 ## About
 CRUD application written using Vue.js 2.x, Vuex and Vuetify. The app uses REST API and JWT Tokens.
-## Documentation
 
+## Documentation
 To check out docs, visit <a href="https://vue-crud.github.io/" target="_blank">vue-crud.github.io</a>.
 
 ## Demo version
@@ -19,7 +19,6 @@ Pass:   ajSGenC0\
 To get full user account, contact me on my <a href="http://id-a.pl" target="_blank">company site</a>.
 
 ## Functions
-
 The application contains a mechanism for managing the database tables. After adding table support to crud, the following record operations are possible:
 
 * Store,
@@ -56,6 +55,9 @@ Another functions and features:
 * management of a child table from the parent table module,
 * language versions,
 * simple configuration of themes,
+
+## API
+The application requires a connection with the appropriate API. API can be created in any technology - the condition is its compliance with the Vue CRUD communication specification. If you need to create your API and do not know how to get started, and you don't mind PHP and Laravel, download or clone the <a href="https://github.com/szczepanmasny/vue-crud-laravel-api" target="_blank">Vue CRUD Laravel API project</a>.
 
 ## License
 [MIT](https://opensource.org/licenses/MIT)

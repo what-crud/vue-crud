@@ -46,7 +46,7 @@ router.beforeEach(function (to, from, next) {
     next()
   } 
   else{
-    if(store.getters['auth/checkRole'](middleware)){
+    if(store.getters['auth/checkPermission'](middleware)){
       window.scrollTo(0, 0);
       next()
     }
