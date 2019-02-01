@@ -19,13 +19,13 @@
         <!-- suspend/restore record (if soft deletes are enabled) -->
         <template v-if="['soft', 'both'].includes(deleteMode)">
           <v-tooltip top>
-            <v-btn outline class="white--text" fab small color="red" @click="suspendSelected()" slot="activator">
+            <v-btn class="white--text" fab small color="red" @click="suspendSelected()" slot="activator">
               <v-icon>undo</v-icon>
             </v-btn>
             <span>{{ $t('global.datatable.buttons.suspendSelected') }}</span>
           </v-tooltip>
           <v-tooltip top>
-            <v-btn outline class="white--text" fab small color="green" @click="restoreSelected()" slot="activator">
+            <v-btn class="white--text" fab small color="green" @click="restoreSelected()" slot="activator">
               <v-icon>redo</v-icon>
             </v-btn>
             <span>{{ $t('global.datatable.buttons.restoreSelected') }}</span>
@@ -33,7 +33,7 @@
         </template>
         <!-- hard delete -->
         <v-tooltip top v-if="['hard', 'both'].includes(deleteMode)">
-          <v-btn outline class="white--text" fab small color="red" @click="destroySelected()" slot="activator">
+          <v-btn class="white--text" fab small color="red" @click="destroySelected()" slot="activator">
             <v-icon>delete</v-icon>
           </v-btn>
           <span>{{ $t('global.datatable.buttons.deleteSelected') }}</span>

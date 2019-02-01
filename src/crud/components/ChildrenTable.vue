@@ -107,7 +107,6 @@
             <!-- buttons for open modal with item elements -->
             <v-tooltip top v-for="(button, key) in itemElements" :key="key">
               <v-btn
-                outline
                 fab
                 small
                 class="xs white--text"
@@ -122,13 +121,13 @@
             <!-- suspend/restore record (if soft deletes are enabled) -->
             <template v-if="['soft', 'both'].includes(deleteMode)">
               <v-tooltip top v-if="props.item.meta.active == '1'">
-                <v-btn fab small outline class="xs white--text" color="red" @click="suspend(props.item.meta.id)" slot="activator">
+                <v-btn fab small class="xs white--text" color="red" @click="suspend(props.item.meta.id)" slot="activator">
                   <v-icon>undo</v-icon>
                 </v-btn>
                 <span>{{ $t('global.datatable.buttons.suspend') }}</span>
               </v-tooltip>
               <v-tooltip top v-else>
-                <v-btn fab small outline class="xs white--text" color="green" @click="restore(props.item.meta.id)" slot="activator">
+                <v-btn fab small class="xs white--text" color="green" @click="restore(props.item.meta.id)" slot="activator">
                   <v-icon>redo</v-icon>
                 </v-btn>
                 <span>{{ $t('global.datatable.buttons.restore') }}</span>
@@ -136,7 +135,7 @@
             </template>
             <!-- hard delete -->
             <v-tooltip top v-if="['hard', 'both'].includes(deleteMode)">
-              <v-btn outline fab small class="xs white--text" color="red" @click="destroy(props.item.meta.id)" slot="activator">
+              <v-btn fab small class="xs white--text" color="red" @click="destroy(props.item.meta.id)" slot="activator">
                 <v-icon>delete</v-icon>
               </v-btn>
               <span>{{ $t('global.datatable.buttons.delete') }}</span>
