@@ -8,6 +8,7 @@
 </div>
 
 <h4 align="center">Vue.js based REST-ful CRUD application.</h4>
+
 * Application is build as SPA (Single Page Application) so it works much faster than apps based on Wordpress, Joomla, etc.
 * Vue CRUD uses the vue along with its ecosystem. Enjoy the benefits of the most popular JS framework in the world.
 * The application architecture is adapted to work with REST API
