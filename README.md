@@ -7,10 +7,12 @@
   <a><img alt="license" src="https://img.shields.io/badge/license-MIT-green.svg"></a>
 </div>
 
-![vue-crud](https://user-images.githubusercontent.com/18534115/50497274-5b6ea380-0a36-11e9-8dd6-2a7bc6875fe6.gif)
+<h4 align="center">Vue.js based REST-ful CRUD application.</h4>
+* Application is build as SPA (Single Page Application) so it works much faster than apps based on Wordpress, Joomla, etc.
+* Vue CRUD uses the vue along with its ecosystem. Enjoy the benefits of the most popular JS framework in the world.
+* The application architecture is adapted to work with REST API
 
-## About
-CRUD application written using Vue.js 2.x, Vuex and Vuetify. The app uses REST API and JWT Tokens.
+![vue-crud](https://user-images.githubusercontent.com/18534115/50497274-5b6ea380-0a36-11e9-8dd6-2a7bc6875fe6.gif)
 
 ## Documentation
 To check out docs, visit <a href="https://vue-crud.github.io/" target="_blank">vue-crud.github.io</a>.
