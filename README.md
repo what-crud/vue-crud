@@ -2,6 +2,10 @@
   <img width="300" height="auto" src="https://user-images.githubusercontent.com/18534115/49319435-29ccf000-f4fd-11e8-9fc6-8678864132bd.png">
 </p>
 <h1 align="center">Vue CRUD</h1>
+<div align="center">
+  <a><img alt="version" src="https://img.shields.io/badge/version-v0.7.0-yellow.svg"></a>
+  <a><img alt="license" src="https://img.shields.io/badge/license-MIT-green.svg"></a>
+</div>
 
 ![vue-crud](https://user-images.githubusercontent.com/18534115/50497274-5b6ea380-0a36-11e9-8dd6-2a7bc6875fe6.gif)
 
