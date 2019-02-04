@@ -3,6 +3,7 @@
 </p>
 <h1 align="center">Vue CRUD</h1>
 <div align="center">
+  <a><img alt="price" src="https://img.shields.io/badge/price-FREE-blue.svg"></a>
   <a><img alt="version" src="https://img.shields.io/badge/version-v0.7.0-yellow.svg"></a>
   <a><img alt="license" src="https://img.shields.io/badge/license-MIT-green.svg"></a>
 </div>
