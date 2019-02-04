@@ -45,8 +45,9 @@ The record creation / editing form supports the following types of fields:
 * Rich Text Box,
 * Select (list from related table),
 * Datepicker,
-* Timepicker
-* Checkbox
+* Timepicker,
+* Checkbox,
+* Files
 
 Datatable is available in 2 versions:
 * Client side (small tables < 2000 records)
