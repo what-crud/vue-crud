@@ -38,7 +38,7 @@
         </span>
 
         <!-- Select statuses (active/inactive) -->
-        <template v-if="['soft', 'both'].includes(deleteMode)">
+        <template v-if="['soft', 'both', 'filter'].includes(deleteMode)">
           <span style="margin-right:30px;display:inline-block;width:250px;">
             <v-autocomplete :label="$t('global.datatable.status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value" multiple chips></v-autocomplete>
           </span>

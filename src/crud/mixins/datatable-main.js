@@ -20,7 +20,9 @@ export default {
     "editButton",
     "meta",
     "primaryKey",
-    "activeColumnName"
+    "activeColumnName",
+    "creator",
+    "editor"
   ],
   data() {
     return {

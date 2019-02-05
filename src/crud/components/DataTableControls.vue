@@ -3,14 +3,14 @@
     <v-layout row wrap>
       <v-flex xs12 lg3>
         <!-- Dialog for creating item -->
-        <v-tooltip top>
+        <v-tooltip top v-if="creator">
           <v-btn fab dark color="green" @click="create()" slot="activator">
             <v-icon>add</v-icon>
           </v-btn>
           <span>{{ $t('global.datatable.add') }}</span>
         </v-tooltip>
         <!-- Multiple edit -->
-        <v-tooltip top>
+        <v-tooltip top v-if="editor">
           <v-btn fab small dark color="orange" @click="editSelected()" slot="activator">
             <v-icon>edit</v-icon>
           </v-btn>

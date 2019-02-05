@@ -10,7 +10,7 @@
     <!-- action buttons -->
     <td class="cell-nowrap">
       <!-- edit record -->
-      <v-tooltip top v-if="editButton">
+      <v-tooltip top v-if="editButton && editor">
         <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id, props.index)" slot="activator">
           <v-icon>edit</v-icon>
         </v-btn>
@@ -103,7 +103,7 @@ export default {
     },
     activityClass(isActive) {
       let className = ""
-      if(['soft', 'both'].includes(this.deleteMode)){
+      if(['soft', 'both', 'filter'].includes(this.deleteMode)){
         className = parseInt(isActive) == 1 ? 'row-active' : 'row-inactive'
       }
       return className

@@ -11,6 +11,8 @@
         :tableFields="tableFields"
         :primaryKey="primaryKey"
         :activeColumnName="activeColumnName"
+        :creator="creator"
+        :editor="editor"
       ></component>
       <item-details :title="detailsTitle" :detailsFields="detailsFields"></item-details>
       <item-elements></item-elements>
@@ -55,7 +57,7 @@ export default {
     deleteMode: {
       type: String,
       validator: function (value) {
-        return ['none', 'soft', 'hard', 'both'].indexOf(value) !== -1
+        return ['none', 'soft', 'hard', 'both', 'filter'].indexOf(value) !== -1
       },
       default: 'soft'
     },
@@ -93,6 +95,14 @@ export default {
         return ['ClientSide', 'ServerSide'].indexOf(value) !== -1
       },
       default: 'ClientSide'
+    },
+    creator: {
+      type: Boolean,
+      default: true
+    },
+    editor: {
+      type: Boolean,
+      default: true
     },
   },
   data() {
