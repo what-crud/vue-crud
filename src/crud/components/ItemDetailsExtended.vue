@@ -73,7 +73,7 @@
               item-disabled="itemDisabled"
               :label="field.text"
               menu-props="bottom"
-             
+              :disabled="field.disabled"
               @focus="remember(field)"
               @change="update(field)"
             ></v-autocomplete>
@@ -87,7 +87,7 @@
               item-disabled="itemDisabled"
               :label="field.text"
               menu-props="bottom"
-             
+              :disabled="field.disabled"
               @focus="remember(field)"
               @change="update(field)"
             ></v-autocomplete>
@@ -103,6 +103,7 @@
               v-model="field.value"
               @focus="remember(field)"
               @change="update(field)"
+              :disabled="field.disabled"
             >
             <label class="checkbox-label">{{field.text}}</label>
           </span>
