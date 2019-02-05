@@ -9,6 +9,8 @@
       @destroySelected="destroySelected"
       @refreshTable="refreshTable"
       @clearFilters="clearFilters"
+      :creator="creator"
+      :editor="editor"
     >
       <template slot="center">
         <!-- Search by fields -->

@@ -83,6 +83,8 @@
 export default {
   props: [
     'deleteMode',
+    'creator',
+    'editor'
   ],
   methods: {
     create() {this.$emit('create')},
