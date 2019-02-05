@@ -2,11 +2,19 @@
   <img width="300" height="auto" src="https://user-images.githubusercontent.com/18534115/49319435-29ccf000-f4fd-11e8-9fc6-8678864132bd.png">
 </p>
 <h1 align="center">Vue CRUD</h1>
+<div align="center">
+  <a><img alt="price" src="https://img.shields.io/badge/price-FREE-blue.svg"></a>
+  <a><img alt="version" src="https://img.shields.io/badge/version-v0.7.0-yellow.svg"></a>
+  <a><img alt="license" src="https://img.shields.io/badge/license-MIT-green.svg"></a>
+</div>
+
+<h4 align="center">Vue.js based REST-ful CRUD application.</h4>
+
+* Application is build as SPA (Single Page Application) so it works much faster than apps based on Wordpress, Joomla, etc.
+* Vue CRUD uses the vue along with its ecosystem. Enjoy the benefits of the most popular JS framework in the world.
+* The application architecture is adapted to work with REST API
 
 ![vue-crud](https://user-images.githubusercontent.com/18534115/50497274-5b6ea380-0a36-11e9-8dd6-2a7bc6875fe6.gif)
-
-## About
-CRUD application written using Vue.js 2.x, Vuex and Vuetify. The app uses REST API and JWT Tokens.
 
 ## Documentation
 To check out docs, visit <a href="https://vue-crud.github.io/" target="_blank">vue-crud.github.io</a>.
@@ -38,8 +46,9 @@ The record creation / editing form supports the following types of fields:
 * Rich Text Box,
 * Select (list from related table),
 * Datepicker,
-* Timepicker
-* Checkbox
+* Timepicker,
+* Checkbox,
+* Files
 
 Datatable is available in 2 versions:
 * Client side (small tables < 2000 records)
