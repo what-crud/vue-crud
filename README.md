@@ -68,6 +68,10 @@ Another functions and features:
 ## API
 The application requires a connection with the appropriate API. API can be created in any technology - the condition is its compliance with the Vue CRUD communication specification. If you need to create your API and do not know how to get started, and you don't mind PHP and Laravel, download or clone the <a href="https://github.com/szczepanmasny/vue-crud-laravel-api" target="_blank">Vue CRUD Laravel API project</a>.
 
+## Contributing
+
+Developers interested in contributing should read the [Code of Conduct](./CODE_OF_CONDUCT.md).
+
 ## License
 [MIT](https://opensource.org/licenses/MIT)
 
