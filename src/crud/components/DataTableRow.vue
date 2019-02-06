@@ -79,7 +79,8 @@ export default {
     'customButtons',
     'deleteMode',
     'itemElements',
-    "columnTextModes"
+    "columnTextModes",
+    "editor"
   ],
   filters: {
     cropped(field) {

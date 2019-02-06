@@ -82,6 +82,7 @@
           :deleteMode='deleteMode'
           :itemElements="itemElements"
           :columnTextModes="columnTextModes"
+          :editor="editor"
           @edit="edit"
           @custom="custom"
           @suspend="suspend"
