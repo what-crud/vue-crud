@@ -70,6 +70,7 @@ The application requires a connection with the appropriate API. API can be creat
 
 ## Contributing
 If you have an idea about improving Vue CRUD, do not hesitate.
+
 Developers interested in contributing should read the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ## License
