@@ -4,8 +4,9 @@
 <h1 align="center">Vue CRUD</h1>
 <div align="center">
   <a><img alt="price" src="https://img.shields.io/badge/price-FREE-blue.svg"></a>
-  <a><img alt="version" src="https://img.shields.io/badge/version-v0.7.0-yellow.svg"></a>
-  <a><img alt="license" src="https://img.shields.io/badge/license-MIT-green.svg"></a>
+  <a><img alt="license" src="https://img.shields.io/badge/license-MIT-brightgreen.svg"></a>
+  <a><img alt="version" src="https://img.shields.io/badge/version-v0.7.1-yellow.svg"></a>
+  <a><img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
 </div>
 
 <h4 align="center">Vue.js based REST-ful CRUD application.</h4>
@@ -67,6 +68,11 @@ Another functions and features:
 
 ## API
 The application requires a connection with the appropriate API. API can be created in any technology - the condition is its compliance with the Vue CRUD communication specification. If you need to create your API and do not know how to get started, and you don't mind PHP and Laravel, download or clone the <a href="https://github.com/szczepanmasny/vue-crud-laravel-api" target="_blank">Vue CRUD Laravel API project</a>.
+
+## Contributing
+If you have an idea about improving Vue CRUD, do not hesitate.
+
+Developers interested in contributing should read the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ## License
 [MIT](https://opensource.org/licenses/MIT)
