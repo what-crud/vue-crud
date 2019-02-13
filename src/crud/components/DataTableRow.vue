@@ -111,7 +111,7 @@ export default {
     },
     currentClass(itemId) {
       let currentId = this.currentItemId
-      return itemId == currentId ? 'secondary' : ''
+      return itemId == currentId ? 'current-row' : ''
     },
     rowDblclickAction(item, index) {
       if(this.editButton){
