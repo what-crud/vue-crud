@@ -108,22 +108,24 @@ export default {
       }
     },
     update(id, data) {
-      this.close()
       this.updateChild([
         id,
         data,
         this.$t('global.alerts.updated'),
         this.path
-      ])
+      ]).then(response => {
+        this.close();
+      })
     },
     store(data) {
       data[this.fkName] = this.item[this.itemIdColumn]
-      this.close()
       this.storeChild([
         data,
         this.$t('global.alerts.stored'),
         this.path
-      ])
+      ]).then(response => {
+        this.close();
+      })
     },
     itemElementsClosed(){
       this.getItemDetails([this.item[this.itemIdColumn]])

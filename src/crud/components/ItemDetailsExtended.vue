@@ -264,6 +264,13 @@ export default {
   },
   computed: {
     ...mapState("crud", ["item", "itemIdColumn", "detailsDialog"]),
+    rules() {
+      let self = this;
+      return {
+        input: [v => !!v || self.$t("global.details.rules.required")],
+        required: v => !!v || self.$t("global.details.rules.required")
+      };
+    },
     fields() {
       let self = this;
       let result = this.fieldsInfo.map(field => {
@@ -302,6 +309,12 @@ export default {
           }, 100);
         }
       }, 100);
+    },
+    fieldRules(field) {
+      let rules = []
+      let required = field.required != undefined ? field.required : true;
+      rules.push(this.rules.required)
+      return rules
     },
     remember(field) {
       field.oldValue = field.value;

@@ -40,41 +40,47 @@ let actions = {
       })
     },
     updateItem({commit, dispatch, state}, [id, params, successText, errorText]) {
-      Vue.http.put(state.prefix + '/' + state.path + '/' + id, params)
-        .then((response) => {
-          if (response.body.status == 0) {
-            commit('alertSuccess', successText, { root: true })
-            commit('refreshTable')
-          }
-          else if (response.body.status == -1) {
-            commit('alertError', response.body.msg, { root: true })
-          }
-          else if (response.body.status == -2) {
-            commit('alertValidationError', response.body.msg, { root: true })
-          }
-        }, error => {
-          commit('alertError', error.statusText, { root: true })
-        })
+      return new Promise((resolve, reject) => {
+        Vue.http.put(state.prefix + '/' + state.path + '/' + id, params)
+          .then((response) => {
+            if (response.body.status == 0) {
+              commit('alertSuccess', successText, { root: true })
+              commit('refreshTable')
+              resolve()
+            }
+            else if (response.body.status == -1) {
+              commit('alertError', response.body.msg, { root: true })
+            }
+            else if (response.body.status == -2) {
+              commit('alertValidationError', response.body.msg, { root: true })
+            }
+          }, error => {
+            commit('alertError', error.statusText, { root: true })
+          })
+      })
     },
     storeItem({commit, dispatch, state}, [params, successText, errorText]) {
-      Vue.http.post(state.prefix + '/' + state.path, params)
-        .then((response) => {
-          if (response.body.status == 0) {
-            commit('alertSuccess', successText, { root: true })
-            commit('refreshTable')
-          }
-          else if (response.body.status == -1) {
-            commit('alertError', response.body.msg, { root: true })
-          }
-          else if (response.body.status == -2) {
-            commit('alertValidationError', response.body.msg, { root: true })
-          }
-          if(state.createdElement.mode == 'inform'){
-            commit('setCreatedItemStatus', [true, response.body.id])
-          }
-        }, error => {
-          commit('alertError', error.statusText, { root: true })
-        });
+      return new Promise((resolve, reject) => {
+        Vue.http.post(state.prefix + '/' + state.path, params)
+          .then((response) => {
+            if (response.body.status == 0) {
+              commit('alertSuccess', successText, { root: true })
+              commit('refreshTable')
+              resolve()
+            }
+            else if (response.body.status == -1) {
+              commit('alertError', response.body.msg, { root: true })
+            }
+            else if (response.body.status == -2) {
+              commit('alertValidationError', response.body.msg, { root: true })
+            }
+            if(state.createdElement.mode == 'inform'){
+              commit('setCreatedItemStatus', [true, response.body.id])
+            }
+          }, error => {
+            commit('alertError', error.statusText, { root: true })
+          });
+      })
     },
     deleteItem({commit, dispatch, state}, [id, successText, errorText]) {
       Vue.http.delete(state.prefix + '/' + state.path + '/' + id)
@@ -178,21 +184,24 @@ let actions = {
     },
     // child details
     updateChild({commit, dispatch, state}, [id, params, successText, path]) {
-      Vue.http.put(path + '/' + id, params)
-        .then((response) => {
-          if (response.body.status == 0) {
-            commit('alertSuccess', successText, { root: true })
-          }
-          else if (response.body.status == -1) {
-            commit('alertError', response.body.msg, { root: true })
-          }
-          else if (response.body.status == -2) {
-            commit('alertValidationError', response.body.msg, { root: true })
-          }
-          dispatch('getItemDetails', [state.item[state.itemIdColumn]])
-        }, error => {
-          commit('alertError', error.statusText, { root: true })
-        })
+      return new Promise((resolve, reject) => {
+        Vue.http.put(path + '/' + id, params)
+          .then((response) => {
+            if (response.body.status == 0) {
+              commit('alertSuccess', successText, { root: true })
+              resolve()
+            }
+            else if (response.body.status == -1) {
+              commit('alertError', response.body.msg, { root: true })
+            }
+            else if (response.body.status == -2) {
+              commit('alertValidationError', response.body.msg, { root: true })
+            }
+            dispatch('getItemDetails', [state.item[state.itemIdColumn]])
+          }, error => {
+            commit('alertError', error.statusText, { root: true })
+          })
+      })
     },
     deleteChild({commit, dispatch, state}, [id, successText, errorText, path]) {
       Vue.http.delete(path + '/' + id)
@@ -212,13 +221,24 @@ let actions = {
         });
     },
     storeChild({commit, dispatch, state}, [params, successText, path]) {
-      Vue.http.post(path, params)
-        .then((response) => {
-          commit('alertSuccess', successText, { root: true })
-          dispatch('getItemDetails', [state.item[state.itemIdColumn]])
-        }, error => {
-          commit('alertError', error.statusText, { root: true })
-        })
+      return new Promise((resolve, reject) => {
+        Vue.http.post(path, params)
+          .then((response) => {
+            if (response.body.status == 0) {
+              commit('alertSuccess', successText, { root: true })
+              resolve()
+            }
+            else if (response.body.status == -1) {
+              commit('alertError', response.body.msg, { root: true })
+            }
+            else if (response.body.status == -2) {
+              commit('alertValidationError', response.body.msg, { root: true })
+            }
+            dispatch('getItemDetails', [state.item[state.itemIdColumn]])
+          }, error => {
+            commit('alertError', error.statusText, { root: true })
+          })
+      })
     },
     getChild({commit, state}, [id, path, childItemName]) {
       return new Promise((resolve, reject) => {

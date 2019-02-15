@@ -8,33 +8,33 @@
           <div v-for="(field, i) in fields" :key="i">
 
             <!-- input -->
-            <v-text-field :required="isRequired(field.required)" hide-details v-if="field.type == 'input'" :label="field.text"
+            <v-text-field :rules="fieldRules(field)" hide-details v-if="field.type == 'input'" :label="field.text"
               v-model="field.value"></v-text-field>
 
             <!-- number -->
             <v-text-field hide-details v-else-if="field.type == 'number'" :label="field.text" v-model="field.value" type="number" step="1" min="0"></v-text-field>
 
             <!-- decimal -->
-            <v-text-field :required="isRequired(field.required)" hide-details v-else-if="field.type == 'decimal'" :label="field.text" v-model="field.value" type="number" step="0.01" min="0"></v-text-field>
+            <v-text-field :rules="fieldRules(field)" hide-details v-else-if="field.type == 'decimal'" :label="field.text" v-model="field.value" type="number" step="0.01" min="0"></v-text-field>
 
             <!--date -->
-            <v-text-field :required="isRequired(field.required)" hide-details v-else-if="field.type == 'date'" :label="field.text" v-model="field.value" mask="####-##-##" return-masked-value></v-text-field>
+            <v-text-field :rules="fieldRules(field)" hide-details v-else-if="field.type == 'date'" :label="field.text" v-model="field.value" mask="####-##-##" return-masked-value></v-text-field>
 
             <!--time -->
-            <v-text-field :required="isRequired(field.required)" hide-details  v-else-if="field.type == 'time'" :label="field.text" v-model="field.value" mask="##:##" return-masked-value></v-text-field>
+            <v-text-field :rules="fieldRules(field)" hide-details  v-else-if="field.type == 'time'" :label="field.text" v-model="field.value" mask="##:##" return-masked-value></v-text-field>
 
             <!--datetime -->
-            <v-text-field :required="isRequired(field.required)" hide-details v-else-if="field.type == 'datetime'" :label="field.text" v-model="field.value" mask="####-##-## ##:##:##" return-masked-value></v-text-field>
+            <v-text-field :rules="fieldRules(field)" hide-details v-else-if="field.type == 'datetime'" :label="field.text" v-model="field.value" mask="####-##-## ##:##:##" return-masked-value></v-text-field>
 
             <!-- text area -->
-            <v-textarea :required="isRequired(field.required)" hide-details v-else-if="field.type == 'textarea'" :label="field.text"
+            <v-textarea :rules="fieldRules(field)" hide-details v-else-if="field.type == 'textarea'" :label="field.text"
               v-model="field.value"></v-textarea>
 
             <!-- select -->
             <template v-else-if="field.type == 'select'">
               <v-autocomplete v-if="field.async"
                 hide-details
-                :required="isRequired(field.required)"
+                :rules="fieldRules(field)"
                 :loading="searchLoading['search_' + field.name]"
                 :items="searchData['search_' + field.name]"
                 v-model="field.value"
@@ -49,7 +49,7 @@
               ></v-autocomplete>
               <v-autocomplete v-else
                 hide-details
-                :required="isRequired(field.required)"
+                :rules="fieldRules(field)"
                 :items="field.list.data"
                 v-model="field.value"
                 :item-text="field.list.text"
@@ -62,7 +62,7 @@
             </template>
             
             <span v-else-if="field.type == 'checkbox'">
-              <input :required="isRequired(field.required)" type="checkbox" color="blue" :label="field.text" v-model="field.value">
+              <input :rules="fieldRules(field)" type="checkbox" color="blue" :label="field.text" v-model="field.value">
               <label class="checkbox-label">{{field.text}}</label>
             </span>
 
@@ -196,7 +196,8 @@ export default {
     rules() {
       let self = this;
       return {
-        input: [v => !!v || self.$t("global.details.rules.required")]
+        input: [v => !!v || self.$t("global.details.rules.required")],
+        required: v => !!v || self.$t("global.details.rules.required")
       };
     }
   },
@@ -278,8 +279,11 @@ export default {
     }
   },
   methods: {
-    isRequired(required) {
-      return required != undefined ? required : true;
+    fieldRules(field) {
+      let rules = []
+      let required = field.required != undefined ? field.required : true;
+      rules.push(this.rules.required)
+      return rules
     },
     reset() {
       this.$parent.reset();

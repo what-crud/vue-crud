@@ -19,7 +19,7 @@
                 <!-- input -->
                 <v-text-field
                   hide-details
-                  :required="isRequired(field.required)"
+                  :rules="fieldRules(field)"
                   v-if="field.type == 'input'"
                   :label="field.text"
                   v-model="field.value"
@@ -28,7 +28,7 @@
                 <!-- number -->
                 <v-text-field
                   hide-details
-                  :required="isRequired(field.required)"
+                  :rules="fieldRules(field)"
                   v-else-if="field.type == 'number'"
                   :label="field.text"
                   v-model="field.value"
@@ -40,7 +40,7 @@
                 <!-- decimal -->
                 <v-text-field
                   hide-details
-                  :required="isRequired(field.required)"
+                  :rules="fieldRules(field)"
                   v-else-if="field.type == 'decimal'"
                   :label="field.text"
                   v-model="field.value"
@@ -52,7 +52,7 @@
                 <!--date -->
                 <v-text-field
                   hide-details
-                  :required="isRequired(field.required)"
+                  :rules="fieldRules(field)"
                   v-else-if="field.type == 'date'"
                   :label="field.text"
                   v-model="field.value"
@@ -63,7 +63,7 @@
                 <!--time -->
                 <v-text-field
                   hide-details
-                  :required="isRequired(field.required)"
+                  :rules="fieldRules(field)"
                   v-else-if="field.type == 'time'"
                   :label="field.text"
                   v-model="field.value"
@@ -74,7 +74,7 @@
                 <!--datetime -->
                 <v-text-field
                   hide-details
-                  :required="isRequired(field.required)"
+                  :rules="fieldRules(field)"
                   v-else-if="field.type == 'datetime'"
                   :label="field.text"
                   v-model="field.value"
@@ -85,7 +85,7 @@
                 <!-- text area -->
                 <v-textarea
                   hide-details
-                  :required="isRequired(field.required)"
+                  :rules="fieldRules(field)"
                   v-else-if="field.type == 'textarea'"
                   :label="field.text"
                   v-model="field.value"
@@ -116,7 +116,7 @@
                   <v-autocomplete
                     v-if="field.async"
                     hide-details
-                    :required="isRequired(field.required)"
+                    :rules="fieldRules(field)"
                     :loading="searchLoading['search_' + field.name]"
                     :items="searchData['search_' + field.name]"
                     v-model="field.value"
@@ -132,7 +132,7 @@
                   <v-autocomplete
                     v-else
                     hide-details
-                    :required="isRequired(field.required)"
+                    :rules="fieldRules(field)"
                     :items="field.list.data"
                     v-model="field.value"
                     :item-text="field.list.text"
@@ -233,7 +233,7 @@ export default {
       uploadLoaders: {},
       searchPhrases: {},
       searchLoading: {},
-      searchData: {}
+      searchData: {},
     };
   },
   created() {
@@ -434,7 +434,9 @@ export default {
     rules() {
       let self = this;
       return {
-        input: [v => !!v || self.$t("global.details.rules.required")]
+        required: v => !!v || self.$t("global.details.rules.required"),
+        minLength: (v) => v.length >= 24 || 'Min ' + 24 + ' characters',
+        maxLength: (v, val) => v.length <= val || 'Max ' + val + ' characters'
       };
     }
   },
@@ -461,29 +463,34 @@ export default {
     close() {
       this.details.show = false;
     },
-    isRequired(required) {
-      if (this.details.action == "multiedit") {
-        return false;
-      } else {
-        return required != undefined ? required : true;
+    fieldRules(field) {
+      let rules = []
+      let required = field.required != undefined ? field.required : true;
+      if (this.details.action != "multiedit"){
+        if (required) {
+          rules.push(this.rules.required)
+        }
       }
+      return rules
     },
     update() {
-      this.close();
       this.updateItem([
         this.details.id,
         this.itemData,
         this.$t("global.alerts.updated"),
         this.$t("global.alerts.updateError")
-      ]);
+      ]).then(response => {
+        this.close();
+      })
     },
     store() {
-      this.close();
       this.storeItem([
         this.itemData,
         this.$t("global.alerts.stored"),
         this.$t("global.alerts.storeError")
-      ]);
+      ]).then(response => {
+        this.close();
+      })
     },
     updateSelected() {
       let filteredFields = this.fields.filter(field => field.updateColumn);
