@@ -5,8 +5,7 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false,
-          hidden: true
+          details: false
         },
         {
           type: 'input',
@@ -47,7 +46,9 @@ export default {
           text: this.$t('fields.nip'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'nip',
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -55,7 +56,9 @@ export default {
           text: this.$t('fields.regon'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -63,7 +66,9 @@ export default {
           text: this.$t('fields.krs'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'select',
@@ -80,13 +85,14 @@ export default {
           apiObject: {
             name: 'street_prefix.name',
           },
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           text: this.$t('fields.address'),
           name: 'address',
           details: false,
-          hidden: true
         },
         {
           type: 'input',
@@ -94,7 +100,9 @@ export default {
           text: this.$t('fields.street'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -102,7 +110,9 @@ export default {
           text: this.$t('fields.houseNumber'),
           grid: 'xs6 sm3 md2 lg3 xl2',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -110,7 +120,9 @@ export default {
           text: this.$t('fields.apartmentNumber'),
           grid: 'xs6 sm3 md2 lg3 xl2',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -118,7 +130,9 @@ export default {
           text: this.$t('fields.zipCode'),
           grid: 'xs6 sm3 md2 lg3 xl2',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -126,7 +140,9 @@ export default {
           text: this.$t('fields.city'),
           grid: 'xs12 sm6 md4 lg6 xl3',
           name: 'city',
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -134,7 +150,9 @@ export default {
           text: this.$t('fields.borough'),
           grid: 'xs12 sm6 md4 lg6 xl3',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -142,7 +160,9 @@ export default {
           text: this.$t('fields.county'),
           grid: 'xs12 sm6 md4 lg6 xl3',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -150,7 +170,9 @@ export default {
           text: this.$t('fields.voivodship'),
           grid: 'xs12 sm6 md4 lg6 xl3',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -158,7 +180,9 @@ export default {
           text: this.$t('fields.email'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -166,7 +190,9 @@ export default {
           text: this.$t('fields.webPage'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -174,7 +200,9 @@ export default {
           text: this.$t('fields.fax'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -182,7 +210,9 @@ export default {
           text: this.$t('fields.phone'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -190,7 +220,9 @@ export default {
           text: this.$t('fields.coordinatesLat'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -198,7 +230,9 @@ export default {
           text: this.$t('fields.coordinatesLng'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'checkbox',
@@ -206,7 +240,8 @@ export default {
           text: this.$t('fields.coordinatesChecked'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          required: false
         },
         {
           type: 'input',
@@ -214,7 +249,9 @@ export default {
           text: this.$t('fields.googleMapPlace'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'select',
@@ -228,7 +265,9 @@ export default {
           text: this.$t('fields.correspondenceStreetPrefix'),
           grid: 'xs6 sm3 md2 lg3 xl2',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -236,7 +275,9 @@ export default {
           text: this.$t('fields.correspondenceStreet'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -244,7 +285,9 @@ export default {
           text: this.$t('fields.correspondenceHouseNumber'),
           grid: 'xs6 sm3 md2 lg3 xl2',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -252,7 +295,9 @@ export default {
           text: this.$t('fields.correspondenceApartmentNumber'),
           grid: 'xs6 sm3 md2 lg3 xl2',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -260,7 +305,9 @@ export default {
           text: this.$t('fields.correspondenceZipCode'),
           grid: 'xs6 sm3 md2 lg3 xl2',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -268,7 +315,9 @@ export default {
           text: this.$t('fields.correspondenceCity'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -276,7 +325,9 @@ export default {
           text: this.$t('fields.correspondenceBorough'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -284,7 +335,9 @@ export default {
           text: this.$t('fields.correspondenceCounty'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -292,7 +345,9 @@ export default {
           text: this.$t('fields.correspondenceVoivodship'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
-          details: false
+          create: false,
+          multiedit: false,
+          required: false
         },
       ]
     },

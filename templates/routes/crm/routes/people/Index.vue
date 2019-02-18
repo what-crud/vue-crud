@@ -50,7 +50,7 @@ export default {
           name: "goToItem",
           icon: "forward",
           color: "blue",
-          text: this.$t("global.details.title")
+          text: this.$t("buttons.goToItem")
         },
       ]
     },

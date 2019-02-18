@@ -32,7 +32,8 @@
             type: 'input',
             column: 'name',
             text: this.$t('fields.name'),
-            name: 'name'
+            name: 'name',
+            multiedit: false
           },
         ]
       },

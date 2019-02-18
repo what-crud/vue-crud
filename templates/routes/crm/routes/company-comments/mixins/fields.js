@@ -62,6 +62,7 @@ export default {
             name: 'content',
             functions: ['croppedText']
           },
+          multiedit: false
         },
       ]
     },

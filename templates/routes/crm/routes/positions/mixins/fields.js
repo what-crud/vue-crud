@@ -42,21 +42,26 @@ export default {
           column: 'name',
           text: this.$t('fields.name'),
           required: false,
-          name: 'name'
+          name: 'name',
+          required: false
         },
         {
           type: 'input',
           column: 'email',
           text: this.$t('fields.email'),
           required: false,
-          name: 'email'
+          name: 'email',
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
           column: 'phone',
           text: this.$t('fields.phone'),
           required: false,
-          name: 'phone'
+          name: 'phone',
+          multiedit: false,
+          required: false
         },
         {
           text: this.$t('fields.tasks'),
@@ -65,8 +70,7 @@ export default {
             name: 'position_tasks',
             functions: ['listTasks']
           },
-          details: false,
-          hidden: true
+          details: false
         },
         {
           type: 'input',
@@ -74,6 +78,8 @@ export default {
           text: this.$t('fields.email_2'),
           required: false,
           name: 'email_2',
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -81,6 +87,8 @@ export default {
           text: this.$t('fields.phone_2'),
           required: false,
           name: 'phone_2',
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -88,13 +96,15 @@ export default {
           text: this.$t('fields.phone_3'),
           required: false,
           name: 'phone_3',
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
           column: 'comment',
           text: this.$t('fields.comment'),
-          required: false,
-          table: false
+          table: false,
+          required: false
         },
       ]
     },

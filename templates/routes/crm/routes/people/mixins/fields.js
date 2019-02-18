@@ -6,7 +6,6 @@ export default {
           text: this.$t('fields.id'),
           name: 'id',
           details: false,
-          hidden: true
         },
         {
           type: 'input',
@@ -14,6 +13,7 @@ export default {
           text: this.$t('fields.lastname'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'lastname',
+          multiedit: false
         },
         {
           type: 'input',
@@ -21,6 +21,7 @@ export default {
           text: this.$t('fields.firstname'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'firstname',
+          multiedit: false
         },
         {
           type: 'input',
@@ -29,6 +30,7 @@ export default {
           required: false,
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'distinction',
+          required: false
         },
         {
           type: 'select',
@@ -69,6 +71,8 @@ export default {
           required: false,
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'email',
+          multiedit: false,
+          required: false
         },
         {
           type: 'input',
@@ -77,6 +81,8 @@ export default {
           required: false,
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'phone',
+          multiedit: false,
+          required: false
         },
       ]
     },

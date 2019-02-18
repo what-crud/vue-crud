@@ -9,7 +9,6 @@
           <div
             v-for="(field, i) in fields"
             :key="i"
-            v-if="field.multipleUpdate || details.action != 'multiedit'"
           >
             <v-layout row wrap>
               <v-flex class="sm1" v-if="details.action == 'multiedit'">
@@ -385,18 +384,24 @@ export default {
     ...mapState(["uploadPath"]),
     ...mapState("crud", ["details", "path", "prefix", "selectedIds"]),
     fields() {
-      let self = this;
-      let result = this.detailsFields.map(field => {
+      let self = this
+      let fields = this.detailsFields.filter(field => {
+        let isIncluded = true
+        if(this.details.action == 'create'){
+          isIncluded = field.create == false ? false : true
+        }
+        else if (this.details.action == 'multiedit'){
+          isIncluded = field.multiedit == false ? false : true
+        }
+        return isIncluded
+      })
+      let result = fields.map(field => {
         let rField = field;
-        rField.multipleUpdate =
-          field.multipleUpdate != undefined ? field.multipleUpdate : true;
         rField.value = this.details.item[field.column];
         if (typeof rField.value != "undefined") {
           if (field.type == "select") {
             let defaultVal = field.list.default || 1
-            rField.value = field.stringId
-              ? this.details.item[field.column]
-              : parseInt(this.details.item[field.column]) || defaultVal;
+            rField.value = field.stringId ? this.details.item[field.column] : parseInt(this.details.item[field.column]) || defaultVal;
           } else if (field.type == "datePicker") {
             rField.value = this.details.item[field.column].substring(0, 10);
           } else if (field.type == "checkbox") {

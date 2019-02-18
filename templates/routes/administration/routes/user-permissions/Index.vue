@@ -42,7 +42,7 @@
             name: 'user',
             apiObject: {
               name: 'user.name',
-            }
+            },
           },
           {
             text: this.$t('fields.userEmail'),

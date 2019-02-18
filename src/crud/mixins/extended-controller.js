@@ -30,7 +30,7 @@ export default {
       ];
     },
     itemFields() {
-      return this.fieldsInfo.filter(field => field.hidden != true);
+      return this.fieldsInfo.filter(field => field.details != false);
     }
   },
   methods: {

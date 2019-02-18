@@ -44,33 +44,26 @@
           },
           {
             type: 'file',
-            column: 'filename',
+            column: 'file',
             text: this.$t('fields.file'),
-            name: 'filename',
+            name: 'file',
+            textMode: 'file',
+            multiedit: false
+          },
+          {
+            type: 'file',
+            column: 'file_2',
+            text: this.$t('fields.file2'),
+            name: 'file_2',
+            textMode: 'file',
+            multiedit: false
           },
           {
             type: 'textarea',
             column: 'description',
             text: this.$t('fields.description'),
             name: 'description',
-          },
-          {
-            text: this.$t('fields.type'),
-            name: 'type',
-            apiObject: {
-              name: 'mime',
-            },
-            details: false,
-          },
-          {
-            text: this.$t('fields.size'),
-            name: 'size',
-            apiObject: {
-              name: 'size',
-              functions: ['humanFileSize']
-            },
-            sortable: false,
-            details: false,
+            required: false
           },
         ]
       },
@@ -87,6 +80,7 @@
             id: 'Id',
             company: 'Firma',
             file: 'Plik',
+            file2: 'Plik 2',
             description: 'Opis',
             type: 'Typ pliku',
             size: 'Rozmiar'
@@ -98,6 +92,7 @@
             id: 'Id',
             company: 'Company',
             file: 'File',
+            file2: 'File 2',
             description: 'Description',
             type: 'File type',
             size: 'Size'

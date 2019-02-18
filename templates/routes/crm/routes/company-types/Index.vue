@@ -32,13 +32,15 @@
             type: 'input',
             column: 'name',
             text: this.$t('fields.name'),
-            name: 'name'
+            name: 'name',
+            multiedit: false
           },
           {
             type: 'input',
             column: 'code',
             text: this.$t('fields.code'),
-            name: 'code'
+            name: 'code',
+            multiedit: false
           },
         ]
       },

@@ -62,13 +62,15 @@
             type: 'input',
             column: 'name',
             text: this.$t('fields.name'),
-            name: 'name'
+            name: 'name',
+            multiedit: false
           },
           {
             type: 'input',
             column: 'email',
             text: this.$t('fields.email'),
-            name: 'email'
+            name: 'email',
+            multiedit: false
           },
           {
             type: 'select',
