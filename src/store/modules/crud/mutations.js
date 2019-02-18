@@ -58,7 +58,7 @@ let mutations = {
     },
     createItemDialog(state){
       state.details.action = 'create'
-      state.details.formValid = true
+      state.details.formValid = false
       state.details.show = true
     },
     multipleEditDialog(state){
