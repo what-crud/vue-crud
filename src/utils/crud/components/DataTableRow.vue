@@ -59,7 +59,7 @@
       <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
       <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
       <span v-else-if="columnTextModes[key] == 'file'">
-        <file-details :field="fileFieldToJSON(field)"></file-details>
+        <file-details :fieldInfo="fileFieldToJSON(field)"></file-details>
       </span>
     </td>
   </tr>

@@ -32,17 +32,24 @@ import {
 
 export default {
     props: [
-        'field'
+        'fieldInfo'
     ],
     filters: {
         fileSize(size) {
-            return humanFileSize(size)
+            return size != null ? humanFileSize(size) : ''
         }
     },
     computed: {
         ...mapState('crud', [
             "filesPath",
         ]),
+        field() {
+            return Object.assign({
+                filename: '',
+                mime: '',
+                size: null
+            }, this.fieldInfo)
+        }
     },
     methods: {
         ...mapMutations("crud", [
