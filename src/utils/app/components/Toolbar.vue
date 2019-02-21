@@ -1,14 +1,19 @@
 <template>
   <v-toolbar clipped-left dark fixed app color="primary">
+
     <v-toolbar-title class="title">
         <router-link :to="titleLink">{{title}}</router-link>
     </v-toolbar-title>
     <slot name="left"></slot>
+
     <v-spacer></v-spacer>
+
     <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
+
     <v-spacer></v-spacer>
+
     <slot name="right"></slot>
-    <v-menu menu-props="bottom" left v-if="$store.state.localeSelectable">
+    <v-menu menu-props="bottom" left v-if="localesBtn">
       <v-btn icon slot="activator" dark>
         <v-icon>translate</v-icon>
       </v-btn>
@@ -18,14 +23,15 @@
         </v-list-tile>
       </v-list>
     </v-menu>
-    <v-btn icon @click.stop="openProfileDialog">
+    <v-btn v-if="profileBtn" icon @click.stop="openProfileDialog">
       <v-icon>perm_identity</v-icon>
     </v-btn>
-    <a v-on:click="logoutAttempt()">
+    <a v-if="logoutBtn" v-on:click="logoutAttempt()">
       <v-btn icon>
         <v-icon>power_settings_new</v-icon>
       </v-btn>
     </a>
+
   </v-toolbar>
 </template>
 
@@ -55,6 +61,18 @@
         type: String,
         default: 'vue-crud-sm.png'
       },
+      profileBtn: {
+        type: Boolean,
+        default: true
+      },
+      localesBtn: {
+        type: Boolean,
+        default: true
+      },
+      logoutBtn: {
+        type: Boolean,
+        default: true
+      },
     },
     data() {
       return {};
@@ -70,6 +88,8 @@
       ]),
       ...mapMutations([
         'setLocale',
+      ]),
+      ...mapMutations('app', [
         'openProfileDialog'
       ]),
       changeLocale (locale) {

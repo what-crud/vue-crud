@@ -1,6 +1,6 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="$store.state.profileDialog" max-width="500px">
+    <v-dialog v-model="$store.state.app.profileDialog" max-width="500px">
       <v-card>
         <v-card-title>
           <span class="headline">{{ $t('global.profile.title') }}</span>
@@ -46,7 +46,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="black--text" flat @click.native="$store.state.profileDialog = false">{{ $t('global.profile.close') }}</v-btn>
+          <v-btn class="black--text" flat @click.native="$store.state.app.profileDialog = false">{{ $t('global.profile.close') }}</v-btn>
         </v-card-actions>
 
       </v-card>

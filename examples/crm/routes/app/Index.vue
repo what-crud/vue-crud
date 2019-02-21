@@ -6,7 +6,12 @@ t
       expandOn="click"
       :lockSidebarBtn="true"
     >
-      <template slot="title"></template>
+      <template slot="title">
+        <v-list-tile-action>
+          <v-icon color="primary">person</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-title>{{ userInfo.name }}</v-list-tile-title>
+      </template>
     </sidebar>
     <toolbar
       :title="$store.state.title"
@@ -140,7 +145,7 @@ export default {
     ]
   }),
   computed: {
-    ...mapGetters("auth", ["isLogged"])
+    ...mapGetters("auth", ["isLogged", "userInfo"])
   },
   components: {
     Sidebar,
