@@ -8,11 +8,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './register-service-worker'
-import { configApi } from './config/api'
+import { api } from './config/api'
 
 Vue.config.productionTip = false
 Vue.http.options.emulateJSON = true;
-Vue.http.options.root = configApi.url + configApi.path.default
+Vue.http.options.root = api.url + api.path.default
 Vue.http.interceptors.push((request, next) => {
   if (localStorage.getItem('token')) {
     request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));

@@ -1,34 +1,43 @@
-import { configApi } from '@/config/api.js'
-import { configParams } from '@/config/params.js'
+import {
+  main
+} from '@/config/main.js'
+
+const defaults = {
+  title: "Vue CRUD",
+  locales: [{
+    name: 'en',
+    text: 'English'
+  }, ],
+  defaultLocale: 'en',
+  iconfont: 'md',
+  primaryTheme: 'dark',
+  secondaryTheme: 'dark',
+  theme: {
+    primary: '#34495e',
+    secondary: '#41b883',
+    accent: '#82B1FF',
+    error: '#FF5252',
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FFC107'
+  },
+}
+
+const params = Object.assign(defaults, main);
 
 let state = {
-  title: configParams.title,
+  title: params.title,
   locale: localStorage.getItem('locale'),
-  locales: configParams.locales,
-  localeSelectable: configParams.localeSelectable,
-  primaryTheme: configParams.primaryTheme,
-  secondaryTheme: configParams.secondaryTheme,
-  module: null,
-  page: null,
-  sidebarMini: true,
-  sidebarExpandOn: configParams.sidebarExpandOn || 'mouseover',
-  activeModule: "",
-  profileDialog: false,
-  superuser: false,
-  historyPermission: true,
+  defaultLocale: params.defaultLocale,
+  locales: params.locales,
+  primaryTheme: params.primaryTheme,
+  secondaryTheme: params.secondaryTheme,
   alert: {
     show: false,
     color: '',
     text: '',
     icon: ''
   },
-  filesPath: configApi.url + configApi.path.storage,
-  uploadPath: configApi.url + configApi.path.default + '/' + configApi.path.upload,
-  logoLg: configParams.logoLg,
-  logoSm: configParams.logoSm,
-  sidebarItems: configParams.sidebarItems,
-  footer: configParams.footer,
-  footerText: configParams.footerText
 }
 
 export default state

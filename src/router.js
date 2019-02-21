@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Main from './routes/main/Index'
-import mainRoutes from './routes/main/router.js'
+import Main from './routes/app/Index'
+import mainRoutes from './routes/app/router.js'
 import Login from './routes/login/Index'
 import store from '@/store/'
 
