@@ -30,27 +30,27 @@ To get full user account, contact me on my <a href="http://id-a.pl" target="_bla
 ## Functions
 Vue CRUD provides a set of utitlities, from which you can compose your own application. Features included in the system can communicate with each other thanks to the use of the Vuex library. Vue CRUD includes the following elements:
 
-CRUD,
-Authentication system:
-login form (built-in communitation with API, validation),
-optional locale selection,
-redirecting to the app,
-App layuout components:
-Toolbar (with optional elements):
-title,
-logo,
-user profile,
-locale selection,
-logout,
-slots for developer
-Sidebar:
-List of routes,
-Slot for title or user avatar,
-Slot for developer,
-Customizable sidebar behaviour
-Alerts system,
-Footer,
-... and others
+- CRUD,
+- Authentication system:
+  - login form (built-in communitation with API, validation),
+  - optional locale selection,
+  - redirecting to the app,
+- App layuout components:
+  - Toolbar (with optional elements):
+    - title,
+    - logo,
+    - user profile,
+    - locale selection,
+    - logout,
+    - slots for developer
+  - Sidebar:
+    - List of routes,
+    - Slot for title or user avatar,
+    - Slot for developer,
+    - Customizable sidebar behaviour
+  - Alerts system,
+  - Footer,
+  - ... and others
 
 The CRUD is a mechanism for managing the database tables. Included CRUD system allows the following operations:
 
