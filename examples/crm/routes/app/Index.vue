@@ -1,4 +1,3 @@
-t
 <template>
   <div>
     <sidebar
