@@ -8,22 +8,22 @@
     app
     class="secondary main-sidebar"
   >
-  <v-list class="pa-1 primary--text">
-    <v-list-tile v-if="sidebarMini && lockSidebarBtn && !locked" @click.stop="toggleLock">
-      <v-list-tile-action>
-        <v-icon color="primary">{{ locked ? 'chevron_left' : 'chevron_right' }}</v-icon>
-      </v-list-tile-action>
-    </v-list-tile>
-    <v-list-tile v-if="!sidebarMini">
-      <slot name="title"></slot>
-      <v-list-tile-action v-if="lockSidebarBtn && locked">
-        <v-btn icon @click.stop="toggleLock">
-          <v-icon color="primary">chevron_left</v-icon>
-        </v-btn>
-      </v-list-tile-action>
-    </v-list-tile>
+    <v-list class="pa-1 primary--text">
+      <v-list-tile v-if="sidebarMini && lockSidebarBtn && !locked" @click.stop="toggleLock">
+        <v-list-tile-action>
+          <v-icon color="primary">{{ locked ? 'chevron_left' : 'chevron_right' }}</v-icon>
+        </v-list-tile-action>
+      </v-list-tile>
+      <v-list-tile v-if="!sidebarMini">
+        <slot name="title"></slot>
+        <v-list-tile-action v-if="lockSidebarBtn && locked">
+          <v-btn icon @click.stop="toggleLock">
+            <v-icon color="primary">chevron_left</v-icon>
+          </v-btn>
+        </v-list-tile-action>
+      </v-list-tile>
+    </v-list>
     <slot name="over"></slot>
-  </v-list>
     <v-list dense>
       <template v-if="checkPermission(item.guard)" v-for="(item) in items">
         <v-list-group v-model="item.model" :key="item.text" :prepend-icon="item.icon"
@@ -53,6 +53,7 @@
         </v-list-group>
       </template>
     </v-list>
+    <slot name="under"></slot>
   </v-navigation-drawer>
   </div>
 </template>
