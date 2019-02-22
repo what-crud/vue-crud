@@ -1,6 +1,9 @@
 import { humanFileSize, getItemsList } from '@/utils/crud/helpers/functions.js'
 
 let getters = {
+  path: state => {
+    return (state.prefix != null ? state.prefix + '/' : '') + state.path 
+  },
   itemCreated: state => {
     return state.createdElement.created
   },

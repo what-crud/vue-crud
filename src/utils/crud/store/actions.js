@@ -3,9 +3,9 @@ import router from '@/router'
 
 let actions = {
     // table data
-    getItems({commit, state}) {
+    getItems({commit, state, getters}) {
       commit('setLoadingStatus', true)
-      Vue.http.get(state.prefix + '/' + state.path)
+      Vue.http.get(getters.path)
         .then((response) => {
           commit('setItems', response.body)
           commit('setLoadingStatus', false)
@@ -13,10 +13,10 @@ let actions = {
           commit('alertError', error.statusText, { root: true })
         });
     },
-    getItemsServerSide({commit, state}, [params]) {
+    getItemsServerSide({commit, state, getters}, [params]) {
       return new Promise((resolve, reject) => {
         commit('setLoadingStatus', true)
-        Vue.http.post(state.prefix + '/' + state.path + '/search', params)
+        Vue.http.post(getters.path + '/search', params)
           .then((response) => {
             commit('setItemsServerSide', response.body)
             resolve()
@@ -26,10 +26,10 @@ let actions = {
       })
     },
     // item details
-    getItem({commit, state}, [id]) {
+    getItem({commit, state, getters}, [id]) {
       return new Promise((resolve, reject) => {
         commit('setDetailsLoader', true)
-        Vue.http.get(state.prefix + '/' + state.path + '/' + id)
+        Vue.http.get(getters.path + '/' + id)
           .then((response) => {
             commit('setItem', response.body)
             commit('setDetailsLoader', false)
@@ -39,9 +39,9 @@ let actions = {
           }
       })
     },
-    updateItem({commit, dispatch, state}, [id, params, successText, errorText]) {
+    updateItem({commit, dispatch, state, getters}, [id, params, successText, errorText]) {
       return new Promise((resolve, reject) => {
-        Vue.http.put(state.prefix + '/' + state.path + '/' + id, params)
+        Vue.http.put(getters.path + '/' + id, params)
           .then((response) => {
             if (response.body.status == 0) {
               commit('alertSuccess', successText, { root: true })
@@ -59,9 +59,9 @@ let actions = {
           })
       })
     },
-    storeItem({commit, dispatch, state}, [params, successText, errorText]) {
+    storeItem({commit, dispatch, state, getters}, [params, successText, errorText]) {
       return new Promise((resolve, reject) => {
-        Vue.http.post(state.prefix + '/' + state.path, params)
+        Vue.http.post(getters.path, params)
           .then((response) => {
             if (response.body.status == 0) {
               commit('alertSuccess', successText, { root: true })
@@ -82,8 +82,8 @@ let actions = {
           });
       })
     },
-    deleteItem({commit, dispatch, state}, [id, successText, errorText]) {
-      Vue.http.delete(state.prefix + '/' + state.path + '/' + id)
+    deleteItem({commit, dispatch, state, getters}, [id, successText, errorText]) {
+      Vue.http.delete(getters.path + '/' + id)
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           commit('refreshTable')
@@ -91,8 +91,8 @@ let actions = {
           commit('alertError', error.statusText, { root: true })
         });
     },
-    mulitipleItemsUpdate({commit, dispatch, state}, [params, successText, errorText]){
-      Vue.http.post(state.prefix + '/' + state.path + '/multiple-update', params)
+    mulitipleItemsUpdate({commit, dispatch, state, getters}, [params, successText, errorText]){
+      Vue.http.post(getters.path + '/multiple-update', params)
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           commit('refreshTable')
@@ -100,8 +100,8 @@ let actions = {
           commit('alertError', error.statusText, { root: true })
         });
     },
-    mulitipleItemsDelete({commit, dispatch, state}, [ids, successText, errorText]){
-      Vue.http.post(state.prefix + '/' + state.path + '/multiple-delete', ids)
+    mulitipleItemsDelete({commit, dispatch, state, getters}, [ids, successText, errorText]){
+      Vue.http.post(getters.path + '/multiple-delete', ids)
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           commit('refreshTable')
@@ -110,12 +110,12 @@ let actions = {
         });
     },
     // item elements
-    getItemElements({commit, state}) {
-      let url = state.itemElements.url.replace('{id}', state.itemElements.id);
+    getItemElements({commit, state, getters}) {
+      let url = state.itemElements.url.replace('{id}', state, getters.itemElements.id);
       Vue.http.get(url)
         .then((response) => commit('setItemElements', response.body))
     },
-    addItemElement({commit, dispatch, state}, [params, successText, errorText]) {
+    addItemElement({commit, dispatch, state, getters}, [params, successText, errorText]) {
       Vue.http.post(state.itemElements.controller, params)
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
@@ -124,7 +124,7 @@ let actions = {
           commit('alertError', error.statusText, { root: true })
         });
     },
-    removeItemElement({commit, dispatch, state}, [id, successText, errorText]) {
+    removeItemElement({commit, dispatch, state, getters}, [id, successText, errorText]) {
       Vue.http.delete(state.itemElements.controller + '/' + id)
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
@@ -133,7 +133,7 @@ let actions = {
           commit('alertError', error.statusText, { root: true })
         });
     },
-    addManyItemElements({commit, dispatch, state}, [params, successText, errorText]) {
+    addManyItemElements({commit, dispatch, state, getters}, [params, successText, errorText]) {
       Vue.http.post(state.itemElements.controller + '/multiple-add', params)
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
@@ -142,7 +142,7 @@ let actions = {
           commit('alertError', error.statusText, { root: true })
         });
     },
-    removeManyItemElements({commit, dispatch, state}, [ids, successText, errorText]) {
+    removeManyItemElements({commit, dispatch, state, getters}, [ids, successText, errorText]) {
       Vue.http.post(state.itemElements.controller + '/multiple-delete', ids)
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
@@ -152,10 +152,10 @@ let actions = {
         });
     },
     // extented details
-    getItemDetails({commit, state}, [id]) {
+    getItemDetails({commit, state, getters}, [id]) {
       return new Promise((resolve, reject) => {
         commit('setDetailsLoader', true)
-        Vue.http.get(state.prefix + '/' + state.path + '/' + id)
+        Vue.http.get(getters.path + '/' + id)
           .then((response) => {
             commit('itemDetails', response.body)
             commit('setDetailsLoader', false)
@@ -165,8 +165,8 @@ let actions = {
           }
       })
     },
-    updateItemDetail({commit, dispatch, state}, [id, params, successText]) {
-      Vue.http.put(state.prefix + '/' + state.path + '/' + id, params)
+    updateItemDetail({commit, dispatch, state, getters}, [id, params, successText]) {
+      Vue.http.put(getters.path + '/' + id, params)
         .then((response) => {
           if (response.body.status == 0) {
             commit('alertSuccess', successText, { root: true })
@@ -183,7 +183,7 @@ let actions = {
         });
     },
     // child details
-    updateChild({commit, dispatch, state}, [id, params, successText, path]) {
+    updateChild({commit, dispatch, state, getters}, [id, params, successText, path]) {
       return new Promise((resolve, reject) => {
         Vue.http.put(path + '/' + id, params)
           .then((response) => {
@@ -203,7 +203,7 @@ let actions = {
           })
       })
     },
-    deleteChild({commit, dispatch, state}, [id, successText, errorText, path]) {
+    deleteChild({commit, dispatch, state, getters}, [id, successText, errorText, path]) {
       Vue.http.delete(path + '/' + id)
         .then((response) => {
           if (response.body.status == 0) {
@@ -220,7 +220,7 @@ let actions = {
           commit('alertError', error.statusText, { root: true })
         });
     },
-    storeChild({commit, dispatch, state}, [params, successText, path]) {
+    storeChild({commit, dispatch, state, getters}, [params, successText, path]) {
       return new Promise((resolve, reject) => {
         Vue.http.post(path, params)
           .then((response) => {
@@ -240,7 +240,7 @@ let actions = {
           })
       })
     },
-    getChild({commit, state}, [id, path, childItemName]) {
+    getChild({commit, state, getters}, [id, path, childItemName]) {
       return new Promise((resolve, reject) => {
         Vue.http.get(path + '/' + id)
           .then((response) => {

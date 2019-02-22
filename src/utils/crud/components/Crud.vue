@@ -45,7 +45,10 @@ export default {
     ImageContainer
   },
   props: {
-    prefix: String,
+    prefix: {
+      type: String,
+      default: null
+    },
     path: String,
     fieldsInfo: Array,
     detailsTitle: String,
