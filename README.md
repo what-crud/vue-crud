@@ -9,10 +9,11 @@
   <a><img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
 </div>
 
-<h4 align="center">Vue.js based REST-ful CRUD application.</h4>
+<h4 align="center">Vue.js based REST-ful CRUD system.</h4>
 
-* Application is build as SPA (Single Page Application) so it works much faster than apps based on Wordpress, Joomla, etc.
-* Vue CRUD uses the vue along with its ecosystem. Enjoy the benefits of the most popular JS framework in the world.
+* Vue CRUD allows to create both a mechanism for managing a single table, as well as a CMS or extended CRM with a login system and modules
+* Application built with Vue CRUD is SPA (Single Page Application) so it works much faster than apps based on Wordpress, Joomla, etc.
+* Vue CRUD uses the vue along with its ecosystem (Vuex, Vuetify, etc). Enjoy the benefits of the most popular JS framework in the world.
 * The application architecture is adapted to work with REST API
 
 ![vue-crud](https://user-images.githubusercontent.com/18534115/50497274-5b6ea380-0a36-11e9-8dd6-2a7bc6875fe6.gif)
