@@ -5,7 +5,7 @@
 <div align="center">
   <a><img alt="price" src="https://img.shields.io/badge/price-FREE-blue.svg"></a>
   <a><img alt="license" src="https://img.shields.io/badge/license-MIT-brightgreen.svg"></a>
-  <a><img alt="version" src="https://img.shields.io/badge/version-v0.8.0-yellow.svg"></a>
+  <a><img alt="version" src="https://img.shields.io/badge/version-v0.9.0-yellow.svg"></a>
   <a><img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
 </div>
 
