@@ -18,10 +18,14 @@
 ![vue-crud](https://user-images.githubusercontent.com/18534115/50497274-5b6ea380-0a36-11e9-8dd6-2a7bc6875fe6.gif)
 
 ## Documentation
-To check out docs, visit <a href="https://vue-crud.github.io/" target="_blank">vue-crud.github.io</a>.
+To check out docs, visit :
+#### <a href="https://vue-crud.github.io/" target="_blank">vue-crud.github.io</a>.
 
 ## Demo version
-Here is available <a href="http://crud.id-a.pl" target="_blank">demo application</a>.\
+
+#### <a href="http://vue-crud.simple-crud.id-a.pl" target="_blank">Simple CRUD demo</a>
+
+#### <a href="http://vue-crud.crm.id-a.pl" target="_blank">CRM demo</a>
 Credentials with limited privileges (readonly):\
 Login:  guest@vue.crud\
 Pass:   ajSGenC0\
