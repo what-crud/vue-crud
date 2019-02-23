@@ -24,9 +24,9 @@ To check out docs, visit :
 
 ## Demo version
 
-#### <a href="http://vue-crud.simple-crud.id-a.pl" target="_blank">Simple CRUD demo</a>
+#### <a href="http://vue-crud-simple.id-a.pl" target="_blank">Simple CRUD demo</a>
 
-#### <a href="http://vue-crud.crm.id-a.pl" target="_blank">CRM demo</a>
+#### <a href="http://vue-crud-crm.id-a.pl" target="_blank">CRM demo</a>
 Credentials with limited privileges (readonly):\
 Login:  guest@vue.crud\
 Pass:   ajSGenC0\
