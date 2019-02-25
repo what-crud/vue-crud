@@ -232,7 +232,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['page']),
+    ...mapState('app', ['page']),
     ...mapState("crud", ["prefix", "path"]),
     tableFields() {
       return this.fieldsInfo.filter(field => field.table != false && field.type != 'divider');
