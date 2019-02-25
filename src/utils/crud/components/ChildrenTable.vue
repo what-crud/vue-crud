@@ -289,7 +289,6 @@ export default {
     },
     editItemElements(name, id) {
       let obj = this.itemElements[name];
-      console.log (obj)
       this.setItemElementsInfo([id, obj]);
       this.getItemElements();
     },
