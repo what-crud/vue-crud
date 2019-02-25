@@ -1,7 +1,7 @@
 <template>
   <v-card-title class="card-title table-controls">
     <v-layout row wrap>
-      <v-flex xs12 lg3>
+      <v-flex xs12 lg3 text-xs-center>
         <!-- Dialog for creating item -->
         <v-tooltip top v-if="creator">
           <v-btn fab dark color="green" @click="create()" slot="activator">
@@ -40,10 +40,10 @@
         </v-tooltip>
         <slot name="left"></slot>
       </v-flex>
-      <v-flex xs12 lg6 text-xs-left text-lg-center>
+      <v-flex xs12 lg6 text-xs-center>
         <slot name="center"></slot>
       </v-flex>
-      <v-flex xs12 lg3 text-xs-left text-lg-right>
+      <v-flex xs12 lg3 text-xs-center>
         <!-- Refresh table -->
         <v-tooltip top>
           <v-btn 

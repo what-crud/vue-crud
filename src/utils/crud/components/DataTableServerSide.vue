@@ -14,7 +14,7 @@
     >
       <template slot="center">
         <!-- Search by fields -->
-        <v-menu offset-y :close-on-content-click="false" style="margin-right:30px;">
+        <v-menu offset-y :close-on-content-click="false" style="margin-right:15px;margin-left:15px;">
           <v-btn small fab dark slot="activator" class="primary">
             <v-icon>filter_list</v-icon>
           </v-btn>
@@ -35,13 +35,13 @@
         </v-menu>
 
         <!-- Search in table -->
-        <span style="margin-right:30px;display:inline-block;width:250px;">
+        <span style="margin-right:15px;margin-left:15px;display:inline-block;width:250px;">
           <v-text-field append-icon="search" :label="$t('global.datatable.search')" single-line hide-details v-model="search" min-width="200" @input="searchItems(true)"></v-text-field>
         </span>
 
         <!-- Select statuses (active/inactive) -->
         <template v-if="['soft', 'both', 'filter'].includes(deleteMode)">
-          <span style="margin-right:30px;display:inline-block;width:250px;">
+          <span style="margin-right:15px;margin-left:15px;display:inline-block;width:250px;">
             <v-autocomplete :label="$t('global.datatable.status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value" multiple chips></v-autocomplete>
           </span>
         </template>
