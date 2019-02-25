@@ -11,7 +11,7 @@
     <v-list class="pa-1 primary--text">
       <v-list-tile v-if="sidebarMini && lockSidebarBtn && !locked" @click.stop="toggleLock">
         <v-list-tile-action>
-          <v-icon color="primary">{{ locked ? 'chevron_left' : 'chevron_right' }}</v-icon>
+          <v-icon color="primary">chevron_right</v-icon>
         </v-list-tile-action>
       </v-list-tile>
       <v-list-tile v-if="!sidebarMini">
@@ -62,11 +62,14 @@
 import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
+  created() {
+    this.locked = JSON.parse(localStorage.getItem('sidebarLocked')) || false
+  },
   computed: {
     ...mapGetters("auth", ["checkPermission"]),
     sidebarMini() {
       return this.locked ? false : !this.expanded
-    }
+    },
   },
   watch: {
     expanded(val) {
@@ -124,7 +127,7 @@ export default {
   data: () => ({
     setSidebarMini: false,
     dialog: false,
-    locked: localStorage.getItem('sidebarLocked') || false,
+    locked: false,
     expanded: false
   }),
 };
