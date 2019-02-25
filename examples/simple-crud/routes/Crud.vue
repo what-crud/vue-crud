@@ -1,21 +1,21 @@
 <template>
-  <crud :meta="meta" :fileMode="true" :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo"
-    :detailsTitle="$t('detailsTitle')">
-  </crud>
+  <div>
+    <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
+    </crud>
+    <alert-box></alert-box>
+  </div>
 </template>
 
 <script>
   import Crud from '@/utils/crud/components/Crud.vue'
+  import AlertBox from "@/utils/app/components/AlertBox.vue";
 
   export default {
     data() {
       return {
-        prefix: 'crm',
-        path: 'company-files',
-        pageTitle: 'crm.companyFiles',
-        meta: [{
-          name: 'path',
-        }]
+        prefix: 'demo',
+        path: 'tasks',
+        pageTitle: 'demo.tasks',
       }
     },
     computed: {
@@ -26,38 +26,14 @@
             details: false,
           },
           {
-            type: 'select',
-            url: 'crm/companies',
-            list: {
-              value: 'id',
-              text: 'common_name',
-              data: []
-            },
-            column: 'company_id',
-            text: this.$t('fields.company'),
-            name: 'company',
-            apiObject: {
-              name: 'company.common_name',
-            }
-          },
-          {
-            type: 'file',
-            column: 'file',
-            text: this.$t('fields.file'),
-            name: 'file',
-            textMode: 'file',
+            type: 'input',
+            column: 'name',
+            text: this.$t('fields.name'),
+            name: 'name',
             multiedit: false
           },
           {
-            type: 'file',
-            column: 'file_2',
-            text: this.$t('fields.file2'),
-            name: 'file_2',
-            textMode: 'file',
-            multiedit: false
-          },
-          {
-            type: 'textarea',
+            type: 'input',
             column: 'description',
             text: this.$t('fields.description'),
             name: 'description',
@@ -66,23 +42,19 @@
         ]
       },
     },
-    methods: {},
     components: {
-      Crud
+      Crud,
+      AlertBox,
     },
     i18n: {
       messages: {
         en: {
-          detailsTitle: 'File',
+          detailsTitle: 'Task',
           fields: {
             id: 'Id',
-            company: 'Company',
-            file: 'File',
-            file2: 'File 2',
-            description: 'Description',
-            type: 'File type',
-            size: 'Size'
-          },
+            name: 'Name',
+            description: 'Description'
+          }
         }
       }
     },

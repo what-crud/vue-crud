@@ -3,7 +3,7 @@
     redirect="/home"
     :localeSelectable="true"
     :showLogo="true"
-    logo="vue-crud-sm.png"
+    logo="vue-crud-lg.png"
   ></login-form>
 </template>
 
