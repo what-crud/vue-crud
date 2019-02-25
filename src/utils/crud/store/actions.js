@@ -111,7 +111,7 @@ let actions = {
     },
     // item elements
     getItemElements({commit, state, getters}) {
-      let url = state.itemElements.url.replace('{id}', state, getters.itemElements.id);
+      let url = state.itemElements.url.replace('{id}', state.itemElements.id);
       Vue.http.get(url)
         .then((response) => commit('setItemElements', response.body))
     },

@@ -232,7 +232,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['page']),
+    ...mapState('app', ['page']),
     ...mapState("crud", ["prefix", "path"]),
     tableFields() {
       return this.fieldsInfo.filter(field => field.table != false && field.type != 'divider');
@@ -289,7 +289,6 @@ export default {
     },
     editItemElements(name, id) {
       let obj = this.itemElements[name];
-      console.log (obj)
       this.setItemElementsInfo([id, obj]);
       this.getItemElements();
     },

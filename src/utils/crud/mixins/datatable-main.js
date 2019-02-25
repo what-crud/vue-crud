@@ -30,7 +30,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['page']),
+    ...mapState('app', ['page']),
     ...mapState("crud", ["filesPath", "prefix", "path", 'nextItem', 'moveItemRun', 'moveItemDirection', "currentItemIndex"]),
     ...mapGetters("crud", ["itemsList"]),
     selectedIds() {
