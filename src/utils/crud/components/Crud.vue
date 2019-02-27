@@ -11,8 +11,15 @@
         :tableFields="tableFields"
         :primaryKey="primaryKey"
         :activeColumnName="activeColumnName"
-        :creator="creator"
-        :editor="editor"
+        :createMode="createMode"
+        :editMode="editMode"
+        :mainFilter="mainFilter"
+        :fieldFilters="fieldFilters"
+        :refreshButton="refreshButton"
+        :exportButton="exportButton"
+        :selectManyMode="selectManyMode"
+        :updateManyMode="updateManyMode"
+        :removeManyMode="removeManyMode"
       ></component>
       <item-details :title="detailsTitle" :detailsFields="detailsFields"></item-details>
       <item-elements></item-elements>
@@ -99,11 +106,39 @@ export default {
       },
       default: 'ClientSide'
     },
-    creator: {
+    createMode: {
       type: Boolean,
       default: true
     },
-    editor: {
+    editMode: {
+      type: Boolean,
+      default: true
+    },
+    mainFilter: {
+      type: Boolean,
+      default: true
+    },
+    fieldFilters: {
+      type: Boolean,
+      default: true
+    },
+    exportButton: {
+      type: Boolean,
+      default: true
+    },
+    refreshButton: {
+      type: Boolean,
+      default: true
+    },
+    selectManyMode: {
+      type: Boolean,
+      default: true
+    },
+    updateManyMode: {
+      type: Boolean,
+      default: true
+    },
+    removeManyMode: {
       type: Boolean,
       default: true
     },
