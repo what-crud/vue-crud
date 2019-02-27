@@ -120,6 +120,73 @@ npm run serve
 ```
 ... and your app is already running (probably at http://localhost:8080).
 
+### Usage
+
+The simplest possible code that supports CRUD operations for one table will look something like this:
+```vue
+<template>
+  <div>
+    <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
+    </crud>
+    <alert-box></alert-box>
+  </div>
+</template>
+
+<script>
+  import Crud from '@/utils/crud/components/Crud.vue'
+  import AlertBox from "@/utils/app/components/AlertBox.vue";
+  export default {
+    data() {
+      return {
+        prefix: 'demo',
+        path: 'tasks',
+        pageTitle: 'demo.tasks',
+      }
+    },
+    computed: {
+      fieldsInfo() {
+        return [{
+            text: this.$t('fields.id'),
+            name: 'id',
+            details: false,
+          },
+          {
+            type: 'input',
+            column: 'name',
+            text: this.$t('fields.name'),
+            name: 'name',
+            multiedit: false
+          },
+          {
+            type: 'input',
+            column: 'description',
+            text: this.$t('fields.description'),
+            name: 'description',
+            required: false
+          },
+        ]
+      },
+    },
+    components: {
+      Crud,
+      AlertBox,
+    },
+    i18n: {
+      messages: {
+        en: {
+          detailsTitle: 'Task',
+          fields: {
+            id: 'Id',
+            name: 'Name',
+            description: 'Description'
+          }
+        }
+      }
+    },
+  }
+</script>
+```
+
 ## API
 The application requires a connection with the appropriate API. API can be created in any technology - the condition is its compliance with the Vue CRUD communication specification. If you need to create your API and do not know how to get started, and you don't mind PHP and Laravel, download or clone the <a href="https://github.com/szczepanmasny/vue-crud-laravel-api" target="_blank">Vue CRUD Laravel API project</a>.
 
