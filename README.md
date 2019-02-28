@@ -5,7 +5,7 @@
 <div align="center">
   <a><img alt="price" src="https://img.shields.io/badge/price-FREE-blue.svg"></a>
   <a><img alt="license" src="https://img.shields.io/badge/license-MIT-brightgreen.svg"></a>
-  <a><img alt="version" src="https://img.shields.io/badge/version-v0.9.0-yellow.svg"></a>
+  <a><img alt="version" src="https://img.shields.io/badge/version-v0.9.2-yellow.svg"></a>
   <a><img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
 </div>
 
@@ -92,6 +92,10 @@ Do you want to test the application quickly, and you do not have a ready API? No
 
 ### Steps
 
+- Clone Vue CRUD:
+``` console
+git clone git@github.com:szczepanmasny/vue-crud.git
+```
 - Select template from **examples** folder you want to use, e.g. **examples/simple-crud**. Then:
 - Copy **examples/simple-crud/public** folder to the root directory,
 - Copy the rest of files and folders (**config**, **locales**, **routes**, **main.js**, **router.js**) from **examples/simple-crud** folder to the **src** directory,
