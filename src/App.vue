@@ -64,7 +64,7 @@
             title: 'Login page',
             icon: 'verified_user',
             link: '/login'
-          }
+          },
         ],
         mini: true,
         right: null

@@ -3,6 +3,9 @@
     <v-progress-circular indeterminate v-bind:size="100" v-bind:width="5" color="primary"></v-progress-circular>
   </v-layout>
   <v-layout v-else row wrap class="white" color="primary" ma-3>
+      <v-alert class="login-failed" type="error" :value="loginFailed" dismissible>
+        {{ $t('global.login.failed') }}
+      </v-alert>
     <v-flex xs10 offset-xs1 sm8 offset-sm2 md6 offset-md3 lg4 offset-lg4 xl2 offset-xl5 class="parent text-xs-center">
       <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
       <h1 class="app-title primary--text">{{ $t('global.login.title') }}</h1>
@@ -26,9 +29,6 @@
           </v-btn>
         </v-form>
       </template>
-      <v-alert class="login-failed" type="error" :value="loginFailed">
-        {{ $t('global.login.failed') }}
-      </v-alert>
     </v-flex>
   </v-layout>
 </template>
@@ -146,7 +146,7 @@
   }
   .login-failed {
     width:100%;
-    position:absolute;
+    position:relative;
     top: 0;
     left:0;
   }

@@ -1,11 +1,9 @@
 <template>
   <div @click="click()" @mouseover="mouseover()" @mouseleave="mouseleave()">
   <v-navigation-drawer
-    :absolute="app"
     permanent
     :mini-variant="sidebarMini"
     dark clipped
-    :app='app'
     class="secondary main-sidebar"
   >
     <v-list class="pa-1 primary--text">
@@ -81,10 +79,6 @@ export default {
     }
   },
   props: {
-    app: {
-      type: Boolean,
-      default: true
-    },
     source: String,
     items: {
       type: Array,
