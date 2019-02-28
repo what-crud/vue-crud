@@ -205,7 +205,6 @@
               icon: "people",
               text: "crm.name",
               model: false,
-              guard: "CRM",
               route: "/app",
               children: [{
                       text: "crm.companies",
@@ -257,7 +256,6 @@
               icon: "person_add_disabled",
               text: "admin.name",
               model: false,
-              guard: "ADMIN",
               route: "/app",
               children: [{
                       text: "admin.users",
@@ -397,7 +395,6 @@
                       icon: "people",
                       text: "crm.name",
                       model: false,
-                      guard: "CRM",
                       route: "/crm",
                       children: [{
                               text: "crm.companies",
@@ -449,7 +446,6 @@
                       icon: "person_add_disabled",
                       text: "admin.name",
                       model: false,
-                      guard: "ADMIN",
                       route: "/administration",
                       children: [{
                               text: "admin.users",
