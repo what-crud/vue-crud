@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar clipped-left dark fixed app color="primary">
+  <v-toolbar clipped-left dark color="primary">
 
     <v-toolbar-title class="title">
         <router-link :to="titleLink">{{title}}</router-link>

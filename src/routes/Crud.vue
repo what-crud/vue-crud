@@ -1,7 +1,7 @@
 <template>
   <div style="margin:20px;">
     <v-layout row wrap mb-5>
-      <v-flex xs12 md10 offset-md1 xl6 offset-xl3>
+      <v-flex xs12>
         <v-tabs
           v-model="activeTab"
           color="grey lighten-3"

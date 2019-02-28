@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-footer class="primary pa-3 white--text" app>
+        <v-footer class="primary pa-3 white--text">
             <slot name="left"></slot>
             <v-spacer></v-spacer>
             <slot name="center"></slot>
