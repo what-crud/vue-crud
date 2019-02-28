@@ -21,7 +21,7 @@
 ## Functions
 Vue CRUD provides a set of utitlities, from which you can compose your own application. Features included in the system can communicate with each other thanks to the use of the Vuex library. Vue CRUD includes the following elements:
 
-- **CRUD** | <a href="http://vue-crud-simple.id-a.pl/#/crud" target="_blank">DEMO / SANDBOX</a>:
+- **CRUD** | <a href="http://vue-crud-demo.id-a.pl/#/crud" target="_blank">DEMO / SANDBOX</a>:
   - operations on records:
     - Store,
     - Update,
@@ -42,11 +42,11 @@ Vue CRUD provides a set of utitlities, from which you can compose your own appli
     - management of a child table from the parent table module,
     - export to excel (xlsx),
     - table refreshing,
-- **Authentication system** | <a href="http://vue-crud-simple.id-a.pl/#/login" target="_blank">DEMO / SANDBOX</a>:
+- **Authentication system** | <a href="http://vue-crud-demo.id-a.pl/#/login" target="_blank">DEMO / SANDBOX</a>:
   - login form (built-in communitation with API, validation),
   - optional locale selection,
   - redirecting to the app,
-- **App layuout components** | <a href="http://vue-crud-simple.id-a.pl/#/app" target="_blank">DEMO / SANDBOX</a>:
+- **App layuout components** | <a href="http://vue-crud-demo.id-a.pl/#/app" target="_blank">DEMO / SANDBOX</a>:
   - Toolbar (with optional elements):
     - title,
     - logo,
@@ -78,7 +78,7 @@ The record creation / editing form supports the following types of fields:
 
 ## Demo versions
 
-#### <a href="http://vue-crud-simple.id-a.pl" target="_blank">DEMO / SANDBOX</a>
+#### <a href="http://vue-crud-demo.id-a.pl" target="_blank">DEMO / SANDBOX</a>
 
 #### <a href="http://vue-crud-crm.id-a.pl" target="_blank">CRM DEMO</a>
 Credentials with limited privileges (readonly):\
