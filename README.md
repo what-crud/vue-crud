@@ -18,29 +18,35 @@
 
 ![vue-crud](https://user-images.githubusercontent.com/18534115/50497274-5b6ea380-0a36-11e9-8dd6-2a7bc6875fe6.gif)
 
-## Documentation
-To check out docs, visit :
-#### <a href="https://vue-crud.github.io/" target="_blank">vue-crud.github.io</a>.
-
-## Demo version
-
-#### <a href="http://vue-crud-simple.id-a.pl" target="_blank">Simple CRUD demo</a>
-
-#### <a href="http://vue-crud-crm.id-a.pl" target="_blank">CRM demo</a>
-Credentials with limited privileges (readonly):\
-Login:  guest@vue.crud\
-Pass:   ajSGenC0\
-To get full user account, contact me on my <a href="http://id-a.pl" target="_blank">company site</a>.
-
 ## Functions
 Vue CRUD provides a set of utitlities, from which you can compose your own application. Features included in the system can communicate with each other thanks to the use of the Vuex library. Vue CRUD includes the following elements:
 
-- CRUD,
-- Authentication system:
+- **CRUD** (<a href="http://vue-crud-simple.id-a.pl" target="_blank">demo</a>):
+  - operations on records:
+    - Store,
+    - Update,
+    - Suspend/Restore,
+    - Delete,
+    - Multiple update,
+    - Multiple Suspend/Restore,
+    - Multiple Delete
+  - filtering:
+    - Show active/inactive records,
+    - Search phrase in whole table,
+    - Search phrase in selected column (exact, like and list mode)
+  - versions:
+    - client side (small tables < 2000 records)
+    - cerver side (> 2000 records)
+  - another functions and features:
+    - datatable mechanism allows selection of the number of records per page, page transition and sorting,
+    - management of a child table from the parent table module,
+    - export to excel (xlsx),
+    - table refreshing,
+- **Authentication system**:
   - login form (built-in communitation with API, validation),
   - optional locale selection,
   - redirecting to the app,
-- App layuout components:
+- **App layuout components**:
   - Toolbar (with optional elements):
     - title,
     - logo,
@@ -57,16 +63,6 @@ Vue CRUD provides a set of utitlities, from which you can compose your own appli
   - Footer,
   - ... and others
 
-The CRUD is a mechanism for managing the database tables. Included CRUD system allows the following operations:
-
-* Store,
-* Update,
-* Suspend/Restore,
-* Delete,
-* Multiple update,
-* Multiple Suspend/Restore,
-* Multiple Delete
-
 The record creation / editing form supports the following types of fields:
 
 * Input,
@@ -80,20 +76,15 @@ The record creation / editing form supports the following types of fields:
 * Checkbox,
 * Files
 
-Datatable is available in 2 versions:
-* Client side (small tables < 2000 records)
-* Server side (> 2000 records)
+## Demo versions
 
-Each version has its own filtering system:
-* Show active/inactive records,
-* Search phrase in whole table,
-* Search phrase in selected column (exact, like and list mode)
+#### <a href="http://vue-crud-simple.id-a.pl" target="_blank">Simple CRUD demo</a>
 
-Another functions and features:
-* datatable mechanism allows selection of the number of records per page, page transition and sorting,
-* management of a child table from the parent table module,
-* language versions,
-* simple configuration of themes,
+#### <a href="http://vue-crud-crm.id-a.pl" target="_blank">CRM demo</a>
+Credentials with limited privileges (readonly):\
+Login:  guest@vue.crud\
+Pass:   ajSGenC0\
+To get full user account, contact me on my <a href="http://id-a.pl" target="_blank">company site</a>.
 
 ## Quick start
 
@@ -189,6 +180,10 @@ The simplest possible code that supports CRUD operations for one table will look
 
 ## API
 The application requires a connection with the appropriate API. API can be created in any technology - the condition is its compliance with the Vue CRUD communication specification. If you need to create your API and do not know how to get started, and you don't mind PHP and Laravel, download or clone the <a href="https://github.com/szczepanmasny/vue-crud-laravel-api" target="_blank">Vue CRUD Laravel API project</a>.
+
+## Documentation
+To check out docs, visit :
+#### <a href="https://vue-crud.github.io/" target="_blank">vue-crud.github.io</a>.
 
 ## Contributing
 If you have an idea about improving Vue CRUD, do not hesitate.
