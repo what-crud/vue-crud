@@ -1,6 +1,6 @@
 <template>
   <tr @dblclick="rowDblclickAction(props.item, props.index)" :class="[activityClass(props.item.meta.active), currentClass(props.item.meta.id)]">
-    <td>
+    <td v-if="selectManyMode">
       <v-checkbox
         hide-details
         v-model="props.selected"
@@ -10,7 +10,7 @@
     <!-- action buttons -->
     <td class="cell-nowrap">
       <!-- edit record -->
-      <v-tooltip top v-if="editButton && editor">
+      <v-tooltip top v-if="editButton && editMode">
         <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id, props.index)" slot="activator">
           <v-icon>edit</v-icon>
         </v-btn>
@@ -80,7 +80,8 @@ export default {
     'deleteMode',
     'itemElements',
     "columnTextModes",
-    "editor"
+    "editMode",
+    'selectManyMode'
   ],
   filters: {
     cropped(field) {
@@ -114,10 +115,7 @@ export default {
       return itemId == currentId ? 'current-row' : ''
     },
     rowDblclickAction(item, index) {
-      if(this.editButton){
-        this.edit(item.meta.id, index)
-      }
-      else {
+      if(this.editMode){
         let goToItemButton = false
         for(let button of this.customButtons) {
           if (button.name == 'goToItem') {
@@ -127,6 +125,9 @@ export default {
         }
         if(goToItemButton){
           this.custom('goToItem', item, index)
+        }
+        else {
+          this.edit(item.meta.id, index)
         }
       }
     },

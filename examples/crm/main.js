@@ -10,7 +10,7 @@ import store from './store'
 import './register-service-worker'
 import { api } from './config/api'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 Vue.http.options.emulateJSON = true;
 Vue.http.options.root = api.url + api.path.default
 Vue.http.interceptors.push((request, next) => {

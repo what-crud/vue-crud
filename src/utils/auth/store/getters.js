@@ -4,7 +4,7 @@ let getters = {
     return JSON.parse(state.permissions) || []
   },
   checkPermission: (state, getters) => roleCode => {
-    let result = getters.userPermissions.filter(el => el == roleCode).length > 0 ? true : false
+    let result = roleCode == undefined || getters.userPermissions.filter(el => el == roleCode).length > 0 ? true : false
     return result;
   },
   userInfo: state => {

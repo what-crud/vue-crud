@@ -2,6 +2,14 @@
   <v-card>
     <data-table-controls
       :deleteMode="deleteMode"
+      :createMode="createMode"
+      :editMode="editMode"
+      :mainFilter="mainFilter"
+      :fieldFilters="fieldFilters"
+      :refreshButton="refreshButton"
+      :selectManyMode="selectManyMode"
+      :updateManyMode="updateManyMode"
+      :removeManyMode="removeManyMode"
       @create="create"
       @editSelected="editSelected"
       @suspendSelected="suspendSelected"
@@ -9,12 +17,10 @@
       @destroySelected="destroySelected"
       @refreshTable="refreshTable"
       @clearFilters="clearFilters"
-      :creator="creator"
-      :editor="editor"
     >
       <template slot="center">
         <!-- Search by fields -->
-        <v-menu offset-y :close-on-content-click="false" style="margin-right:15px;margin-left:15px;">
+        <v-menu offset-y :close-on-content-click="false" style="margin-right:15px;margin-left:15px;" v-if="fieldFilters">
           <v-btn small fab dark slot="activator" class="primary">
             <v-icon>filter_list</v-icon>
           </v-btn>
@@ -35,7 +41,7 @@
         </v-menu>
 
         <!-- Search in table -->
-        <span style="margin-right:15px;margin-left:15px;display:inline-block;width:250px;">
+        <span style="margin-right:15px;margin-left:15px;display:inline-block;width:250px;" v-if="mainFilter">
           <v-text-field append-icon="search" :label="$t('global.datatable.search')" single-line hide-details v-model="search" min-width="200" @input="searchItems(true)"></v-text-field>
         </span>
 
@@ -47,7 +53,7 @@
         </template>
       </template>
       <template slot="right">
-        <v-tooltip left>
+        <v-tooltip left v-if="exportButton">
           <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator" :loading="excelLoading">
             <v-icon>save_alt</v-icon>
           </v-btn>
@@ -62,7 +68,7 @@
       :disable-initial-sort="true"
       :must-sort="true"
       v-model="selected"
-      select-all="black"
+      :select-all="selectManyMode ? 'black' : false"
       :rows-per-page-items="[20, 50, 100]"
       :pagination.sync="pagination"
       light
@@ -82,7 +88,8 @@
           :deleteMode='deleteMode'
           :itemElements="itemElements"
           :columnTextModes="columnTextModes"
-          :editor="editor"
+          :editMode="editMode"
+          :selectManyMode="selectManyMode"
           @edit="edit"
           @custom="custom"
           @suspend="suspend"

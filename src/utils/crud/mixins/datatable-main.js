@@ -21,8 +21,15 @@ export default {
     "meta",
     "primaryKey",
     "activeColumnName",
-    "creator",
-    "editor"
+    "createMode",
+    "editMode",
+    'mainFilter',
+    'fieldFilters',
+    'exportButton',
+    'refreshButton',
+    'selectManyMode',
+    'updateManyMode',
+    'removeManyMode',
   ],
   data() {
     return {
