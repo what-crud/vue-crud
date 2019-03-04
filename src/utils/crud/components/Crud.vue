@@ -56,7 +56,14 @@ export default {
       type: String,
       default: null
     },
-    path: String,
+    path: {
+      type: String,
+      default: null
+    },
+    paths: {
+      type: Object,
+      default: {}
+    },
     fieldsInfo: Array,
     detailsTitle: String,
     pageTitle: String,
@@ -163,6 +170,7 @@ export default {
   created() {
     this.setPrefix(this.prefix)
     this.setPath(this.path)
+    this.setPaths(this.paths)
     this.setPage(this.pageTitle)
     let creationMode = this.watchForCreation ? 'inform' : 'ignore'
     this.setCreationMode(creationMode)
@@ -175,6 +183,7 @@ export default {
       "refreshTable",
       'setPrefix',
       'setPath',
+      'setPaths',
       'setCreationMode',
     ]),
     custom(name, item, index) {

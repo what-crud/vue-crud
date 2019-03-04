@@ -5,6 +5,7 @@ import {
 let state = {
     prefix: '',
     path: '',
+    paths: {},
     tableReady: false,
     detailsLoading: false,
     items: [],

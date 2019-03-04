@@ -5,7 +5,7 @@ let actions = {
     // table data
     getItems({commit, state, getters}) {
       commit('setLoadingStatus', true)
-      Vue.http.get(getters.path)
+      Vue.http.get(getters.path('i'))
         .then((response) => {
           commit('setItems', response.body)
           commit('setLoadingStatus', false)
@@ -16,7 +16,7 @@ let actions = {
     getItemsServerSide({commit, state, getters}, [params]) {
       return new Promise((resolve, reject) => {
         commit('setLoadingStatus', true)
-        Vue.http.post(getters.path + '/search', params)
+        Vue.http.post(getters.path('i') + '/search', params)
           .then((response) => {
             commit('setItemsServerSide', response.body)
             resolve()
@@ -29,7 +29,7 @@ let actions = {
     getItem({commit, state, getters}, [id]) {
       return new Promise((resolve, reject) => {
         commit('setDetailsLoader', true)
-        Vue.http.get(getters.path + '/' + id)
+        Vue.http.get(getters.path('sh') + '/' + id)
           .then((response) => {
             commit('setItem', response.body)
             commit('setDetailsLoader', false)
@@ -41,7 +41,7 @@ let actions = {
     },
     updateItem({commit, dispatch, state, getters}, [id, params, successText, errorText]) {
       return new Promise((resolve, reject) => {
-        Vue.http.put(getters.path + '/' + id, params)
+        Vue.http.put(getters.path('u') + '/' + id, params)
           .then((response) => {
             if (response.body.status == 0) {
               commit('alertSuccess', successText, { root: true })
@@ -61,7 +61,7 @@ let actions = {
     },
     storeItem({commit, dispatch, state, getters}, [params, successText, errorText]) {
       return new Promise((resolve, reject) => {
-        Vue.http.post(getters.path, params)
+        Vue.http.post(getters.path('st'), params)
           .then((response) => {
             if (response.body.status == 0) {
               commit('alertSuccess', successText, { root: true })
@@ -83,7 +83,7 @@ let actions = {
       })
     },
     deleteItem({commit, dispatch, state, getters}, [id, successText, errorText]) {
-      Vue.http.delete(getters.path + '/' + id)
+      Vue.http.delete(getters.path('d') + '/' + id)
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           commit('refreshTable')
@@ -92,7 +92,7 @@ let actions = {
         });
     },
     mulitipleItemsUpdate({commit, dispatch, state, getters}, [params, successText, errorText]){
-      Vue.http.post(getters.path + '/multiple-update', params)
+      Vue.http.post(getters.path('mu') + '/multiple-update', params)
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           commit('refreshTable')
@@ -101,7 +101,7 @@ let actions = {
         });
     },
     mulitipleItemsDelete({commit, dispatch, state, getters}, [ids, successText, errorText]){
-      Vue.http.post(getters.path + '/multiple-delete', ids)
+      Vue.http.post(getters.path('md') + '/multiple-delete', ids)
         .then((response) => {
           commit('alertSuccess', successText, { root: true })
           commit('refreshTable')
@@ -155,7 +155,7 @@ let actions = {
     getItemDetails({commit, state, getters}, [id]) {
       return new Promise((resolve, reject) => {
         commit('setDetailsLoader', true)
-        Vue.http.get(getters.path + '/' + id)
+        Vue.http.get(getters.path('sh') + '/' + id)
           .then((response) => {
             commit('itemDetails', response.body)
             commit('setDetailsLoader', false)
@@ -166,7 +166,7 @@ let actions = {
       })
     },
     updateItemDetail({commit, dispatch, state, getters}, [id, params, successText]) {
-      Vue.http.put(getters.path + '/' + id, params)
+      Vue.http.put(getters.path('u') + '/' + id, params)
         .then((response) => {
           if (response.body.status == 0) {
             commit('alertSuccess', successText, { root: true })

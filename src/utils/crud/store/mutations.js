@@ -8,6 +8,9 @@ let mutations = {
     setPath(state, path) {
       state.path = path
     },
+    setPaths(state, paths) {
+      state.paths = paths
+    },
     // table items
     setItems(state, data) {
       state.items = data
