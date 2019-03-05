@@ -242,8 +242,8 @@ export default {
         {
           ids: obj
         },
-        this.$t("global.alerts.added"),
-        this.$t("global.alerts.addError")
+        this.$t("global.alerts.removed"),
+        this.$t("global.alerts.removeError")
       ]);
       this.clearSelected();
     },
