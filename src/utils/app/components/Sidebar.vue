@@ -84,7 +84,7 @@ export default {
     source: String,
     items: {
       type: Array,
-      default: []
+      default: () => []
     },
     expandOn: {
       type: String,

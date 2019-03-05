@@ -62,7 +62,7 @@ export default {
     },
     paths: {
       type: Object,
-      default: {}
+      default: () => {}
     },
     fieldsInfo: Array,
     detailsTitle: String,
