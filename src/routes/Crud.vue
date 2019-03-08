@@ -167,7 +167,7 @@
         descriptionDetails: true,
         descriptionRequired: false,
         descriptionFieldType: 'textarea',
-        activeTable:false,
+        activeTable:true,
         activeMultiedit: false,
         activeDetails: false,
         activeTextMode: 'html',
