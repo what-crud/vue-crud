@@ -7,7 +7,6 @@
   <a><img alt="license" src="https://img.shields.io/badge/license-MIT-brightgreen.svg"></a>
   <a><img alt="version" src="https://img.shields.io/badge/version-v0.9.2-yellow.svg"></a>
   <a><img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a title="MadeWithVueJs.com Shield" href="https://madewithvuejs.com/p/vue-crud/shield-link"> <img src="https://madewithvuejs.com/storage/repo-shields/1281-shield.svg"/></a>
 </div>
 
 <h4 align="center">Vue.js based REST-ful CRUD system.</h4>
