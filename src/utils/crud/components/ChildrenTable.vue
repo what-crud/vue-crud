@@ -104,6 +104,13 @@
               </v-btn>
               <span>{{ $t('global.datatable.buttons.edit') }}</span>
             </v-tooltip>
+            <!-- custom buttons -->
+            <v-tooltip top v-for="(customButton) in customButtons" :key="customButton.name">
+              <v-btn fab small class="xs white--text" :color="customButton.color" @click="custom(customButton.name, props.item, props.index)" slot="activator">
+                <v-icon>{{ customButton.icon }}</v-icon>
+              </v-btn>
+              <span>{{ customButton.text }}</span>
+            </v-tooltip>
             <!-- buttons for open modal with item elements -->
             <v-tooltip top v-for="(button, key) in itemElements" :key="key">
               <v-btn
@@ -276,6 +283,9 @@ export default {
     },
     customHeaderAction(name) {
       this.$parent[name]()
+    },
+    custom(name, item, index) {
+      this.$parent[name](item, index)
     },
     updateColumnFilterMode(val, index) {
       let obj = this.filterColumns
