@@ -9,42 +9,21 @@
           <!-- divider -->
           <h3 v-if="field.type == 'divider'" class="text-xs-center section-header">{{ field.text }}</h3>
 
-          <!-- input -->
+          <!-- text field: input / number / decimal / date / time / datetime -->
           <v-text-field
             hide-details
-            v-if="field.type == 'input'"
+            :rules="fieldRules(field)"
+            v-if="['input', 'number', 'decimal', 'date', 'time', 'datetime'].includes(field.type)"
             :label="field.text"
             v-model="field.value"
-            @focus="remember(field)"
-            @blur="update(field)"
             :disabled="field.disabled"
-          ></v-text-field>
-
-          <!-- decimal -->
-          <v-text-field
-            hide-details
-            v-else-if="field.type == 'decimal'"
-            :label="field.text"
-            v-model="field.value"
-            type="number"
-            step="0.01"
+            :type="['number', 'decimal'].includes(field.type) ? 'number' : 'text'"
+            :step="field.type == 'decimal' ? 0.01 : 1"
             min="0"
+            :mask="['date', 'time', 'datetime'].includes(field.type) ? masks[field.type] : undefined"
+            :return-masked-value="['date', 'time', 'datetime'].includes(field.type) ? true : false"
             @focus="remember(field)"
             @blur="update(field)"
-            :disabled="field.disabled"
-          ></v-text-field>
-
-          <!--date -->
-          <v-text-field
-            hide-details
-            v-else-if="field.type == 'date'"
-            :label="field.text"
-            v-model="field.value"
-            mask="####-##-##"
-            return-masked-value
-            @focus="remember(field)"
-            @blur="update(field)"
-            :disabled="field.disabled"
           ></v-text-field>
 
           <!-- text area -->
@@ -93,20 +72,28 @@
             ></v-autocomplete>
           </template>
 
-          <!-- checkbox -->
-          <span v-else-if="field.type == 'checkbox'">
-            <input
-              hide-details
-              color="blue"
-              type="checkbox"
-              :label="field.text"
+          <!-- rich text editor -->
+          <template v-else-if="field.type == 'richTextBox'">
+            <label>{{field.text}}</label>
+            <vue-editor
+              id="editor"
               v-model="field.value"
-              @focus="remember(field)"
-              @change="update(field)"
+              :editorOptions="{bounds: '#editor'}"
               :disabled="field.disabled"
-            >
-            <label class="checkbox-label">{{field.text}}</label>
-          </span>
+              @focus="remember(field)"
+              @blur="update(field)"
+            ></vue-editor>
+            <br>
+          </template>
+
+          <!-- checkbox -->        
+          <v-checkbox v-else-if="field.type == 'checkbox'"
+            color="primary"
+            v-model="field.value"
+            :label="field.text"
+            @focus="remember(field)"
+            @change="update(field)"
+          ></v-checkbox>
         </v-flex>
       </v-layout>
     </v-card-text>
@@ -115,9 +102,13 @@
 
 <script>
 import Vue from "vue";
+import { VueEditor } from "vue2-editor";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
+  components: {
+    VueEditor
+  },
   name: "item-details-extended",
   props: ["fieldsInfo", "title"],
   data() {
@@ -126,6 +117,11 @@ export default {
       searchPhrases: {},
       searchLoading: {},
       searchData: {},
+      masks: {
+        date: '####-##-##',
+        time: '##:##',
+        datetime: '####-##-## ##:##:##'
+      },
       reload: false
     };
   },

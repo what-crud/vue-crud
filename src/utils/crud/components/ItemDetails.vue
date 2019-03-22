@@ -15,70 +15,20 @@
                 <input type="checkbox" v-model="field.updateColumn">
               </v-flex>
               <v-flex :class="details.action == 'multiedit' ? 'sm11' : 'sm12'">
-                <!-- input -->
-                <v-text-field
-                  hide-details
-                  :rules="fieldRules(field)"
-                  v-if="field.type == 'input'"
-                  :label="field.text"
-                  v-model="field.value"
-                ></v-text-field>
 
-                <!-- number -->
+                <!-- text field: input / number / decimal / date / time / datetime -->
                 <v-text-field
                   hide-details
                   :rules="fieldRules(field)"
-                  v-else-if="field.type == 'number'"
+                  v-if="['input', 'number', 'decimal', 'date', 'time', 'datetime'].includes(field.type)"
                   :label="field.text"
                   v-model="field.value"
-                  type="number"
-                  step="1"
+                  :disabled="field.disabled"
+                  :type="['number', 'decimal'].includes(field.type) ? 'number' : 'text'"
+                  :step="field.type == 'decimal' ? 0.01 : 1"
                   min="0"
-                ></v-text-field>
-
-                <!-- decimal -->
-                <v-text-field
-                  hide-details
-                  :rules="fieldRules(field)"
-                  v-else-if="field.type == 'decimal'"
-                  :label="field.text"
-                  v-model="field.value"
-                  type="number"
-                  step="0.01"
-                  min="0"
-                ></v-text-field>
-
-                <!--date -->
-                <v-text-field
-                  hide-details
-                  :rules="fieldRules(field)"
-                  v-else-if="field.type == 'date'"
-                  :label="field.text"
-                  v-model="field.value"
-                  mask="####-##-##"
-                  return-masked-value
-                ></v-text-field>
-
-                <!--time -->
-                <v-text-field
-                  hide-details
-                  :rules="fieldRules(field)"
-                  v-else-if="field.type == 'time'"
-                  :label="field.text"
-                  v-model="field.value"
-                  mask="##:##"
-                  return-masked-value
-                ></v-text-field>
-
-                <!--datetime -->
-                <v-text-field
-                  hide-details
-                  :rules="fieldRules(field)"
-                  v-else-if="field.type == 'datetime'"
-                  :label="field.text"
-                  v-model="field.value"
-                  mask="####-##-## ##:##:##"
-                  return-masked-value
+                  :mask="['date', 'time', 'datetime'].includes(field.type) ? masks[field.type] : undefined"
+                  :return-masked-value="['date', 'time', 'datetime'].includes(field.type) ? true : false"
                 ></v-text-field>
 
                 <!-- text area -->
@@ -88,6 +38,7 @@
                   v-else-if="field.type == 'textarea'"
                   :label="field.text"
                   v-model="field.value"
+                  :disabled="field.disabled"
                 ></v-textarea>
 
                 <!-- file upload -->
@@ -104,7 +55,7 @@
                       @change="fileSelected($event, field)"
                       accept="*"
                       :multiple="false"
-                      :disabled="false"
+                      :disabled="field.disabled"
                       ref="fileInput"
                     >
                   </v-btn>
@@ -126,7 +77,7 @@
                     item-disabled="itemDisabled"
                     :label="field.text"
                     menu-props="bottom"
-                   
+                    :disabled="field.disabled"
                   ></v-autocomplete>
                   <v-autocomplete
                     v-else
@@ -139,7 +90,7 @@
                     item-disabled="itemDisabled"
                     :label="field.text"
                     menu-props="bottom"
-                   
+                    :disabled="field.disabled"
                   ></v-autocomplete>
                 </template>
 
@@ -155,6 +106,7 @@
                   :nudge-right="40"
                   min-width="290px"
                   :return-value.sync="field.value"
+                  :disabled="field.disabled"
                 >
                   <v-text-field
                     hide-details
@@ -162,6 +114,7 @@
                     :label="field.text"
                     v-model="field.value"
                     prepend-icon="event"
+                    :disabled="field.disabled"
                   ></v-text-field>
                   <v-date-picker v-model="field.value" no-title scrollable></v-date-picker>
                 </v-menu>
@@ -173,15 +126,20 @@
                     id="editor"
                     v-model="field.value"
                     :editorOptions="{bounds: '#editor'}"
+                    :disabled="field.disabled"
                   ></vue-editor>
                   <br>
                 </template>
 
-                <!-- checkbox -->
-                <span v-else-if="field.type == 'checkbox'">
-                  <input type="checkbox" color="blue" :label="field.text" v-model="field.value">
-                  <label class="checkbox-label">{{field.text}}</label>
-                </span>
+                <!-- checkbox -->        
+                <v-checkbox v-else-if="field.type == 'checkbox'"
+                  hide-details
+                  color="primary"
+                  v-model="field.value"
+                  :label="field.text"
+                  :disabled="field.disabled"
+                ></v-checkbox>
+
               </v-flex>
             </v-layout>
           </div>
@@ -233,6 +191,11 @@ export default {
       searchPhrases: {},
       searchLoading: {},
       searchData: {},
+      masks: {
+        date: '####-##-##',
+        time: '##:##',
+        datetime: '####-##-## ##:##:##'
+      }
     };
   },
   created() {
