@@ -94,7 +94,7 @@
       light
       :headers="headers"
       :items="filteredItems"
-      :item-key="'meta.' + primaryKey"
+      item-key="meta.id"
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
       :rows-per-page-text="$t('global.datatable.rowsPerPageText')"
