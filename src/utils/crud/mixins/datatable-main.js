@@ -41,7 +41,7 @@ export default {
     ...mapState("crud", ["filesPath", "prefix", "path", 'nextItem', 'moveItemRun', 'moveItemDirection', "currentItemIndex"]),
     ...mapGetters("crud", ["itemsList"]),
     selectedIds() {
-      return this.selected.map(item => item.id);
+      return this.selected.map(item => item.meta.id);
     },
     items() {
       return this.itemsList(this.tableFields, this.meta, this.primaryKey, this.customButtons, this.activeColumnName);

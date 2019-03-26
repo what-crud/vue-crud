@@ -7,32 +7,55 @@
 
           <div v-for="(field, i) in fields" :key="i">
 
-            <!-- input -->
-            <v-text-field :rules="fieldRules(field)" hide-details v-if="field.type == 'input'" :label="field.text"
-              v-model="field.value"></v-text-field>
-
-            <!-- number -->
-            <v-text-field hide-details v-else-if="field.type == 'number'" :label="field.text" v-model="field.value" type="number" step="1" min="0"></v-text-field>
-
-            <!-- decimal -->
-            <v-text-field :rules="fieldRules(field)" hide-details v-else-if="field.type == 'decimal'" :label="field.text" v-model="field.value" type="number" step="0.01" min="0"></v-text-field>
-
-            <!--date -->
-            <v-text-field :rules="fieldRules(field)" hide-details v-else-if="field.type == 'date'" :label="field.text" v-model="field.value" mask="####-##-##" return-masked-value></v-text-field>
-
-            <!--time -->
-            <v-text-field :rules="fieldRules(field)" hide-details  v-else-if="field.type == 'time'" :label="field.text" v-model="field.value" mask="##:##" return-masked-value></v-text-field>
-
-            <!--datetime -->
-            <v-text-field :rules="fieldRules(field)" hide-details v-else-if="field.type == 'datetime'" :label="field.text" v-model="field.value" mask="####-##-## ##:##:##" return-masked-value></v-text-field>
+            <!-- text field: input / number / decimal / date / time / datetime -->
+            <v-text-field
+              hide-details
+              :rules="fieldRules(field)"
+              v-if="['input', 'number', 'decimal', 'date', 'time', 'datetime'].includes(field.type)"
+              :label="field.text"
+              v-model="field.value"
+              :disabled="field.disabled"
+              :type="['number', 'decimal'].includes(field.type) ? 'number' : 'text'"
+              :step="field.type == 'decimal' ? 0.01 : 1"
+              min="0"
+              :mask="['date', 'time', 'datetime'].includes(field.type) ? masks[field.type] : undefined"
+              :return-masked-value="['date', 'time', 'datetime'].includes(field.type) ? true : false"
+            ></v-text-field>
 
             <!-- text area -->
-            <v-textarea :rules="fieldRules(field)" hide-details v-else-if="field.type == 'textarea'" :label="field.text"
-              v-model="field.value"></v-textarea>
+            <v-textarea
+              hide-details
+              :rules="fieldRules(field)"
+              v-else-if="field.type == 'textarea'"
+              :label="field.text"
+              v-model="field.value"
+              :disabled="field.disabled"
+            ></v-textarea>
+
+            <!-- file upload -->
+            <div v-else-if="field.type == 'file'" class="file-container">
+              <div class="field-label">{{ field.text }}</div>
+              <v-btn dark class="jbtn-file" :loading="uploadLoaders[field.name]" :class="fileUploadBtn(uploadStatuses[field.name])">
+                {{ $t('global.details.files.upload') }}
+                <v-icon dark right>
+                  {{ fileUploadIcon(uploadStatuses[field.name]) }}
+                </v-icon>
+                <input
+                  :id="field.name"
+                  type="file"
+                  @change="fileSelected($event, field)"
+                  accept="*"
+                  :multiple="false"
+                  :disabled="field.disabled"
+                  ref="fileInput"
+                >
+              </v-btn>
+            </div>
 
             <!-- select -->
             <template v-else-if="field.type == 'select'">
-              <v-autocomplete v-if="field.async"
+              <v-autocomplete
+                v-if="field.async"
                 hide-details
                 :rules="fieldRules(field)"
                 :loading="searchLoading['search_' + field.name]"
@@ -45,9 +68,10 @@
                 item-disabled="itemDisabled"
                 :label="field.text"
                 menu-props="bottom"
-               
+                :disabled="field.disabled"
               ></v-autocomplete>
-              <v-autocomplete v-else
+              <v-autocomplete
+                v-else
                 hide-details
                 :rules="fieldRules(field)"
                 :items="field.list.data"
@@ -57,15 +81,55 @@
                 item-disabled="itemDisabled"
                 :label="field.text"
                 menu-props="bottom"
-               
+                :disabled="field.disabled"
               ></v-autocomplete>
             </template>
-            
-            <span v-else-if="field.type == 'checkbox'">
-              <input :rules="fieldRules(field)" type="checkbox" color="blue" :label="field.text" v-model="field.value">
-              <label class="checkbox-label">{{field.text}}</label>
-            </span>
 
+            <!-- date picker -->
+            <v-menu
+              v-else-if="field.type == 'datePicker'"
+              lazy
+              :close-on-content-click="true"
+              v-model="field.show"
+              transition="scale-transition"
+              offset-y
+              full-width
+              :nudge-right="40"
+              min-width="290px"
+              :return-value.sync="field.value"
+              :disabled="field.disabled"
+            >
+              <v-text-field
+                hide-details
+                slot="activator"
+                :label="field.text"
+                v-model="field.value"
+                prepend-icon="event"
+                :disabled="field.disabled"
+              ></v-text-field>
+              <v-date-picker v-model="field.value" no-title scrollable></v-date-picker>
+            </v-menu>
+
+            <!-- rich text editor -->
+            <template v-else-if="field.type == 'richTextBox'">
+              <label>{{field.text}}</label>
+              <vue-editor
+                id="editor"
+                v-model="field.value"
+                :editorOptions="{bounds: '#editor'}"
+                :disabled="field.disabled"
+              ></vue-editor>
+              <br>
+            </template>
+
+            <!-- checkbox -->        
+            <v-checkbox v-else-if="field.type == 'checkbox'"
+              hide-details
+              color="primary"
+              v-model="field.value"
+              :label="field.text"
+              :disabled="field.disabled"
+            ></v-checkbox>
 
           </div>
         </v-card-text>
@@ -81,10 +145,14 @@
 </template>
 <script>
 import Vue from "vue";
+import { VueEditor } from "vue2-editor";
 import { fieldModifiers } from "@/utils/crud/helpers/functions.js";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
+  components: {
+    VueEditor
+  },
   props: {
     details: Object,
     fieldsInfo: Array,
@@ -94,6 +162,11 @@ export default {
       searchPhrases: {},
       searchLoading: {},
       searchData: {},
+      masks: {
+        date: '####-##-##',
+        time: '##:##',
+        datetime: '####-##-## ##:##:##'
+      },
       customFilter(item, queryText, itemText) {
         const hasValue = val => (val != null ? val : "");
         const text = hasValue(item.name);
@@ -282,7 +355,9 @@ export default {
     fieldRules(field) {
       let rules = []
       let required = field.required != undefined ? field.required : true;
-      rules.push(this.rules.required)
+      if (required) {
+        rules.push(this.rules.required)
+      }
       return rules
     },
     reset() {

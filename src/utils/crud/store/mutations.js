@@ -30,7 +30,7 @@ let mutations = {
       state.currentItemIndex = null
     },
     setSelectedIds(state, items) {
-      state.selectedIds = items.map(item => item.id);
+      state.selectedIds = items.map(item => item.meta.id);
     },
     setCurrentItem(state, item){
       state.currentItemId = item.id

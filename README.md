@@ -19,7 +19,7 @@
 ![vue-crud](https://user-images.githubusercontent.com/18534115/50497274-5b6ea380-0a36-11e9-8dd6-2a7bc6875fe6.gif)
 
 ## Functions
-Vue CRUD provides a set of utitlities, from which you can compose your own application. Features included in the system can communicate with each other thanks to the use of the Vuex library. Vue CRUD includes the following elements:
+Vue CRUD provides a set of utilities, from which you can compose your own application. Features included in the system can communicate with each other thanks to the use of the Vuex library. Vue CRUD includes the following elements:
 
 - **CRUD** | <a href="http://vue-crud-demo.id-a.pl/#/crud" target="_blank">DEMO / SANDBOX</a>:
   - operations on records:
@@ -37,16 +37,16 @@ Vue CRUD provides a set of utitlities, from which you can compose your own appli
   - versions:
     - client side (small tables < 2000 records)
     - cerver side (> 2000 records)
-  - another functions and features:
+  - other functions and features:
     - datatable mechanism allows selection of the number of records per page, page transition and sorting,
     - management of a child table from the parent table module,
     - export to excel (xlsx),
     - table refreshing,
 - **Authentication system** | <a href="http://vue-crud-demo.id-a.pl/#/login" target="_blank">DEMO / SANDBOX</a>:
-  - login form (built-in communitation with API, validation),
+  - login form (built-in communication with API, validation),
   - optional locale selection,
   - redirecting to the app,
-- **App layuout components** | <a href="http://vue-crud-demo.id-a.pl/#/app" target="_blank">DEMO / SANDBOX</a>:
+- **App layout components** | <a href="http://vue-crud-demo.id-a.pl/#/app" target="_blank">DEMO / SANDBOX</a>:
   - Toolbar (with optional elements):
     - title,
     - logo,
@@ -88,7 +88,7 @@ To get full user account, contact me on my <a href="http://id-a.pl" target="_bla
 
 ## Quick start
 
-Do you want to test the application quickly, and you do not have a ready API? No problem, you can use the ready-made example in the **examples** folder. The API for this example is available on the internet, so you can connect to it by entering its address in the configuration file.
+Do you want to test the application quickly, and you do not have an API ready? No problem, you can use the ready-made example in the **examples** folder. The API for this example is available on the internet, so you can connect to it by entering its address in the configuration file.
 
 ### Steps
 
@@ -183,7 +183,7 @@ The simplest possible code that supports CRUD operations for one table will look
 ```
 
 ## API
-The application requires a connection with the appropriate API. API can be created in any technology - the condition is its compliance with the Vue CRUD communication specification. If you need to create your API and do not know how to get started, and you don't mind PHP and Laravel, download or clone the <a href="https://github.com/szczepanmasny/vue-crud-laravel-api" target="_blank">Vue CRUD Laravel API project</a>.
+The application requires a connection with the appropriate API. API can be created in any technology - the condition is its compliance with the Vue CRUD communication specification. If you need to create your API and do not know how to get started, and you don't mind PHP and Laravel, download or clone the <a href="https://github.com/oh-crud/laravel-crud-api" target="_blank">Laravel CRUD API</a> project.
 
 ## Documentation
 To check out docs, visit :
