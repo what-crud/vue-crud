@@ -309,7 +309,9 @@ export default {
     fieldRules(field) {
       let rules = []
       let required = field.required != undefined ? field.required : true;
-      rules.push(this.rules.required)
+      if (required) {
+        rules.push(this.rules.required)
+      }
       return rules
     },
     remember(field) {
