@@ -22,16 +22,16 @@
       };
     },
     created() {
-        var that = this;
-        var timer = setInterval(() => {
+        let that = this;
+        let timer = setInterval(() => {
           that.top = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
         }, 20);
     },
     methods: {
       backTop() {
-        var that = this;
-        var top = that.top;
-        var timer = setInterval(() => {
+        let that = this;
+        let top = that.top;
+        let timer = setInterval(() => {
           top -= Math.abs(top * that.speed);
           if (top <= 1) {
             top = 0;
