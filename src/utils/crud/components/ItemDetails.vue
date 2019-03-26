@@ -471,8 +471,8 @@ export default {
           ids: this.selectedIds,
           request: keyValuePairs
         },
-        this.$t("global.alerts.suspended"),
-        this.$t("global.alerts.suspendError")
+        this.$t("global.alerts.updated"),
+        this.$t("global.alerts.updateError")
       ]);
     },
     fileSelected(e, field) {
