@@ -23,7 +23,7 @@
         <v-flex xs12 xl10 text-xs-left text-xl-right>
 
           <!-- Search by fields -->
-          <v-menu offset-y :close-on-content-click="false" style="margin-right:30px;">
+          <v-menu offset-y :close-on-content-click="false" max-height="50vh" style="margin-right:30px;">
             <v-btn small fab dark slot="activator" class="primary">
               <v-icon>filter_list</v-icon>
             </v-btn>

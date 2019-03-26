@@ -20,7 +20,7 @@
     >
       <template slot="center">
         <!-- Search by fields -->
-        <v-menu offset-y :close-on-content-click="false" style="margin-right:15px;margin-left:15px;" v-if="fieldFilters">
+        <v-menu offset-y :close-on-content-click="false" max-height="50vh" style="margin-right:15px;margin-left:15px;" v-if="fieldFilters">
           <v-btn small fab dark slot="activator" class="primary">
             <v-icon>filter_list</v-icon>
           </v-btn>
