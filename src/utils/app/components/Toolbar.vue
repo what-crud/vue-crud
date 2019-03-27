@@ -36,73 +36,73 @@
 </template>
 
 <script>
-  import {
-    mapState,    
-    mapMutations,
-    mapActions
-  } from 'vuex'
+import {
+  mapState,
+  mapMutations,
+  mapActions
+} from 'vuex'
 
-  export default {
-    name: 'navbar-top',
-    props: {
-      title: {
-        type: String,
-        default: ''
-      },
-      titleLink: {
-        type: String,
-        default: '/'
-      },
-      showLogo: {
-        type: Boolean,
-        default: true
-      },
-      logo: {
-        type: String,
-        default: 'vue-crud-sm.png'
-      },
-      profileBtn: {
-        type: Boolean,
-        default: true
-      },
-      localesBtn: {
-        type: Boolean,
-        default: true
-      },
-      logoutBtn: {
-        type: Boolean,
-        default: true
-      },
+export default {
+  name: 'navbar-top',
+  props: {
+    title: {
+      type: String,
+      default: ''
     },
-    data() {
-      return {};
+    titleLink: {
+      type: String,
+      default: '/'
     },
-    computed: {
-      ...mapState([
-        'locales',
-      ]),
-    },   
-    methods: {
-      ...mapActions('auth', [
-        'logout',
-      ]),
-      ...mapMutations([
-        'setLocale',
-      ]),
-      ...mapMutations('app', [
-        'openProfileDialog'
-      ]),
-      changeLocale (locale) {
-        this.$i18n.locale = locale
-        this.setLocale(locale)
-      },      
-      logoutAttempt() {
-        this.logout().then(() => {
-          this.$router.push({path: '/login'})
-        })
-      }
+    showLogo: {
+      type: Boolean,
+      default: true
     },
-  };
+    logo: {
+      type: String,
+      default: 'vue-crud-sm.png'
+    },
+    profileBtn: {
+      type: Boolean,
+      default: true
+    },
+    localesBtn: {
+      type: Boolean,
+      default: true
+    },
+    logoutBtn: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data () {
+    return {}
+  },
+  computed: {
+    ...mapState([
+      'locales'
+    ])
+  },
+  methods: {
+    ...mapActions('auth', [
+      'logout'
+    ]),
+    ...mapMutations([
+      'setLocale'
+    ]),
+    ...mapMutations('app', [
+      'openProfileDialog'
+    ]),
+    changeLocale (locale) {
+      this.$i18n.locale = locale
+      this.setLocale(locale)
+    },
+    logoutAttempt () {
+      this.logout().then(() => {
+        this.$router.push({ path: '/login' })
+      })
+    }
+  }
+}
 
 </script>
 <style scoped>

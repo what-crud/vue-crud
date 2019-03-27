@@ -1,12 +1,10 @@
-import router from '@/router'
-
-let mutations = {
-  login(state, data) {
+const mutations = {
+  login (state, data) {
     state.logged = 1
     state.loginFailed = false
-    let token = data.token
-    let user = JSON.stringify(data.user)
-    let permissions = JSON.stringify(data.permissions)
+    const { token } = data
+    const user = JSON.stringify(data.user)
+    const permissions = JSON.stringify(data.permissions)
 
     localStorage.setItem('token', token)
     localStorage.setItem('user', user)
@@ -15,13 +13,13 @@ let mutations = {
     state.user = user
     state.permissions = permissions
   },
-  loginWait(state, status) {
+  loginWait (state, status) {
     state.loginWait = status
   },
-  loginFailed(state) {
+  loginFailed (state) {
     state.loginFailed = true
   },
-  logout(state) {
+  logout (state) {
     state.loginWait = false
     state.loginFailed = false
     state.logged = 0
@@ -30,32 +28,31 @@ let mutations = {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
   },
-  editUser(state, data) {
-    let user = JSON.stringify(data)
-    localStorage.setItem('user', user);
+  editUser (state, data) {
+    const user = JSON.stringify(data)
+    localStorage.setItem('user', user)
     state.user = user
     state.userUpdated = true
-    setTimeout(function(){
+    setTimeout(() => {
       state.userUpdated = false
     }, 3000)
   },
-  editPassword(state, data) {
-    if(data.status == 1){
+  editPassword (state, data) {
+    if (data.status === 1) {
       state.userPasswordUpdated = true
-      setTimeout(function(){
+      setTimeout(() => {
         state.userPasswordUpdated = false
       }, 3000)
-    }
-    else if (data.status == -1){
+    } else if (data.status === -1) {
       state.userPasswordUpdateError = true
       state.userPasswordUpdateErrorMsg = data.msg
-      setTimeout(function(){
+      setTimeout(() => {
         state.userPasswordUpdateError = false
       }, 3000)
     }
   },
-  refreshToken(state, data) {
-    let token = data.token
+  refreshToken (state, data) {
+    const { token } = data
     localStorage.setItem('token', token)
     state.token = token
   }

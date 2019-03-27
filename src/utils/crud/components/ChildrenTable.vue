@@ -57,7 +57,7 @@
 
           <!-- Clear filters -->
           <v-tooltip top>
-            <v-btn 
+            <v-btn
               class="white--text"
               fab
               small
@@ -82,7 +82,7 @@
     </v-card-title>
 
     <!-- Table -->
-    <v-data-table 
+    <v-data-table
       :disable-initial-sort="true"
       :must-sort="true"
       :rows-per-page-items="[10, 25, { text: $t('global.datatable.all'), value: -1 }]"
@@ -149,11 +149,13 @@
             </v-tooltip>
           </td>
           <!-- table fields -->
-          <td v-if="key != 'meta'" v-for="(field, key) in props.item" :key="key" max-width="20px !important;">
-            <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
-            <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
-            <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
-          </td>
+          <template v-for="(field, key) in props.item">
+            <td v-if="key != 'meta'" :key="key" max-width="20px !important;">
+              <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
+              <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
+              <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
+            </td>
+          </template>
         </tr>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
@@ -169,9 +171,13 @@
 </template>
 
 <script>
-import ClientSideFilteringMixin from "../mixins/datatable-client-side-filtering.js";
-import HelperMixin from "../mixins/datatable-helper.js";
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import {
+  mapState,
+  mapMutations,
+  mapActions
+} from 'vuex'
+import ClientSideFilteringMixin from '../mixins/datatable-client-side-filtering'
+import HelperMixin from '../mixins/datatable-helper'
 
 export default {
   mixins: [ClientSideFilteringMixin, HelperMixin],
@@ -180,7 +186,7 @@ export default {
     fieldsInfo: Array,
     deleteMode: {
       type: String,
-      validator: function (value) {
+      validator (value) {
         return ['none', 'soft', 'hard', 'both'].indexOf(value) !== -1
       },
       default: 'soft'
@@ -211,7 +217,7 @@ export default {
     },
     primaryKey: {
       type: String,
-      default: "id"
+      default: 'id'
     },
     tableData: {
       type: Array,
@@ -222,17 +228,16 @@ export default {
       default: false
     }
   },
-  data() {
-    return {};
+  data () {
+    return {}
   },
   filters: {
-    cropped(field) {
+    cropped (field) {
       let rField
-      let maxLength = 40
+      const maxLength = 40
       if (typeof field === 'string' || field instanceof String) {
-        rField = field.length <= maxLength ? field : field.substring(0, maxLength - 3) + '...'
-      }
-      else {
+        rField = field.length <= maxLength ? field : `${field.substring(0, maxLength - 3)}...`
+      } else {
         rField = field
       }
       return rField
@@ -240,75 +245,75 @@ export default {
   },
   computed: {
     ...mapState('app', ['page']),
-    ...mapState("crud", ["prefix", "path"]),
-    tableFields() {
-      return this.fieldsInfo.filter(field => field.table != false && field.type != 'divider');
+    ...mapState('crud', ['prefix', 'path']),
+    tableFields () {
+      return this.fieldsInfo.filter(field => field.table !== false && field.type !== 'divider')
     },
-    items() {
-      return this.tableData;
+    items () {
+      return this.tableData
     },
-    excelName() {
-      return this.$t('global.routes.' + this.page) + ' - ' + this.title
+    excelName () {
+      return `${this.$t(`global.routes.${this.page}`)} - ${this.title}`
     }
   },
   methods: {
-    ...mapMutations("crud", [
-      "setItemElementsInfo",
-      "editItemElementsDialog",
+    ...mapMutations('crud', [
+      'setItemElementsInfo',
+      'editItemElementsDialog'
     ]),
-    ...mapActions("crud", [
-      "getItemElements",
+    ...mapActions('crud', [
+      'getItemElements'
     ]),
-    activityClass(isActive) {
-      let className = ""
-      if(['soft', 'both'].includes(this.deleteMode)){
-        className = parseInt(isActive) == 1 ? 'row-active' : 'row-inactive'
+    activityClass (isActive) {
+      let className = ''
+      if (['soft', 'both'].includes(this.deleteMode)) {
+        className = parseInt(isActive) === 1 ? 'row-active' : 'row-inactive'
       }
       return className
     },
-    edit(id) {
-      this.$parent.edit(id);
+    edit (id) {
+      this.$parent.edit(id)
     },
-    create() {
-      this.$parent.create();
+    create () {
+      this.$parent.create()
     },
-    suspend(id) {
-      this.$parent.suspend(id);
+    suspend (id) {
+      this.$parent.suspend(id)
     },
-    restore(id) {
-      this.$parent.restore(id);
+    restore (id) {
+      this.$parent.restore(id)
     },
-    destroy(id) {
-      this.$parent.destroy(id);
+    destroy (id) {
+      this.$parent.destroy(id)
     },
-    customHeaderAction(name) {
+    customHeaderAction (name) {
       this.$parent[name]()
     },
-    custom(name, item, index) {
+    custom (name, item, index) {
       this.$parent[name](item, index)
     },
-    updateColumnFilterMode(val, index) {
-      let obj = this.filterColumns
+    updateColumnFilterMode (val, index) {
+      const obj = this.filterColumns
       obj[index].mode = val
       this.$set(this, 'filterColumns', obj)
     },
-    updateFilterColumns(val, index) {
-      let obj = this.filterColumns
+    updateFilterColumns (val, index) {
+      const obj = this.filterColumns
       obj[index].value = val
       this.$set(this, 'filterColumns', obj)
     },
-    editItemElements(name, id) {
-      let obj = this.itemElements[name];
-      this.setItemElementsInfo([id, obj]);
-      this.getItemElements();
+    editItemElements (name, id) {
+      const obj = this.itemElements[name]
+      this.setItemElementsInfo([id, obj])
+      this.getItemElements()
     },
-    rowDblclickAction(id){
-      if(this.editButton){
+    rowDblclickAction (id) {
+      if (this.editButton) {
         this.edit(id)
       }
     }
   }
-};
+}
 </script>
 
 <style scoped>
@@ -326,7 +331,7 @@ export default {
   height: 12px !important;
   width: 12px !important;
   line-height: 12px;
-} 
+}
 .child-card {
   min-height: 400px;
   max-height: calc(100vh - 150px);

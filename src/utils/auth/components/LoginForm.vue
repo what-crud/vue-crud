@@ -7,7 +7,7 @@
       <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
       <h1 class="app-title primary--text">{{ $t('global.login.title') }}</h1>
       <template>
-        <v-form v-model="valid" ref="form" lazy-validation v-on:submit.prevent>          
+        <v-form v-model="valid" ref="form" lazy-validation v-on:submit.prevent>
           <v-menu bottom left v-if="localeSelectable">
             <v-btn icon slot="activator" dark class="secondary">
               <v-icon>translate</v-icon>
@@ -33,92 +33,92 @@
   </v-layout>
 </template>
 <script>
-  import {
-    mapState,
-    mapMutations,
-    mapActions
-  } from 'vuex'
+import {
+  mapState,
+  mapMutations,
+  mapActions
+} from 'vuex'
 
-  export default {
-    name: 'login',
-    props: {
-      redirect: {
-        type: String,
-        default: '/'
-      },
-      showLogo: {
-        type: Boolean,
-        default: true
-      },
-      logo: {
-        type: String,
-        default: 'vue-crud-sm.png'
-      },
-      localeSelectable: {
-        type: Boolean,
-        default: true
-      },
+export default {
+  name: 'login',
+  props: {
+    redirect: {
+      type: String,
+      default: '/'
     },
-    data() {
+    showLogo: {
+      type: Boolean,
+      default: true
+    },
+    logo: {
+      type: String,
+      default: 'vue-crud-sm.png'
+    },
+    localeSelectable: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data () {
+    return {
+      valid: false,
+      password: '',
+      email: '',
+      passwordHidden: true
+    }
+  },
+  computed: {
+    ...mapState('auth', [
+      'loginWait',
+      'loginFailed'
+    ]),
+    ...mapState([
+      'locales'
+    ]),
+    passwordRules () {
+      return [
+        v => !!v || this.$t('global.login.passwordRequired')
+      ]
+    },
+    emailRules () {
+      return [
+        v => !!v || this.$t('global.login.emailRequired'),
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('global.login.incorrectEmail')
+      ]
+    },
+    credential () {
+      const { email } = this
+      const { password } = this
       return {
-        valid: false,
-        password: '',
-        email: '',
-        passwordHidden: true,
+        email,
+        password
       }
     },
-    computed: {
-      ...mapState('auth', [
-        'loginWait',
-        'loginFailed',
-      ]),
-      ...mapState([
-        'locales',
-      ]),
-      passwordRules() { 
-        return [
-          (v) => !!v || this.$t('global.login.passwordRequired')
-        ]
-      },
-      emailRules() {
-        return [
-          (v) => !!v || this.$t('global.login.emailRequired'),
-          (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(v) || this.$t('global.login.incorrectEmail')
-        ]
-      },
-      credential() {
-        let email = this.email
-        let password = this.password
-        return {
-          email,
-          password
-        }
-      },
-      passTextFieldType() {
-        return this.passwordHidden ? 'password' : 'text'
-      },
-      passAppendIcon() {
-        return this.passwordHidden ? 'visibility' : 'visibility_off'
-      },
+    passTextFieldType () {
+      return this.passwordHidden ? 'password' : 'text'
     },
-    methods: {
-      ...mapMutations([
-        'setLocale',
-      ]),
-      ...mapActions('auth', [
-        'login',
-      ]),
-      changeLocale (locale) {
-        this.$i18n.locale = locale
-        this.setLocale(locale)
-      },   
-      loginAttempt() {
-        this.login(this.credential).then(() => {
-          this.$router.push({path: this.redirect})
-        })
-      }
+    passAppendIcon () {
+      return this.passwordHidden ? 'visibility' : 'visibility_off'
+    }
+  },
+  methods: {
+    ...mapMutations([
+      'setLocale'
+    ]),
+    ...mapActions('auth', [
+      'login'
+    ]),
+    changeLocale (locale) {
+      this.$i18n.locale = locale
+      this.setLocale(locale)
     },
+    loginAttempt () {
+      this.login(this.credential).then(() => {
+        this.$router.push({ path: this.redirect })
+      })
+    }
   }
+}
 
 </script>
 <style scoped>

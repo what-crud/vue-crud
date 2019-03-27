@@ -10,7 +10,7 @@
     </div>
 </template>
 <script>
-    export default {
-        name: 'footnote',
-    };
+export default {
+  name: 'footnote'
+}
 </script>

@@ -1,15 +1,15 @@
-import alerts from './alerts.js'
-import routes from './routes.js'
-import datatable from './datatable.js'
-import details from './details.js'
-import itemElements from './item-elements.js'
+import alerts from './alerts'
+import routes from './routes'
+import datatable from './datatable'
+import details from './details'
+import itemElements from './item-elements'
 
 export default {
-    global: {
-      alerts,
-      routes,
-      datatable,
-      details,
-      itemElements,
-    },
+  global: {
+    alerts,
+    routes,
+    datatable,
+    details,
+    itemElements
+  }
 }

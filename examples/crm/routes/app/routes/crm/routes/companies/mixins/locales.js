@@ -42,16 +42,16 @@ export default {
           correspondenceBorough: 'Gmina (koresp.)',
           correspondenceCounty: 'Powiat (koresp.)',
           correspondenceVoivodship: 'Województwo (koresp.)',
-          active: 'Aktywna',
+          active: 'Aktywna'
         },
         itemElements: {
           companyBusinessAreas: {
             title: 'Obszary działalności firmy',
             headers: {
-              businessArea: 'Obszar działalności',
+              businessArea: 'Obszar działalności'
             }
           }
-        },
+        }
       },
       en: {
         detailsTitle: 'Company',
@@ -94,17 +94,17 @@ export default {
           correspondenceBorough: 'Borough (corresp.)',
           correspondenceCounty: 'County (corresp.)',
           correspondenceVvoivodship: 'Voivodship (corresp.)',
-          active: 'Aktywna',
+          active: 'Aktywna'
         },
         itemElements: {
           companyBusinessAreas: {
             title: 'Company business areas',
             headers: {
-              businessArea: 'Business areas',
+              businessArea: 'Business areas'
             }
           }
-        },
+        }
       }
     }
-  },
+  }
 }

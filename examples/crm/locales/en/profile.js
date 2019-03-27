@@ -16,7 +16,7 @@ export default {
     email: 'E-mail address',
     restore: 'Restore',
     save: 'Save',
-    updated: 'User data has been updated',
+    updated: 'User data has been updated'
   },
   password: {
     old: 'Old password',
@@ -25,6 +25,6 @@ export default {
     updated: 'Password has been updated',
     updateError: 'Password update error',
     clear: 'Clear',
-    change: 'Change passowrd',
+    change: 'Change passowrd'
   }
 }

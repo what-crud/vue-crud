@@ -10,17 +10,17 @@
 </template>
 
 <script>
-import FieldsInfoMixin from '../../company-comments/mixins/fields.js'
-import LocalesMixin from '../../company-comments/mixins/locales.js'
-import CompanyCommentsChildMixin from "@/utils/crud/mixins/child.js";
-import ChildrenTable from "@/utils/crud/components/ChildrenTable.vue";
-import ChildDetails from "@/utils/crud/components/ChildDetails.vue";
+import FieldsInfoMixin from '../../company-comments/mixins/fields'
+import LocalesMixin from '../../company-comments/mixins/locales'
+import CompanyCommentsChildMixin from '@/utils/crud/mixins/child'
+import ChildrenTable from '@/utils/crud/components/ChildrenTable.vue'
+import ChildDetails from '@/utils/crud/components/ChildDetails.vue'
 
 export default {
   mixins: [FieldsInfoMixin, LocalesMixin, CompanyCommentsChildMixin],
   components: {
-    "company-comments-table": ChildrenTable,
-    "company-comment-details": ChildDetails
-  },
-};
+    'company-comments-table': ChildrenTable,
+    'company-comment-details': ChildDetails
+  }
+}
 </script>

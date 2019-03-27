@@ -9,7 +9,7 @@ describe('BackTop.vue', () => {
     }
   })
 
-  it(`speed equals 0.1 when props.speed isn't specified`, () => {
+  it('speed equals 0.1 when props.speed isn\'t specified', () => {
     expect(wrapper.vm.speed).toBe(0.1)
   })
   it('speed equals 0.2 when props.speed equals to 0.2', () => {
@@ -24,7 +24,7 @@ describe('BackTop.vue', () => {
     })
     expect(wrapper.contains('v-btn-stub')).toBe(true)
   })
-  it(`hasn't button if top value == 0`, () => {
+  it('hasn\'t button if top value == 0', () => {
     wrapper.setData({
       top: 0
     })

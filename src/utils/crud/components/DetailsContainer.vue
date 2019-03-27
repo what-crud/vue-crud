@@ -27,66 +27,63 @@
   </v-layout>
 </template>
 <script>
-import Vue from "vue";
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import Vue from 'vue'
 
 export default {
-  props: ["fieldsInfo"],
-  data() {
+  props: ['fieldsInfo'],
+  data () {
     return {
       files: null
-    };
+    }
   },
-  created() {
-    for (let field of this.fields) {
-      field.required = field.required == false ? false : true
-      if (field.type == "select") {
-        Vue.http.get(field.url).then(response => {
-          let items = response.body;
-          field.list.data = [];
-          let selectItems;
-          if (typeof field.list.complexName != "undefined") {
-            selectItems = items.map(item => {
-              let rItem = item;
-              let textArray = field.list.complexName.map(textInfo => {
-                let splittedText = textInfo
-                  .split(".")
-                  .reduce(function(object, property) {
-                    return object[property] || "";
-                  }, item);
-                return splittedText;
-              });
-              rItem.complexName = textArray.join(", ");
-              return rItem;
-            });
+  created () {
+    for (const field of this.fields) {
+      field.required = field.required !== false
+      if (field.type === 'select') {
+        Vue.http.get(field.url).then((response) => {
+          const items = response.body
+          field.list.data = []
+          let selectItems
+          if (typeof field.list.complexName !== 'undefined') {
+            selectItems = items.map((item) => {
+              const rItem = item
+              const textArray = field.list.complexName.map((textInfo) => {
+                const splittedText = textInfo
+                  .split('.')
+                  .reduce((object, property) => object[property] || '', item)
+                return splittedText
+              })
+              rItem.complexName = textArray.join(', ')
+              return rItem
+            })
           } else {
-            selectItems = items;
+            selectItems = items
           }
           if (!field.required) {
-            let nullElement = {};
-            nullElement[field.list.value] = '';
-            nullElement[field.list.text] = "----";
-            field.list.data = [nullElement, ...selectItems];
+            const nullElement = {}
+            nullElement[field.list.value] = ''
+            nullElement[field.list.text] = '----'
+            field.list.data = [nullElement, ...selectItems]
           } else {
-            field.list.data = selectItems;
+            field.list.data = selectItems
           }
-        });
+        })
       }
     }
   },
   computed: {
-    fields() {
-      return this.fieldsInfo;
+    fields () {
+      return this.fieldsInfo
     }
   },
   methods: {
-    update(field) {
+    update (field) {
       setTimeout(() => {
-        this.$parent.update(field.column, field.value);
-      }, 100);
+        this.$parent.update(field.column, field.value)
+      }, 100)
     }
   }
-};
+}
 </script>
 <style>
 .section-header {

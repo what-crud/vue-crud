@@ -131,7 +131,7 @@
                   <br>
                 </template>
 
-                <!-- checkbox -->        
+                <!-- checkbox -->
                 <v-checkbox v-else-if="field.type == 'checkbox'"
                   hide-details
                   color="primary"
@@ -174,17 +174,21 @@
   </v-dialog>
 </template>
 <script>
-import Vue from "vue";
-import { VueEditor } from "vue2-editor";
-import { fieldModifiers } from "@/utils/crud/helpers/functions.js";
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import Vue from 'vue'
+import { VueEditor } from 'vue2-editor'
+import { fieldModifiers } from '@/utils/crud/helpers/functions'
+import {
+  mapState,
+  mapMutations,
+  mapActions
+} from 'vuex'
 
 export default {
   components: {
     VueEditor
   },
-  props: ["title", "detailsFields"],
-  data() {
+  props: ['title', 'detailsFields'],
+  data () {
     return {
       uploadStatuses: {},
       uploadLoaders: {},
@@ -196,99 +200,94 @@ export default {
         time: '##:##',
         datetime: '####-##-## ##:##:##'
       }
-    };
+    }
   },
-  created() {
-    this.resetItem();
-    for (let field of this.fields) {
-      field.required = field.required == false ? false : true;
-      field.updateColumn = false;
-      if (field.type == "file") {
-        this.$set(this.uploadLoaders, field.name, false);
-        this.$set(this.uploadStatuses, field.name, 'ready');
-      }
-      else if (field.type == "select") {
-        let url = field.url;
+  created () {
+    this.resetItem()
+    for (const field of this.fields) {
+      field.required = field.required !== false
+      field.updateColumn = false
+      if (field.type === 'file') {
+        this.$set(this.uploadLoaders, field.name, false)
+        this.$set(this.uploadStatuses, field.name, 'ready')
+      } else if (field.type === 'select') {
+        const { url } = field
         if (field.async) {
-          this.$set(this.searchPhrases, "search_" + field.name, "");
-          this.$set(this.searchLoading, "search_" + field.name, false);
-          this.$set(this.searchData, "search_" + field.name, []);
-          this.$set(field.list, "oldSearch", "");
+          this.$set(this.searchPhrases, `search_${field.name}`, '')
+          this.$set(this.searchLoading, `search_${field.name}`, false)
+          this.$set(this.searchData, `search_${field.name}`, [])
+          this.$set(field.list, 'oldSearch', '')
         } else {
-          field.list.data = [];
-          let selectItems;
-          Vue.http.get(url).then(response => {
-            let items = response.body;
-            selectItems = items.map(item => {
-              let rItem = item;
-              if (typeof field.list.activeColumn != "undefined") {
-                rItem.itemDisabled = item[field.list.activeColumn] == 0 ? true : false
+          field.list.data = []
+          let selectItems
+          Vue.http.get(url).then((response) => {
+            const items = response.body
+            selectItems = items.map((item) => {
+              const rItem = item
+              if (typeof field.list.activeColumn !== 'undefined') {
+                rItem.itemDisabled = item[field.list.activeColumn] === 0
               }
-              if (typeof field.list.complexName != "undefined") {
-                let textArray = field.list.complexName.map(textInfo => {
-                  let splittedText = textInfo
-                    .split(".")
-                    .reduce(function(object, property) {
-                      return object[property] || "";
-                    }, item);
-                  return splittedText;
-                });
-                rItem.complexName = textArray.join(", ");
+              if (typeof field.list.complexName !== 'undefined') {
+                const textArray = field.list.complexName.map((textInfo) => {
+                  const splittedText = textInfo
+                    .split('.')
+                    .reduce((object, property) => object[property] || '', item)
+                  return splittedText
+                })
+                rItem.complexName = textArray.join(', ')
               }
-              return rItem;
-            });
+              return rItem
+            })
             if (!field.required) {
-              let nullElement = {};
-              nullElement[field.list.value] = "";
-              nullElement[field.list.text] = "-";
-              field.list.data = [nullElement, ...selectItems];
+              const nullElement = {}
+              nullElement[field.list.value] = ''
+              nullElement[field.list.text] = '-'
+              field.list.data = [nullElement, ...selectItems]
             } else {
-              field.list.data = selectItems;
+              field.list.data = selectItems
             }
-          });
+          })
         }
       }
     }
   },
   watch: {
     details: {
-      handler(val) {
-        if (val.show == true) {
-          for (let field of this.fields) {
-            if (field.type == "file") {
-              this.$set(this.uploadLoaders, field.name, false);
-              this.$set(this.uploadStatuses, field.name, 'ready');
+      handler (val) {
+        if (val.show === true) {
+          for (const field of this.fields) {
+            if (field.type === 'file') {
+              this.$set(this.uploadLoaders, field.name, false)
+              this.$set(this.uploadStatuses, field.name, 'ready')
             }
           }
         }
-        if (val.show == true && val.action == "edit") {
-          for (let field of this.fields) {
-            if (field.type == "select") {
+        if (val.show === true && val.action === 'edit') {
+          for (const field of this.fields) {
+            if (field.type === 'select') {
               if (field.async) {
-                field.list.oldSearch = "";
-                let data;
-                let url = field.url + "/id/" + field.value;
-                Vue.http.get(url).then(response => {
-                  let items = response.body;
-                  if (typeof field.list.complexName != "undefined") {
-                    data = items.map(item => {
-                      let rItem = item;
-                      let textArray = field.list.complexName.map(textInfo => {
-                        let splittedText = textInfo
-                          .split(".")
-                          .reduce(function(object, property) {
-                            return object[property] || "";
-                          }, item);
-                        return splittedText;
-                      });
-                      rItem.complexName = textArray.join(", ");
-                      return rItem;
-                    });
+                field.list.oldSearch = ''
+                let data
+                const url = `${field.url}/id/${field.value}`
+                Vue.http.get(url).then((response) => {
+                  const items = response.body
+                  if (typeof field.list.complexName !== 'undefined') {
+                    data = items.map((item) => {
+                      const rItem = item
+                      const textArray = field.list.complexName.map((textInfo) => {
+                        const splittedText = textInfo
+                          .split('.')
+                          .reduce((object, property) => object[property] || '', item)
+                        return splittedText
+                      })
+                      rItem.complexName = textArray.join(', ')
+                      return rItem
+                    })
                   } else {
-                    data = items;
+                    data = items
                   }
-                  this.$set(this.searchData, "search_" + field.name, data);
-                });
+                  this.$set(this.searchData, `search_${field.name}`, data)
+                })
               }
             }
           }
@@ -297,195 +296,189 @@ export default {
       deep: true
     },
     searchPhrases: {
-      handler(val) {
+      handler (val) {
         setTimeout(() => {
-          for (let field of this.fields) {
-            if (field.type == "select" && field.async) {
-              let search = val["search_" + field.name];
-              let newSearch = this.searchPhrases["search_" + field.name];
+          for (const field of this.fields) {
+            if (field.type === 'select' && field.async) {
+              const search = val[`search_${field.name}`]
+              const newSearch = this.searchPhrases[`search_${field.name}`]
               if (
-                search != null &&
-                search != undefined &&
-                search != field.list.oldSearch &&
-                search == newSearch
+                search !== null &&
+                search !== undefined &&
+                search !== field.list.oldSearch &&
+                search === newSearch
               ) {
-                field.list.oldSearch = search;
-                let data;
-                let url = field.url + "/phrase/" + val["search_" + field.name];
-                this.$set(this.searchLoading, "search_" + field.name, true);
-                Vue.http.get(url).then(response => {
-                  this.$set(this.searchLoading, "search_" + field.name, false);
-                  let items = response.body;
-                  if (typeof field.list.complexName != "undefined") {
-                    data = items.map(item => {
-                      let rItem = item;
-                      let textArray = field.list.complexName.map(textInfo => {
-                        let splittedText = textInfo
-                          .split(".")
-                          .reduce(function(object, property) {
-                            return object[property] || "";
-                          }, item);
-                        return splittedText;
-                      });
-                      rItem.complexName = textArray.join(", ");
-                      return rItem;
-                    });
+                field.list.oldSearch = search
+                let data
+                const url = `${field.url}/phrase/${val[`search_${field.name}`]}`
+                this.$set(this.searchLoading, `search_${field.name}`, true)
+                Vue.http.get(url).then((response) => {
+                  this.$set(this.searchLoading, `search_${field.name}`, false)
+                  const items = response.body
+                  if (typeof field.list.complexName !== 'undefined') {
+                    data = items.map((item) => {
+                      const rItem = item
+                      const textArray = field.list.complexName.map((textInfo) => {
+                        const splittedText = textInfo
+                          .split('.')
+                          .reduce((object, property) => object[property] || '', item)
+                        return splittedText
+                      })
+                      rItem.complexName = textArray.join(', ')
+                      return rItem
+                    })
                   } else {
-                    data = items;
+                    data = items
                   }
-                  this.$set(this.searchData, "search_" + field.name, data);
-                });
+                  this.$set(this.searchData, `search_${field.name}`, data)
+                })
               }
             }
           }
-        }, 500);
+        }, 500)
       },
       deep: true
     }
   },
   computed: {
-    ...mapState('crud', ["uploadPath"]),
-    ...mapState("crud", ["details", "path", "prefix", "selectedIds"]),
-    fields() {
-      let self = this
-      let fields = this.detailsFields.filter(field => {
+    ...mapState('crud', ['uploadPath']),
+    ...mapState('crud', ['details', 'path', 'prefix', 'selectedIds']),
+    fields () {
+      const fields = this.detailsFields.filter((field) => {
         let isIncluded = true
-        if(this.details.action == 'create'){
-          isIncluded = field.create == false ? false : true
-        }
-        else if (this.details.action == 'multiedit'){
-          isIncluded = field.multiedit == false ? false : true
+        if (this.details.action === 'create') {
+          isIncluded = field.create !== false
+        } else if (this.details.action === 'multiedit') {
+          isIncluded = field.multiedit !== false
         }
         return isIncluded
       })
-      let result = fields.map(field => {
-        let rField = field;
-        rField.value = this.details.item[field.column];
-        if (typeof rField.value != "undefined") {
-          if (field.type == "select") {
-            let defaultVal = field.list.default || 1
-            rField.value = field.stringId ? this.details.item[field.column] : parseInt(this.details.item[field.column]) || defaultVal;
-          } else if (field.type == "datePicker") {
-            rField.value = this.details.item[field.column].substring(0, 10);
-          } else if (field.type == "checkbox") {
-            rField.value =
-              this.details.item[field.column] == "1" ? true : false;
+      const result = fields.map((field) => {
+        const rField = field
+        rField.value = this.details.item[field.column]
+        if (typeof rField.value !== 'undefined') {
+          if (field.type === 'select') {
+            const defaultVal = field.list.default || 1
+            rField.value = field.stringId ? this.details.item[field.column] : parseInt(this.details.item[field.column]) || defaultVal
+          } else if (field.type === 'datePicker') {
+            rField.value = this.details.item[field.column].substring(0, 10)
+          } else if (field.type === 'checkbox') {
+            rField.value = parseInt(this.details.item[field.column]) === 1
           }
           if (field.apiObject) {
             if (field.apiObject.useFunctionsInDetails) {
-              let functions = field.apiObject.functions || [];
-              let availableFunctions = fieldModifiers;
+              const functions = field.apiObject.functions || []
+              const availableFunctions = fieldModifiers
 
               for (let i = 0; i < functions.length; i++) {
-                let functionName = functions[i];
-                rField.value = availableFunctions[functionName](rField.value);
+                const functionName = functions[i]
+                rField.value = availableFunctions[functionName](rField.value)
               }
             }
           }
-        } else {
-          if (field.type == "checkbox") {
-            rField.value = false;
-          }
+        } else if (field.type === 'checkbox') {
+          rField.value = false
         }
-        return rField;
-      });
-      return result;
+        return rField
+      })
+      return result
     },
-    itemData() {
-      let self = this;
-      let result = {};
-      for (let field of this.fields) {
-        result[field.column] = field.value ? field.value : null;
+    itemData () {
+      const result = {}
+      for (const field of this.fields) {
+        result[field.column] = field.value ? field.value : null
       }
-      return result;
+      return result
     },
-    rules() {
-      let self = this;
+    rules () {
+      const self = this
       return {
-        required: v => !!v || self.$t("global.details.rules.required"),
-        minLength: (v) => v.length >= 24 || 'Min ' + 24 + ' characters',
-        maxLength: (v, val) => v.length <= val || 'Max ' + val + ' characters'
-      };
+        required: v => !!v || self.$t('global.details.rules.required'),
+        minLength: v => v.length >= 24 || `Min ${24} characters`,
+        maxLength: (v, val) => v.length <= val || `Max ${val} characters`
+      }
     }
   },
   methods: {
-    ...mapActions("crud", ["updateItem", "storeItem", "mulitipleItemsUpdate"]),
-    ...mapMutations("crud", ["resetItem"]),
-    ...mapMutations(["alertValidationError", "alertError"]),
-    fileUploadBtn(status) {
-      let btnClasses = {
+    ...mapActions('crud', ['updateItem', 'storeItem', 'mulitipleItemsUpdate']),
+    ...mapActions([
+      'openAlertBox'
+    ]),
+    ...mapMutations('crud', ['resetItem']),
+    fileUploadBtn (status) {
+      const btnClasses = {
         ready: 'primary',
         success: 'success',
         error: 'error'
       }
       return btnClasses[status]
     },
-    fileUploadIcon(status) {
-      let icons = {
+    fileUploadIcon (status) {
+      const icons = {
         ready: 'save_alt',
         success: 'check',
         error: 'close'
       }
       return icons[status]
     },
-    close() {
-      this.details.show = false;
+    close () {
+      this.details.show = false
     },
-    fieldRules(field) {
-      let rules = []
-      let required = field.required != undefined ? field.required : true;
-      if (this.details.action != "multiedit"){
+    fieldRules (field) {
+      const rules = []
+      const required = field.required !== undefined ? field.required : true
+      if (this.details.action !== 'multiedit') {
         if (required) {
           rules.push(this.rules.required)
         }
       }
       return rules
     },
-    update() {
+    update () {
       this.updateItem([
         this.details.id,
         this.itemData,
-        this.$t("global.alerts.updated"),
-        this.$t("global.alerts.updateError")
-      ]).then(response => {
-        this.close();
+        this.$t('global.alerts.updated'),
+        this.$t('global.alerts.updateError')
+      ]).then((response) => {
+        this.close()
       })
     },
-    store() {
+    store () {
       this.storeItem([
         this.itemData,
-        this.$t("global.alerts.stored"),
-        this.$t("global.alerts.storeError")
-      ]).then(response => {
-        this.close();
+        this.$t('global.alerts.stored'),
+        this.$t('global.alerts.storeError')
+      ]).then((response) => {
+        this.close()
       })
     },
-    updateSelected() {
-      let filteredFields = this.fields.filter(field => field.updateColumn);
-      let keyValuePairs = {};
-      for (let field of filteredFields) {
-        keyValuePairs[field.column] = field.value;
+    updateSelected () {
+      const filteredFields = this.fields.filter(field => field.updateColumn)
+      const keyValuePairs = {}
+      for (const field of filteredFields) {
+        keyValuePairs[field.column] = field.value
       }
       this.mulitipleItemsUpdate([
         {
           ids: this.selectedIds,
           request: keyValuePairs
         },
-        this.$t("global.alerts.updated"),
-        this.$t("global.alerts.updateError")
-      ]);
+        this.$t('global.alerts.updated'),
+        this.$t('global.alerts.updateError')
+      ])
     },
-    fileSelected(e, field) {
-      let file = e.target.files[0];
+    fileSelected (e, field) {
+      const file = e.target.files[0]
       if (file) {
-        this.$set(this.uploadLoaders, field.name, true);
-        let formData = new FormData();
-        formData.append("file", file);
-        formData.append("module", this.prefix);
-        formData.append("table", this.path);
-        formData.append("field", field.column);
-        this.$http.post(this.uploadPath, formData, {}).then(response => {
-          if(response.body.status == 0){
+        this.$set(this.uploadLoaders, field.name, true)
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('module', this.prefix)
+        formData.append('table', this.path)
+        formData.append('field', field.column)
+        this.$http.post(this.uploadPath, formData, {}).then((response) => {
+          if (response.body.status === 0) {
             field.value = JSON.stringify({
               filename: file.name,
               mime: file.type,
@@ -493,26 +486,24 @@ export default {
               path: response.body.path,
               uploaded: 1
             })
-            this.$set(this.uploadStatuses, field.name, 'success');
-          }
-          else {
-            this.$set(this.uploadStatuses, field.name, 'error');
-            if (response.body.status == -1) {
-              this.alertError(response.body.msg)
-            }
-            else if (response.body.status == -2) {
-              this.alertValidationError(response.body.msg)
+            this.$set(this.uploadStatuses, field.name, 'success')
+          } else {
+            this.$set(this.uploadStatuses, field.name, 'error')
+            if (response.body.status === -1) {
+              this.openAlertBox('alertError', response.body.msg)
+            } else if (response.body.status === -2) {
+              this.openAlertBox('alertValidationError', response.body.msg)
             }
           }
-          this.$set(this.uploadLoaders, field.name, false);
-        }, error => {
-          this.$set(this.uploadLoaders, field.name, false);
-          this.$set(this.uploadStatuses, field.name, 'error');
+          this.$set(this.uploadLoaders, field.name, false)
+        }, () => {
+          this.$set(this.uploadLoaders, field.name, false)
+          this.$set(this.uploadStatuses, field.name, 'error')
         })
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>

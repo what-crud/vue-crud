@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import store from '@/store/index.js'
+import store from '@/store/index'
 
-import pl from './pl/index.js'
-import en from './en/index.js'
+import pl from './pl/index'
+import en from './en/index'
 
 Vue.use(VueI18n)
 
@@ -14,5 +14,5 @@ const messages = {
 
 export default new VueI18n({
   locale: store.getters.lng,
-  messages,
+  messages
 })

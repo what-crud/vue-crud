@@ -19,14 +19,14 @@ export default {
           text: this.$t('fields.company'),
           name: 'company',
           apiObject: {
-            name: 'company.common_name',
-          },
+            name: 'company.common_name'
+          }
         },
         {
           text: this.$t('fields.user'),
           name: 'user',
           apiObject: {
-            name: 'user.name',
+            name: 'user.name'
           },
           details: false
         },
@@ -34,7 +34,7 @@ export default {
           text: this.$t('fields.userEmail'),
           name: 'userEmail',
           apiObject: {
-            name: 'user.email',
+            name: 'user.email'
           },
           details: false
         },
@@ -50,8 +50,8 @@ export default {
           text: this.$t('fields.commentType'),
           name: 'companyCommentType',
           apiObject: {
-            name: 'company_comment_type.name',
-          },
+            name: 'company_comment_type.name'
+          }
         },
         {
           type: 'textarea',
@@ -63,8 +63,8 @@ export default {
             functions: ['croppedText']
           },
           multiedit: false
-        },
+        }
       ]
-    },
-  },
+    }
+  }
 }

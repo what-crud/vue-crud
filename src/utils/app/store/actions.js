@@ -1,8 +1,5 @@
-import Vue from 'vue'
-import router from '@/router'
+const actions = {
 
-let actions = {
-  
 }
 
 export default actions

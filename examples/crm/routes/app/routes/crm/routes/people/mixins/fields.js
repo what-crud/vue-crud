@@ -5,7 +5,7 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false,
+          details: false
         },
         {
           type: 'input',
@@ -27,7 +27,6 @@ export default {
           type: 'input',
           column: 'distinction',
           text: this.$t('fields.distinction'),
-          required: false,
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'distinction',
           required: false
@@ -45,8 +44,8 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'language',
           apiObject: {
-            name: 'language.name',
-          },
+            name: 'language.name'
+          }
         },
         {
           type: 'select',
@@ -61,14 +60,13 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'sex',
           apiObject: {
-            name: 'sex.name',
-          },
+            name: 'sex.name'
+          }
         },
         {
           type: 'input',
           column: 'email',
           text: this.$t('fields.email'),
-          required: false,
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'email',
           multiedit: false,
@@ -78,13 +76,12 @@ export default {
           type: 'input',
           column: 'phone',
           text: this.$t('fields.phone'),
-          required: false,
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'phone',
           multiedit: false,
           required: false
-        },
+        }
       ]
-    },
+    }
   }
 }

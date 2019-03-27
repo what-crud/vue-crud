@@ -9,7 +9,7 @@ export default {
           user: 'Autor',
           userEmail: 'E-mail autora',
           commentType: 'Typ komentarza',
-          content: 'Treść',
+          content: 'Treść'
         }
       },
       en: {
@@ -20,9 +20,9 @@ export default {
           user: 'Author',
           userEmail: 'Author e-mail',
           commentType: 'Comment type',
-          content: 'Content',
+          content: 'Content'
         }
       }
     }
-  },
+  }
 }

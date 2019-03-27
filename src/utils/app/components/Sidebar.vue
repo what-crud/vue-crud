@@ -25,9 +25,14 @@
     </v-list>
     <slot name="over"></slot>
     <v-list dense>
-      <template v-if="checkPermission(item.guard)" v-for="(item) in items">
-        <v-list-group v-model="item.model" :key="item.text" :prepend-icon="item.icon"
-          append-icon="">
+      <template v-for="(item) in items">
+        <v-list-group
+          v-if="checkPermission(item.guard)"
+          v-model="item.model"
+          :key="item.text"
+          :prepend-icon="item.icon"
+          append-icon=""
+        >
           <v-list-tile slot="activator">
             <v-list-tile-content>
               <v-list-tile-title>
@@ -59,22 +64,25 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import {
+  mapGetters,
+  mapMutations
+} from 'vuex'
 
 export default {
-  created() {
+  created () {
     this.locked = JSON.parse(localStorage.getItem('sidebarLocked')) || false
   },
   computed: {
-    ...mapGetters("auth", ["checkPermission"]),
-    sidebarMini() {
+    ...mapGetters('auth', ['checkPermission']),
+    sidebarMini () {
       return this.locked ? false : !this.expanded
-    },
+    }
   },
   watch: {
-    expanded(val) {
+    expanded (val) {
       if (!val) {
-        for(let item of this.items){
+        for (const item of this.items) {
           item.model = false
         }
       }
@@ -89,37 +97,37 @@ export default {
     expandOn: {
       type: String,
       default: 'mouseover',
-      validator: function (value) {
+      validator (value) {
         return ['click', 'mousover'].indexOf(value) !== -1
-      },
+      }
     },
     lockSidebarBtn: {
       type: Boolean,
       default: true
-    },
+    }
   },
   methods: {
-    ...mapMutations("app", [
+    ...mapMutations('app', [
       'toggleSidebarWidth',
       'setSidebarWidth'
     ]),
-    toggleLock() {
+    toggleLock () {
       this.locked = !this.locked
       localStorage.setItem('sidebarLocked', this.locked)
       this.expanded = this.locked
     },
-    click() {
-      if(this.sidebarMini && this.expandOn == 'click' && !this.locked) {
+    click () {
+      if (this.sidebarMini && this.expandOn === 'click' && !this.locked) {
         this.expanded = true
       }
     },
-    mouseover() {
-      if(this.sidebarMini && this.expandOn == 'mouseover' && this.locked) {
+    mouseover () {
+      if (this.sidebarMini && this.expandOn === 'mouseover' && this.locked) {
         this.expanded = true
       }
     },
-    mouseleave() {
-      if(!this.locked){
+    mouseleave () {
+      if (!this.locked) {
         this.expanded = false
       }
     }
@@ -129,9 +137,9 @@ export default {
     dialog: false,
     locked: false,
     expanded: false
-  }),
-};
+  })
+}
 </script>
 <style scoped>
-  
+
 </style>

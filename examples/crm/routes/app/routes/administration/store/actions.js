@@ -1,11 +1,9 @@
-import Vue from 'vue'
-
 let actions = {
-    // permissions
+  // permissions
 
-    // user permissions
+  // user permissions
 
-    // users
-  }
-  
-  export default actions
+  // users
+}
+
+export default actions

@@ -12,7 +12,7 @@ export default {
           column: 'name',
           text: this.$t('fields.name'),
           grid: 'xs12 sm6 md4 lg6 xl4',
-          name: 'name',
+          name: 'name'
         },
         {
           type: 'input',
@@ -21,8 +21,8 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'commonName',
           apiObject: {
-            name: 'common_name',
-          },
+            name: 'common_name'
+          }
         },
         {
           type: 'select',
@@ -37,7 +37,7 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'companyType',
           apiObject: {
-            name: 'company_type.name',
+            name: 'company_type.name'
           }
         },
         {
@@ -83,7 +83,7 @@ export default {
           grid: 'xs6 sm3 md2 lg3 xl2',
           name: 'streetPrefix',
           apiObject: {
-            name: 'street_prefix.name',
+            name: 'street_prefix.name'
           },
           create: false,
           multiedit: false,
@@ -92,7 +92,7 @@ export default {
         {
           text: this.$t('fields.address'),
           name: 'address',
-          details: false,
+          details: false
         },
         {
           type: 'input',
@@ -348,8 +348,8 @@ export default {
           create: false,
           multiedit: false,
           required: false
-        },
+        }
       ]
-    },
-  },
+    }
+  }
 }

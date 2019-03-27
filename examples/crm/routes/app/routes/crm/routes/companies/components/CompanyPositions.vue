@@ -12,20 +12,20 @@
 </template>
 
 <script>
-import FieldsInfoMixin from '../../positions/mixins/fields.js'
-import LocalesMixin from '../../positions/mixins/locales.js'
-import ChildElementsMixin from "../../positions/mixins/item-elements.js";
-import CompanyPositionsChildMixin from "@/utils/crud/mixins/child.js";
-import ChildrenTable from "@/utils/crud/components/ChildrenTable.vue";
-import ChildDetails from "@/utils/crud/components/ChildDetails.vue";
+import FieldsInfoMixin from '../../positions/mixins/fields'
+import LocalesMixin from '../../positions/mixins/locales'
+import ChildElementsMixin from '../../positions/mixins/item-elements'
+import CompanyPositionsChildMixin from '@/utils/crud/mixins/child'
+import ChildrenTable from '@/utils/crud/components/ChildrenTable.vue'
+import ChildDetails from '@/utils/crud/components/ChildDetails.vue'
 import ItemElements from '@/utils/crud/components/ItemElements.vue'
 
 export default {
   mixins: [FieldsInfoMixin, LocalesMixin, ChildElementsMixin, CompanyPositionsChildMixin],
   components: {
-    "company-positions-table": ChildrenTable,
-    "company-position-details": ChildDetails,
-    "company-position-tasks": ItemElements
-  },
-};
+    'company-positions-table': ChildrenTable,
+    'company-position-details': ChildDetails,
+    'company-position-tasks': ItemElements
+  }
+}
 </script>

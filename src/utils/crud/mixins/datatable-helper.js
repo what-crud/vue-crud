@@ -1,59 +1,59 @@
-import DataTableFooter from "../components/DataTableFooter.vue";
+import DataTableFooter from '../components/DataTableFooter.vue'
 
 export default {
   components: {
     DataTableFooter
   },
-  data() {
+  data () {
     return {
       selectedStatuses: [1],
       filterColumns: [],
-      tmp: "",
-      search: "",
+      tmp: '',
+      search: '',
       pagination: {},
       excelLoading: false
-    };
+    }
   },
   computed: {
-    cleanHeaders() {
-      let headers = this.tableFields.map(field => {
-        let header = {};
-        header.text = field.text;
-        header.value = field.name.toLowerCase();
-        if (field.sortable != undefined) {
-          header.sortable = field.sortable;
+    cleanHeaders () {
+      const headers = this.tableFields.map((field) => {
+        const header = {}
+        header.text = field.text
+        header.value = field.name.toLowerCase()
+        if (field.sortable !== undefined) {
+          header.sortable = field.sortable
         }
-        return header;
-      });
+        return header
+      })
       return headers
     },
-    headers() {
-      let actionHeader = [{
-        text: this.$t("global.datatable.fields.action"),
+    headers () {
+      const actionHeader = [{
+        text: this.$t('global.datatable.fields.action'),
         sortable: false
-      }];
-      return [...actionHeader, ...this.cleanHeaders];
+      }]
+      return [...actionHeader, ...this.cleanHeaders]
     },
-    columnTextModes() {
-      let columnTextModes = {}
-      for(let field of this.tableFields) {
+    columnTextModes () {
+      const columnTextModes = {}
+      for (const field of this.tableFields) {
         columnTextModes[field.name.toLowerCase()] = field.textMode || 'cropped'
       }
       return columnTextModes
     },
-    statuses() {
+    statuses () {
       return [
         {
-          text: this.$t("global.datatable.status.active"),
+          text: this.$t('global.datatable.status.active'),
           value: 1
         },
         {
-          text: this.$t("global.datatable.status.inactive"),
+          text: this.$t('global.datatable.status.inactive'),
           value: 0
         }
-      ];
+      ]
     },
-    filterModes() {
+    filterModes () {
       return [
         {
           name: 'like',
@@ -66,31 +66,31 @@ export default {
         {
           name: 'list',
           text: this.$t('global.datatable.filterModes.options.list')
-        },
+        }
       ]
-    },
+    }
   },
   methods: {
-    updateColumnFilterMode(val, index) {
-      let obj = this.filterColumns
+    updateColumnFilterMode (val, index) {
+      const obj = this.filterColumns
       obj[index].mode = val
       this.$set(this, 'filterColumns', obj)
     },
-    updateFilterColumns(val, index) {
-      let obj = this.filterColumns
+    updateFilterColumns (val, index) {
+      const obj = this.filterColumns
       obj[index].value = val
       this.$set(this, 'filterColumns', obj)
     },
-    setPage(page){
+    setPage (page) {
       this.pagination.page = parseInt(page)
     },
-    clearFilters() {
-      for(let column of this.filterColumns){
+    clearFilters () {
+      for (const column of this.filterColumns) {
         column.value = ''
       }
       this.pagination.page = 1
-      this.search = ""
+      this.search = ''
       this.selectedStatuses = [1]
     }
   }
-};
+}

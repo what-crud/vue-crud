@@ -35,15 +35,14 @@
 
 <script>
 
-import ItemDetails from '../components/ItemDetails.vue'
-import ItemElements from '../components/ItemElements.vue'
-import ImageContainer from '../components/ImageContainer.vue'
 import {
   mapState,
-  mapGetters,
   mapMutations,
   mapActions
 } from 'vuex'
+import ItemDetails from './ItemDetails.vue'
+import ItemElements from './ItemElements.vue'
+import ImageContainer from './ImageContainer.vue'
 
 export default {
   components: {
@@ -62,7 +61,7 @@ export default {
     },
     paths: {
       type: Object,
-      default: () => { return  {}}
+      default: () => ({})
     },
     fieldsInfo: Array,
     detailsTitle: String,
@@ -73,7 +72,7 @@ export default {
     },
     deleteMode: {
       type: String,
-      validator: function (value) {
+      validator (value) {
         return ['none', 'soft', 'hard', 'both', 'filter'].indexOf(value) !== -1
       },
       default: 'soft'
@@ -108,7 +107,7 @@ export default {
     },
     mode: {
       type: String,
-      validator: function (value) {
+      validator (value) {
         return ['ClientSide', 'ServerSide'].indexOf(value) !== -1
       },
       default: 'ClientSide'
@@ -148,51 +147,53 @@ export default {
     removeManyMode: {
       type: Boolean,
       default: true
-    },
+    }
   },
-  data() {
+  data () {
     return {}
   },
   computed: {
     ...mapState('crud', [
       'detailsLoading'
     ]),
-    tableFields() {
-      return this.fieldsInfo.filter(field => field.table != false && field.type != 'divider')
+    tableFields () {
+      return this.fieldsInfo.filter(field => field.table !== false && field.type !== 'divider')
     },
-    detailsFields() {
-      return this.fieldsInfo.filter(field => field.details != false && field.type != 'divider')
+    detailsFields () {
+      return this.fieldsInfo.filter(field => field.details !== false && field.type !== 'divider')
     },
-    componentLoader () { 
-      return () => import('./DataTable' + this.mode + '.vue')
+    componentLoader () {
+      return () => import(`./DataTable${this.mode}.vue`)
     }
   },
-  created() {
+  created () {
     this.setPrefix(this.prefix)
     this.setPath(this.path)
     this.setPaths(this.paths)
     this.setPage(this.pageTitle)
-    let creationMode = this.watchForCreation ? 'inform' : 'ignore'
+    const creationMode = this.watchForCreation ? 'inform' : 'ignore'
     this.setCreationMode(creationMode)
   },
   methods: {
     ...mapMutations('app', [
-      'setPage',
+      'setPage'
     ]),
-    ...mapMutations("crud", [
-      "refreshTable",
+    ...mapMutations('crud', [
       'setPrefix',
       'setPath',
       'setPaths',
-      'setCreationMode',
+      'setCreationMode'
     ]),
-    custom(name, item, index) {
+    ...mapActions('crud', [
+      'runTableRefreshing'
+    ]),
+    custom (name, item, index) {
       this.$parent[name](item, index)
     },
-    itemElementsClosed(){
-      this.refreshTable()
+    itemElementsClosed () {
+      this.runTableRefreshing()
     }
-  },
+  }
 }
 
 </script>

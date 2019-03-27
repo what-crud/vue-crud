@@ -8,44 +8,44 @@
 </template>
 
 <script>
-  export default {
-    name: 'backTop',
-    props: {
-      speed: {
-        type: Number,
-        default: 0.1
-      }
-    },
-    data () {
-      return {
-        top: 0
-      };
-    },
-    created() {
-        let that = this;
-        let timer = setInterval(() => {
-          that.top = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-        }, 20);
-    },
-    methods: {
-      backTop() {
-        let that = this;
-        let top = that.top;
-        let timer = setInterval(() => {
-          top -= Math.abs(top * that.speed);
-          if (top <= 1) {
-            top = 0;
-            clearInterval(timer);
-          }
-          // Internet Explorer
-          document.documentElement.scrollTop = top;
-          // Other browsers
-          document.body.scrollTop = top;
-        }, 20);
-        return false;
-      }
-   }
- };
+export default {
+  name: 'backTop',
+  props: {
+    speed: {
+      type: Number,
+      default: 0.1
+    }
+  },
+  data () {
+    return {
+      top: 0
+    }
+  },
+  created () {
+    const that = this
+    setInterval(() => {
+      that.top = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop
+    }, 20)
+  },
+  methods: {
+    backTop () {
+      const that = this
+      let { top } = that
+      const timer = setInterval(() => {
+        top -= Math.abs(top * that.speed)
+        if (top <= 1) {
+          top = 0
+          clearInterval(timer)
+        }
+        // Internet Explorer
+        document.documentElement.scrollTop = top
+        // Other browsers
+        document.body.scrollTop = top
+      }, 20)
+      return false
+    }
+  }
+}
 </script>
 
 <style lang="css" scoped>

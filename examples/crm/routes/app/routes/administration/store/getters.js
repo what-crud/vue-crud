@@ -1,6 +1,6 @@
 let getters = {
   // permissions
-  
+
   // user permissions
 
 }

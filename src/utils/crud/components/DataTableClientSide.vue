@@ -126,59 +126,61 @@
 </template>
 
 <script>
-import MainMixin from "../mixins/datatable-main.js";
-import ClientSideFilteringMixin from "../mixins/datatable-client-side-filtering.js";
-import HelperMixin from "../mixins/datatable-helper.js";
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import {
+  mapState,
+  mapActions
+} from 'vuex'
+import MainMixin from '../mixins/datatable-main'
+import ClientSideFilteringMixin from '../mixins/datatable-client-side-filtering'
+import HelperMixin from '../mixins/datatable-helper'
 
 export default {
   mixins: [MainMixin, ClientSideFilteringMixin, HelperMixin],
-  data() {
-    return {};
+  data () {
+    return {}
   },
-  created() {
-    this.resetItems();
-    this.getItems();
-    this.filterColumns = this.tableFields.map(field => {
-      let item = {};
+  created () {
+    this.resetItems()
+    this.getItems()
+    this.filterColumns = this.tableFields.map((field) => {
+      const item = {}
       item.mode = 'like'
-      item.text = field.text;
-      item.name = field.name.toLowerCase();
+      item.text = field.text
+      item.name = field.name.toLowerCase()
       item.column = field.column
       item.value = ''
-      return item;
-    });
+      return item
+    })
   },
   computed: {
-    ...mapState("crud", ['loading', "detailsDialog", "tableRefreshing"]),
-    totalItems() {
+    ...mapState('crud', ['loading', 'detailsDialog', 'tableRefreshing']),
+    totalItems () {
       return this.filteredItems.length
     }
   },
   watch: {
-    detailsDialog(val) {
+    detailsDialog (val) {
       if (!val) {
-        this.getItems();
+        this.getItems()
       }
     },
-    tableRefreshing(val) {
+    tableRefreshing (val) {
       if (val) {
-        this.getItems();
+        this.getItems()
       }
-    },
+    }
   },
   methods: {
-    ...mapMutations("crud", ["refreshTable"]),
-    ...mapActions("crud", ["getItems"]),
-    moveDetailsItem(page, index){
+    ...mapActions('crud', ['getItems']),
+    moveDetailsItem (page, index) {
       this.pagination.page = page
-      let realIndex = (page - 1) * this.pagination.rowsPerPage + index
-      let newItemId = this.filteredItems[realIndex].meta.id
-      this.setCurrentItem({id:newItemId, index:index})
-      this.getItemDetails([newItemId]).then(response => {
-        this.showItemDetailsDialog();
+      const realIndex = (page - 1) * this.pagination.rowsPerPage + index
+      const newItemId = this.filteredItems[realIndex].meta.id
+      this.setCurrentItem({ id: newItemId, index })
+      this.getItemDetails([newItemId]).then((response) => {
+        this.showItemDetailsDialog()
       })
     }
   }
-};
+}
 </script>

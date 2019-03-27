@@ -122,7 +122,7 @@
               <br>
             </template>
 
-            <!-- checkbox -->        
+            <!-- checkbox -->
             <v-checkbox v-else-if="field.type == 'checkbox'"
               hide-details
               color="primary"
@@ -144,10 +144,9 @@
   </v-dialog>
 </template>
 <script>
-import Vue from "vue";
-import { VueEditor } from "vue2-editor";
-import { fieldModifiers } from "@/utils/crud/helpers/functions.js";
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import Vue from 'vue'
+import { VueEditor } from 'vue2-editor'
+import { fieldModifiers } from '@/utils/crud/helpers/functions'
 
 export default {
   components: {
@@ -155,9 +154,9 @@ export default {
   },
   props: {
     details: Object,
-    fieldsInfo: Array,
+    fieldsInfo: Array
   },
-  data() {
+  data () {
     return {
       searchPhrases: {},
       searchLoading: {},
@@ -167,144 +166,137 @@ export default {
         time: '##:##',
         datetime: '####-##-## ##:##:##'
       },
-      customFilter(item, queryText, itemText) {
-        const hasValue = val => (val != null ? val : "");
-        const text = hasValue(item.name);
-        const query = hasValue(queryText);
+      customFilter (item, queryText, itemText) {
+        const hasValue = val => (val != null ? val : '')
+        const text = hasValue(item.name)
+        const query = hasValue(queryText)
         return (
           text
             .toString()
             .toLowerCase()
             .indexOf(query.toString().toLowerCase()) >= -1
-        );
+        )
       }
-    };
+    }
   },
-  created() {
-    for (let field of this.fields) {
-      if (field.type == "select") {
-        let url = field.url;
+  created () {
+    for (const field of this.fields) {
+      if (field.type === 'select') {
+        const { url } = field
         if (field.async) {
-          this.$set(this.searchPhrases, "search_" + field.name, "");
-          this.$set(this.searchLoading, "search_" + field.name, false);
-          this.$set(this.searchData, "search_" + field.name, [])
-          this.$set(field.list, 'oldSearch', "")
-        }
-        else {
-          field.list.data = [];
-          let selectItems;
-          Vue.http.get(url).then(response => {
-            let items = response.body;
-            selectItems = items.map(item => {
-              let rItem = item;
-              if (typeof field.list.activeColumn != "undefined") {
-                rItem.itemDisabled = item[field.list.activeColumn] == 0 ? true : false
+          this.$set(this.searchPhrases, `search_${field.name}`, '')
+          this.$set(this.searchLoading, `search_${field.name}`, false)
+          this.$set(this.searchData, `search_${field.name}`, [])
+          this.$set(field.list, 'oldSearch', '')
+        } else {
+          field.list.data = []
+          let selectItems
+          Vue.http.get(url).then((response) => {
+            const items = response.body
+            selectItems = items.map((item) => {
+              const rItem = item
+              if (typeof field.list.activeColumn !== 'undefined') {
+                rItem.itemDisabled = parseInt(item[field.list.activeColumn]) === 0
               }
-              if (typeof field.list.complexName != "undefined") {
-                let textArray = field.list.complexName.map(textInfo => {
-                  let splittedText = textInfo
-                    .split(".")
-                    .reduce(function(object, property) {
-                      return object[property] || "";
-                    }, item);
-                  return splittedText;
-                });
-                rItem.complexName = textArray.join(", ");
+              if (typeof field.list.complexName !== 'undefined') {
+                const textArray = field.list.complexName.map((textInfo) => {
+                  const splittedText = textInfo
+                    .split('.')
+                    .reduce((object, property) => object[property] || '', item)
+                  return splittedText
+                })
+                rItem.complexName = textArray.join(', ')
               }
-              return rItem;
-            });
+              return rItem
+            })
             if (!field.required) {
-              let nullElement = {};
-              nullElement[field.list.value] = "";
-              nullElement[field.list.text] = "-";
-              field.list.data = [nullElement, ...selectItems];
+              const nullElement = {}
+              nullElement[field.list.value] = ''
+              nullElement[field.list.text] = '-'
+              field.list.data = [nullElement, ...selectItems]
             } else {
-              field.list.data = selectItems;
+              field.list.data = selectItems
             }
-          });
+          })
         }
       }
     }
   },
   computed: {
-    fields() {
-      let filteredFields;
+    fields () {
+      let filteredFields
       filteredFields = this.fieldsInfo.filter(
-        field => field.details != false && field.type != "divider"
-      );
-      let self = this;
-      let result = filteredFields.map(field => {
-        let rField = field;
-        rField.value = this.details.item[field.column];
-        if (field.type == "select") {
-          let defaultVal = field.list.default || 1
+        field => field.details !== false && field.type !== 'divider'
+      )
+      const result = filteredFields.map((field) => {
+        const rField = field
+        rField.value = this.details.item[field.column]
+        if (field.type === 'select') {
+          const defaultVal = field.list.default || 1
           rField.value = field.stringId
             ? this.details.item[field.column]
-            : parseInt(this.details.item[field.column]) || defaultVal;
+            : parseInt(this.details.item[field.column]) || defaultVal
         }
-        if (field.apiObject){
-          if (field.apiObject.useFunctionsInDetails){
-            let functions = field.apiObject.functions || []
-            let availableFunctions = fieldModifiers
+        if (field.apiObject) {
+          if (field.apiObject.useFunctionsInDetails) {
+            const functions = field.apiObject.functions || []
+            const availableFunctions = fieldModifiers
 
             for (let i = 0; i < functions.length; i++) {
-              let functionName = functions[i]
+              const functionName = functions[i]
               rField.value = availableFunctions[functionName](rField.value)
             }
           }
         }
-        return rField;
-      });
-      return result;
+        return rField
+      })
+      return result
     },
-    itemData() {
-      let self = this;
-      let result = {};
-      for (let field of this.fields) {
-        result[field.column] = field.value ? field.value : null;
+    itemData () {
+      const result = {}
+      for (const field of this.fields) {
+        result[field.column] = field.value ? field.value : null
       }
-      //result.files = self.files
-      return result;
+      // result.files = self.files
+      return result
     },
-    rules() {
-      let self = this;
+    rules () {
+      const self = this
       return {
-        input: [v => !!v || self.$t("global.details.rules.required")],
-        required: v => !!v || self.$t("global.details.rules.required")
-      };
+        input: [v => !!v || self.$t('global.details.rules.required')],
+        required: v => !!v || self.$t('global.details.rules.required')
+      }
     }
   },
   watch: {
     details: {
-      handler(val) {
-        if (val.show == true && val.action == 'edit') {
-          for (let field of this.fields) {
-            if (field.type == "select") {
+      handler (val) {
+        if (val.show === true && val.action === 'edit') {
+          for (const field of this.fields) {
+            if (field.type === 'select') {
               if (field.async) {
-                field.list.oldSearch = "";
-                let data;
-                let url = field.url + "/id/" + field.value;
-                Vue.http.get(url).then(response => {
-                  let items = response.body;
-                  if (typeof field.list.complexName != "undefined") {
-                    data = items.map(item => {
-                      let rItem = item;
-                      let textArray = field.list.complexName.map(textInfo => {
-                        let splittedText = textInfo
-                          .split(".")
-                          .reduce(function(object, property) {
-                            return object[property] || "";
-                          }, item);
-                        return splittedText;
-                      });
-                      rItem.complexName = textArray.join(", ");
-                      return rItem;
-                    });
+                field.list.oldSearch = ''
+                let data
+                const url = `${field.url}/id/${field.value}`
+                Vue.http.get(url).then((response) => {
+                  const items = response.body
+                  if (typeof field.list.complexName !== 'undefined') {
+                    data = items.map((item) => {
+                      const rItem = item
+                      const textArray = field.list.complexName.map((textInfo) => {
+                        const splittedText = textInfo
+                          .split('.')
+                          .reduce((object, property) => object[property] || '', item)
+                        return splittedText
+                      })
+                      rItem.complexName = textArray.join(', ')
+                      return rItem
+                    })
                   } else {
-                    data = items;
+                    data = items
                   }
-                  this.$set(this.searchData, "search_" + field.name, data);
-                });
+                  this.$set(this.searchData, `search_${field.name}`, data)
+                })
               }
             }
           }
@@ -313,36 +305,34 @@ export default {
       deep: true
     },
     searchPhrases: {
-      handler(val) {
-        for (let field of this.fields) {
-          if (field.type == "select") {
+      handler (val) {
+        for (const field of this.fields) {
+          if (field.type === 'select') {
             if (field.async) {
-              if (val["search_" + field.name] != undefined) {
-                let url = field.url + "/phrase/" + val["search_" + field.name];
-                this.$set(this.searchLoading, "search_" + field.name, true);
-                Vue.http.get(url).then(response => {
-                  this.$set(this.searchLoading, "search_" + field.name, false);
-                  let items = response.body;
+              if (val[`search_${field.name}`] !== undefined) {
+                const url = `${field.url}/phrase/${val[`search_${field.name}`]}`
+                this.$set(this.searchLoading, `search_${field.name}`, true)
+                Vue.http.get(url).then((response) => {
+                  this.$set(this.searchLoading, `search_${field.name}`, false)
+                  const items = response.body
                   let data
-                  if (typeof field.list.complexName != "undefined") {
-                    data = items.map(item => {
-                      let rItem = item;
-                      let textArray = field.list.complexName.map(textInfo => {
-                        let splittedText = textInfo
-                          .split(".")
-                          .reduce(function(object, property) {
-                            return object[property] || "";
-                          }, item);
-                        return splittedText;
-                      });
-                      rItem.complexName = textArray.join(", ");
-                      return rItem;
-                    });
+                  if (typeof field.list.complexName !== 'undefined') {
+                    data = items.map((item) => {
+                      const rItem = item
+                      const textArray = field.list.complexName.map((textInfo) => {
+                        const splittedText = textInfo
+                          .split('.')
+                          .reduce((object, property) => object[property] || '', item)
+                        return splittedText
+                      })
+                      rItem.complexName = textArray.join(', ')
+                      return rItem
+                    })
                   } else {
-                    data = items;
+                    data = items
                   }
-                  this.$set(this.searchData, "search_" + field.name, data);
-                });
+                  this.$set(this.searchData, `search_${field.name}`, data)
+                })
               }
             }
           }
@@ -352,28 +342,28 @@ export default {
     }
   },
   methods: {
-    fieldRules(field) {
-      let rules = []
-      let required = field.required != undefined ? field.required : true;
+    fieldRules (field) {
+      const rules = []
+      const required = field.required !== undefined ? field.required : true
       if (required) {
         rules.push(this.rules.required)
       }
       return rules
     },
-    reset() {
-      this.$parent.reset();
+    reset () {
+      this.$parent.reset()
     },
-    close() {
-      this.$parent.close();
+    close () {
+      this.$parent.close()
     },
-    update() {
-      this.$parent.update(this.details.id, this.itemData);
+    update () {
+      this.$parent.update(this.details.id, this.itemData)
     },
-    store() {
-      this.$parent.store(this.itemData);
+    store () {
+      this.$parent.store(this.itemData)
     }
-  },
-};
+  }
+}
 </script>
 <style scoped>
 .checkbox-label {

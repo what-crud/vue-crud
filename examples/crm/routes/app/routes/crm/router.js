@@ -18,61 +18,61 @@ import PersonCommentTypes from './routes/person-comment-types/Index.vue'
 import Tasks from './routes/tasks/Index.vue'
 
 let crmRoutes = [
-    {
-        path: 'companies',
-        name: 'companies',
-        component: Companies,
-    },
-    {
-        path: 'people',
-        name: 'people',
-        component: People,
-    },
-    {
-        path: 'positions',
-        name: 'positions',
-        component: Positions,
-    },
-    {
-        path: 'company-comments',
-        name: 'companyComments',
-        component: CompanyComments,
-    },
-    {
-        path: 'person-comments',
-        name: 'personComments',
-        component: PersonComments,
-    },
-    {
-        path: 'position-tasks',
-        name: 'positionTasks',
-        component: PositionTasks,
-    },
-    {
-        path: 'company-files',
-        name: 'companyFiles',
-        component: CompanyFiles,
-    },
-    {
-        path: 'company-types',
-        name: 'companyTypes',
-        component: CompanyTypes,
-    },
-    {
-        path: 'company-comment-types',
-        name: 'companyCommentTypes',
-        component: CompanyCommentTypes,
-    },
-    {
-        path: 'person-comment-types',
-        name: 'personCommentTypes',
-        component: PersonCommentTypes,
-    },
-    {
-        path: 'tasks',
-        name: 'tasks',
-        component: Tasks,
-    },
-];
+  {
+    path: 'companies',
+    name: 'companies',
+    component: Companies
+  },
+  {
+    path: 'people',
+    name: 'people',
+    component: People
+  },
+  {
+    path: 'positions',
+    name: 'positions',
+    component: Positions
+  },
+  {
+    path: 'company-comments',
+    name: 'companyComments',
+    component: CompanyComments
+  },
+  {
+    path: 'person-comments',
+    name: 'personComments',
+    component: PersonComments
+  },
+  {
+    path: 'position-tasks',
+    name: 'positionTasks',
+    component: PositionTasks
+  },
+  {
+    path: 'company-files',
+    name: 'companyFiles',
+    component: CompanyFiles
+  },
+  {
+    path: 'company-types',
+    name: 'companyTypes',
+    component: CompanyTypes
+  },
+  {
+    path: 'company-comment-types',
+    name: 'companyCommentTypes',
+    component: CompanyCommentTypes
+  },
+  {
+    path: 'person-comment-types',
+    name: 'personCommentTypes',
+    component: PersonCommentTypes
+  },
+  {
+    path: 'tasks',
+    name: 'tasks',
+    component: Tasks
+  }
+]
 
-export default crmRoutes;
+export default crmRoutes

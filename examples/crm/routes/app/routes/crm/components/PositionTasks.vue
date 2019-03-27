@@ -52,7 +52,9 @@
             </template>
           </td>
           <!-- table fields -->
-          <td v-if="!['id', 'connectionId'].includes(key)" v-for="(field, key) in props.item" :key="key" class="text-xs-center" v-html="field"></td>
+          <template v-for="(field, key) in props.item">
+            <td v-if="!['id', 'connectionId'].includes(key)" :key="key" class="text-xs-center" v-html="field"></td>
+          </template>
         </template>
         <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
           {{ $t('records') }} {{ pageStart }} - {{ pageStop }} {{ $t('from') }} {{ itemsLength }}
@@ -66,182 +68,180 @@
   </v-dialog>
 </template>
 <script>
-  import {
-    mapState,
-    mapGetters,
-    mapMutations,
-    mapActions
-  } from 'vuex'
+import {
+  mapState,
+  mapActions
+} from 'vuex'
 
-  export default {
-    props: [
-    ],
-    data() {
-      return {
-        selected: [],
-        tmp: '',
-        search: '',
-        pagination: {
-          sortBy: 'added',
-          descending: true
+export default {
+  props: [
+  ],
+  data () {
+    return {
+      selected: [],
+      tmp: '',
+      search: '',
+      pagination: {
+        sortBy: 'added',
+        descending: true
+      }
+    }
+  },
+  computed: {
+    ...mapState('crm', [
+      'tasks'
+    ]),
+    headers () {
+      return [
+        {
+          text: this.$t('fields.action'),
+          align: 'center',
+          sortable: false
         },
-      }
-    },
-    computed: {
-      ...mapState('crm', [
-        'tasks',
-      ]),
-      headers() {
-        return [
-          {
-            text: this.$t('fields.action'),
-            align: 'center',
-            sortable: false,
-          },
-          {
-            text: this.$t('fields.task'),
-            align: 'center',
-            value: 'task'
-          },
-          {
-            text: this.$t('fields.added'),
-            value: 'added'
-          }
-        ]
-      },
-      items() {
-        let items = this.tasks.data.map(item => {
-          let rItem = {}
-          rItem.id = item.id
-          rItem.task = item.name
-          if (typeof item.task_positions != 'undefined') {
-            if (item.task_positions.length > 0) {
-              rItem.added = '<span hidden>1</span>Tak'
-              rItem.connectionId = item.task_positions[0].id
-            } else {
-              rItem.added = '<span hidden>0</span>Nie'
-            }
-          }
-          return rItem
-        })
-        return items
-      }
-    },
-    methods: {
-      ...mapActions('crm', [
-        'addPositionTask',
-        'removePositionTask',
-        'addManyPositionTasks',
-        'removeManyPositionTasks'
-      ]),
-      add(taskId) {
-        let obj = {
-          'position_id': this.tasks.positionId,
-          'task_id': taskId
+        {
+          text: this.$t('fields.task'),
+          align: 'center',
+          value: 'task'
+        },
+        {
+          text: this.$t('fields.added'),
+          value: 'added'
         }
-        this.addPositionTask([
-          this.tasks.positionId,
-          obj,
-          this.$t('global.alerts.added')
-        ])
-      },
-      remove(id) {
-        this.removePositionTask([
-          id,
-          this.tasks.positionId,
-          this.$t('global.alerts.removed')
-        ])
-      },
-      addMany() {
-        let obj = this.selected.filter(item => item.connectionId == undefined).map(item => {
-          let rItem = {
-            'position_id': this.tasks.positionId,
-            'task_id': item.id
-          }
-          return rItem
-        })
-        this.addManyPositionTasks([
-          {
-            items: obj
-          },
-          this.$t('global.alerts.added'),
-          this.$t('global.alerts.addError')
-        ])
-        this.clearSelected()
-      },
-      removeMany() {
-        let obj = this.selected.filter(item => item.connectionId !== undefined).map(item => item.connectionId)
-        this.removeManyPositionTasks([
-          {
-            ids: obj,
-          },
-          this.$t('global.alerts.added'),
-          this.$t('global.alerts.addError')
-        ])
-        this.clearSelected()
-      },
-      close() {
-        this.tasks.show = false
-      },
-      clearSelected() {
-        this.selected = []
-      }
+      ]
     },
-    i18n: {
-      messages: {
-        pl: {
-          noItemsSelected: 'Nie wybrano żadnego elementu',
-          confirm: 'Czy na pewno chcesz to zrobić?',
-          fields: {
-            action: 'Akcja',
-            name: 'Nazwa',
-            task: 'Zadanie',
-            added: 'Dodano'
-          },
-          search: "Szukaj",
-          noMatchingResults: "Nie znaleziono pasujących rekordów",
-          noDataAvailable: "Brak danych",
-          rowsPerPageText: "Rekordów na stronę:",
-          records: "Rekordy",
-          from: "z",
-          add: "Dodaj",
-          all: "Wszystko",
-          buttons: {
-            remove: 'Usuń',
-            add: 'Dodaj',
-            removeMany: 'Usuń wiele',
-            addMany: 'Dodaj wiele',
-            close: 'Zamknij'
-          },
+    items () {
+      let items = this.tasks.data.map(item => {
+        let rItem = {}
+        rItem.id = item.id
+        rItem.task = item.name
+        if (typeof item.task_positions !== 'undefined') {
+          if (item.task_positions.length > 0) {
+            rItem.added = '<span hidden>1</span>Tak'
+            rItem.connectionId = item.task_positions[0].id
+          } else {
+            rItem.added = '<span hidden>0</span>Nie'
+          }
+        }
+        return rItem
+      })
+      return items
+    }
+  },
+  methods: {
+    ...mapActions('crm', [
+      'addPositionTask',
+      'removePositionTask',
+      'addManyPositionTasks',
+      'removeManyPositionTasks'
+    ]),
+    add (taskId) {
+      let obj = {
+        'position_id': this.tasks.positionId,
+        'task_id': taskId
+      }
+      this.addPositionTask([
+        this.tasks.positionId,
+        obj,
+        this.$t('global.alerts.added')
+      ])
+    },
+    remove (id) {
+      this.removePositionTask([
+        id,
+        this.tasks.positionId,
+        this.$t('global.alerts.removed')
+      ])
+    },
+    addMany () {
+      let obj = this.selected.filter(item => item.connectionId === undefined).map(item => {
+        let rItem = {
+          'position_id': this.tasks.positionId,
+          'task_id': item.id
+        }
+        return rItem
+      })
+      this.addManyPositionTasks([
+        {
+          items: obj
         },
-        en: {
-          noItemsSelected: 'No items selected',
-          confirm: 'Are you sure?',
-          fields: {
-            action: 'Action',
-            name: 'Name',
-            task: 'Task',
-            added: 'Added'
-          },
-          search: "Search",
-          noMatchingResults: "No matching records found",
-          noDataAvailable: "No data available",
-          rowsPerPageText: "Rows per page:",
-          records: "Records",
-          from: "from",
-          add: "Add",
-          all: "All",
-          buttons: {
-            remove: 'Dalete',
-            add: 'Add',
-            removeMany: 'Delete many',
-            addMany: 'Add many',
-            close: 'Close'
-          },
+        this.$t('global.alerts.added'),
+        this.$t('global.alerts.addError')
+      ])
+      this.clearSelected()
+    },
+    removeMany () {
+      let obj = this.selected.filter(item => item.connectionId !== undefined).map(item => item.connectionId)
+      this.removeManyPositionTasks([
+        {
+          ids: obj
         },
+        this.$t('global.alerts.added'),
+        this.$t('global.alerts.addError')
+      ])
+      this.clearSelected()
+    },
+    close () {
+      this.tasks.show = false
+    },
+    clearSelected () {
+      this.selected = []
+    }
+  },
+  i18n: {
+    messages: {
+      pl: {
+        noItemsSelected: 'Nie wybrano żadnego elementu',
+        confirm: 'Czy na pewno chcesz to zrobić?',
+        fields: {
+          action: 'Akcja',
+          name: 'Nazwa',
+          task: 'Zadanie',
+          added: 'Dodano'
+        },
+        search: 'Szukaj',
+        noMatchingResults: 'Nie znaleziono pasujących rekordów',
+        noDataAvailable: 'Brak danych',
+        rowsPerPageText: 'Rekordów na stronę:',
+        records: 'Rekordy',
+        from: 'z',
+        add: 'Dodaj',
+        all: 'Wszystko',
+        buttons: {
+          remove: 'Usuń',
+          add: 'Dodaj',
+          removeMany: 'Usuń wiele',
+          addMany: 'Dodaj wiele',
+          close: 'Zamknij'
+        }
+      },
+      en: {
+        noItemsSelected: 'No items selected',
+        confirm: 'Are you sure?',
+        fields: {
+          action: 'Action',
+          name: 'Name',
+          task: 'Task',
+          added: 'Added'
+        },
+        search: 'Search',
+        noMatchingResults: 'No matching records found',
+        noDataAvailable: 'No data available',
+        rowsPerPageText: 'Rows per page:',
+        records: 'Records',
+        from: 'from',
+        add: 'Add',
+        all: 'All',
+        buttons: {
+          remove: 'Dalete',
+          add: 'Add',
+          removeMany: 'Delete many',
+          addMany: 'Add many',
+          close: 'Close'
+        }
       }
     }
   }
+}
 
 </script>
 <style scoped>

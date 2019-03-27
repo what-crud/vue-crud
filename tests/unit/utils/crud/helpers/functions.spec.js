@@ -2,7 +2,7 @@ import {
   parseIntIfNumber,
   download,
   humanFileSize
-} from '@/utils/crud/helpers/functions.js'
+} from '@/utils/crud/helpers/functions'
 
 describe('parseIntIfNumber', () => {
   it('float', () => {

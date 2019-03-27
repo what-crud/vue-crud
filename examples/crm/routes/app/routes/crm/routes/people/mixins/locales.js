@@ -15,7 +15,7 @@ export default {
           sex: 'Płeć',
           language: 'Język',
           email: 'E-mail',
-          phone: 'Telefon',
+          phone: 'Telefon'
         }
       },
       en: {
@@ -32,9 +32,9 @@ export default {
           sex: 'Sex',
           language: 'Language',
           email: 'E-mail',
-          phone: 'Phone',
+          phone: 'Phone'
         }
       }
     }
-  },
+  }
 }

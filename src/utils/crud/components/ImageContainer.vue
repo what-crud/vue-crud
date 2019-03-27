@@ -21,35 +21,35 @@
 </template>
 
 <script>
-  import {
-    humanFileSize
-  } from '../helpers/functions'
-  import {
-    mapState,
-    mapMutations
-  } from 'vuex'
+import {
+  mapState,
+  mapMutations
+} from 'vuex'
+import {
+  humanFileSize
+} from '../helpers/functions'
 
-  export default {
-    computed: {
-      ...mapState('crud', [
-        'filesPath'
-      ]),
-      ...mapState('crud', [
-        'imageContainer'
-      ]),
-      image() {
-        return this.imageContainer.show ? this.filesPath + this.imageContainer.item.path + '/' + this.imageContainer.item.filename : ''
-      }
-    },
-    filters: {
-      fileSize(size) {
-        return humanFileSize(size)
-      }
-    },
-    methods: {
-      ...mapMutations('crud', [
-        'closeImageContainer'
-      ])
-    },
+export default {
+  computed: {
+    ...mapState('crud', [
+      'filesPath'
+    ]),
+    ...mapState('crud', [
+      'imageContainer'
+    ]),
+    image () {
+      return this.imageContainer.show ? `${this.filesPath + this.imageContainer.item.path}/${this.imageContainer.item.filename}` : ''
+    }
+  },
+  filters: {
+    fileSize (size) {
+      return humanFileSize(size)
+    }
+  },
+  methods: {
+    ...mapMutations('crud', [
+      'closeImageContainer'
+    ])
   }
+}
 </script>

@@ -1,6 +1,6 @@
 export default {
   computed: {
-    itemElements() {
+    itemElements () {
       return {
         positionTasks: {
           title: this.$t('itemElements.positionTasks.title'),
@@ -11,8 +11,8 @@ export default {
             {
               obj: 'name',
               name: 'task',
-              header: this.$t('itemElements.positionTasks.headers.task'),
-            },
+              header: this.$t('itemElements.positionTasks.headers.task')
+            }
           ],
           primaryId: 'position_id',
           foreignId: 'task_id',
@@ -21,6 +21,6 @@ export default {
           buttonText: this.$t('itemElements.positionTasks.title')
         }
       }
-    },
+    }
   }
 }

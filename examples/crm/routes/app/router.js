@@ -5,25 +5,25 @@ import Administration from './routes/administration/Index.vue'
 import administrationRoutes from './routes/administration/router'
 
 let appRoutes = [
-    {
-        path: 'home',
-        name: 'home',
-        component: Home
-    },
-    {
-        path: 'crm',
-        name: 'crm',
-        component: Crm,
-        children: crmRoutes,
-        meta: {guard: 'CRM'}
-    },
-    {
-        path: 'administration',
-        name: 'administration',
-        component: Administration,
-        children: administrationRoutes,
-        meta: {guard: 'ADMIN'}
-    },
-];
+  {
+    path: 'home',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: 'crm',
+    name: 'crm',
+    component: Crm,
+    children: crmRoutes,
+    meta: { guard: 'CRM' }
+  },
+  {
+    path: 'administration',
+    name: 'administration',
+    component: Administration,
+    children: administrationRoutes,
+    meta: { guard: 'ADMIN' }
+  }
+]
 
-export default appRoutes;
+export default appRoutes

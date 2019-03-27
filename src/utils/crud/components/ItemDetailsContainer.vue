@@ -48,66 +48,65 @@
 </template>
 
 <script>
-  import {
-    mapState,
-    mapGetters,
-    mapMutations,
-    mapActions
-  } from 'vuex'
-  import ItemDetailsExtended from '@/utils/crud/components/ItemDetailsExtended.vue'
+import {
+  mapState,
+  mapMutations,
+  mapActions
+} from 'vuex'
+import ItemDetailsExtended from '@/utils/crud/components/ItemDetailsExtended.vue'
 
-  export default {
-    name: 'item-details',
-    components: {
-      ItemDetailsExtended
-    },
-    props: [
-      'fields',
-      'basicInformation',
-      'title'
-    ],
-    data() {
-      return {}
-    },
-    computed: {
-      ...mapState('crud', [
-        'item',
-        'itemIdColumn',
-        'detailsLoading',
-        'detailsDialog',
-      ]),
-    },
-    methods: {
-      ...mapActions('crud', [
-        'getItems',
-        "getItemDetails",
-      ]),
-      ...mapMutations('crud', [
-        'hideItemDetailsDialog',
-        'setIdColumn',
-        'setChildItemsMapping',
-        'moveItem',
-        'setNextItem'
-      ]),
-      escapeHandler(event) {
-        if (event.which == 27) {
-          this.close()
-        }
-      },
-      refresh() {
-       this.getItemDetails([this.item[this.itemIdColumn]])
-      },
-      close() {
-        this.hideItemDetailsDialog()
-      },
-      previous() {
-        this.moveItem(['previous', true])
-      },
-      next() {
-        this.moveItem(['next', true])
+export default {
+  name: 'item-details',
+  components: {
+    ItemDetailsExtended
+  },
+  props: [
+    'fields',
+    'basicInformation',
+    'title'
+  ],
+  data () {
+    return {}
+  },
+  computed: {
+    ...mapState('crud', [
+      'item',
+      'itemIdColumn',
+      'detailsLoading',
+      'detailsDialog'
+    ])
+  },
+  methods: {
+    ...mapActions('crud', [
+      'getItems',
+      'getItemDetails'
+    ]),
+    ...mapMutations('crud', [
+      'hideItemDetailsDialog',
+      'setIdColumn',
+      'setChildItemsMapping',
+      'moveItem',
+      'setNextItem'
+    ]),
+    escapeHandler (event) {
+      if (event.which === 27) {
+        this.close()
       }
     },
+    refresh () {
+      this.getItemDetails([this.item[this.itemIdColumn]])
+    },
+    close () {
+      this.hideItemDetailsDialog()
+    },
+    previous () {
+      this.moveItem(['previous', true])
+    },
+    next () {
+      this.moveItem(['next', true])
+    }
   }
+}
 
 </script>
 <style scoped>

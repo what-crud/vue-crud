@@ -6,24 +6,24 @@
   </v-container>
 </template>
 <script>
-  import {
-    mapMutations,
-  } from 'vuex'
+import {
+  mapMutations
+} from 'vuex'
 
-  export default {
-    data() {
-      return {}
-    },
-    created() {
-      this.setModule('home.name')
-      this.setPage(null)
-    },
-    methods: {
-      ...mapMutations('app', [
-        'setModule',
-        'setPage'
-      ]),
-    },
+export default {
+  data () {
+    return {}
+  },
+  created () {
+    this.setModule('home.name')
+    this.setPage(null)
+  },
+  methods: {
+    ...mapMutations('app', [
+      'setModule',
+      'setPage'
+    ])
   }
+}
 
 </script>
