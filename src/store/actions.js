@@ -1,5 +1,5 @@
 const actions = {
-  openAlertBox ({ commit }, alertType, data) {
+  openAlertBox ({ commit }, [alertType, data]) {
     if (['alertSuccess', 'alertValidationError', 'alertError'].includes(alertType)) {
       commit(alertType, data)
     }

@@ -178,7 +178,7 @@ export default {
     },
     checkSelected () {
       if (this.selected.length === 0) {
-        this.openAlertBox('alertError', this.$t('global.datatable.noItemsSelected'))
+        this.openAlertBox(['alertError', this.$t('global.datatable.noItemsSelected')])
         return false
       }
       if (confirm(this.$t('global.datatable.confirm'))) {
@@ -188,7 +188,7 @@ export default {
     },
     editSelected () {
       if (this.selected.length === 0) {
-        this.openAlertBox('alertError', this.$t('global.datatable.noItemsSelected'))
+        this.openAlertBox(['alertError', this.$t('global.datatable.noItemsSelected')])
         return false
       }
 

@@ -107,7 +107,7 @@ export default {
     resetPassword (item) {
       Vue.http.put(this.prefix + '/' + this.path + '/' + item.id + '/reset-password')
         .then((response) => {
-          this.openAlertBox('alertSuccess', this.$t('passwordReseted'))
+          this.openAlertBox(['alertSuccess', this.$t('passwordReseted')])
           this.getItems()
         })
     }

@@ -25,8 +25,10 @@ const mutations = {
     state.logged = 0
     state.user = null
     state.token = null
+    state.permissions = null
     localStorage.removeItem('token')
     localStorage.removeItem('user')
+    localStorage.removeItem('permissions')
   },
   editUser (state, data) {
     const user = JSON.stringify(data)

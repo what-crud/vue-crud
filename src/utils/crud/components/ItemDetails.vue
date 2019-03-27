@@ -490,9 +490,9 @@ export default {
           } else {
             this.$set(this.uploadStatuses, field.name, 'error')
             if (response.body.status === -1) {
-              this.openAlertBox('alertError', response.body.msg)
+              this.openAlertBox(['alertError', response.body.msg])
             } else if (response.body.status === -2) {
-              this.openAlertBox('alertValidationError', response.body.msg)
+              this.openAlertBox(['alertValidationError', response.body.msg])
             }
           }
           this.$set(this.uploadLoaders, field.name, false)

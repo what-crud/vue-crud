@@ -227,7 +227,7 @@ export default {
       let filteredItems
       Vue.http.post(`${this.prefix}/${this.path}/search`, params)
         .then((response) => {
-          const items = response.body
+          const items = response.body.data
           filteredItems = items.map(obj => getItemsList(obj, this.tableFields, this.meta, this.primaryKey, this.customButtons, this.activeColumnName))
           const data = filteredItems.map((item) => {
             const row = []
@@ -248,7 +248,7 @@ export default {
           })
         }, (error) => {
           this.excelLoading = false
-          this.openAlertBox('alertError', error.statusText)
+          this.openAlertBox(['alertError', error.statusText])
         })
     }
   }

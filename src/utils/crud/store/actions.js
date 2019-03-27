@@ -9,7 +9,7 @@ const actions = {
         commit('setItems', response.body)
         commit('setLoadingStatus', false)
       }, (error) => {
-        dispatch('openAlertBox', 'alertError', error.statusText, { root: true })
+        dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
       })
   },
   getItemsServerSide ({ commit, getters, dispatch }, [params]) {
@@ -20,7 +20,7 @@ const actions = {
           commit('setItemsServerSide', response.body)
           resolve()
         }, (error) => {
-          dispatch('openAlertBox', 'alertError', error.statusText, { root: true })
+          dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
           reject(error)
         })
     })
@@ -35,7 +35,7 @@ const actions = {
           commit('setDetailsLoader', false)
           resolve()
         }, (error) => {
-          dispatch('openAlertBox', 'alertError', error.statusText, { root: true })
+          dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
           reject(error)
         })
     })
@@ -47,16 +47,16 @@ const actions = {
       Vue.http.put(`${getters.path('u')}/${id}`, params)
         .then((response) => {
           if (response.body.status === 0) {
-            dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+            dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
             dispatch('runTableRefreshing')
             resolve()
           } else if (response.body.status === -1) {
-            dispatch('openAlertBox', 'alertError', response.body.msg, { root: true })
+            dispatch('openAlertBox', ['alertError', response.body.msg], { root: true })
           } else if (response.body.status === -2) {
-            dispatch('openAlertBox', 'alertValidationError', response.body.msg, { root: true })
+            dispatch('openAlertBox', ['alertValidationError', response.body.msg], { root: true })
           }
         }, (error) => {
-          dispatch('openAlertBox', 'alertError', errorText, { root: true })
+          dispatch('openAlertBox', ['alertError', errorText], { root: true })
           reject(error)
         })
     })
@@ -68,19 +68,19 @@ const actions = {
       Vue.http.post(getters.path('st'), params)
         .then((response) => {
           if (response.body.status === 0) {
-            dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+            dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
             dispatch('runTableRefreshing')
             resolve()
           } else if (response.body.status === -1) {
-            dispatch('openAlertBox', 'alertError', response.body.msg, { root: true })
+            dispatch('openAlertBox', ['alertError', response.body.msg], { root: true })
           } else if (response.body.status === -2) {
-            dispatch('openAlertBox', 'alertValidationError', response.body.msg, { root: true })
+            dispatch('openAlertBox', ['alertValidationError', response.body.msg], { root: true })
           }
           if (state.createdElement.mode === 'inform') {
             commit('setCreatedItemStatus', [true, response.body.id])
           }
         }, (error) => {
-          dispatch('openAlertBox', 'alertError', errorText, { root: true })
+          dispatch('openAlertBox', ['alertError', errorText], { root: true })
           reject(error)
         })
     })
@@ -90,10 +90,10 @@ const actions = {
   }, [id, successText, errorText]) {
     Vue.http.delete(`${getters.path('d')}/${id}`)
       .then(() => {
-        dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+        dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
         dispatch('runTableRefreshing')
       }, () => {
-        dispatch('openAlertBox', 'alertError', errorText, { root: true })
+        dispatch('openAlertBox', ['alertError', errorText], { root: true })
       })
   },
   mulitipleItemsUpdate ({
@@ -101,10 +101,10 @@ const actions = {
   }, [params, successText, errorText]) {
     Vue.http.post(`${getters.path('mu')}/multiple-update`, params)
       .then(() => {
-        dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+        dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
         dispatch('runTableRefreshing')
       }, () => {
-        dispatch('openAlertBox', 'alertError', errorText, { root: true })
+        dispatch('openAlertBox', ['alertError', errorText], { root: true })
       })
   },
   mulitipleItemsDelete ({
@@ -112,10 +112,10 @@ const actions = {
   }, [ids, successText, errorText]) {
     Vue.http.post(`${getters.path('md')}/multiple-delete`, ids)
       .then(() => {
-        dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+        dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
         dispatch('runTableRefreshing')
       }, () => {
-        dispatch('openAlertBox', 'alertError', errorText, { root: true })
+        dispatch('openAlertBox', ['alertError', errorText], { root: true })
       })
   },
   // item elements
@@ -129,10 +129,10 @@ const actions = {
   }, [params, successText, errorText]) {
     Vue.http.post(state.itemElements.controller, params)
       .then(() => {
-        dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+        dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
         dispatch('getItemElements')
       }, () => {
-        dispatch('openAlertBox', 'alertError', errorText, { root: true })
+        dispatch('openAlertBox', ['alertError', errorText], { root: true })
       })
   },
   removeItemElement ({
@@ -140,10 +140,10 @@ const actions = {
   }, [id, successText, errorText]) {
     Vue.http.delete(`${state.itemElements.controller}/${id}`)
       .then(() => {
-        dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+        dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
         dispatch('getItemElements')
       }, () => {
-        dispatch('openAlertBox', 'alertError', errorText, { root: true })
+        dispatch('openAlertBox', ['alertError', errorText], { root: true })
       })
   },
   addManyItemElements ({
@@ -151,10 +151,10 @@ const actions = {
   }, [params, successText, errorText]) {
     Vue.http.post(`${state.itemElements.controller}/multiple-add`, params)
       .then(() => {
-        dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+        dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
         dispatch('getItemElements')
       }, () => {
-        dispatch('openAlertBox', 'alertError', errorText, { root: true })
+        dispatch('openAlertBox', ['alertError', errorText], { root: true })
       })
   },
   removeManyItemElements ({
@@ -162,10 +162,10 @@ const actions = {
   }, [ids, successText, errorText]) {
     Vue.http.post(`${state.itemElements.controller}/multiple-delete`, ids)
       .then(() => {
-        dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+        dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
         dispatch('getItemElements')
       }, () => {
-        dispatch('openAlertBox', 'alertError', errorText, { root: true })
+        dispatch('openAlertBox', ['alertError', errorText], { root: true })
       })
   },
   // extented details
@@ -178,7 +178,7 @@ const actions = {
           commit('setDetailsLoader', false)
           resolve()
         }, (error) => {
-          dispatch('openAlertBox', 'alertError', error.statusText, { root: true })
+          dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
           reject(error)
         })
     })
@@ -189,15 +189,15 @@ const actions = {
     Vue.http.put(`${getters.path('u')}/${id}`, params)
       .then((response) => {
         if (response.body.status === 0) {
-          dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+          dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
         } else if (response.body.status === -1) {
-          dispatch('openAlertBox', 'alertError', response.body.msg, { root: true })
+          dispatch('openAlertBox', ['alertError', response.body.msg], { root: true })
         } else if (response.body.status === -2) {
-          dispatch('openAlertBox', 'alertValidationError', response.body.msg, { root: true })
+          dispatch('openAlertBox', ['alertValidationError', response.body.msg], { root: true })
         }
         dispatch('getItemDetails', [state.item[state.itemIdColumn]])
       }, (error) => {
-        dispatch('openAlertBox', 'alertError', error.statusText, { root: true })
+        dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
       })
   },
   // child details
@@ -208,16 +208,16 @@ const actions = {
       Vue.http.put(`${path}/${id}`, params)
         .then((response) => {
           if (response.body.status === 0) {
-            dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+            dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
             resolve()
           } else if (response.body.status === -1) {
-            dispatch('openAlertBox', 'alertError', response.body.msg, { root: true })
+            dispatch('openAlertBox', ['alertError', response.body.msg], { root: true })
           } else if (response.body.status === -2) {
-            dispatch('openAlertBox', 'alertValidationError', response.body.msg, { root: true })
+            dispatch('openAlertBox', ['alertValidationError', response.body.msg], { root: true })
           }
           dispatch('getItemDetails', [state.item[state.itemIdColumn]])
         }, (error) => {
-          dispatch('openAlertBox', 'alertError', error.statusText, { root: true })
+          dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
           reject(error)
         })
     })
@@ -228,15 +228,15 @@ const actions = {
     Vue.http.delete(`${path}/${id}`)
       .then((response) => {
         if (response.body.status === 0) {
-          dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+          dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
         } else if (response.body.status === -1) {
-          dispatch('openAlertBox', 'alertError', response.body.msg, { root: true })
+          dispatch('openAlertBox', ['alertError', response.body.msg], { root: true })
         } else if (response.body.status === -2) {
-          dispatch('openAlertBox', 'alertValidationError', response.body.msg, { root: true })
+          dispatch('openAlertBox', ['alertValidationError', response.body.msg], { root: true })
         }
         dispatch('getItemDetails', [state.item[state.itemIdColumn]])
       }, () => {
-        dispatch('openAlertBox', 'alertError', errorText, { root: true })
+        dispatch('openAlertBox', ['alertError', errorText], { root: true })
       })
   },
   storeChild ({
@@ -246,16 +246,16 @@ const actions = {
       Vue.http.post(path, params)
         .then((response) => {
           if (response.body.status === 0) {
-            dispatch('openAlertBox', 'alertSuccess', successText, { root: true })
+            dispatch('openAlertBox', ['alertSuccess', successText], { root: true })
             resolve()
           } else if (response.body.status === -1) {
-            dispatch('openAlertBox', 'alertError', response.body.msg, { root: true })
+            dispatch('openAlertBox', ['alertError', response.body.msg], { root: true })
           } else if (response.body.status === -2) {
-            dispatch('openAlertBox', 'alertValidationError', response.body.msg, { root: true })
+            dispatch('openAlertBox', ['alertValidationError', response.body.msg], { root: true })
           }
           dispatch('getItemDetails', [state.item[state.itemIdColumn]])
         }, (error) => {
-          dispatch('openAlertBox', 'alertError', error.statusText, { root: true })
+          dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
           reject(error)
         })
     })
@@ -267,7 +267,7 @@ const actions = {
           commit('setChild', [response.body, childItemName])
           resolve()
         }, (error) => {
-          dispatch('openAlertBox', 'alertError', error.statusText, { root: true })
+          dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
         })
     })
   },
