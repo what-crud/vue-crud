@@ -5,7 +5,13 @@ const getters = {
     const result = !!(roleCode === undefined || getters.userPermissions.filter(el => el === roleCode).length > 0)
     return result
   },
-  userInfo: state => JSON.parse(state.user),
+  userInfo: state => {
+    return JSON.parse(state.user) || {
+      active: null,
+      email: null,
+      name: null
+    }
+  },
   userUpdated: state => state.userUpdated,
   userPasswordUpdated: state => state.userPasswordUpdated,
   userPasswordUpdateError: state => state.userPasswordUpdateError,
