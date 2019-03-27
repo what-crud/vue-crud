@@ -8,7 +8,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "load-template": "node template-loader.js"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
@@ -36,6 +37,7 @@
     "babel-jest": "^23.6.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "fs-extra": "^7.0.1",
     "script-loader": "^0.7.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
