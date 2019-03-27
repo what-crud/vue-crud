@@ -82,7 +82,7 @@ The record creation / editing form supports the following types of fields:
 
 #### <a href="http://vue-crud-crm.id-a.pl" target="_blank">CRM DEMO</a>
 Credentials with limited privileges (readonly):\
-Login:  guest@vue.crud\
+Login:  guest@vue-crud.com\
 Pass:   ajSGenC0\
 To get full user account, contact me on my <a href="http://id-a.pl" target="_blank">company site</a>.
 
