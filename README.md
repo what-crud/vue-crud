@@ -107,7 +107,18 @@ yarn
 :: or
 npm install
 ```
-and then:
+...then choose one of the following templates:
+- `empty`,
+- `simple-crud`,
+- `crm`
+
+...and type e.g.:
+``` console
+yarn load-template simple-crud
+:: or
+npm run load-template simple-crud
+```
+..and then serve your app:
 ``` console
 yarn serve
 :: or
