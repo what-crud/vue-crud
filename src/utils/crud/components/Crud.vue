@@ -43,6 +43,7 @@ import {
 import ItemDetails from './ItemDetails.vue'
 import ItemElements from './ItemElements.vue'
 import ImageContainer from './ImageContainer.vue'
+import { crud } from '@/config/crud'
 
 export default {
   components: {
@@ -68,14 +69,14 @@ export default {
     pageTitle: String,
     editButton: {
       type: Boolean,
-      default: true
+      default: crud.editButton || null
     },
     deleteMode: {
       type: String,
       validator (value) {
         return ['none', 'soft', 'hard', 'both', 'filter'].indexOf(value) !== -1
       },
-      default: 'soft'
+      default: crud.deleteMode || 'soft'
     },
     customHeaderButtons: {
       type: Array,
@@ -99,11 +100,11 @@ export default {
     },
     primaryKey: {
       type: String,
-      default: 'id'
+      default: crud.primaryKey || 'id'
     },
     activeColumnName: {
       type: String,
-      default: 'active'
+      default: crud.activityColumnName || 'active'
     },
     mode: {
       type: String,
@@ -114,39 +115,39 @@ export default {
     },
     createMode: {
       type: Boolean,
-      default: true
+      default: crud.createMode === undefined ? true : crud.createMode
     },
     editMode: {
       type: Boolean,
-      default: true
+      default: crud.editMode === undefined ? true : crud.editMode
     },
     mainFilter: {
       type: Boolean,
-      default: true
+      default: crud.mainFilter === undefined ? true : crud.mainFilter
     },
     fieldFilters: {
       type: Boolean,
-      default: true
+      default: crud.fieldFilters === undefined ? true : crud.fieldFilters
     },
     exportButton: {
       type: Boolean,
-      default: true
+      default: crud.exportButton === undefined ? true : crud.exportButton
     },
     refreshButton: {
       type: Boolean,
-      default: true
+      default: crud.refreshButton === undefined ? true : crud.refreshButton
     },
     selectManyMode: {
       type: Boolean,
-      default: true
+      default: crud.selectManyMode === undefined ? true : crud.selectManyMode
     },
     updateManyMode: {
       type: Boolean,
-      default: true
+      default: crud.updateManyMode === undefined ? true : crud.updateManyMode
     },
     removeManyMode: {
       type: Boolean,
-      default: true
+      default: crud.removeManyMode === undefined ? true : crud.removeManyMode
     }
   },
   data () {

@@ -1,4 +1,17 @@
 export const crud = {
+  activityColumnName: 'active',
+  primaryKey: 'id',
+  deleteMode: 'soft',
+  editButton: true,
+  createMode: true,
+  editMode: true,
+  mainFilter: true,
+  fieldFilter: true,
+  exportButton: true,
+  refreshButton: true,
+  selectManyMode: true,
+  updateManyMode: true,
+  removeManyMode: true,
   fieldModifiers: {
     dateFromTimestamp: (param) => {
       return param.substring(0, 10)
