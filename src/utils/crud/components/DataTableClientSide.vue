@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card flat>
     <data-table-controls
       :deleteMode="deleteMode"
       :createMode="createMode"
@@ -91,7 +91,6 @@
       :select-all="selectManyMode ? 'black' : false"
       :rows-per-page-items="[20, 50, { text: $t('global.datatable.all'), value: -1 }]"
       :pagination.sync="pagination"
-      light
       :headers="headers"
       :items="filteredItems"
       item-key="meta.id"

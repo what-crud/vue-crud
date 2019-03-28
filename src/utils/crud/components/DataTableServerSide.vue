@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card flat>
     <data-table-controls
       :deleteMode="deleteMode"
       :createMode="createMode"
@@ -64,7 +64,6 @@
 
     <!-- Table -->
     <v-data-table
-      class="elevation-1"
       :disable-initial-sort="true"
       :must-sort="true"
       v-model="selected"

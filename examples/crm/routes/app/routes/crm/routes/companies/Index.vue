@@ -10,7 +10,6 @@
       :editButton="false"
       :watchForCreation="true"
       primaryKey="id"
-      deleteMode="soft"
     ></crud>
     <item-details :fields="itemFields"></item-details>
   </div>

@@ -4,39 +4,47 @@
       :items="sidebarItems"
       expandOn="click"
       :lockSidebarBtn="true"
-    >
-      <template slot="title">
-        <v-list-tile-action>
-          <v-icon color="primary">person</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-title>{{ userInfo.name }}</v-list-tile-title>
-      </template>
-    </sidebar>
-    <toolbar
       :title="$store.state.title"
       titleLink="/home"
       :showLogo="true"
-      logo="vue-crud-sm.png"
+      logo="vue-crud-avatar.png"
+      sidebarColor="primary"
+      :sidebarDark="true"
+      titleColor="white"
+      :titleDark="false"
+      navColor="secondary"
+    >
+      <template slot="nav">
+        <v-list-tile-action>
+          <v-icon color="secondary">person</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-title class="white--text">{{ userInfo.name }}</v-list-tile-title>
+      </template>
+    </sidebar>
+    <toolbar
       :profileBtn="profile"
       :localesBtn="true"
       :logoutBtn="true"
-    ></toolbar>
+      color="primary"
+      :dark="true"
+    >
+      <template slot="left">
+        <div class="headline">
+          <template v-if="$store.state.app.module !=null">
+              {{ $t('global.routes.' + $store.state.app.module) }}
+          </template>
+          <template v-if="$store.state.app.page !=null">
+              <v-icon slot="divider">forward</v-icon>
+              {{ $t('global.routes.' + $store.state.app.page) }}
+          </template>
+        </div>
+      </template>
+    </toolbar>
     <v-content class="content">
       <v-container fluid fill-height class="main-container">
         <v-layout style="width:100%">
           <v-flex xs12>
-            <v-card blue flat class="main-card">
-              <v-card-title class="card-title">
-                <div class="headline">
-                  <template v-if="$store.state.app.module !=null">
-                      {{ $t('global.routes.' + $store.state.app.module) }}
-                  </template>
-                  <template v-if="$store.state.app.page !=null">
-                      <v-icon slot="divider">forward</v-icon>
-                      {{ $t('global.routes.' + $store.state.app.page) }}
-                  </template>
-                </div>
-              </v-card-title>
+            <v-card flat class="main-card">
               <v-card-text class="content-container">
 
                 <router-view style="margin: 0 auto;"></router-view>
@@ -48,7 +56,23 @@
         </v-layout>
       </v-container>
     </v-content>
-    <footnote v-if="footer"></footnote>
+    <footnote
+      v-if="footer"
+      color="secondary"
+      :dark="true"
+    >
+      <template slot="left">
+        <a href="https://vue-crud.github.io/" target="_blank" style="color:white;text-decoration:none;">
+          <v-icon color="white">help</v-icon>  vue-crud.github.io
+        </a>
+      </template>
+      <template slot="center">
+        Your Company
+      </template>
+      <template slot="right">
+        &#9400; {{ year }}
+      </template>
+    </footnote>
     <back-top></back-top>
     <profile v-if="profile"></profile>
   </div>
@@ -144,7 +168,11 @@ export default {
     ]
   }),
   computed: {
-    ...mapGetters('auth', ['isLogged', 'userInfo'])
+    ...mapGetters('auth', ['isLogged', 'userInfo']),
+    year () {
+      let year = new Date()
+      return year.getFullYear()
+    }
   },
   components: {
     Sidebar,
@@ -158,15 +186,16 @@ export default {
 </script>
 <style scoped>
 .main-container {
-  padding: 10px;
+  padding: 10px 0 0 0;
+  background-color: white;
 }
 .content {
   min-height: 100vh;
   overflow-x: auto;
-  background-color: #f2f2f2;
+  background-color: white;
 }
 .main-card {
-  background-color: #f2f2f2;
+  background-color: white;
 }
 .card-title {
   padding: 0;

@@ -1,17 +1,17 @@
 <template>
-  <v-toolbar clipped-left dark fixed app color="primary">
+  <v-toolbar :dark="dark" fixed app :color="color">
 
-    <v-toolbar-title class="title">
-        <router-link :to="titleLink">{{title}}</router-link>
-    </v-toolbar-title>
     <slot name="left"></slot>
-
     <v-spacer></v-spacer>
-
-    <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
-
+    <router-link :to="titleLink">
+      <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
+    </router-link>
+    <router-link :to="titleLink">
+      <v-toolbar-title class="title">
+        {{title}}
+      </v-toolbar-title>
+    </router-link>
     <v-spacer></v-spacer>
-
     <slot name="right"></slot>
     <v-menu menu-props="bottom" left v-if="localesBtn">
       <v-btn icon slot="activator" dark>
@@ -55,11 +55,19 @@ export default {
     },
     showLogo: {
       type: Boolean,
-      default: true
+      default: false
     },
     logo: {
       type: String,
       default: 'vue-crud-sm.png'
+    },
+    color: {
+      type: String,
+      default: 'primary'
+    },
+    dark: {
+      type: Boolean,
+      default: true
     },
     profileBtn: {
       type: Boolean,
@@ -113,6 +121,10 @@ export default {
   .logo {
     height:50px;
     width:auto;
+    margin: 0 10px 0 10px;
+  }
+  .title {
+    margin: 0 10px 0 10px;
   }
   @media (max-width: 699px) {
     .logo {

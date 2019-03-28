@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height style="min-height:80vh">
+  <v-container fluid fill-height style="min-height:80vh;background-color: white;">
     <v-layout justify-center align-center>
       <img :src="require(`@/assets/images/vue-crud-lg.png`)" width="400">
     </v-layout>

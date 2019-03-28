@@ -3,22 +3,41 @@
   <v-navigation-drawer
     permanent
     :mini-variant="sidebarMini"
-    dark clipped
     fixed
     app
-    class="secondary main-sidebar"
+    class="main-sidebar"
+    :class="sidebarColor"
+    :dark="sidebarDark"
   >
-    <v-list class="pa-1 primary--text">
+    <router-link :to="titleLink" style="text-decoration:none">
+      <v-toolbar
+        v-if="title !== '' || showLogo"
+        :class="titleColor"
+      >
+        <v-list>
+          <v-list-tile>
+            <v-list-tile-avatar tile v-if="showLogo" size="60" style="margin-right: 20px;">
+              <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
+            </v-list-tile-avatar>
+            <v-list-tile-title class="title" :class="titleDark ? 'white--text' : 'black--text'">
+              {{ title }}
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+    </router-link>
+    <v-divider></v-divider>
+    <v-list class="pa-1" :class="`${navColor}--text`">
       <v-list-tile v-if="sidebarMini && lockSidebarBtn && !locked" @click.stop="toggleLock">
         <v-list-tile-action>
-          <v-icon color="primary">chevron_right</v-icon>
+          <v-icon :color="navColor !== '' ? navColor : (sidebarDark ? 'white' : 'black')">chevron_right</v-icon>
         </v-list-tile-action>
       </v-list-tile>
       <v-list-tile v-if="!sidebarMini">
-        <slot name="title"></slot>
+        <slot name="nav"></slot>
         <v-list-tile-action v-if="lockSidebarBtn && locked">
           <v-btn icon @click.stop="toggleLock">
-            <v-icon color="primary">chevron_left</v-icon>
+            <v-icon :color="navColor !== '' ? navColor : (sidebarDark ? 'white' : 'black')">chevron_left</v-icon>
           </v-btn>
         </v-list-tile-action>
       </v-list-tile>
@@ -32,6 +51,7 @@
           :key="item.text"
           :prepend-icon="item.icon"
           append-icon=""
+          active-class="sidebarDark ? 'white--text' : 'black--text'"
         >
           <v-list-tile slot="activator">
             <v-list-tile-content>
@@ -90,6 +110,42 @@ export default {
   },
   props: {
     source: String,
+    title: {
+      type: String,
+      default: ''
+    },
+    titleLink: {
+      type: String,
+      default: '/'
+    },
+    showLogo: {
+      type: Boolean,
+      default: true
+    },
+    logo: {
+      type: String,
+      default: 'vue-crud-avatar.png'
+    },
+    navColor: {
+      type: String,
+      default: ''
+    },
+    titleColor: {
+      type: String,
+      default: 'secondary'
+    },
+    titleDark: {
+      type: Boolean,
+      default: true
+    },
+    sidebarColor: {
+      type: String,
+      default: 'white'
+    },
+    sidebarDark: {
+      type: Boolean,
+      default: false
+    },
     items: {
       type: Array,
       default: () => []

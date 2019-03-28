@@ -1,6 +1,6 @@
 export default {
   home: {
-    name: ''
+    name: 'Home page'
   },
   crm: {
     name: 'CRM',
