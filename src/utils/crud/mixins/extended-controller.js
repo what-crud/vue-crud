@@ -39,8 +39,8 @@ export default {
     ...mapMutations('crud', ['showItemDetailsDialog', 'setCreatedItemStatus', 'setCurrentItem']),
     ...mapActions('crud', ['getItemDetails']),
     goToItem (item, index) {
-      this.setCurrentItem({ id: item.meta.id, index })
-      this.getItemDetails([item.meta.id]).then((response) => {
+      this.setCurrentItem({ id: item.id, index })
+      this.getItemDetails([item.id]).then(() => {
         this.showItemDetailsDialog()
       })
     }
