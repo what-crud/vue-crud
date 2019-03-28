@@ -92,28 +92,36 @@ Do you want to test the application quickly, and you do not have an API ready? N
 
 ### Steps
 
-- Clone Vue CRUD:
+1. Clone Vue CRUD:
 ``` console
 git clone git@github.com:szczepanmasny/vue-crud.git
 ```
-- Select template from **examples** folder you want to use, e.g. **examples/simple-crud**. Then:
-- Copy **examples/simple-crud/public** folder to the root directory,
-- Copy the rest of files and folders (**config**, **locales**, **routes**, **main.js**, **router.js**) from **examples/simple-crud** folder to the **src** directory,
-- If you have your own API prepared, modify **src/config/api.js** file,
-- Type following commands:
-
+2. Type following commands:
 ``` console
 yarn
 :: or
 npm install
 ```
-and then:
+3. Choose one of the following templates:
+- `empty`,
+- `simple-crud`,
+- `crm`
+
+...and type e.g.:
+``` console
+yarn load-template simple-crud
+:: or
+npm run load-template simple-crud
+```
+4. If you have your own API prepared, modify **src/config/api.js** file.
+
+5. Serve your app:
 ``` console
 yarn serve
 :: or
 npm run serve
 ```
-... and your app is already running (probably at http://localhost:8080).
+6. Your app is already running (probably at http://localhost:8080).
 
 ### Usage
 
