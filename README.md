@@ -16,7 +16,7 @@
 * Vue CRUD uses the vue along with its ecosystem (Vuex, Vuetify, etc). Enjoy the benefits of the most popular JS framework in the world.
 * The application architecture is adapted to work with REST API
 
-![vue-crud](https://user-images.githubusercontent.com/18534115/50497274-5b6ea380-0a36-11e9-8dd6-2a7bc6875fe6.gif)
+![Vue CRUD demo](https://user-images.githubusercontent.com/18534115/55162114-646f2e00-5167-11e9-8948-c4fc964daa28.gif)
 
 ## Functions
 Vue CRUD provides a set of utilities, from which you can compose your own application. Features included in the system can communicate with each other thanks to the use of the Vuex library. Vue CRUD includes the following elements:
