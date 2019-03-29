@@ -290,7 +290,7 @@ export default {
     fieldValue: function (val) {
       this.value = val
       if (this.field.type === 'richTextBox') {
-        let content = val || ''
+        let content = val !== null && val !== undefined ? val : ''
         this.editor.setContent(content)
       }
     },
