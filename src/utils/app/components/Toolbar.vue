@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar :dark="dark" fixed app :color="color">
+  <v-toolbar :dark="dark" :color="color">
 
     <slot name="left"></slot>
     <v-spacer></v-spacer>

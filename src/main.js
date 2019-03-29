@@ -1,4 +1,4 @@
-import "babel-polyfill"
+import 'babel-polyfill'
 import Vue from 'vue'
 import i18n from './locales/index.js'
 import './plugins/vuetify'
@@ -11,12 +11,12 @@ import './register-service-worker'
 import { api } from './config/api'
 
 Vue.config.productionTip = true
-Vue.http.options.emulateJSON = true;
+Vue.http.options.emulateJSON = true
 Vue.http.options.root = api.url + api.path.default
 
 if ('-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style) {
-  window.addEventListener("hashchange", function(event) {
-    var currentPath = window.location.hash.slice(1);
+  window.addEventListener('hashchange', function (event) {
+    var currentPath = window.location.hash.slice(1)
     if (router.path !== currentPath) {
       router.push(currentPath)
     }

@@ -13,7 +13,7 @@
             <v-tab key="template" ripple>Template</v-tab>
             <v-tab key="script" ripple>Script</v-tab>
             <v-tab key="style" ripple>Style</v-tab>
-            
+
             <v-tab-item key="toolbarConfig">
               <v-card flat>
                 <v-card-text>
@@ -88,17 +88,16 @@
                 </v-card-text>
               </v-card>
             </v-tab-item>
-          </v-tab-item>
-          <v-tab-item key="style">
-            <v-card flat style="max-height: 400px;overflow-y:auto">
-              <v-card-text>
-                <code style="width:100%" v-text="style"></code>
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
+            <v-tab-item key="style">
+              <v-card flat style="max-height: 400px;overflow-y:auto">
+                <v-card-text>
+                  <code style="width:100%" v-text="style"></code>
+                </v-card-text>
+              </v-card>
+            </v-tab-item>
           </v-tabs>
         </v-flex>
-      </v-layout> 
+      </v-layout>
       <toolbar
         :title="toolbarTitle"
         :titleLink="toolbarTitleLink"
@@ -166,121 +165,120 @@
       <profile v-if="profile"></profile>
     </div>
   </template>
-  
-  <script>
-  import Sidebar from "@/utils/app/components/Sidebar.vue";
-  import Toolbar from "@/utils/app/components/Toolbar.vue";
-  import AlertBox from "@/utils/app/components/AlertBox.vue";
-  import Footnote from "@/utils/app/components/Footnote.vue";
-  import BackTop from "@/utils/app/components/BackTop.vue";
-  import Profile from "@/utils/app/components/Profile.vue";
-  import { mapGetters } from "vuex";
-  
-  export default {
-    name: "app",
-    data: () => ({
-      activeTab: 'toolbarConfig',
-      profile: true,
-      toolbarTitle: 'Vue CRUD',
-      toolbarTitleLink: '/app',
-      toolbarShowLogo: true,
-      toolbarLogo: 'vue-crud-sm.png',
-      toolbarProfileBtn: true,
-      toolbarLocalesBtn: true,
-      toolbarLogoutBtn: true,
-      toolbarLeftSlot: true,
-      toolbarRightSlot: true,
-      sidebarExpandOn: 'click',
-      sidebarLockBtn: true,
-      sidebarShowItems: true,
-      sidebarSlotTitle: true,
-      sidebarSlotOver: true,
-      sidebarSlotUnder: true,
-      footer: true,
-      footerSlotLeft: true,
-      footerSlotCenter: false,
-      footerSlotRight: true,
-      sidebarItems: [
-          {
-              icon: "people",
-              text: "crm.name",
-              model: false,
-              route: "/app",
-              children: [{
-                      text: "crm.companies",
-                      route: ""
-                  },
-                  {
-                      text: "crm.companyTypes",
-                      route: ""
-                  },
-                  {
-                      text: "crm.companyFiles",
-                      route: ""
-                  },
-                  {
-                      text: "crm.companyComments",
-                      route: ""
-                  },
-                  {
-                      text: "crm.companyCommentTypes",
-                      route: ""
-                  },
-                  {
-                      text: "crm.people",
-                      route: ""
-                  },
-                  {
-                      text: "crm.personComments",
-                      route: ""
-                  },
-                  {
-                      text: "crm.personCommentTypes",
-                      route: ""
-                  },
-                  {
-                      text: "crm.positions",
-                      route: ""
-                  },
-                  {
-                      text: "crm.positionTasks",
-                      route: ""
-                  },
-                  {
-                      text: "crm.tasks",
-                      route: ""
-                  }
-              ]
-          },
-          {
-              icon: "person_add_disabled",
-              text: "admin.name",
-              model: false,
-              route: "/app",
-              children: [{
-                      text: "admin.users",
-                      route: ""
-                  },
-                  {
-                      text: "admin.permissions",
-                      route: ""
-                  },
-                  {
-                      text: "admin.userPermissions",
-                      route: ""
-                  }
-              ]
-          }
-      ]
-    }),
-    computed: {
-      ...mapGetters("auth", ["isLogged", "userInfo"]),
-      template() {
-        return `
+
+<script>
+import Sidebar from '@/utils/app/components/Sidebar.vue'
+import Toolbar from '@/utils/app/components/Toolbar.vue'
+import Footnote from '@/utils/app/components/Footnote.vue'
+import BackTop from '@/utils/app/components/BackTop.vue'
+import Profile from '@/utils/app/components/Profile.vue'
+import { mapGetters } from 'vuex'
+
+export default {
+  name: 'app',
+  data: () => ({
+    activeTab: 'toolbarConfig',
+    profile: true,
+    toolbarTitle: 'Vue CRUD',
+    toolbarTitleLink: '/app',
+    toolbarShowLogo: true,
+    toolbarLogo: 'vue-crud-sm.png',
+    toolbarProfileBtn: true,
+    toolbarLocalesBtn: true,
+    toolbarLogoutBtn: true,
+    toolbarLeftSlot: true,
+    toolbarRightSlot: true,
+    sidebarExpandOn: 'click',
+    sidebarLockBtn: true,
+    sidebarShowItems: true,
+    sidebarSlotTitle: true,
+    sidebarSlotOver: true,
+    sidebarSlotUnder: true,
+    footer: true,
+    footerSlotLeft: true,
+    footerSlotCenter: false,
+    footerSlotRight: true,
+    sidebarItems: [
+      {
+        icon: 'people',
+        text: 'crm.name',
+        model: false,
+        route: '/app',
+        children: [{
+          text: 'crm.companies',
+          route: ''
+        },
+        {
+          text: 'crm.companyTypes',
+          route: ''
+        },
+        {
+          text: 'crm.companyFiles',
+          route: ''
+        },
+        {
+          text: 'crm.companyComments',
+          route: ''
+        },
+        {
+          text: 'crm.companyCommentTypes',
+          route: ''
+        },
+        {
+          text: 'crm.people',
+          route: ''
+        },
+        {
+          text: 'crm.personComments',
+          route: ''
+        },
+        {
+          text: 'crm.personCommentTypes',
+          route: ''
+        },
+        {
+          text: 'crm.positions',
+          route: ''
+        },
+        {
+          text: 'crm.positionTasks',
+          route: ''
+        },
+        {
+          text: 'crm.tasks',
+          route: ''
+        }
+        ]
+      },
+      {
+        icon: 'person_add_disabled',
+        text: 'admin.name',
+        model: false,
+        route: '/app',
+        children: [{
+          text: 'admin.users',
+          route: ''
+        },
+        {
+          text: 'admin.permissions',
+          route: ''
+        },
+        {
+          text: 'admin.userPermissions',
+          route: ''
+        }
+        ]
+      }
+    ]
+  }),
+  computed: {
+    ...mapGetters('auth', ['isLogged', 'userInfo']),
+    template () {
+      return `
           <template>
             <div>
               <sidebar ${this.sidebarShowItems ? `
-                :items="sidebarItems"` : ''} ${this.expandOn == 'mouseover' ? '' : `
+                :items="sidebarItems"` : ''} ${this.expandOn === 'mouseover' ? '' : `
                 expandOn="${this.sidebarExpandOn}"`} ${this.lockSidebarBtn ? '' : `
                 :lockSidebarBtn="false"`}
               > ${this.sidebarSlotTitle ? `
@@ -289,7 +287,7 @@
                     <v-icon color="primary">person</v-icon>
                   </v-list-tile-action>
                   <v-list-tile-title>User Name</v-list-tile-title>
-                </template>` : ""} ${this.sidebarSlotOver ? `
+                </template>` : ''} ${this.sidebarSlotOver ? `
                 <template slot="over">
                   <v-list>
                     <v-list-tile>
@@ -299,7 +297,7 @@
                         <v-list-tile-title>Slot 1</v-list-tile-title>
                     </v-list-tile>
                   </v-list>
-                </template>` : ""} ${this.sidebarSlotUnder ? `
+                </template>` : ''} ${this.sidebarSlotUnder ? `
                 <template slot="under">
                   <v-list>
                     <v-list-tile>
@@ -309,7 +307,7 @@
                         <v-list-tile-title>Slot 2</v-list-tile-title>
                     </v-list-tile>
                   </v-list>
-                </template>` : ""}
+                </template>` : ''}
               </sidebar>
               <toolbar
                 title="${this.toolbarTitle}"
@@ -324,13 +322,13 @@
                   <v-btn icon dark>
                     <v-icon>code</v-icon>
                   </v-btn>
-                </template>` : ""} ${this.toolbarRightSlot ? `
+                </template>` : ''} ${this.toolbarRightSlot ? `
                 <template slot="right" v-if="toolbarRightSlot">
                   <v-btn icon dark>
                     <v-icon>code</v-icon>
                   </v-btn>
                 </template>
-              </toolbar>` : ""}
+              </toolbar>` : ''}
               <v-content class="content">
                 <v-container fluid fill-height class="main-container">
                   <v-layout style="width:100%">
@@ -374,9 +372,9 @@
             </div>
           </template>
         `
-      },
-      script() {
-        return `
+    },
+    script () {
+      return `
           import Sidebar from "@/utils/app/components/Sidebar.vue";
           import Toolbar from "@/utils/app/components/Toolbar.vue";
           import AlertBox from "@/utils/app/components/AlertBox.vue";
@@ -476,9 +474,9 @@
             }
           };
         `
-      },
-      style() {
-        return `
+    },
+    style () {
+      return `
           <style scoped>
             .main-container {
               padding: 10px;
@@ -503,18 +501,17 @@
             }
           </style>
         `
-      },
-    },
-    components: {
-      Sidebar,
-      Toolbar,
-      AlertBox,
-      Footnote,
-      BackTop,
-      Profile
     }
-  };
-  </script>
+  },
+  components: {
+    Sidebar,
+    Toolbar,
+    Footnote,
+    BackTop,
+    Profile
+  }
+}
+</script>
   <style scoped>
   .main-container {
     padding: 10px;
@@ -538,4 +535,3 @@
     padding-bottom: 10px;
   }
   </style>
-  

@@ -3,8 +3,6 @@
   <v-navigation-drawer
     permanent
     :mini-variant="sidebarMini"
-    fixed
-    app
     class="main-sidebar"
     :class="sidebarColor"
     :dark="sidebarDark"

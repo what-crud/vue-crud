@@ -15,12 +15,12 @@ export default {
     positionTasks: 'Stanowiska - zadania',
     tasks: 'Zadania',
     companyFiles: 'Firmy - pliki',
-    personFiles: 'Osoby - pliki',
+    personFiles: 'Osoby - pliki'
   },
   admin: {
     name: 'Administracja',
     permissions: 'Uprawnienia',
     users: 'Użytkownicy',
-    userPermissions: 'Użytkownicy - uprawnienia',
-  },
+    userPermissions: 'Użytkownicy - uprawnienia'
+  }
 }

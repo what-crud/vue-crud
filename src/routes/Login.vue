@@ -10,7 +10,7 @@
           <v-tab key="config" ripple>Configuration</v-tab>
           <v-tab key="template" ripple>Template</v-tab>
           <v-tab key="script" ripple>Script</v-tab>
-          
+
           <v-tab-item key="config">
             <v-card flat>
               <v-card-text>
@@ -47,7 +47,7 @@
           </v-tab-item>
         </v-tabs>
       </v-flex>
-    </v-layout> 
+    </v-layout>
     <login-form
       :redirect="redirect"
       :localeSelectable="localeSelectable"
@@ -56,22 +56,22 @@
     ></login-form>
   </div>
   </template>
-  
-  <script>
-  
-  import LoginForm from '@/utils/auth/components/LoginForm.vue'
-  
-  export default {
-    data: () => ({
-      activeTab: 'config',
-      redirect: "/app",
-      localeSelectable: true,
-      showLogo: true,
-      logo: "vue-crud-lg.png",
-    }),
-    computed: {
-      template() {
-        return `
+
+<script>
+
+import LoginForm from '@/utils/auth/components/LoginForm.vue'
+
+export default {
+  data: () => ({
+    activeTab: 'config',
+    redirect: '/app',
+    localeSelectable: true,
+    showLogo: true,
+    logo: 'vue-crud-lg.png'
+  }),
+  computed: {
+    template () {
+      return `
           <template>
             <login-form
               redirect="${this.redirect}" ${this.localeSelectable ? '' : `
@@ -81,9 +81,9 @@
             ></login-form>
           </template>
         `
-      },
-      script() {
-        return `
+    },
+    script () {
+      return `
           import LoginForm from '@/utils/auth/components/LoginForm.vue'
 
           export default {
@@ -92,12 +92,11 @@
             }
           }
         `
-      }
-    },
-    components: {
-      LoginForm
     }
+  },
+  components: {
+    LoginForm
   }
-  
-  </script>
-  
+}
+
+</script>

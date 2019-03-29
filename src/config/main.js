@@ -1,16 +1,16 @@
 export const main = {
-  title: "Vue CRUD",
+  title: 'Vue CRUD',
   locales: [{
-          name: 'en',
-          text: 'English'
-      },
-      {
-          name: 'pl',
-          text: 'Polski'
-      },
+    name: 'en',
+    text: 'English'
+  },
+  {
+    name: 'pl',
+    text: 'Polski'
+  }
   ],
   defaultLocale: 'en',
   iconfont: 'md',
   primaryTheme: 'dark',
-  secondaryTheme: 'dark',
+  secondaryTheme: 'dark'
 }

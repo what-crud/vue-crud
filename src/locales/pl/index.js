@@ -7,13 +7,13 @@ import details from './details.js'
 import itemElements from './item-elements.js'
 
 export default {
-    global: {
-      alerts,
-      routes,
-      login,
-      profile,
-      datatable,
-      details,
-      itemElements,
-    },
+  global: {
+    alerts,
+    routes,
+    login,
+    profile,
+    datatable,
+    details,
+    itemElements
+  }
 }

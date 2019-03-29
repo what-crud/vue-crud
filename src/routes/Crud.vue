@@ -11,7 +11,7 @@
           <v-tab key="fieldsConfig" ripple>Fields Configuration</v-tab>
           <v-tab key="template" ripple>Template</v-tab>
           <v-tab key="script" ripple>Script</v-tab>
-          
+
           <v-tab-item key="crudConfig">
             <v-card flat>
               <v-card-text>
@@ -21,19 +21,19 @@
                     <v-select label="deleteMode" :items="['none', 'soft', 'hard', 'both', 'filter']" v-model="deleteMode"></v-select>
                     <v-switch color="green" label="refreshButton" v-model="refreshButton"></v-switch>
                   </v-flex>
-            
+
                   <v-flex xs12 md6 lg3 px-5>
                     <v-switch color="green" label="exportButton" v-model="exportButton"></v-switch>
                     <v-switch color="green" label="fieldFilters" v-model="fieldFilters"></v-switch>
                     <v-switch color="green" label="mainFilter" v-model="mainFilter"></v-switch>
                   </v-flex>
-            
+
                   <v-flex xs12 md6 lg3 px-5>
                     <v-switch color="green" label="createMode" v-model="createMode"></v-switch>
                     <v-switch color="green" label="editMode" v-model="editMode"></v-switch>
                     <v-switch color="green" label="editButton" v-model="editButton"></v-switch>
                   </v-flex>
-            
+
                   <v-flex xs12 md6 lg3 px-5>
                     <v-switch color="green" label="selectManyMode" v-model="selectManyMode"></v-switch>
                     <v-switch color="green" label="updateManyMode" v-model="updateManyMode"></v-switch>
@@ -57,7 +57,7 @@
                       <v-select label="Text mode" :items="['text']" value="text" disabled></v-select>
                       <v-select label="Functions" :items="['boolean']" :value="[]" multiple disabled></v-select>
                     </v-flex>
-              
+
                     <v-flex xs12 md6 lg3 px-5>
                       <h3>Name</h3>
                       <v-switch color="green" label="Show in table" v-model="nameTable"></v-switch>
@@ -68,18 +68,18 @@
                       <v-select label="Text mode" :items="['text']" value="text" disabled></v-select>
                       <v-select label="Functions" :items="['boolean']" :value="[]" multiple disabled></v-select>
                     </v-flex>
-              
+
                     <v-flex xs12 md6 lg3 px-5>
                       <h3>Description</h3>
                       <v-switch color="green" label="Show in table" v-model="descriptionTable"></v-switch>
-                      <v-select label="Field type" :items="['input', 'textarea']" v-model="descriptionFieldType"></v-select>
+                      <v-select label="Field type" :items="['input', 'textarea', 'richTextBox']" v-model="descriptionFieldType"></v-select>
                       <v-switch color="green" label="Details" v-model="descriptionDetails"></v-switch>
                       <v-switch color="green" label="Required" v-model="descriptionRequired"></v-switch>
                       <v-switch color="green" label="Multiedit" v-model="descriptionMultiedit"></v-switch>
-                      <v-select label="Text mode" :items="['text']" value="text" disabled></v-select>
+                      <v-select label="Text mode" :items="['text', 'html']" value="text"></v-select>
                       <v-select label="Functions" :items="['boolean']" :value="[]" multiple disabled></v-select>
                     </v-flex>
-              
+
                     <v-flex xs12 md6 lg3 px-5>
                       <h3>Activity</h3>
                       <v-switch color="green" label="Show in table" v-model="activeTable"></v-switch>
@@ -110,8 +110,8 @@
           </v-tab-item>
         </v-tabs>
       </v-flex>
-    </v-layout> 
-    
+    </v-layout>
+
     <crud
       :prefix="prefix"
       :path="path"
@@ -136,92 +136,92 @@
 </template>
 
 <script>
-  import Crud from '@/utils/crud/components/Crud.vue'
-  import AlertBox from "@/utils/app/components/AlertBox.vue";
+import Crud from '@/utils/crud/components/Crud.vue'
+import AlertBox from '@/utils/app/components/AlertBox.vue'
 
-  export default {
-    data() {
-      return {
-        trueConst: true,
-        falseConst: false,
-        activeTab: 'crudConfig',
-        prefix: 'demo',
-        path: 'tasks',
-        pageTitle: 'demo.tasks',
-        detailsTitle: '',
-        deleteMode: 'soft',
-        refreshButton: true,
-        exportButton: true,
-        fieldFilters: true,
-        mainFilter: true,
-        createMode: true,
-        editMode: true,
-        editButton: true,
-        selectManyMode: true,
-        updateManyMode: true,
-        removeManyMode: true,
-        idTable: true,
-        nameTable: true,
-        descriptionTable: true,
-        descriptionMultiedit: true,
-        descriptionDetails: true,
-        descriptionRequired: false,
-        descriptionFieldType: 'textarea',
-        activeTable:true,
-        activeMultiedit: false,
-        activeDetails: false,
-        activeTextMode: 'html',
-        activeFunctions: ['boolean']
-      }
-    },
-    created() {
-      this.detailsTitle = this.$t('detailsTitle')
-    },
-    computed: {
-      fieldsInfo() {
-        return [{
-            text: this.$t('fields.id'),
-            name: 'id',
-            details: false,
-            table: this.idTable,
-          },
-          {
-            type: 'input',
-            column: 'name',
-            text: this.$t('fields.name'),
-            name: 'name',
-            table: this.nameTable,
-            multiedit: false
-          },
-          {
-            type: this.descriptionFieldType,
-            column: 'description',
-            text: this.$t('fields.description'),
-            name: 'description',
-            required: this.descriptionRequired,
-            table: this.descriptionTable,
-            details: this.descriptionDetails,
-            multiedit: this.descriptionMultiedit
-          },
-          {
-            type: 'checkbox',
-            column: 'active',
-            text: this.$t('fields.active'),
-            name: 'active',
-            table: this.activeTable,
-            create: false,
-            details: this.activeDetails,
-            multiedit: this.activeMultiedit,
-            apiObject: {
-              name: 'active',
-              functions: this.activeFunctions
-            },
-            textMode: this.activeTextMode
-          },
-        ]
+export default {
+  data () {
+    return {
+      trueConst: true,
+      falseConst: false,
+      activeTab: 'crudConfig',
+      prefix: 'demo',
+      path: 'tasks',
+      pageTitle: 'demo.tasks',
+      detailsTitle: '',
+      deleteMode: 'soft',
+      refreshButton: true,
+      exportButton: true,
+      fieldFilters: true,
+      mainFilter: true,
+      createMode: true,
+      editMode: true,
+      editButton: true,
+      selectManyMode: true,
+      updateManyMode: true,
+      removeManyMode: true,
+      idTable: true,
+      nameTable: true,
+      descriptionTable: true,
+      descriptionMultiedit: true,
+      descriptionDetails: true,
+      descriptionRequired: false,
+      descriptionFieldType: 'textarea',
+      activeTable: true,
+      activeMultiedit: false,
+      activeDetails: false,
+      activeTextMode: 'html',
+      activeFunctions: ['boolean']
+    }
+  },
+  created () {
+    this.detailsTitle = this.$t('detailsTitle')
+  },
+  computed: {
+    fieldsInfo () {
+      return [{
+        text: this.$t('fields.id'),
+        name: 'id',
+        details: false,
+        table: this.idTable
       },
-      template() {
-        return `
+      {
+        type: 'input',
+        column: 'name',
+        text: this.$t('fields.name'),
+        name: 'name',
+        table: this.nameTable,
+        multiedit: false
+      },
+      {
+        type: this.descriptionFieldType,
+        column: 'description',
+        text: this.$t('fields.description'),
+        name: 'description',
+        required: this.descriptionRequired,
+        table: this.descriptionTable,
+        details: this.descriptionDetails,
+        multiedit: this.descriptionMultiedit
+      },
+      {
+        type: 'checkbox',
+        column: 'active',
+        text: this.$t('fields.active'),
+        name: 'active',
+        table: this.activeTable,
+        create: false,
+        details: this.activeDetails,
+        multiedit: this.activeMultiedit,
+        apiObject: {
+          name: 'active',
+          functions: this.activeFunctions
+        },
+        textMode: this.activeTextMode
+      }
+      ]
+    },
+    template () {
+      return `
           <template>
             <div>
               <crud
@@ -229,7 +229,7 @@
                 :path="path"
                 :pageTitle="pageTitle"
                 :fieldsInfo="fieldsInfo"
-                detailsTitle="${this.detailsTitle}" ${this.deleteMode == 'soft' ? '' : `
+                detailsTitle="${this.detailsTitle}" ${this.deleteMode === 'soft' ? '' : `
                 deleteMode="${this.deleteMode}"`} ${this.refreshButton ? '' : `
                 :refreshButton="false"`} ${this.exportButton ? '' : `
                 :exportButton="false"`} ${this.fieldFilters ? '' : `
@@ -247,9 +247,9 @@
             </div>
           </template>
         `
-      },
-      script() {
-        return `
+    },
+    script () {
+      return `
           import Crud from '@/utils/crud/components/Crud.vue'
           import AlertBox from "@/utils/app/components/AlertBox.vue";
 
@@ -296,7 +296,7 @@
                     table: false,`} ${this.activeDetails ? '' : `
                     create: false,
                     details: false,`} ${this.activeMultiedit ? '' : `
-                    multiedit: false,`} ${this.activeFunctions.length == 0 ? '' : `
+                    multiedit: false,`} ${this.activeFunctions.length === 0 ? '' : `
                     apiObject: {
                       name: 'active',
                       functions: ${JSON.stringify(this.activeFunctions)}
@@ -325,24 +325,24 @@
             },
           }
         `
-      },
-    },
-    components: {
-      Crud,
-      AlertBox,
-    },
-    i18n: {
-      messages: {
-        en: {
-          detailsTitle: 'Task',
-          fields: {
-            id: 'Id',
-            name: 'Name',
-            description: 'Description',
-            active: 'Active'
-          }
+    }
+  },
+  components: {
+    Crud,
+    AlertBox
+  },
+  i18n: {
+    messages: {
+      en: {
+        detailsTitle: 'Task',
+        fields: {
+          id: 'Id',
+          name: 'Name',
+          description: 'Description',
+          active: 'Active'
         }
       }
-    },
+    }
   }
+}
 </script>
