@@ -15,131 +15,11 @@
                 <input type="checkbox" v-model="field.updateColumn">
               </v-flex>
               <v-flex :class="details.action == 'multiedit' ? 'sm11' : 'sm12'">
-
-                <!-- text field: input / number / decimal / date / time / datetime -->
-                <v-text-field
-                  hide-details
-                  :rules="fieldRules(field)"
-                  v-if="['input', 'number', 'decimal', 'date', 'time', 'datetime'].includes(field.type)"
-                  :label="field.text"
-                  v-model="field.value"
-                  :disabled="field.disabled"
-                  :type="['number', 'decimal'].includes(field.type) ? 'number' : 'text'"
-                  :step="field.type == 'decimal' ? 0.01 : 1"
-                  min="0"
-                  :mask="['date', 'time', 'datetime'].includes(field.type) ? masks[field.type] : undefined"
-                  :return-masked-value="['date', 'time', 'datetime'].includes(field.type) ? true : false"
-                ></v-text-field>
-
-                <!-- text area -->
-                <v-textarea
-                  hide-details
-                  :rules="fieldRules(field)"
-                  v-else-if="field.type == 'textarea'"
-                  :label="field.text"
-                  v-model="field.value"
-                  :disabled="field.disabled"
-                ></v-textarea>
-
-                <!-- file upload -->
-                <div v-else-if="field.type == 'file'" class="file-container">
-                  <div class="field-label">{{ field.text }}</div>
-                  <v-btn dark class="jbtn-file" :loading="uploadLoaders[field.name]" :class="fileUploadBtn(uploadStatuses[field.name])">
-                    {{ $t('global.details.files.upload') }}
-                    <v-icon dark right>
-                      {{ fileUploadIcon(uploadStatuses[field.name]) }}
-                    </v-icon>
-                    <input
-                      :id="field.name"
-                      type="file"
-                      @change="fileSelected($event, field)"
-                      accept="*"
-                      :multiple="false"
-                      :disabled="field.disabled"
-                      ref="fileInput"
-                    >
-                  </v-btn>
-                </div>
-
-                <!-- select -->
-                <template v-else-if="field.type == 'select'">
-                  <v-autocomplete
-                    v-if="field.async"
-                    hide-details
-                    :rules="fieldRules(field)"
-                    :loading="searchLoading['search_' + field.name]"
-                    :items="searchData['search_' + field.name]"
-                    v-model="field.value"
-                    :search-input.sync="searchPhrases['search_' + field.name]"
-                    flat
-                    :item-text="field.list.text"
-                    :item-value="field.list.value"
-                    item-disabled="itemDisabled"
-                    :label="field.text"
-                    menu-props="bottom"
-                    :disabled="field.disabled"
-                  ></v-autocomplete>
-                  <v-autocomplete
-                    v-else
-                    hide-details
-                    :rules="fieldRules(field)"
-                    :items="field.list.data"
-                    v-model="field.value"
-                    :item-text="field.list.text"
-                    :item-value="field.list.value"
-                    item-disabled="itemDisabled"
-                    :label="field.text"
-                    menu-props="bottom"
-                    :disabled="field.disabled"
-                  ></v-autocomplete>
-                </template>
-
-                <!-- date picker -->
-                <v-menu
-                  v-else-if="field.type == 'datePicker'"
-                  lazy
-                  :close-on-content-click="true"
-                  v-model="field.show"
-                  transition="scale-transition"
-                  offset-y
-                  full-width
-                  :nudge-right="40"
-                  min-width="290px"
-                  :return-value.sync="field.value"
-                  :disabled="field.disabled"
-                >
-                  <v-text-field
-                    hide-details
-                    slot="activator"
-                    :label="field.text"
-                    v-model="field.value"
-                    prepend-icon="event"
-                    :disabled="field.disabled"
-                  ></v-text-field>
-                  <v-date-picker v-model="field.value" no-title scrollable></v-date-picker>
-                </v-menu>
-
-                <!-- rich text editor -->
-                <template v-else-if="field.type == 'richTextBox'">
-                  <label>{{field.text}}</label>
-                  <vue-editor
-                    id="editor"
-                    v-model="field.value"
-                    :editorOptions="{bounds: '#editor'}"
-                    :disabled="field.disabled"
-                  ></vue-editor>
-                  <br>
-                </template>
-
-                <!-- checkbox -->
-                <v-checkbox v-else-if="field.type == 'checkbox'"
-                  hide-details
-                  color="primary"
-                  v-model="field.value"
-                  :label="field.text"
-                  :disabled="field.disabled"
-                ></v-checkbox>
-
+                <field
+                  :field="field"
+                  :fieldValue="field.value"
+                  @valueChanged="valueChanged"
+                ></field>
               </v-flex>
             </v-layout>
           </div>
@@ -174,8 +54,7 @@
   </v-dialog>
 </template>
 <script>
-import Vue from 'vue'
-import { VueEditor } from 'vue2-editor'
+import Field from './Field.vue'
 import { fieldModifiers } from '@/utils/crud/helpers/functions'
 import {
   mapState,
@@ -185,163 +64,16 @@ import {
 
 export default {
   components: {
-    VueEditor
+    Field
   },
   props: ['title', 'detailsFields'],
   data () {
-    return {
-      uploadStatuses: {},
-      uploadLoaders: {},
-      searchPhrases: {},
-      searchLoading: {},
-      searchData: {},
-      masks: {
-        date: '####-##-##',
-        time: '##:##',
-        datetime: '####-##-## ##:##:##'
-      }
-    }
+    return {}
   },
   created () {
     this.resetItem()
-    for (const field of this.fields) {
-      field.required = field.required !== false
-      field.updateColumn = false
-      if (field.type === 'file') {
-        this.$set(this.uploadLoaders, field.name, false)
-        this.$set(this.uploadStatuses, field.name, 'ready')
-      } else if (field.type === 'select') {
-        const { url } = field
-        if (field.async) {
-          this.$set(this.searchPhrases, `search_${field.name}`, '')
-          this.$set(this.searchLoading, `search_${field.name}`, false)
-          this.$set(this.searchData, `search_${field.name}`, [])
-          this.$set(field.list, 'oldSearch', '')
-        } else {
-          field.list.data = []
-          let selectItems
-          Vue.http.get(url).then((response) => {
-            const items = response.body
-            selectItems = items.map((item) => {
-              const rItem = item
-              if (typeof field.list.activeColumn !== 'undefined') {
-                rItem.itemDisabled = item[field.list.activeColumn] === 0
-              }
-              if (typeof field.list.complexName !== 'undefined') {
-                const textArray = field.list.complexName.map((textInfo) => {
-                  const splittedText = textInfo
-                    .split('.')
-                    .reduce((object, property) => object[property] || '', item)
-                  return splittedText
-                })
-                rItem.complexName = textArray.join(', ')
-              }
-              return rItem
-            })
-            if (!field.required) {
-              const nullElement = {}
-              nullElement[field.list.value] = ''
-              nullElement[field.list.text] = '-'
-              field.list.data = [nullElement, ...selectItems]
-            } else {
-              field.list.data = selectItems
-            }
-          })
-        }
-      }
-    }
-  },
-  watch: {
-    details: {
-      handler (val) {
-        if (val.show === true) {
-          for (const field of this.fields) {
-            if (field.type === 'file') {
-              this.$set(this.uploadLoaders, field.name, false)
-              this.$set(this.uploadStatuses, field.name, 'ready')
-            }
-          }
-        }
-        if (val.show === true && val.action === 'edit') {
-          for (const field of this.fields) {
-            if (field.type === 'select') {
-              if (field.async) {
-                field.list.oldSearch = ''
-                let data
-                const url = `${field.url}/id/${field.value}`
-                Vue.http.get(url).then((response) => {
-                  const items = response.body
-                  if (typeof field.list.complexName !== 'undefined') {
-                    data = items.map((item) => {
-                      const rItem = item
-                      const textArray = field.list.complexName.map((textInfo) => {
-                        const splittedText = textInfo
-                          .split('.')
-                          .reduce((object, property) => object[property] || '', item)
-                        return splittedText
-                      })
-                      rItem.complexName = textArray.join(', ')
-                      return rItem
-                    })
-                  } else {
-                    data = items
-                  }
-                  this.$set(this.searchData, `search_${field.name}`, data)
-                })
-              }
-            }
-          }
-        }
-      },
-      deep: true
-    },
-    searchPhrases: {
-      handler (val) {
-        setTimeout(() => {
-          for (const field of this.fields) {
-            if (field.type === 'select' && field.async) {
-              const search = val[`search_${field.name}`]
-              const newSearch = this.searchPhrases[`search_${field.name}`]
-              if (
-                search !== null &&
-                search !== undefined &&
-                search !== field.list.oldSearch &&
-                search === newSearch
-              ) {
-                field.list.oldSearch = search
-                let data
-                const url = `${field.url}/phrase/${val[`search_${field.name}`]}`
-                this.$set(this.searchLoading, `search_${field.name}`, true)
-                Vue.http.get(url).then((response) => {
-                  this.$set(this.searchLoading, `search_${field.name}`, false)
-                  const items = response.body
-                  if (typeof field.list.complexName !== 'undefined') {
-                    data = items.map((item) => {
-                      const rItem = item
-                      const textArray = field.list.complexName.map((textInfo) => {
-                        const splittedText = textInfo
-                          .split('.')
-                          .reduce((object, property) => object[property] || '', item)
-                        return splittedText
-                      })
-                      rItem.complexName = textArray.join(', ')
-                      return rItem
-                    })
-                  } else {
-                    data = items
-                  }
-                  this.$set(this.searchData, `search_${field.name}`, data)
-                })
-              }
-            }
-          }
-        }, 500)
-      },
-      deep: true
-    }
   },
   computed: {
-    ...mapState('crud', ['uploadPath']),
     ...mapState('crud', ['details', 'path', 'prefix', 'selectedIds']),
     fields () {
       const fields = this.detailsFields.filter((field) => {
@@ -389,14 +121,6 @@ export default {
         result[field.column] = field.value ? field.value : null
       }
       return result
-    },
-    rules () {
-      const self = this
-      return {
-        required: v => !!v || self.$t('global.details.rules.required'),
-        minLength: v => v.length >= 24 || `Min ${24} characters`,
-        maxLength: (v, val) => v.length <= val || `Max ${val} characters`
-      }
     }
   },
   methods: {
@@ -405,34 +129,11 @@ export default {
       'openAlertBox'
     ]),
     ...mapMutations('crud', ['resetItem']),
-    fileUploadBtn (status) {
-      const btnClasses = {
-        ready: 'primary',
-        success: 'success',
-        error: 'error'
-      }
-      return btnClasses[status]
-    },
-    fileUploadIcon (status) {
-      const icons = {
-        ready: 'save_alt',
-        success: 'check',
-        error: 'close'
-      }
-      return icons[status]
+    valueChanged (val, fieldName) {
+      this.$set(this.fields[this.fields.findIndex(el => el.name === fieldName)], 'value', val)
     },
     close () {
       this.details.show = false
-    },
-    fieldRules (field) {
-      const rules = []
-      const required = field.required !== undefined ? field.required : true
-      if (this.details.action !== 'multiedit') {
-        if (required) {
-          rules.push(this.rules.required)
-        }
-      }
-      return rules
     },
     update () {
       this.updateItem([
@@ -467,80 +168,14 @@ export default {
         this.$t('global.alerts.updated'),
         this.$t('global.alerts.updateError')
       ])
-    },
-    fileSelected (e, field) {
-      const file = e.target.files[0]
-      if (file) {
-        this.$set(this.uploadLoaders, field.name, true)
-        const formData = new FormData()
-        formData.append('file', file)
-        formData.append('module', this.prefix)
-        formData.append('table', this.path)
-        formData.append('field', field.column)
-        this.$http.post(this.uploadPath, formData, {}).then((response) => {
-          if (response.body.status === 0) {
-            field.value = JSON.stringify({
-              filename: file.name,
-              mime: file.type,
-              size: file.size,
-              path: response.body.path,
-              uploaded: 1
-            })
-            this.$set(this.uploadStatuses, field.name, 'success')
-          } else {
-            this.$set(this.uploadStatuses, field.name, 'error')
-            if (response.body.status === -1) {
-              this.openAlertBox(['alertError', response.body.msg])
-            } else if (response.body.status === -2) {
-              this.openAlertBox(['alertValidationError', response.body.msg])
-            }
-          }
-          this.$set(this.uploadLoaders, field.name, false)
-        }, () => {
-          this.$set(this.uploadLoaders, field.name, false)
-          this.$set(this.uploadStatuses, field.name, 'error')
-        })
-      }
     }
   }
 }
 </script>
 
 <style scoped>
-.field-label {
-  font-size:12px;
-  color:#777;
-}
-.file-container {
-  margin-top:4px;
-}
-.jbtn-file {
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  margin: 0px;
-}
-.jbtn-file input[type="file"] {
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
-  font-size: 100px;
-  text-align: right;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  outline: none;
-  cursor: inherit;
-  display: block;
-}
 .details-list {
   max-height: 60vh;
   overflow-y: auto;
-}
-.checkbox-label {
-  padding-left: 5px;
-  color: rgba(0, 0, 0, 0.54);
-  font-size: 16px;
 }
 </style>

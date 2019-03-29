@@ -44,6 +44,19 @@
 
       <v-flex xs12 lg6 text-xs-center>
         <slot name="center"></slot>
+        <v-tooltip top v-if="mainFilter || fieldFilters">
+          <v-btn
+            class="white--text"
+            fab
+            small
+            color="red"
+            @click="clearFilters()"
+            slot="activator"
+          >
+            <v-icon>delete_sweep</v-icon>
+          </v-btn>
+          <span>{{ $t('global.datatable.buttons.clearFilters') }}</span>
+        </v-tooltip>
       </v-flex>
 
       <v-flex xs12 lg3 text-xs-center>
@@ -62,19 +75,6 @@
           <span>{{ $t('global.datatable.buttons.refreshTable') }}</span>
         </v-tooltip>
         <!-- Clear filters -->
-        <v-tooltip top v-if="mainFilter || fieldFilters">
-          <v-btn
-            class="white--text"
-            fab
-            small
-            color="red"
-            @click="clearFilters()"
-            slot="activator"
-          >
-            <v-icon>delete_sweep</v-icon>
-          </v-btn>
-          <span>{{ $t('global.datatable.buttons.clearFilters') }}</span>
-        </v-tooltip>
         <slot name="right"></slot>
       </v-flex>
 
