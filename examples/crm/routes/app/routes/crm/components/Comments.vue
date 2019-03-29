@@ -41,52 +41,52 @@
 </template>
 
 <script>
-  export default {
-    name: 'comments',
-    props: [
-      'data',
-      'commentTypes'
-    ],
-    data() {
-      return {
-        selectedCommentType: 1,
-        commentContent: ''
-      }
+export default {
+  name: 'comments',
+  props: [
+    'data',
+    'commentTypes'
+  ],
+  data () {
+    return {
+      selectedCommentType: 1,
+      commentContent: ''
+    }
+  },
+  methods: {
+    prettify (text) {
+      let linesArray = text.split('\n')
+      let formattedText = '<p>' + linesArray.join('</p><p>') + '</p>'
+      return formattedText
     },
-    methods: {
-      prettify(text) {
-        let linesArray = text.split("\n")
-        let formattedText = '<p>' + linesArray.join("</p><p>") + '</p>'
-        return formattedText
-      },
-      store() {
-        this.$parent.store(this.commentContent, this.selectedCommentType)
-      },
-      suspend(commentId) {
-        this.$parent.suspend(commentId)
-      },
+    store () {
+      this.$parent.store(this.commentContent, this.selectedCommentType)
     },
-    i18n: {
-      messages: {
-        pl: {
-          newComment: 'Nowy komentarz',
-          commentType: 'Typ komentarza',
-          buttons: {
-            suspend: 'Zawieś',
-            store: 'Dodaj'
-          }
-        },
-        en: {
-          newComment: 'New comment',
-          commentType: 'Comment type',
-          buttons: {
-            suspend: 'Suspend',
-            store: 'Store'
-          }
-        },
+    suspend (commentId) {
+      this.$parent.suspend(commentId)
+    }
+  },
+  i18n: {
+    messages: {
+      pl: {
+        newComment: 'Nowy komentarz',
+        commentType: 'Typ komentarza',
+        buttons: {
+          suspend: 'Zawieś',
+          store: 'Dodaj'
+        }
+      },
+      en: {
+        newComment: 'New comment',
+        commentType: 'Comment type',
+        buttons: {
+          suspend: 'Suspend',
+          store: 'Store'
+        }
       }
     }
   }
+}
 
 </script>
 <style scoped>

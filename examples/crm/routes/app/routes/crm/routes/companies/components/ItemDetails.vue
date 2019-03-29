@@ -32,53 +32,53 @@
 </template>
 
 <script>
-  import ItemDetailsContainer from "@/utils/crud/components/ItemDetailsContainer.vue"
-  import ItemDetailsContainerMixin from "@/utils/crud/mixins/item-details-container.js"
-  import CompanyPositions from './CompanyPositions.vue'
-  import CompanyComments from './CompanyComments.vue'
-  // import CompanyFiles from './CompanyFiles.vue'
-  // import ImageContainer from './ImageContainer.vue'
+import ItemDetailsContainer from '@/utils/crud/components/ItemDetailsContainer.vue'
+import ItemDetailsContainerMixin from '@/utils/crud/mixins/item-details-container'
+import CompanyPositions from './CompanyPositions.vue'
+import CompanyComments from './CompanyComments.vue'
+// import CompanyFiles from './CompanyFiles.vue'
+// import ImageContainer from './ImageContainer.vue'
 
-  export default {
-    mixins: [ItemDetailsContainerMixin],
-    components: {
-      ItemDetailsContainer,
-      CompanyPositions,
-      CompanyComments,
-      // CompanyFiles,
-      // ImageContainer
-    },
-    created() {
-      this.setIdColumn('id')
-      this.setChildItemsMapping([
-        {
-          name: 'companyPositions',
-          objName: 'positions'
-        },
-        {
-          name: 'companyComments',
-          objName: 'comments'
-        },
-      ])
-    },
-    i18n: {
-      messages: {
-        pl: {
-          title: 'Szczegóły firmy',
-          basicInformation: 'Dane podstawowe',
-          positions: 'Stanowiska',
-          comments: 'Komentarze',
-          files: 'Pliki',
-        },
-        en: {
-          title: 'Company details',
-          basicInformation: 'Basic information',
-          positions: 'Positions',
-          comments: 'Comments',
-          files: 'Files',
-        }
+export default {
+  mixins: [ItemDetailsContainerMixin],
+  components: {
+    ItemDetailsContainer,
+    CompanyPositions,
+    CompanyComments
+    // CompanyFiles,
+    // ImageContainer
+  },
+  created () {
+    this.setIdColumn('id')
+    this.setChildItemsMapping([
+      {
+        name: 'companyPositions',
+        objName: 'positions'
+      },
+      {
+        name: 'companyComments',
+        objName: 'comments'
+      }
+    ])
+  },
+  i18n: {
+    messages: {
+      pl: {
+        title: 'Szczegóły firmy',
+        basicInformation: 'Dane podstawowe',
+        positions: 'Stanowiska',
+        comments: 'Komentarze',
+        files: 'Pliki'
+      },
+      en: {
+        title: 'Company details',
+        basicInformation: 'Basic information',
+        positions: 'Positions',
+        comments: 'Comments',
+        files: 'Files'
       }
     }
   }
+}
 
 </script>

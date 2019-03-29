@@ -1,13 +1,13 @@
-let mutations = {
-  openProfileDialog(state) {
+const mutations = {
+  openProfileDialog (state) {
     state.profileDialog = true
   },
-  setModule(state, value) {
+  setModule (state, value) {
     state.module = value
   },
-  setPage(state, value) {
+  setPage (state, value) {
     state.page = value
-  },
+  }
 }
 
 export default mutations

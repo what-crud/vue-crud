@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card flat>
     <data-table-controls
       :deleteMode="deleteMode"
       :createMode="createMode"
@@ -20,7 +20,7 @@
     >
       <template slot="center">
         <!-- Search by fields -->
-        <v-menu offset-y :close-on-content-click="false" style="margin-right:15px;margin-left:15px;" v-if="fieldFilters">
+        <v-menu offset-y :close-on-content-click="false" max-height="50vh" style="margin-right:15px;margin-left:15px;" v-if="fieldFilters">
           <v-btn small fab dark slot="activator" class="primary">
             <v-icon>filter_list</v-icon>
           </v-btn>
@@ -64,7 +64,6 @@
 
     <!-- Table -->
     <v-data-table
-      class="elevation-1"
       :disable-initial-sort="true"
       :must-sort="true"
       v-model="selected"
@@ -74,6 +73,7 @@
       light
       :headers="headers"
       :items="items"
+      item-key="meta.id"
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
       :rows-per-page-text="$t('global.datatable.rowsPerPageText')"
@@ -107,36 +107,39 @@
 
 <script>
 import Vue from 'vue'
-import MainMixin from "../mixins/datatable-main.js";
-import HelperMixin from "../mixins/datatable-helper.js";
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import { getItemsList } from '../helpers/functions.js'
+import {
+  mapState,
+  mapActions
+} from 'vuex'
+import MainMixin from '../mixins/datatable-main'
+import HelperMixin from '../mixins/datatable-helper'
+import { getItemsList } from '../helpers/functions'
 
 export default {
   mixins: [MainMixin, HelperMixin],
-  data() {
+  data () {
     return {
       searching: false,
       newSearchRequest: false,
       ignorePaginationWatcher: false
-    };
+    }
   },
   created () {
-    this.resetItems();
+    this.resetItems()
     this.filterColumns = this.tableFields
-      .map(field => {
-        let item = {};
+      .map((field) => {
+        const item = {}
         item.mode = 'like'
-        item.text = field.text;
+        item.text = field.text
         item.name = field.name
         item.column = field.column
         item.value = ''
-        return item;
-      });
+        return item
+      })
   },
   computed: {
-    ...mapState("crud", ["totalItems", "loading", "detailsDialog", "tableRefreshing"]),
-    params() {
+    ...mapState('crud', ['totalItems', 'loading', 'detailsDialog', 'tableRefreshing']),
+    params () {
       return {
         sortBy: this.pagination.sortBy,
         descending: this.pagination.descending,
@@ -148,105 +151,105 @@ export default {
         deleteMode: this.deleteMode,
         activeColumnName: this.activeColumnName,
         mode: 'paginate'
-      };
-    },
+      }
+    }
   },
   watch: {
     pagination: {
-      handler() {
-        if(!this.ignorePaginationWatcher){
-          this.searchItems(false);
+      handler () {
+        if (!this.ignorePaginationWatcher) {
+          this.searchItems(false)
         }
         this.ignorePaginationWatcher = false
       },
       deep: true
     },
-    detailsDialog(val) {
+    detailsDialog (val) {
       if (!val) {
-        this.getItemsServerSide([this.params]);
+        this.getItemsServerSide([this.params])
       }
     },
-    selectedStatuses(val) {
-       this.searchItems(true);
+    selectedStatuses (val) {
+      this.searchItems(true)
     },
-    tableRefreshing(val) {
+    tableRefreshing (val) {
       if (val) {
-        this.getItemsServerSide([this.params]);
+        this.getItemsServerSide([this.params])
       }
-    },
+    }
   },
   methods: {
-    ...mapMutations("crud", ["refreshTable"]),
-    ...mapActions("crud", ["getItemsServerSide"]),
-    updateColumnFilterModeEvent(val, index) {
+    ...mapActions('crud', ['getItemsServerSide']),
+    ...mapActions([
+      'openAlertBox'
+    ]),
+    updateColumnFilterModeEvent (val, index) {
       this.updateColumnFilterMode(val, index)
       this.searchItems(true)
     },
-    filterColumnsEvent(val, index) {
+    filterColumnsEvent (val, index) {
       this.updateFilterColumns(val, index)
       this.searchItems(true)
     },
-    searchItems(resetPage){
-      if (resetPage){
+    searchItems (resetPage) {
+      if (resetPage) {
         this.ignorePaginationWatcher = true
         this.pagination.page = 1
       }
-      let params1 = JSON.stringify(this.params)
+      const params1 = JSON.stringify(this.params)
       setTimeout(() => {
-        let params2 = JSON.stringify(this.params)
-        if(params1 === params2){
+        const params2 = JSON.stringify(this.params)
+        if (params1 === params2) {
           this.getItemsServerSide([this.params])
         }
       }, 500)
     },
-    moveDetailsItem(page, index){
+    moveDetailsItem (page, index) {
       this.ignorePaginationWatcher = true
       this.pagination.page = page
-      this.getItemsServerSide([this.params]).then(response => {
-        let newItemId = this.items[index].meta.id
-        this.setCurrentItem({id:newItemId, index:index})
-        this.getItemDetails([newItemId]).then(response => {
-          this.showItemDetailsDialog();
+      this.getItemsServerSide([this.params]).then((response) => {
+        const newItemId = this.items[index].meta.id
+        this.setCurrentItem({ id: newItemId, index })
+        this.getItemDetails([newItemId]).then((response) => {
+          this.showItemDetailsDialog()
         })
       })
     },
-    exportToExcel() {
+    exportToExcel () {
       this.excelLoading = true
-      let headers = this.cleanHeaders.map(header => header.text)
-      let params = {}
-      for(let key in this.params){
+      const headers = this.cleanHeaders.map(header => header.text)
+      const params = {}
+      for (const key in this.params) {
         params[key] = this.params[key]
       }
       params.mode = 'all'
       let filteredItems
-      Vue.http.post(this.prefix + '/' + this.path + '/search', params)
+      Vue.http.post(`${this.prefix}/${this.path}/search`, params)
         .then((response) => {
-          let items = response.body
-          filteredItems = items.map(obj => {
-            return getItemsList(obj, this.tableFields, this.meta, this.primaryKey, this.customButtons, this.activeColumnName)
-          })
-          let data = filteredItems.map(item => {
-            let row = []
-            for(let header of this.cleanHeaders){
+          const items = response.body.data
+          filteredItems = items.map(obj => getItemsList(obj, this.tableFields, this.meta, this.primaryKey, this.customButtons, this.activeColumnName))
+          const data = filteredItems.map((item) => {
+            const row = []
+            for (const header of this.cleanHeaders) {
               row.push(item[header.value])
             }
             return row
           })
-          import('../vendor/Export2Excel').then(excel => {
+          import('../vendor/Export2Excel').then((excel) => {
             this.excelLoading = false
             excel.export_json_to_excel({
               header: headers,
-              data: data,
+              data,
               filename: this.excelName,
               autoWidth: true,
               bookType: 'xlsx'
             })
           })
-        }), error => {
+        }, (error) => {
           this.excelLoading = false
-          commit('alertError', error.statusText, { root: true })
-        }
+          this.openAlertBox(['alertError', error.statusText])
+        })
     }
   }
-};
+}
 </script>

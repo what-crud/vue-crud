@@ -4,39 +4,47 @@
       :items="sidebarItems"
       expandOn="click"
       :lockSidebarBtn="true"
-    >
-      <template slot="title">
-        <v-list-tile-action>
-          <v-icon color="primary">person</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-title>{{ userInfo.name }}</v-list-tile-title>
-      </template>
-    </sidebar>
-    <toolbar
       :title="$store.state.title"
       titleLink="/home"
       :showLogo="true"
-      logo="vue-crud-sm.png"
+      logo="vue-crud-avatar.png"
+      sidebarColor="primary"
+      :sidebarDark="true"
+      titleColor="white"
+      :titleDark="false"
+      navColor="secondary"
+    >
+      <template slot="nav">
+        <v-list-tile-action>
+          <v-icon color="secondary">person</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-title class="white--text">{{ userInfo.name }}</v-list-tile-title>
+      </template>
+    </sidebar>
+    <toolbar
       :profileBtn="profile"
       :localesBtn="true"
       :logoutBtn="true"
-    ></toolbar>
+      color="primary"
+      :dark="true"
+    >
+      <template slot="left">
+        <div class="headline">
+          <template v-if="$store.state.app.module !=null">
+              {{ $t('global.routes.' + $store.state.app.module) }}
+          </template>
+          <template v-if="$store.state.app.page !=null">
+              <v-icon slot="divider">forward</v-icon>
+              {{ $t('global.routes.' + $store.state.app.page) }}
+          </template>
+        </div>
+      </template>
+    </toolbar>
     <v-content class="content">
       <v-container fluid fill-height class="main-container">
         <v-layout style="width:100%">
           <v-flex xs12>
-            <v-card blue flat class="main-card">
-              <v-card-title class="card-title">
-                <div class="headline">
-                  <template v-if="$store.state.app.module !=null">
-                      {{ $t('global.routes.' + $store.state.app.module) }}
-                  </template>
-                  <template v-if="$store.state.app.page !=null">
-                      <v-icon slot="divider">forward</v-icon>
-                      {{ $t('global.routes.' + $store.state.app.page) }}
-                  </template>
-                </div>
-              </v-card-title>
+            <v-card flat class="main-card">
               <v-card-text class="content-container">
 
                 <router-view style="margin: 0 auto;"></router-view>
@@ -48,103 +56,123 @@
         </v-layout>
       </v-container>
     </v-content>
-    <footnote v-if="footer"></footnote>
+    <footnote
+      v-if="footer"
+      color="secondary"
+      :dark="true"
+    >
+      <template slot="left">
+        <a href="https://vue-crud.github.io/" target="_blank" style="color:white;text-decoration:none;">
+          <v-icon color="white">help</v-icon>  vue-crud.github.io
+        </a>
+      </template>
+      <template slot="center">
+        Your Company
+      </template>
+      <template slot="right">
+        &#9400; {{ year }}
+      </template>
+    </footnote>
     <back-top></back-top>
     <profile v-if="profile"></profile>
   </div>
 </template>
 
 <script>
-import Sidebar from "@/utils/app/components/Sidebar.vue";
-import Toolbar from "@/utils/app/components/Toolbar.vue";
-import AlertBox from "@/utils/app/components/AlertBox.vue";
-import Footnote from "@/utils/app/components/Footnote.vue";
-import BackTop from "@/utils/app/components/BackTop.vue";
-import Profile from "@/utils/app/components/Profile.vue";
-import { mapGetters } from "vuex";
+import Sidebar from '@/utils/app/components/Sidebar.vue'
+import Toolbar from '@/utils/app/components/Toolbar.vue'
+import AlertBox from '@/utils/app/components/AlertBox.vue'
+import Footnote from '@/utils/app/components/Footnote.vue'
+import BackTop from '@/utils/app/components/BackTop.vue'
+import Profile from '@/utils/app/components/Profile.vue'
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "app",
+  name: 'app',
   data: () => ({
     profile: true,
     footer: true,
     sidebarItems: [
-        {
-            icon: "people",
-            text: "crm.name",
-            model: false,
-            guard: "CRM",
-            route: "/crm",
-            children: [{
-                    text: "crm.companies",
-                    route: "/companies"
-                },
-                {
-                    text: "crm.companyTypes",
-                    route: "/company-types"
-                },
-                {
-                    text: "crm.companyFiles",
-                    route: "/company-files"
-                },
-                {
-                    text: "crm.companyComments",
-                    route: "/company-comments"
-                },
-                {
-                    text: "crm.companyCommentTypes",
-                    route: "/company-comment-types"
-                },
-                {
-                    text: "crm.people",
-                    route: "/people"
-                },
-                {
-                    text: "crm.personComments",
-                    route: "/person-comments"
-                },
-                {
-                    text: "crm.personCommentTypes",
-                    route: "/person-comment-types"
-                },
-                {
-                    text: "crm.positions",
-                    route: "/positions"
-                },
-                {
-                    text: "crm.positionTasks",
-                    route: "/position-tasks"
-                },
-                {
-                    text: "crm.tasks",
-                    route: "/tasks"
-                }
-            ]
+      {
+        icon: 'people',
+        text: 'crm.name',
+        model: false,
+        guard: 'CRM',
+        route: '/crm',
+        children: [{
+          text: 'crm.companies',
+          route: '/companies'
         },
         {
-            icon: "person_add_disabled",
-            text: "admin.name",
-            model: false,
-            guard: "ADMIN",
-            route: "/administration",
-            children: [{
-                    text: "admin.users",
-                    route: "/users"
-                },
-                {
-                    text: "admin.permissions",
-                    route: "/permissions"
-                },
-                {
-                    text: "admin.userPermissions",
-                    route: "/user-permissions"
-                }
-            ]
+          text: 'crm.companyTypes',
+          route: '/company-types'
+        },
+        {
+          text: 'crm.companyFiles',
+          route: '/company-files'
+        },
+        {
+          text: 'crm.companyComments',
+          route: '/company-comments'
+        },
+        {
+          text: 'crm.companyCommentTypes',
+          route: '/company-comment-types'
+        },
+        {
+          text: 'crm.people',
+          route: '/people'
+        },
+        {
+          text: 'crm.personComments',
+          route: '/person-comments'
+        },
+        {
+          text: 'crm.personCommentTypes',
+          route: '/person-comment-types'
+        },
+        {
+          text: 'crm.positions',
+          route: '/positions'
+        },
+        {
+          text: 'crm.positionTasks',
+          route: '/position-tasks'
+        },
+        {
+          text: 'crm.tasks',
+          route: '/tasks'
         }
+        ]
+      },
+      {
+        icon: 'person_add_disabled',
+        text: 'admin.name',
+        model: false,
+        guard: 'ADMIN',
+        route: '/administration',
+        children: [{
+          text: 'admin.users',
+          route: '/users'
+        },
+        {
+          text: 'admin.permissions',
+          route: '/permissions'
+        },
+        {
+          text: 'admin.userPermissions',
+          route: '/user-permissions'
+        }
+        ]
+      }
     ]
   }),
   computed: {
-    ...mapGetters("auth", ["isLogged", "userInfo"])
+    ...mapGetters('auth', ['isLogged', 'userInfo']),
+    year () {
+      let year = new Date()
+      return year.getFullYear()
+    }
   },
   components: {
     Sidebar,
@@ -154,19 +182,20 @@ export default {
     BackTop,
     Profile
   }
-};
+}
 </script>
 <style scoped>
 .main-container {
-  padding: 10px;
+  padding: 10px 0 0 0;
+  background-color: white;
 }
 .content {
   min-height: 100vh;
   overflow-x: auto;
-  background-color: #f2f2f2;
+  background-color: white;
 }
 .main-card {
-  background-color: #f2f2f2;
+  background-color: white;
 }
 .card-title {
   padding: 0;

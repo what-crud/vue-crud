@@ -3,29 +3,56 @@
   <v-navigation-drawer
     permanent
     :mini-variant="sidebarMini"
-    dark clipped
-    class="secondary main-sidebar"
+    fixed
+    app
+    class="main-sidebar"
+    :class="sidebarColor"
+    :dark="sidebarDark"
   >
-    <v-list class="pa-1 primary--text">
+    <router-link :to="titleLink" style="text-decoration:none">
+      <v-toolbar
+        v-if="title !== '' || showLogo"
+        :class="titleColor"
+      >
+        <v-list>
+          <v-list-tile>
+            <v-list-tile-avatar tile v-if="showLogo" size="60" style="margin-right: 20px;">
+              <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
+            </v-list-tile-avatar>
+            <v-list-tile-title class="title" :class="titleDark ? 'white--text' : 'black--text'">
+              {{ title }}
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+    </router-link>
+    <v-divider></v-divider>
+    <v-list class="pa-1" :class="`${navColor}--text`">
       <v-list-tile v-if="sidebarMini && lockSidebarBtn && !locked" @click.stop="toggleLock">
         <v-list-tile-action>
-          <v-icon color="primary">chevron_right</v-icon>
+          <v-icon :color="navColor !== '' ? navColor : (sidebarDark ? 'white' : 'black')">chevron_right</v-icon>
         </v-list-tile-action>
       </v-list-tile>
       <v-list-tile v-if="!sidebarMini">
-        <slot name="title"></slot>
+        <slot name="nav"></slot>
         <v-list-tile-action v-if="lockSidebarBtn && locked">
           <v-btn icon @click.stop="toggleLock">
-            <v-icon color="primary">chevron_left</v-icon>
+            <v-icon :color="navColor !== '' ? navColor : (sidebarDark ? 'white' : 'black')">chevron_left</v-icon>
           </v-btn>
         </v-list-tile-action>
       </v-list-tile>
     </v-list>
     <slot name="over"></slot>
     <v-list dense>
-      <template v-if="checkPermission(item.guard)" v-for="(item) in items">
-        <v-list-group v-model="item.model" :key="item.text" :prepend-icon="item.icon"
-          append-icon="">
+      <template v-for="(item) in items">
+        <v-list-group
+          v-if="checkPermission(item.guard)"
+          v-model="item.model"
+          :key="item.text"
+          :prepend-icon="item.icon"
+          append-icon=""
+          active-class="sidebarDark ? 'white--text' : 'black--text'"
+        >
           <v-list-tile slot="activator">
             <v-list-tile-content>
               <v-list-tile-title>
@@ -57,22 +84,25 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import {
+  mapGetters,
+  mapMutations
+} from 'vuex'
 
 export default {
-  created() {
+  created () {
     this.locked = JSON.parse(localStorage.getItem('sidebarLocked')) || false
   },
   computed: {
-    ...mapGetters("auth", ["checkPermission"]),
-    sidebarMini() {
+    ...mapGetters('auth', ['checkPermission']),
+    sidebarMini () {
       return this.locked ? false : !this.expanded
-    },
+    }
   },
   watch: {
-    expanded(val) {
+    expanded (val) {
       if (!val) {
-        for(let item of this.items){
+        for (const item of this.items) {
           item.model = false
         }
       }
@@ -80,44 +110,80 @@ export default {
   },
   props: {
     source: String,
+    title: {
+      type: String,
+      default: ''
+    },
+    titleLink: {
+      type: String,
+      default: '/'
+    },
+    showLogo: {
+      type: Boolean,
+      default: true
+    },
+    logo: {
+      type: String,
+      default: 'vue-crud-avatar.png'
+    },
+    navColor: {
+      type: String,
+      default: ''
+    },
+    titleColor: {
+      type: String,
+      default: 'secondary'
+    },
+    titleDark: {
+      type: Boolean,
+      default: true
+    },
+    sidebarColor: {
+      type: String,
+      default: 'white'
+    },
+    sidebarDark: {
+      type: Boolean,
+      default: false
+    },
     items: {
       type: Array,
-      default: []
+      default: () => []
     },
     expandOn: {
       type: String,
       default: 'mouseover',
-      validator: function (value) {
+      validator (value) {
         return ['click', 'mousover'].indexOf(value) !== -1
-      },
+      }
     },
     lockSidebarBtn: {
       type: Boolean,
       default: true
-    },
+    }
   },
   methods: {
-    ...mapMutations("app", [
+    ...mapMutations('app', [
       'toggleSidebarWidth',
       'setSidebarWidth'
     ]),
-    toggleLock() {
+    toggleLock () {
       this.locked = !this.locked
       localStorage.setItem('sidebarLocked', this.locked)
       this.expanded = this.locked
     },
-    click() {
-      if(this.sidebarMini && this.expandOn == 'click' && !this.locked) {
+    click () {
+      if (this.sidebarMini && this.expandOn === 'click' && !this.locked) {
         this.expanded = true
       }
     },
-    mouseover() {
-      if(this.sidebarMini && this.expandOn == 'mouseover' && this.locked) {
+    mouseover () {
+      if (this.sidebarMini && this.expandOn === 'mouseover' && this.locked) {
         this.expanded = true
       }
     },
-    mouseleave() {
-      if(!this.locked){
+    mouseleave () {
+      if (!this.locked) {
         this.expanded = false
       }
     }
@@ -127,9 +193,9 @@ export default {
     dialog: false,
     locked: false,
     expanded: false
-  }),
-};
+  })
+}
 </script>
 <style scoped>
-  
+
 </style>

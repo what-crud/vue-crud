@@ -22,12 +22,12 @@ export default {
     'pagination'
   ],
   computed: {
-    calcPages() {
+    calcPages () {
       return Math.ceil(this.itemsLength / this.pagination.rowsPerPage)
-    },
+    }
   },
   methods: {
-    setPage(val){
+    setPage (val) {
       this.$emit('setPage', val)
     }
   }

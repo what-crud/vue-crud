@@ -20,7 +20,7 @@ export default {
       default: 'active'
     }
   },
-  data() {
+  data () {
     return {
       detailsLoader: false
     }
@@ -33,17 +33,17 @@ export default {
     ]),
     ...mapGetters('crud', [
       'item',
-      'childrenList',
+      'childrenList'
     ]),
-    details() {
+    details () {
       return this.childItems[this.childItemName].details
     },
-    fileteredTableFields() {
-      return this.fieldsInfo.filter(field => field.table != false && field.type != 'divider' && field.childTable != false && !this.exclude.includes(field.name))
+    fileteredTableFields () {
+      return this.fieldsInfo.filter(field => field.table !== false && field.type !== 'divider' && field.childTable !== false && !this.exclude.includes(field.name))
     },
-    fileteredDetailsFields() {
-      return this.fieldsInfo.filter(field => field.details != false && field.type != 'divider' && field.childTable != false && !this.exclude.includes(field.name))
-    },
+    fileteredDetailsFields () {
+      return this.fieldsInfo.filter(field => field.details !== false && field.type !== 'divider' && field.childTable !== false && !this.exclude.includes(field.name))
+    }
   },
   methods: {
     ...mapMutations('crud', [
@@ -54,24 +54,24 @@ export default {
       'setChildTitle'
     ]),
     ...mapActions('crud', [
-      "getItemDetails",
+      'getItemDetails',
       'updateChild',
       'storeChild',
       'getChild',
       'deleteChild'
     ]),
-    edit(id) {
+    edit (id) {
       this.detailsLoader = true
-      this.getChild([id, this.path, this.childItemName]).then(response => {
+      this.getChild([id, this.path, this.childItemName]).then((response) => {
         this.editChildDialog([id, this.childItemName])
         this.detailsLoader = false
       })
     },
-    create() {
+    create () {
       this.resetChild(this.childItemName)
       this.createChildDialog(this.childItemName)
     },
-    suspend(id) {
+    suspend (id) {
       this.updateChild([
         id,
         {
@@ -81,7 +81,7 @@ export default {
         this.path
       ])
     },
-    restore(id) {
+    restore (id) {
       this.updateChild([
         id,
         {
@@ -91,44 +91,44 @@ export default {
         this.path
       ])
     },
-    reset() {
+    reset () {
       this.resetChild(this.childItemName)
     },
-    close() {
+    close () {
       this.hideChildDialog(this.childItemName)
     },
-    destroy(id) {      
-      if (confirm(this.$t("global.alerts.confirm"))) {
+    destroy (id) {
+      if (confirm(this.$t('global.alerts.confirm'))) {
         this.deleteChild([
           id,
-          this.$t("global.alerts.deleted"),
-          this.$t("global.alerts.deleteError"),
+          this.$t('global.alerts.deleted'),
+          this.$t('global.alerts.deleteError'),
           this.path
-        ]);
+        ])
       }
     },
-    update(id, data) {
+    update (id, data) {
       this.updateChild([
         id,
         data,
         this.$t('global.alerts.updated'),
         this.path
-      ]).then(response => {
-        this.close();
+      ]).then((response) => {
+        this.close()
       })
     },
-    store(data) {
+    store (data) {
       data[this.fkName] = this.item[this.itemIdColumn]
       this.storeChild([
         data,
         this.$t('global.alerts.stored'),
         this.path
-      ]).then(response => {
-        this.close();
+      ]).then((response) => {
+        this.close()
       })
     },
-    itemElementsClosed(){
+    itemElementsClosed () {
       this.getItemDetails([this.item[this.itemIdColumn]])
     }
-  },
+  }
 }

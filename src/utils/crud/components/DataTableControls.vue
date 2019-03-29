@@ -44,12 +44,25 @@
 
       <v-flex xs12 lg6 text-xs-center>
         <slot name="center"></slot>
+        <v-tooltip top v-if="mainFilter || fieldFilters">
+          <v-btn
+            class="white--text"
+            fab
+            small
+            color="red"
+            @click="clearFilters()"
+            slot="activator"
+          >
+            <v-icon>delete_sweep</v-icon>
+          </v-btn>
+          <span>{{ $t('global.datatable.buttons.clearFilters') }}</span>
+        </v-tooltip>
       </v-flex>
 
       <v-flex xs12 lg3 text-xs-center>
         <!-- Refresh table -->
         <v-tooltip top v-if="refreshButton">
-          <v-btn 
+          <v-btn
             class="white--text"
             fab
             small
@@ -62,25 +75,12 @@
           <span>{{ $t('global.datatable.buttons.refreshTable') }}</span>
         </v-tooltip>
         <!-- Clear filters -->
-        <v-tooltip top v-if="mainFilter || fieldFilters">
-          <v-btn 
-            class="white--text"
-            fab
-            small
-            color="red"
-            @click="clearFilters()"
-            slot="activator"
-          >
-            <v-icon>delete_sweep</v-icon>
-          </v-btn>
-          <span>{{ $t('global.datatable.buttons.clearFilters') }}</span>
-        </v-tooltip>
         <slot name="right"></slot>
       </v-flex>
 
     </v-layout>
   </v-card-title>
-        
+
 </template>
 
 <script>
@@ -94,16 +94,16 @@ export default {
     'refreshButton',
     'selectManyMode',
     'updateManyMode',
-    'removeManyMode',
+    'removeManyMode'
   ],
   methods: {
-    create() {this.$emit('create')},
-    editSelected() {this.$emit('editSelected')},
-    suspendSelected() {this.$emit('suspendSelected')},
-    restoreSelected() {this.$emit('restoreSelected')},
-    destroySelected() {this.$emit('destroySelected')},
-    refreshTable() {this.$emit('refreshTable')},
-    clearFilters() {this.$emit('clearFilters')},
+    create () { this.$emit('create') },
+    editSelected () { this.$emit('editSelected') },
+    suspendSelected () { this.$emit('suspendSelected') },
+    restoreSelected () { this.$emit('restoreSelected') },
+    destroySelected () { this.$emit('destroySelected') },
+    refreshTable () { this.$emit('refreshTable') },
+    clearFilters () { this.$emit('clearFilters') }
   }
-};
+}
 </script>

@@ -7,32 +7,55 @@
 
           <div v-for="(field, i) in fields" :key="i">
 
-            <!-- input -->
-            <v-text-field :rules="fieldRules(field)" hide-details v-if="field.type == 'input'" :label="field.text"
-              v-model="field.value"></v-text-field>
-
-            <!-- number -->
-            <v-text-field hide-details v-else-if="field.type == 'number'" :label="field.text" v-model="field.value" type="number" step="1" min="0"></v-text-field>
-
-            <!-- decimal -->
-            <v-text-field :rules="fieldRules(field)" hide-details v-else-if="field.type == 'decimal'" :label="field.text" v-model="field.value" type="number" step="0.01" min="0"></v-text-field>
-
-            <!--date -->
-            <v-text-field :rules="fieldRules(field)" hide-details v-else-if="field.type == 'date'" :label="field.text" v-model="field.value" mask="####-##-##" return-masked-value></v-text-field>
-
-            <!--time -->
-            <v-text-field :rules="fieldRules(field)" hide-details  v-else-if="field.type == 'time'" :label="field.text" v-model="field.value" mask="##:##" return-masked-value></v-text-field>
-
-            <!--datetime -->
-            <v-text-field :rules="fieldRules(field)" hide-details v-else-if="field.type == 'datetime'" :label="field.text" v-model="field.value" mask="####-##-## ##:##:##" return-masked-value></v-text-field>
+            <!-- text field: input / number / decimal / date / time / datetime -->
+            <v-text-field
+              hide-details
+              :rules="fieldRules(field)"
+              v-if="['input', 'number', 'decimal', 'date', 'time', 'datetime'].includes(field.type)"
+              :label="field.text"
+              v-model="field.value"
+              :disabled="field.disabled"
+              :type="['number', 'decimal'].includes(field.type) ? 'number' : 'text'"
+              :step="field.type == 'decimal' ? 0.01 : 1"
+              min="0"
+              :mask="['date', 'time', 'datetime'].includes(field.type) ? masks[field.type] : undefined"
+              :return-masked-value="['date', 'time', 'datetime'].includes(field.type) ? true : false"
+            ></v-text-field>
 
             <!-- text area -->
-            <v-textarea :rules="fieldRules(field)" hide-details v-else-if="field.type == 'textarea'" :label="field.text"
-              v-model="field.value"></v-textarea>
+            <v-textarea
+              hide-details
+              :rules="fieldRules(field)"
+              v-else-if="field.type == 'textarea'"
+              :label="field.text"
+              v-model="field.value"
+              :disabled="field.disabled"
+            ></v-textarea>
+
+            <!-- file upload -->
+            <div v-else-if="field.type == 'file'" class="file-container">
+              <div class="field-label">{{ field.text }}</div>
+              <v-btn dark class="jbtn-file" :loading="uploadLoaders[field.name]" :class="fileUploadBtn(uploadStatuses[field.name])">
+                {{ $t('global.details.files.upload') }}
+                <v-icon dark right>
+                  {{ fileUploadIcon(uploadStatuses[field.name]) }}
+                </v-icon>
+                <input
+                  :id="field.name"
+                  type="file"
+                  @change="fileSelected($event, field)"
+                  accept="*"
+                  :multiple="false"
+                  :disabled="field.disabled"
+                  ref="fileInput"
+                >
+              </v-btn>
+            </div>
 
             <!-- select -->
             <template v-else-if="field.type == 'select'">
-              <v-autocomplete v-if="field.async"
+              <v-autocomplete
+                v-if="field.async"
                 hide-details
                 :rules="fieldRules(field)"
                 :loading="searchLoading['search_' + field.name]"
@@ -45,9 +68,10 @@
                 item-disabled="itemDisabled"
                 :label="field.text"
                 menu-props="bottom"
-               
+                :disabled="field.disabled"
               ></v-autocomplete>
-              <v-autocomplete v-else
+              <v-autocomplete
+                v-else
                 hide-details
                 :rules="fieldRules(field)"
                 :items="field.list.data"
@@ -57,15 +81,55 @@
                 item-disabled="itemDisabled"
                 :label="field.text"
                 menu-props="bottom"
-               
+                :disabled="field.disabled"
               ></v-autocomplete>
             </template>
-            
-            <span v-else-if="field.type == 'checkbox'">
-              <input :rules="fieldRules(field)" type="checkbox" color="blue" :label="field.text" v-model="field.value">
-              <label class="checkbox-label">{{field.text}}</label>
-            </span>
 
+            <!-- date picker -->
+            <v-menu
+              v-else-if="field.type == 'datePicker'"
+              lazy
+              :close-on-content-click="true"
+              v-model="field.show"
+              transition="scale-transition"
+              offset-y
+              full-width
+              :nudge-right="40"
+              min-width="290px"
+              :return-value.sync="field.value"
+              :disabled="field.disabled"
+            >
+              <v-text-field
+                hide-details
+                slot="activator"
+                :label="field.text"
+                v-model="field.value"
+                prepend-icon="event"
+                :disabled="field.disabled"
+              ></v-text-field>
+              <v-date-picker v-model="field.value" no-title scrollable></v-date-picker>
+            </v-menu>
+
+            <!-- rich text editor -->
+            <template v-else-if="field.type == 'richTextBox'">
+              <label>{{field.text}}</label>
+              <vue-editor
+                id="editor"
+                v-model="field.value"
+                :editorOptions="{bounds: '#editor'}"
+                :disabled="field.disabled"
+              ></vue-editor>
+              <br>
+            </template>
+
+            <!-- checkbox -->
+            <v-checkbox v-else-if="field.type == 'checkbox'"
+              hide-details
+              color="primary"
+              v-model="field.value"
+              :label="field.text"
+              :disabled="field.disabled"
+            ></v-checkbox>
 
           </div>
         </v-card-text>
@@ -80,158 +144,159 @@
   </v-dialog>
 </template>
 <script>
-import Vue from "vue";
-import { fieldModifiers } from "@/utils/crud/helpers/functions.js";
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import Vue from 'vue'
+import { VueEditor } from 'vue2-editor'
+import { fieldModifiers } from '@/utils/crud/helpers/functions'
 
 export default {
+  components: {
+    VueEditor
+  },
   props: {
     details: Object,
-    fieldsInfo: Array,
+    fieldsInfo: Array
   },
-  data() {
+  data () {
     return {
       searchPhrases: {},
       searchLoading: {},
       searchData: {},
-      customFilter(item, queryText, itemText) {
-        const hasValue = val => (val != null ? val : "");
-        const text = hasValue(item.name);
-        const query = hasValue(queryText);
+      masks: {
+        date: '####-##-##',
+        time: '##:##',
+        datetime: '####-##-## ##:##:##'
+      },
+      customFilter (item, queryText, itemText) {
+        const hasValue = val => (val != null ? val : '')
+        const text = hasValue(item.name)
+        const query = hasValue(queryText)
         return (
           text
             .toString()
             .toLowerCase()
             .indexOf(query.toString().toLowerCase()) >= -1
-        );
+        )
       }
-    };
+    }
   },
-  created() {
-    for (let field of this.fields) {
-      if (field.type == "select") {
-        let url = field.url;
+  created () {
+    for (const field of this.fields) {
+      if (field.type === 'select') {
+        const { url } = field
         if (field.async) {
-          this.$set(this.searchPhrases, "search_" + field.name, "");
-          this.$set(this.searchLoading, "search_" + field.name, false);
-          this.$set(this.searchData, "search_" + field.name, [])
-          this.$set(field.list, 'oldSearch', "")
-        }
-        else {
-          field.list.data = [];
-          let selectItems;
-          Vue.http.get(url).then(response => {
-            let items = response.body;
-            selectItems = items.map(item => {
-              let rItem = item;
-              if (typeof field.list.activeColumn != "undefined") {
-                rItem.itemDisabled = item[field.list.activeColumn] == 0 ? true : false
+          this.$set(this.searchPhrases, `search_${field.name}`, '')
+          this.$set(this.searchLoading, `search_${field.name}`, false)
+          this.$set(this.searchData, `search_${field.name}`, [])
+          this.$set(field.list, 'oldSearch', '')
+        } else {
+          field.list.data = []
+          let selectItems
+          Vue.http.get(url).then((response) => {
+            const items = response.body
+            selectItems = items.map((item) => {
+              const rItem = item
+              if (typeof field.list.activeColumn !== 'undefined') {
+                rItem.itemDisabled = parseInt(item[field.list.activeColumn]) === 0
               }
-              if (typeof field.list.complexName != "undefined") {
-                let textArray = field.list.complexName.map(textInfo => {
-                  let splittedText = textInfo
-                    .split(".")
-                    .reduce(function(object, property) {
-                      return object[property] || "";
-                    }, item);
-                  return splittedText;
-                });
-                rItem.complexName = textArray.join(", ");
+              if (typeof field.list.complexName !== 'undefined') {
+                const textArray = field.list.complexName.map((textInfo) => {
+                  const splittedText = textInfo
+                    .split('.')
+                    .reduce((object, property) => object[property] || '', item)
+                  return splittedText
+                })
+                rItem.complexName = textArray.join(', ')
               }
-              return rItem;
-            });
+              return rItem
+            })
             if (!field.required) {
-              let nullElement = {};
-              nullElement[field.list.value] = "";
-              nullElement[field.list.text] = "-";
-              field.list.data = [nullElement, ...selectItems];
+              const nullElement = {}
+              nullElement[field.list.value] = ''
+              nullElement[field.list.text] = '-'
+              field.list.data = [nullElement, ...selectItems]
             } else {
-              field.list.data = selectItems;
+              field.list.data = selectItems
             }
-          });
+          })
         }
       }
     }
   },
   computed: {
-    fields() {
-      let filteredFields;
+    fields () {
+      let filteredFields
       filteredFields = this.fieldsInfo.filter(
-        field => field.details != false && field.type != "divider"
-      );
-      let self = this;
-      let result = filteredFields.map(field => {
-        let rField = field;
-        rField.value = this.details.item[field.column];
-        if (field.type == "select") {
-          let defaultVal = field.list.default || 1
+        field => field.details !== false && field.type !== 'divider'
+      )
+      const result = filteredFields.map((field) => {
+        const rField = field
+        rField.value = this.details.item[field.column]
+        if (field.type === 'select') {
+          const defaultVal = field.list.default || 1
           rField.value = field.stringId
             ? this.details.item[field.column]
-            : parseInt(this.details.item[field.column]) || defaultVal;
+            : parseInt(this.details.item[field.column]) || defaultVal
         }
-        if (field.apiObject){
-          if (field.apiObject.useFunctionsInDetails){
-            let functions = field.apiObject.functions || []
-            let availableFunctions = fieldModifiers
+        if (field.apiObject) {
+          if (field.apiObject.useFunctionsInDetails) {
+            const functions = field.apiObject.functions || []
+            const availableFunctions = fieldModifiers
 
             for (let i = 0; i < functions.length; i++) {
-              let functionName = functions[i]
+              const functionName = functions[i]
               rField.value = availableFunctions[functionName](rField.value)
             }
           }
         }
-        return rField;
-      });
-      return result;
+        return rField
+      })
+      return result
     },
-    itemData() {
-      let self = this;
-      let result = {};
-      for (let field of this.fields) {
-        result[field.column] = field.value ? field.value : null;
+    itemData () {
+      const result = {}
+      for (const field of this.fields) {
+        result[field.column] = field.value ? field.value : null
       }
-      //result.files = self.files
-      return result;
+      // result.files = self.files
+      return result
     },
-    rules() {
-      let self = this;
+    rules () {
+      const self = this
       return {
-        input: [v => !!v || self.$t("global.details.rules.required")],
-        required: v => !!v || self.$t("global.details.rules.required")
-      };
+        input: [v => !!v || self.$t('global.details.rules.required')],
+        required: v => !!v || self.$t('global.details.rules.required')
+      }
     }
   },
   watch: {
     details: {
-      handler(val) {
-        if (val.show == true && val.action == 'edit') {
-          for (let field of this.fields) {
-            if (field.type == "select") {
+      handler (val) {
+        if (val.show === true && val.action === 'edit') {
+          for (const field of this.fields) {
+            if (field.type === 'select') {
               if (field.async) {
-                field.list.oldSearch = "";
-                let data;
-                let url = field.url + "/id/" + field.value;
-                Vue.http.get(url).then(response => {
-                  let items = response.body;
-                  if (typeof field.list.complexName != "undefined") {
-                    data = items.map(item => {
-                      let rItem = item;
-                      let textArray = field.list.complexName.map(textInfo => {
-                        let splittedText = textInfo
-                          .split(".")
-                          .reduce(function(object, property) {
-                            return object[property] || "";
-                          }, item);
-                        return splittedText;
-                      });
-                      rItem.complexName = textArray.join(", ");
-                      return rItem;
-                    });
+                field.list.oldSearch = ''
+                let data
+                const url = `${field.url}/id/${field.value}`
+                Vue.http.get(url).then((response) => {
+                  const items = response.body
+                  if (typeof field.list.complexName !== 'undefined') {
+                    data = items.map((item) => {
+                      const rItem = item
+                      const textArray = field.list.complexName.map((textInfo) => {
+                        const splittedText = textInfo
+                          .split('.')
+                          .reduce((object, property) => object[property] || '', item)
+                        return splittedText
+                      })
+                      rItem.complexName = textArray.join(', ')
+                      return rItem
+                    })
                   } else {
-                    data = items;
+                    data = items
                   }
-                  this.$set(this.searchData, "search_" + field.name, data);
-                });
+                  this.$set(this.searchData, `search_${field.name}`, data)
+                })
               }
             }
           }
@@ -240,36 +305,34 @@ export default {
       deep: true
     },
     searchPhrases: {
-      handler(val) {
-        for (let field of this.fields) {
-          if (field.type == "select") {
+      handler (val) {
+        for (const field of this.fields) {
+          if (field.type === 'select') {
             if (field.async) {
-              if (val["search_" + field.name] != undefined) {
-                let url = field.url + "/phrase/" + val["search_" + field.name];
-                this.$set(this.searchLoading, "search_" + field.name, true);
-                Vue.http.get(url).then(response => {
-                  this.$set(this.searchLoading, "search_" + field.name, false);
-                  let items = response.body;
+              if (val[`search_${field.name}`] !== undefined) {
+                const url = `${field.url}/phrase/${val[`search_${field.name}`]}`
+                this.$set(this.searchLoading, `search_${field.name}`, true)
+                Vue.http.get(url).then((response) => {
+                  this.$set(this.searchLoading, `search_${field.name}`, false)
+                  const items = response.body
                   let data
-                  if (typeof field.list.complexName != "undefined") {
-                    data = items.map(item => {
-                      let rItem = item;
-                      let textArray = field.list.complexName.map(textInfo => {
-                        let splittedText = textInfo
-                          .split(".")
-                          .reduce(function(object, property) {
-                            return object[property] || "";
-                          }, item);
-                        return splittedText;
-                      });
-                      rItem.complexName = textArray.join(", ");
-                      return rItem;
-                    });
+                  if (typeof field.list.complexName !== 'undefined') {
+                    data = items.map((item) => {
+                      const rItem = item
+                      const textArray = field.list.complexName.map((textInfo) => {
+                        const splittedText = textInfo
+                          .split('.')
+                          .reduce((object, property) => object[property] || '', item)
+                        return splittedText
+                      })
+                      rItem.complexName = textArray.join(', ')
+                      return rItem
+                    })
                   } else {
-                    data = items;
+                    data = items
                   }
-                  this.$set(this.searchData, "search_" + field.name, data);
-                });
+                  this.$set(this.searchData, `search_${field.name}`, data)
+                })
               }
             }
           }
@@ -279,26 +342,28 @@ export default {
     }
   },
   methods: {
-    fieldRules(field) {
-      let rules = []
-      let required = field.required != undefined ? field.required : true;
-      rules.push(this.rules.required)
+    fieldRules (field) {
+      const rules = []
+      const required = field.required !== undefined ? field.required : true
+      if (required) {
+        rules.push(this.rules.required)
+      }
       return rules
     },
-    reset() {
-      this.$parent.reset();
+    reset () {
+      this.$parent.reset()
     },
-    close() {
-      this.$parent.close();
+    close () {
+      this.$parent.close()
     },
-    update() {
-      this.$parent.update(this.details.id, this.itemData);
+    update () {
+      this.$parent.update(this.details.id, this.itemData)
     },
-    store() {
-      this.$parent.store(this.itemData);
+    store () {
+      this.$parent.store(this.itemData)
     }
-  },
-};
+  }
+}
 </script>
 <style scoped>
 .checkbox-label {

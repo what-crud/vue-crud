@@ -5,7 +5,7 @@
 <div align="center">
   <a><img alt="price" src="https://img.shields.io/badge/price-FREE-blue.svg"></a>
   <a><img alt="license" src="https://img.shields.io/badge/license-MIT-brightgreen.svg"></a>
-  <a><img alt="version" src="https://img.shields.io/badge/version-v0.9.2-yellow.svg"></a>
+  <a><img alt="version" src="https://img.shields.io/badge/version-v0.9.3-yellow.svg"></a>
   <a><img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
 </div>
 
@@ -16,12 +16,12 @@
 * Vue CRUD uses the vue along with its ecosystem (Vuex, Vuetify, etc). Enjoy the benefits of the most popular JS framework in the world.
 * The application architecture is adapted to work with REST API
 
-![vue-crud](https://user-images.githubusercontent.com/18534115/50497274-5b6ea380-0a36-11e9-8dd6-2a7bc6875fe6.gif)
+![Vue CRUD demo](https://user-images.githubusercontent.com/18534115/55162114-646f2e00-5167-11e9-8948-c4fc964daa28.gif)
 
 ## Functions
-Vue CRUD provides a set of utitlities, from which you can compose your own application. Features included in the system can communicate with each other thanks to the use of the Vuex library. Vue CRUD includes the following elements:
+Vue CRUD provides a set of utilities, from which you can compose your own application. Features included in the system can communicate with each other thanks to the use of the Vuex library. Vue CRUD includes the following elements:
 
-- **CRUD** | <a href="http://vue-crud-simple.id-a.pl/#/crud" target="_blank">DEMO / SANDBOX</a>:
+- **CRUD** | <a href="http://vue-crud-demo.id-a.pl/#/crud" target="_blank">DEMO / SANDBOX</a>:
   - operations on records:
     - Store,
     - Update,
@@ -37,16 +37,16 @@ Vue CRUD provides a set of utitlities, from which you can compose your own appli
   - versions:
     - client side (small tables < 2000 records)
     - cerver side (> 2000 records)
-  - another functions and features:
+  - other functions and features:
     - datatable mechanism allows selection of the number of records per page, page transition and sorting,
     - management of a child table from the parent table module,
     - export to excel (xlsx),
     - table refreshing,
-- **Authentication system** | <a href="http://vue-crud-simple.id-a.pl/#/login" target="_blank">DEMO / SANDBOX</a>:
-  - login form (built-in communitation with API, validation),
+- **Authentication system** | <a href="http://vue-crud-demo.id-a.pl/#/login" target="_blank">DEMO / SANDBOX</a>:
+  - login form (built-in communication with API, validation),
   - optional locale selection,
   - redirecting to the app,
-- **App layuout components** | <a href="http://vue-crud-simple.id-a.pl/#/app" target="_blank">DEMO / SANDBOX</a>:
+- **App layout components** | <a href="http://vue-crud-demo.id-a.pl/#/app" target="_blank">DEMO / SANDBOX</a>:
   - Toolbar (with optional elements):
     - title,
     - logo,
@@ -78,42 +78,50 @@ The record creation / editing form supports the following types of fields:
 
 ## Demo versions
 
-#### <a href="http://vue-crud-simple.id-a.pl" target="_blank">DEMO / SANDBOX</a>
+#### <a href="http://vue-crud-demo.id-a.pl" target="_blank">DEMO / SANDBOX</a>
 
 #### <a href="http://vue-crud-crm.id-a.pl" target="_blank">CRM DEMO</a>
 Credentials with limited privileges (readonly):\
-Login:  guest@vue.crud\
+Login:  guest@vue-crud.com\
 Pass:   ajSGenC0\
 To get full user account, contact me on my <a href="http://id-a.pl" target="_blank">company site</a>.
 
 ## Quick start
 
-Do you want to test the application quickly, and you do not have a ready API? No problem, you can use the ready-made example in the **examples** folder. The API for this example is available on the internet, so you can connect to it by entering its address in the configuration file.
+Do you want to test the application quickly, and you do not have an API ready? No problem, you can use the ready-made example in the **examples** folder. The API for this example is available on the internet, so you can connect to it by entering its address in the configuration file.
 
 ### Steps
 
-- Clone Vue CRUD:
+1. Clone Vue CRUD:
 ``` console
 git clone git@github.com:szczepanmasny/vue-crud.git
 ```
-- Select template from **examples** folder you want to use, e.g. **examples/simple-crud**. Then:
-- Copy **examples/simple-crud/public** folder to the root directory,
-- Copy the rest of files and folders (**config**, **locales**, **routes**, **main.js**, **router.js**) from **examples/simple-crud** folder to the **src** directory,
-- If you have your own API prepared, modify **src/config/api.js** file,
-- Type following commands:
-
+2. Type following commands:
 ``` console
 yarn
 :: or
 npm install
 ```
-and then:
+3. Choose one of the following templates:
+- `empty`,
+- `simple-crud`,
+- `crm`
+
+...and type e.g.:
+``` console
+yarn load-template simple-crud
+:: or
+npm run load-template simple-crud
+```
+4. If you have your own API prepared, modify **src/config/api.js** file.
+
+5. Serve your app:
 ``` console
 yarn serve
 :: or
 npm run serve
 ```
-... and your app is already running (probably at http://localhost:8080).
+6. Your app is already running (probably at http://localhost:8080).
 
 ### Usage
 
@@ -183,7 +191,7 @@ The simplest possible code that supports CRUD operations for one table will look
 ```
 
 ## API
-The application requires a connection with the appropriate API. API can be created in any technology - the condition is its compliance with the Vue CRUD communication specification. If you need to create your API and do not know how to get started, and you don't mind PHP and Laravel, download or clone the <a href="https://github.com/szczepanmasny/vue-crud-laravel-api" target="_blank">Vue CRUD Laravel API project</a>.
+The application requires a connection with the appropriate API. API can be created in any technology - the condition is its compliance with the Vue CRUD communication specification. If you need to create your API and do not know how to get started, and you don't mind PHP and Laravel, download or clone the <a href="https://github.com/oh-crud/laravel-crud-api" target="_blank">Laravel CRUD API</a> project.
 
 ## Documentation
 To check out docs, visit :

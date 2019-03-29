@@ -1,6 +1,6 @@
 export default {
   home: {
-    name: ''
+    name: 'Home page'
   },
   crm: {
     name: 'CRM',
@@ -15,12 +15,12 @@ export default {
     positionTasks: 'Positions - tasks',
     tasks: 'Tasks',
     companyFiles: 'Companies - files',
-    personFiles: 'People - files',
+    personFiles: 'People - files'
   },
   admin: {
     name: 'Administration',
     permissions: 'Permissions',
     users: 'Users',
-    userPermissions: 'Users - permissions',
-  },
+    userPermissions: 'Users - permissions'
+  }
 }

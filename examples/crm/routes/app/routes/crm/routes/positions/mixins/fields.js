@@ -19,8 +19,8 @@ export default {
           text: this.$t('fields.company'),
           name: 'company',
           apiObject: {
-            name: 'company.common_name',
-          },
+            name: 'company.common_name'
+          }
         },
         {
           type: 'select',
@@ -34,14 +34,13 @@ export default {
           text: this.$t('fields.person'),
           name: 'person',
           apiObject: {
-            name: 'person.fullname',
-          },
+            name: 'person.fullname'
+          }
         },
         {
           type: 'input',
           column: 'name',
           text: this.$t('fields.name'),
-          required: false,
           name: 'name',
           required: false
         },
@@ -49,7 +48,6 @@ export default {
           type: 'input',
           column: 'email',
           text: this.$t('fields.email'),
-          required: false,
           name: 'email',
           multiedit: false,
           required: false
@@ -58,7 +56,6 @@ export default {
           type: 'input',
           column: 'phone',
           text: this.$t('fields.phone'),
-          required: false,
           name: 'phone',
           multiedit: false,
           required: false
@@ -76,7 +73,6 @@ export default {
           type: 'input',
           column: 'email_2',
           text: this.$t('fields.email_2'),
-          required: false,
           name: 'email_2',
           multiedit: false,
           required: false
@@ -85,7 +81,6 @@ export default {
           type: 'input',
           column: 'phone_2',
           text: this.$t('fields.phone_2'),
-          required: false,
           name: 'phone_2',
           multiedit: false,
           required: false
@@ -94,7 +89,6 @@ export default {
           type: 'input',
           column: 'phone_3',
           text: this.$t('fields.phone_3'),
-          required: false,
           name: 'phone_3',
           multiedit: false,
           required: false
@@ -105,8 +99,8 @@ export default {
           text: this.$t('fields.comment'),
           table: false,
           required: false
-        },
+        }
       ]
-    },
+    }
   }
 }

@@ -5,21 +5,21 @@
 
 <script>
 import Crud from '@/utils/crud/components/Crud.vue'
-import FieldsInfoMixin from "./mixins/fields.js";
-import LocalesMixin from "./mixins/locales.js";
+import FieldsInfoMixin from './mixins/fields'
+import LocalesMixin from './mixins/locales'
 
 export default {
   mixins: [FieldsInfoMixin, LocalesMixin],
-  data() {
+  data () {
     return {
       prefix: 'crm',
       path: 'person-comments',
-      pageTitle: 'crm.personComments',
+      pageTitle: 'crm.personComments'
     }
   },
   components: {
     Crud
-  },
+  }
 }
 
 </script>

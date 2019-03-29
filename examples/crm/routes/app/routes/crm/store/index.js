@@ -4,11 +4,11 @@ import mutations from './mutations'
 import actions from './actions'
 
 let crm = {
-    namespaced: true,
-    state,
-    getters,
-    mutations,
-    actions
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions
 }
 
 export default crm

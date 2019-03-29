@@ -59,9 +59,11 @@
           </template>
         </td>
         <!-- table fields -->
-        <td v-if="key != 'active'" v-for="(field, key) in props.item" :key="key" class="text-xs-center">
-          {{ field }}
-        </td>
+        <template v-for="(field, key) in props.item">
+          <td v-if="key != 'active'" :key="key" class="text-xs-center">
+            {{ field }}
+          </td>
+        </template>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop }">
         {{ $t('from') }} {{ pageStart }} {{ $t('to') }} {{ pageStop }}
@@ -71,144 +73,141 @@
 </template>
 
 <script>
-  import {
-    mapState,
-    mapGetters,
-    mapMutations,
-    mapActions
-  } from 'vuex'
+import {
+  mapActions
+} from 'vuex'
 
-  export default {
-    props: [
-      'headers',
-      'itemElements',
-      'editButton',
-      'tableData',
-    ],
-    data() {
-      return {
-        tmp: '',
-        search: '',
-        pagination: {},
-        selectedStatuses: [1],
+export default {
+  props: [
+    'headers',
+    'itemElements',
+    'editButton',
+    'tableData'
+  ],
+  data () {
+    return {
+      tmp: '',
+      search: '',
+      pagination: {},
+      selectedStatuses: [1]
+    }
+  },
+  computed: {
+    finalHeaders () {
+      let headers = this.headers.map(header => {
+        header.align = 'center'
+        return header
+      })
+      let actionHeader = [{
+        text: this.$t('fields.action'),
+        align: 'center',
+        sortable: false
+      }]
+      return [...actionHeader, ...headers]
+    },
+    items () {
+      return this.tableData
+    },
+    statuses () {
+      return [{
+        text: this.$t('status.active'),
+        value: 1
+      },
+      {
+        text: this.$t('status.inactive'),
+        value: 0
       }
+      ]
     },
-    computed: {
-      finalHeaders() {
-        let headers = this.headers.map(header => {
-          header.align = 'center'
-          return header
-        })
-        let actionHeader = [{
-          text: this.$t('fields.action'),
-          align: 'center',
-          sortable: false,
-        }]
-        return [...actionHeader,...headers]
-      },
-      items() {
-        return this.tableData
-      },
-      statuses() {
-        return [{
-            text: this.$t('status.active'),
-            value: 1
-          },
-          {
-            text: this.$t('status.inactive'),
-            value: 0
-          },
-        ]
-      },
-      filteredItems() {
-        return this.items.filter(item => this.selectedStatuses.includes(parseInt(item.active)))
-      },
+    filteredItems () {
+      return this.items.filter(item => this.selectedStatuses.includes(parseInt(item.active)))
+    }
+  },
+  methods: {
+    ...mapActions('crm', [
+      'getPositionTasks'
+    ]),
+    edit (id) {
+      this.$parent.edit(id)
     },
-    methods: {
-      ...mapActions('crm', [
-        'getPositionTasks'
-      ]),
-      edit(id) {
-        this.$parent.edit(id)
-      },
-      create() {
-        this.$parent.create()
-      },
-      suspend(id) {
-        this.$parent.suspend(id)
-      },
-      restore(id) {
-        this.$parent.restore(id)
-      },
-      editPositionTasks(id) {
-        this.getPositionTasks([id])
-      }
+    create () {
+      this.$parent.create()
     },
-    i18n: {
-      messages: {
-        pl: {
-          fields: {
-            action: 'Akcja',
-          },
-          status: {
-            title: "Statusy",
-            active: "Aktywne",
-            inactive: "Nieaktywne",
-          },
-          search: "Szukaj",
-          noMatchingResults: "Nie znaleziono pasujących rekordów",
-          noDataAvailable: "Brak danych",
-          rowsPerPageText: "Rekordów na stronę:",
-          from: "od",
-          to: "do",
-          add: "Dodaj",
-          all: "Wszystko",
-          buttons: {
-            edit: 'Edytuj',
-            suspend: 'Zawieś',
-            restore: 'Przywróć',
-            tasks: 'Zadania'
-          },
-          alerts: {
-            suspended: 'Zawieszono',
-            suspendError: 'Błąd! nie udało się zawiesić rekordu',
-            restored: 'Przywrócono',
-            restoreError: 'Błąd! Nie udało się przywrócić rekordu'
-          }
+    suspend (id) {
+      this.$parent.suspend(id)
+    },
+    restore (id) {
+      this.$parent.restore(id)
+    },
+    editPositionTasks (id) {
+      this.getPositionTasks([id])
+    }
+  },
+  i18n: {
+    messages: {
+      pl: {
+        fields: {
+          action: 'Akcja'
         },
-        en: {
-          fields: {
-            action: 'Action',
-          },
-          status: {
-            title: "Statuses",
-            active: "Active",
-            inactive: "Inactive",
-          },
-          search: "Search",
-          noMatchingResults: "No matching records found",
-          noDataAvailable: "No data available",
-          rowsPerPageText: "Rows per page:",
-          from: "from",
-          to: "to",
-          add: "Add",
-          all: "All",
-          buttons: {
-            edit: 'Edit',
-            suspend: 'Suspend',
-            restore: 'Restore',
-            tasks: 'Tasks'
-          },
-          alerts: {
-            suspended: 'Suspended',
-            suspendError: 'Error! Suspend unsuccessful',
-            restored: 'Restored',
-            restoreError: 'Error! Restore unsuccessful'
-          }
+        status: {
+          title: 'Statusy',
+          active: 'Aktywne',
+          inactive: 'Nieaktywne'
+        },
+        search: 'Szukaj',
+        noMatchingResults: 'Nie znaleziono pasujących rekordów',
+        noDataAvailable: 'Brak danych',
+        rowsPerPageText: 'Rekordów na stronę:',
+        from: 'od',
+        to: 'do',
+        add: 'Dodaj',
+        all: 'Wszystko',
+        buttons: {
+          edit: 'Edytuj',
+          suspend: 'Zawieś',
+          restore: 'Przywróć',
+          tasks: 'Zadania'
+        },
+        alerts: {
+          suspended: 'Zawieszono',
+          suspendError: 'Błąd! nie udało się zawiesić rekordu',
+          restored: 'Przywrócono',
+          restoreError: 'Błąd! Nie udało się przywrócić rekordu'
+        }
+      },
+      en: {
+        fields: {
+          action: 'Action'
+        },
+        status: {
+          title: 'Statuses',
+          active: 'Active',
+          inactive: 'Inactive'
+        },
+        search: 'Search',
+        noMatchingResults: 'No matching records found',
+        noDataAvailable: 'No data available',
+        rowsPerPageText: 'Rows per page:',
+        from: 'from',
+        to: 'to',
+        add: 'Add',
+        all: 'All',
+        buttons: {
+          edit: 'Edit',
+          suspend: 'Suspend',
+          restore: 'Restore',
+          tasks: 'Tasks'
+        },
+        alerts: {
+          suspended: 'Suspended',
+          suspendError: 'Error! Suspend unsuccessful',
+          restored: 'Restored',
+          restoreError: 'Error! Restore unsuccessful'
         }
       }
-    },
+    }
   }
+}
 
 </script>
 <style scoped>

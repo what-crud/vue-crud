@@ -22,47 +22,47 @@
 </template>
 
 <script>
-  import ItemDetailsContainer from "@/utils/crud/components/ItemDetailsContainer.vue"
-  import ItemDetailsContainerMixin from "@/utils/crud/mixins/item-details-container.js"
-  import PersonPositions from './PersonPositions.vue'
-  import PersonComments from './PersonComments.vue'
+import ItemDetailsContainer from '@/utils/crud/components/ItemDetailsContainer.vue'
+import ItemDetailsContainerMixin from '@/utils/crud/mixins/item-details-container'
+import PersonPositions from './PersonPositions.vue'
+import PersonComments from './PersonComments.vue'
 
-  export default {
-    mixins: [ItemDetailsContainerMixin],
-    components: {
-      ItemDetailsContainer,
-      PersonPositions,
-      PersonComments,
-    },
-    created() {
-      this.setIdColumn('id')
-      this.setChildItemsMapping([
-        {
-          name: 'personPositions',
-          objName: 'positions'
-        },
-        {
-          name: 'personComments',
-          objName: 'comments'
-        },
-      ])
-    },
-    i18n: {
-      messages: {
-        pl: {
-          title: 'Szczegóły osoby',
-          basicInformation: 'Dane podstawowe',
-          positions: 'Stanowiska',
-          comments: 'Komentarze',
-        },
-        en: {
-          title: 'Person details',
-          basicInformation: 'Basic information',
-          positions: 'Positions',
-          comments: 'Comments',
-        }
+export default {
+  mixins: [ItemDetailsContainerMixin],
+  components: {
+    ItemDetailsContainer,
+    PersonPositions,
+    PersonComments
+  },
+  created () {
+    this.setIdColumn('id')
+    this.setChildItemsMapping([
+      {
+        name: 'personPositions',
+        objName: 'positions'
+      },
+      {
+        name: 'personComments',
+        objName: 'comments'
+      }
+    ])
+  },
+  i18n: {
+    messages: {
+      pl: {
+        title: 'Szczegóły osoby',
+        basicInformation: 'Dane podstawowe',
+        positions: 'Stanowiska',
+        comments: 'Komentarze'
+      },
+      en: {
+        title: 'Person details',
+        basicInformation: 'Basic information',
+        positions: 'Positions',
+        comments: 'Comments'
       }
     }
   }
+}
 
 </script>

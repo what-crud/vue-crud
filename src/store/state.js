@@ -1,13 +1,13 @@
 import {
   main
-} from '@/config/main.js'
+} from '@/config/main'
 
 const defaults = {
-  title: "Vue CRUD",
+  title: 'Vue CRUD',
   locales: [{
     name: 'en',
     text: 'English'
-  }, ],
+  }],
   defaultLocale: 'en',
   iconfont: 'md',
   primaryTheme: 'dark',
@@ -20,12 +20,12 @@ const defaults = {
     info: '#2196F3',
     success: '#4CAF50',
     warning: '#FFC107'
-  },
+  }
 }
 
-const params = Object.assign(defaults, main);
+const params = Object.assign(defaults, main)
 
-let state = {
+const state = {
   title: params.title,
   locale: localStorage.getItem('locale'),
   defaultLocale: params.defaultLocale,
@@ -37,7 +37,7 @@ let state = {
     color: '',
     text: '',
     icon: ''
-  },
+  }
 }
 
 export default state

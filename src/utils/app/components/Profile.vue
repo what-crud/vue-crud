@@ -55,103 +55,95 @@
 </template>
 
 <script>
-  import {
-    mapGetters,
-    mapActions
-  } from 'vuex'
+import {
+  mapGetters,
+  mapActions
+} from 'vuex'
 
-  export default {
-    name: 'profile',
-    data: () => ({
-      userValid: false,
-      user: {
-        name: '',
-        email: '',
-      },
-      passwordValid: false,
-      password: {
-        old: '',
-        new: '',
-        repeat: '',
-      },
-      e1: true,
-      e2: true,
-      e3: true,
-      rules: {
-        required: (value) => !!value || 'Required.',
-        email: (value) => {
-          const pattern =
-            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          return pattern.test(value) || 'Invalid e-mail.'
-        }
+export default {
+  name: 'profile',
+  data: () => ({
+    userValid: false,
+    user: {
+      name: '',
+      email: ''
+    },
+    passwordValid: false,
+    password: {
+      old: '',
+      new: '',
+      repeat: ''
+    },
+    e1: true,
+    e2: true,
+    e3: true
+  }),
+  computed: {
+    ...mapGetters('auth', [
+      'userInfo',
+      'userUpdated',
+      'userPasswordUpdated',
+      'userPasswordUpdateError',
+      'userPasswordUpdateErrorMsg'
+    ]),
+    userRules () {
+      const self = this
+      return {
+        name: [
+          v => !!v || self.$t('global.profile.rules.required'),
+          v => v.length < 100 || `${self.$t('global.profile.rules.less')} 100 ${self.$t('global.profile.rules.characters')}`,
+          v => v.length > 4 || `${self.$t('global.profile.rules.more')} 4 ${self.$t('global.profile.rules.characters')}`
+        ],
+        email: [
+          v => !!v || self.$t('global.profile.rules.required'),
+          v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || self.$t('global.profile.rules.emailMustBeValid')
+        ]
       }
-    }),
-    computed: {
-      ...mapGetters('auth', [
-        'userInfo',
-        'userUpdated',
-        'userPasswordUpdated',
-        'userPasswordUpdateError',
-        'userPasswordUpdateErrorMsg'
-      ]),
-      userRules() {
-        let self = this
-        return {
-          name: [
-            (v) => !!v || self.$t('global.profile.rules.required'),
-            (v) => v.length < 100 || self.$t('global.profile.rules.less') + ' 100 ' + self.$t('global.profile.rules.characters'),
-            (v) => v.length > 4 || self.$t('global.profile.rules.more') + ' 4 ' + self.$t('global.profile.rules.characters'),
-          ],
-          email: [
-            (v) => !!v || self.$t('global.profile.rules.required'),
-            (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(v) || self.$t('global.profile.rules.emailMustBeValid')
-          ]
-        }
-      },
-      passwordRules() {
-        let self = this
-        return {
-          old: [
-            (v) => !!v || self.$t('global.profile.rules.required'),
-          ],
-          new: [
-            (v) => !!v || self.$t('global.profile.rules.required'),
-            (v) => v.length < 100 || self.$t('global.profile.rules.less') + ' 100 ' + self.$t('global.profile.rules.characters'),
-            (v) => v.length >= 8 || self.$t('global.profile.rules.atLeast') + ' 8 ' + self.$t('global.profile.rules.characters'),
-            (v) => v != self.password.old || self.$t('global.profile.rules.passwordMustDiffer'),
-          ],
-          repeat: [
-            (v) => !!v || self.$t('global.profile.rules.required'),
-            (v) => v.length < 100 || self.$t('global.profile.rules.less') + ' 100 ' + self.$t('global.profile.rules.characters'),
-            (v) => v.length >= 8 || self.$t('global.profile.rules.atLeast') + ' 8 ' + self.$t('global.profile.rules.characters'),
-            (v) => v == self.password.new || self.$t('global.profile.rules.passwordMustBeSame'),
-          ],
-        }
-      },
     },
-    created() {
-      this.getUser()
+    passwordRules () {
+      const self = this
+      return {
+        old: [
+          v => !!v || self.$t('global.profile.rules.required')
+        ],
+        new: [
+          v => !!v || self.$t('global.profile.rules.required'),
+          v => v.length < 100 || `${self.$t('global.profile.rules.less')} 100 ${self.$t('global.profile.rules.characters')}`,
+          v => v.length >= 8 || `${self.$t('global.profile.rules.atLeast')} 8 ${self.$t('global.profile.rules.characters')}`,
+          v => v !== self.password.old || self.$t('global.profile.rules.passwordMustDiffer')
+        ],
+        repeat: [
+          v => !!v || self.$t('global.profile.rules.required'),
+          v => v.length < 100 || `${self.$t('global.profile.rules.less')} 100 ${self.$t('global.profile.rules.characters')}`,
+          v => v.length >= 8 || `${self.$t('global.profile.rules.atLeast')} 8 ${self.$t('global.profile.rules.characters')}`,
+          v => v === self.password.new || self.$t('global.profile.rules.passwordMustBeSame')
+        ]
+      }
+    }
+  },
+  created () {
+    this.getUser()
+  },
+  methods: {
+    clearPasswords () {
+      this.password.old = ''
+      this.password.new = ''
+      this.password.repeat = ''
     },
-    methods: {
-      clearPasswords() {
-        this.password.old = ''
-        this.password.new = ''
-        this.password.repeat = ''
-      },
-      getUser() {
-        let user = this.userInfo
-        this.user.name = user.name
-        this.user.email = user.email
-      },
-      editPasswordAndClear() {
-        this.editPassword(this.password)
-        this.clearPasswords()
-      },
-      ...mapActions('auth', [
-        'editUser',
-        'editPassword',
-      ]),
+    getUser () {
+      const user = this.userInfo
+      this.user.name = user.name
+      this.user.email = user.email
     },
-  };
+    editPasswordAndClear () {
+      this.editPassword(this.password)
+      this.clearPasswords()
+    },
+    ...mapActions('auth', [
+      'editUser',
+      'editPassword'
+    ])
+  }
+}
 
 </script>

@@ -11,6 +11,6 @@ export default {
     ...mapMutations('crud', [
       'setIdColumn',
       'setChildItemsMapping'
-    ]),
-  },
+    ])
+  }
 }

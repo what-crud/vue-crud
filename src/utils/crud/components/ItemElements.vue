@@ -36,7 +36,7 @@
         :disable-initial-sort="true"
         :must-sort="true"
         v-model="selected"
-        :pagination.sync="pagination" 
+        :pagination.sync="pagination"
         select-all="black"
         :rows-per-page-items="[10, 25, { text: $t('global.itemElements.all'), value: -1 }]"
         light
@@ -69,7 +69,9 @@
             </template>
           </td>
           <!-- table fields -->
-          <td v-if="!['id', 'connectionId', 'filterStatus'].includes(key)" v-for="(field, key) in props.item" class="text-xs-center" v-html="field" :key="key"></td>
+          <template v-for="(field, key) in props.item">
+            <td v-if="!['id', 'connectionId', 'filterStatus'].includes(key)" class="text-xs-center" v-html="field" :key="key"></td>
+          </template>
         </template>
         <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
           {{ $t('global.itemElements.records') }} {{ pageStart }} - {{ pageStop }} {{ $t('global.itemElements.from') }} {{ itemsLength }}
@@ -83,109 +85,107 @@
   </v-dialog>
 </template>
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import {
+  mapState, mapActions
+} from 'vuex'
 
 export default {
-  props: ["details"],
-  data() {
+  props: ['details'],
+  data () {
     return {
       selected: [],
-      tmp: "",
-      search: "",
+      tmp: '',
+      search: '',
       pagination: {
-        sortBy: "added",
+        sortBy: 'added',
         descending: true
       },
       selectedStatuses: [1, 0]
-    };
+    }
   },
   computed: {
-    ...mapState("crud", ["itemElements"]),
-    statuses() {
+    ...mapState('crud', ['itemElements']),
+    statuses () {
       return [
         {
-          text: this.$t("global.itemElements.status.added"),
+          text: this.$t('global.itemElements.status.added'),
           value: 1
         },
         {
-          text: this.$t("global.itemElements.status.noAdded"),
+          text: this.$t('global.itemElements.status.noAdded'),
           value: 0
         }
-      ];
+      ]
     },
-    headers() {
-      let columns = this.itemElements.columns;
-      let headers = columns.map(column => {
-        let header = {};
-        header.text = column.header;
-        header.align = "center";
-        header.value = column.name;
-        return header;
-      });
-      let actionHeader = [
+    headers () {
+      const { columns } = this.itemElements
+      const headers = columns.map((column) => {
+        const header = {}
+        header.text = column.header
+        header.align = 'center'
+        header.value = column.name
+        return header
+      })
+      const actionHeader = [
         {
-          text: this.$t("global.itemElements.fields.action"),
-          align: "center",
+          text: this.$t('global.itemElements.fields.action'),
+          align: 'center',
           sortable: false
         }
-      ];
-      let addedHeader = [
+      ]
+      const addedHeader = [
         {
-          text: this.$t("global.itemElements.fields.added"),
-          value: "added"
+          text: this.$t('global.itemElements.fields.added'),
+          value: 'added'
         }
-      ];
-      return [...actionHeader, ...headers, ...addedHeader];
+      ]
+      return [...actionHeader, ...headers, ...addedHeader]
     },
-    items() {
-      let statusObject = this.itemElements.itemObject;
-      let columns = this.itemElements.columns;
-      let items = this.itemElements.data.map(item => {
-        let rItem = {};
-        rItem.id = item.id;
-        for (let column of columns) {
-          let prop = column.obj.split(".").reduce(function(object, property) {
-            return object[property] || "";
-          }, item);
-          rItem[column.name] = prop;
+    items () {
+      const statusObject = this.itemElements.itemObject
+      const { columns } = this.itemElements
+      const items = this.itemElements.data.map((item) => {
+        const rItem = {}
+        rItem.id = item.id
+        for (const column of columns) {
+          const prop = column.obj.split('.').reduce((object, property) => object[property] || '', item)
+          rItem[column.name] = prop
         }
-        if (typeof item[statusObject] != "undefined") {
+        if (typeof item[statusObject] !== 'undefined') {
           if (item[statusObject].length > 0) {
-            rItem.added = "<span hidden>1</span>Tak";
-            rItem.filterStatus = 1;
-            rItem.connectionId = item[statusObject][0].id;
+            rItem.added = '<span hidden>1</span>Tak'
+            rItem.filterStatus = 1
+            rItem.connectionId = item[statusObject][0].id
           } else {
-            rItem.added = "<span hidden>0</span>Nie";
-            rItem.filterStatus = 0;
+            rItem.added = '<span hidden>0</span>Nie'
+            rItem.filterStatus = 0
           }
         }
-        return rItem;
-      });
-      return items;
+        return rItem
+      })
+      return items
     },
-    filteredItems() {
-      let items = this.items.filter(item =>
-        this.selectedStatuses.includes(item.filterStatus)
-      )
-      let phrases = this.search == "" ? [] : this.search.toLowerCase().split(" ")
-      let filteredItems = items.filter(item => {
-        let found = true;
+    filteredItems () {
+      const items = this.items.filter(item => this.selectedStatuses.includes(item.filterStatus))
+      const phrases = this.search === '' ? [] : this.search.toLowerCase().split(' ')
+      const filteredItems = items.filter((item) => {
+        let found = true
         for (let i = 0; i < phrases.length; i++) {
-          found = false;
-          for (let key in item) {
-            let field = item[key];
+          found = false
+          for (const key in item) {
+            let field = item[key]
             if (
-              typeof field === "string" ||
+              typeof field === 'string' ||
               field instanceof String ||
-              typeof field === "number"
+              typeof field === 'number'
             ) {
-              field = field.toString().toLowerCase();
+              field = field.toString().toLowerCase()
               if (field.includes(phrases[i])) {
-                found = true;
+                found = true
               }
             }
           }
-          if (!found) break;
+          if (!found) break
         }
         return found
       })
@@ -193,69 +193,69 @@ export default {
     }
   },
   methods: {
-    ...mapActions("crud", [
-      "addItemElement",
-      "removeItemElement",
-      "addManyItemElements",
-      "removeManyItemElements"
+    ...mapActions('crud', [
+      'addItemElement',
+      'removeItemElement',
+      'addManyItemElements',
+      'removeManyItemElements'
     ]),
-    add(foreignId) {
-      let obj = {};
-      obj[this.itemElements.primaryId] = this.itemElements.id;
-      obj[this.itemElements.foreignId] = foreignId;
+    add (foreignId) {
+      const obj = {}
+      obj[this.itemElements.primaryId] = this.itemElements.id
+      obj[this.itemElements.foreignId] = foreignId
       this.addItemElement([
         obj,
-        this.$t("global.alerts.added"),
-        this.$t("global.alerts.addError")
-      ]);
+        this.$t('global.alerts.added'),
+        this.$t('global.alerts.addError')
+      ])
     },
-    remove(id) {
+    remove (id) {
       this.removeItemElement([
         id,
-        this.$t("global.alerts.removed"),
-        this.$t("global.alerts.removeError")
-      ]);
+        this.$t('global.alerts.removed'),
+        this.$t('global.alerts.removeError')
+      ])
     },
-    addMany() {
-      let obj = this.selected
-        .filter(item => item.connectionId == undefined)
-        .map(item => {
-          let rItem = {};
-          rItem[this.itemElements.primaryId] = this.itemElements.id;
-          rItem[this.itemElements.foreignId] = item.id;
-          return rItem;
-        });
+    addMany () {
+      const obj = this.selected
+        .filter(item => item.connectionId === undefined)
+        .map((item) => {
+          const rItem = {}
+          rItem[this.itemElements.primaryId] = this.itemElements.id
+          rItem[this.itemElements.foreignId] = item.id
+          return rItem
+        })
       this.addManyItemElements([
         {
           items: obj
         },
-        this.$t("global.alerts.added"),
-        this.$t("global.alerts.addError")
-      ]);
-      this.clearSelected();
+        this.$t('global.alerts.added'),
+        this.$t('global.alerts.addError')
+      ])
+      this.clearSelected()
     },
-    removeMany() {
-      let obj = this.selected
+    removeMany () {
+      const obj = this.selected
         .filter(item => item.connectionId !== undefined)
-        .map(item => item.connectionId);
+        .map(item => item.connectionId)
       this.removeManyItemElements([
         {
           ids: obj
         },
-        this.$t("global.alerts.added"),
-        this.$t("global.alerts.addError")
-      ]);
-      this.clearSelected();
+        this.$t('global.alerts.removed'),
+        this.$t('global.alerts.removeError')
+      ])
+      this.clearSelected()
     },
-    close() {
-      this.itemElements.show = false;
-      this.$parent.itemElementsClosed();
+    close () {
+      this.itemElements.show = false
+      this.$parent.itemElementsClosed()
     },
-    clearSelected() {
-      this.selected = [];
+    clearSelected () {
+      this.selected = []
     }
   }
-};
+}
 </script>
 <style scoped>
 .item-elements-list {

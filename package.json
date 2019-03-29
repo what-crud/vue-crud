@@ -6,12 +6,17 @@
   "author": "Szczepan Masny <szczepanmasny@gmail.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit",
+    "load-template": "node template-loader.js"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "file-saver": "^2.0.0",
     "register-service-worker": "^1.5.2",
+    "tiptap": "^1.14.0",
+    "tiptap-extensions": "^1.14.0",
     "vue": "^2.5.17",
     "vue-i18n": "^8.5.0",
     "vue-resource": "^1.5.1",
@@ -23,8 +28,18 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.2.0",
+    "@vue/cli-plugin-eslint": "^3.5.1",
     "@vue/cli-plugin-pwa": "^3.2.0",
+    "@vue/cli-plugin-unit-jest": "^3.5.1",
     "@vue/cli-service": "^3.2.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "fs-extra": "^7.0.1",
     "script-loader": "^0.7.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",

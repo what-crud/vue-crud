@@ -35,15 +35,15 @@
 
 <script>
 
-import ItemDetails from '../components/ItemDetails.vue'
-import ItemElements from '../components/ItemElements.vue'
-import ImageContainer from '../components/ImageContainer.vue'
 import {
   mapState,
-  mapGetters,
   mapMutations,
   mapActions
 } from 'vuex'
+import ItemDetails from './ItemDetails.vue'
+import ItemElements from './ItemElements.vue'
+import ImageContainer from './ImageContainer.vue'
+import { crud } from '@/config/crud'
 
 export default {
   components: {
@@ -56,20 +56,27 @@ export default {
       type: String,
       default: null
     },
-    path: String,
+    path: {
+      type: String,
+      default: null
+    },
+    paths: {
+      type: Object,
+      default: () => ({})
+    },
     fieldsInfo: Array,
     detailsTitle: String,
     pageTitle: String,
     editButton: {
       type: Boolean,
-      default: true
+      default: crud.editButton || null
     },
     deleteMode: {
       type: String,
-      validator: function (value) {
+      validator (value) {
         return ['none', 'soft', 'hard', 'both', 'filter'].indexOf(value) !== -1
       },
-      default: 'soft'
+      default: crud.deleteMode || 'soft'
     },
     customHeaderButtons: {
       type: Array,
@@ -93,97 +100,101 @@ export default {
     },
     primaryKey: {
       type: String,
-      default: 'id'
+      default: crud.primaryKey || 'id'
     },
     activeColumnName: {
       type: String,
-      default: 'active'
+      default: crud.activityColumnName || 'active'
     },
     mode: {
       type: String,
-      validator: function (value) {
+      validator (value) {
         return ['ClientSide', 'ServerSide'].indexOf(value) !== -1
       },
       default: 'ClientSide'
     },
     createMode: {
       type: Boolean,
-      default: true
+      default: crud.createMode === undefined ? true : crud.createMode
     },
     editMode: {
       type: Boolean,
-      default: true
+      default: crud.editMode === undefined ? true : crud.editMode
     },
     mainFilter: {
       type: Boolean,
-      default: true
+      default: crud.mainFilter === undefined ? true : crud.mainFilter
     },
     fieldFilters: {
       type: Boolean,
-      default: true
+      default: crud.fieldFilters === undefined ? true : crud.fieldFilters
     },
     exportButton: {
       type: Boolean,
-      default: true
+      default: crud.exportButton === undefined ? true : crud.exportButton
     },
     refreshButton: {
       type: Boolean,
-      default: true
+      default: crud.refreshButton === undefined ? true : crud.refreshButton
     },
     selectManyMode: {
       type: Boolean,
-      default: true
+      default: crud.selectManyMode === undefined ? true : crud.selectManyMode
     },
     updateManyMode: {
       type: Boolean,
-      default: true
+      default: crud.updateManyMode === undefined ? true : crud.updateManyMode
     },
     removeManyMode: {
       type: Boolean,
-      default: true
-    },
+      default: crud.removeManyMode === undefined ? true : crud.removeManyMode
+    }
   },
-  data() {
+  data () {
     return {}
   },
   computed: {
     ...mapState('crud', [
       'detailsLoading'
     ]),
-    tableFields() {
-      return this.fieldsInfo.filter(field => field.table != false && field.type != 'divider')
+    tableFields () {
+      return this.fieldsInfo.filter(field => field.table !== false && field.type !== 'divider')
     },
-    detailsFields() {
-      return this.fieldsInfo.filter(field => field.details != false && field.type != 'divider')
+    detailsFields () {
+      return this.fieldsInfo.filter(field => field.details !== false && field.type !== 'divider')
     },
-    componentLoader () { 
-      return () => import('./DataTable' + this.mode + '.vue')
+    componentLoader () {
+      return () => import(`./DataTable${this.mode}.vue`)
     }
   },
-  created() {
+  created () {
     this.setPrefix(this.prefix)
     this.setPath(this.path)
+    this.setPaths(this.paths)
     this.setPage(this.pageTitle)
-    let creationMode = this.watchForCreation ? 'inform' : 'ignore'
+    const creationMode = this.watchForCreation ? 'inform' : 'ignore'
     this.setCreationMode(creationMode)
   },
   methods: {
     ...mapMutations('app', [
-      'setPage',
+      'setPage'
     ]),
-    ...mapMutations("crud", [
-      "refreshTable",
+    ...mapMutations('crud', [
       'setPrefix',
       'setPath',
-      'setCreationMode',
+      'setPaths',
+      'setCreationMode'
     ]),
-    custom(name, item, index) {
+    ...mapActions('crud', [
+      'runTableRefreshing'
+    ]),
+    custom (name, item, index) {
       this.$parent[name](item, index)
     },
-    itemElementsClosed(){
-      this.refreshTable()
+    itemElementsClosed () {
+      this.runTableRefreshing()
     }
-  },
+  }
 }
 
 </script>

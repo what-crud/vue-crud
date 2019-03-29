@@ -22,49 +22,49 @@
 
 <script>
 import {
-    mapState,
-    mapMutations
-} from "vuex";
+  mapState,
+  mapMutations
+} from 'vuex'
 import {
-    humanFileSize,
-    download
+  humanFileSize,
+  download
 } from '../helpers/functions'
 
 export default {
-    props: [
-        'fieldInfo'
-    ],
-    filters: {
-        fileSize(size) {
-            return size != null ? humanFileSize(size) : ''
-        }
+  props: [
+    'fieldInfo'
+  ],
+  filters: {
+    fileSize (size) {
+      return size != null ? humanFileSize(size) : ''
+    }
+  },
+  computed: {
+    ...mapState('crud', [
+      'filesPath'
+    ]),
+    field () {
+      return Object.assign({
+        filename: '',
+        mime: '',
+        size: null
+      }, this.fieldInfo)
+    }
+  },
+  methods: {
+    ...mapMutations('crud', [
+      'openImageContainer'
+    ]),
+    download (item) {
+      download(this.filesPath + item.path, item.filename)
     },
-    computed: {
-        ...mapState('crud', [
-            "filesPath",
-        ]),
-        field() {
-            return Object.assign({
-                filename: '',
-                mime: '',
-                size: null
-            }, this.fieldInfo)
-        }
+    isImage (mime) {
+      const supportedMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
+      return supportedMimeTypes.includes(mime)
     },
-    methods: {
-        ...mapMutations("crud", [
-            "openImageContainer",
-        ]),
-        download(item) {
-            download(this.filesPath + item.path, item.filename);
-        },
-        isImage(mime) {
-            let supportedMimeTypes = ["image/jpeg", "image/png", "image/gif"];
-            return supportedMimeTypes.includes(mime);
-        },
-        showImage(image) {
-            this.openImageContainer(image);
-        },
-    },
+    showImage (image) {
+      this.openImageContainer(image)
+    }
+  }
 }
 </script>

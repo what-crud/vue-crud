@@ -16,7 +16,7 @@ export default {
     email: 'Adres e-mail',
     restore: 'Przywróć',
     save: 'Zapisz',
-    updated: 'Dane użytkownika zostały zaktualizowane',
+    updated: 'Dane użytkownika zostały zaktualizowane'
   },
   password: {
     old: 'Stare hasło',
@@ -25,6 +25,6 @@ export default {
     updated: 'Hasło zostało zaktualizowane',
     updateError: 'Wystąpił błąd. Hasło nie zostało zaktualizowane',
     clear: 'Wyczyść',
-    change: 'Zmień hasło',
+    change: 'Zmień hasło'
   }
 }

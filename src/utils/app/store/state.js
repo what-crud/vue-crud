@@ -1,8 +1,8 @@
-let state = {
+const state = {
   module: null,
   page: null,
-  activeModule: "",
-  profileDialog: false,
+  activeModule: '',
+  profileDialog: false
 }
 
 export default state

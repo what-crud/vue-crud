@@ -54,24 +54,26 @@
       </v-tooltip>
     </td>
     <!-- table fields -->
-    <td v-if="key != 'meta'" v-for="(field, key) in props.item" :key="key">
-      <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
-      <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
-      <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
-      <span v-else-if="columnTextModes[key] == 'file'">
-        <file-details :fieldInfo="fileFieldToJSON(field)"></file-details>
-      </span>
-    </td>
+    <template v-for="(field, key) in props.item">
+      <td v-if="key != 'meta'" :key="key">
+        <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
+        <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
+        <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
+        <span v-else-if="columnTextModes[key] == 'file'">
+          <file-details :fieldInfo="fileFieldToJSON(field)"></file-details>
+        </span>
+      </td>
+    </template>
   </tr>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import FileDetails from './FileDetails.vue'
-import { mapState } from "vuex";
 
 export default {
   components: {
-    FileDetails 
+    FileDetails
   },
   props: [
     'props',
@@ -79,64 +81,62 @@ export default {
     'customButtons',
     'deleteMode',
     'itemElements',
-    "columnTextModes",
-    "editMode",
+    'columnTextModes',
+    'editMode',
     'selectManyMode'
   ],
   filters: {
-    cropped(field) {
+    cropped (field) {
       let rField
-      let maxLength = 40
+      const maxLength = 40
       if (typeof field === 'string' || field instanceof String) {
-        rField = field.length <= maxLength ? field : field.substring(0, maxLength - 3) + '...'
-      }
-      else {
+        rField = field.length <= maxLength ? field : `${field.substring(0, maxLength - 3)}...`
+      } else {
         rField = field
       }
       return rField
-    },
+    }
   },
   computed: {
-    ...mapState("crud", ['currentItemId']),
+    ...mapState('crud', ['currentItemId'])
   },
   methods: {
-    fileFieldToJSON(field) {
+    fileFieldToJSON (field) {
       return JSON.parse(field)
     },
-    activityClass(isActive) {
-      let className = ""
-      if(['soft', 'both', 'filter'].includes(this.deleteMode)){
-        className = parseInt(isActive) == 1 ? 'row-active' : 'row-inactive'
+    activityClass (isActive) {
+      let className = ''
+      if (['soft', 'both', 'filter'].includes(this.deleteMode)) {
+        className = parseInt(isActive) === 1 ? 'row-active' : 'row-inactive'
       }
       return className
     },
-    currentClass(itemId) {
-      let currentId = this.currentItemId
-      return itemId == currentId ? 'current-row' : ''
+    currentClass (itemId) {
+      const currentId = this.currentItemId
+      return itemId === currentId ? 'current-row' : ''
     },
-    rowDblclickAction(item, index) {
-      if(this.editMode){
+    rowDblclickAction (item, index) {
+      if (this.editMode) {
         let goToItemButton = false
-        for(let button of this.customButtons) {
-          if (button.name == 'goToItem') {
+        for (const button of this.customButtons) {
+          if (button.name === 'goToItem') {
             goToItemButton = true
             break
           }
         }
-        if(goToItemButton){
+        if (goToItemButton) {
           this.custom('goToItem', item, index)
-        }
-        else {
+        } else {
           this.edit(item.meta.id, index)
         }
       }
     },
-    edit(id, index) {this.$emit('edit', id, index)},
-    custom(name, item, index) {this.$emit('custom', name, item, index)},
-    suspend(id) {this.$emit('suspend', id)},
-    restore(id) {this.$emit('restore', id)},
-    destroy(id) {this.$emit('destroy', id)},
-    editItemElements(name, id) {this.$emit('editItemElements', name, id)}
+    edit (id, index) { this.$emit('edit', id, index) },
+    custom (name, item, index) { this.$emit('custom', name, item, index) },
+    suspend (id) { this.$emit('suspend', id) },
+    restore (id) { this.$emit('restore', id) },
+    destroy (id) { this.$emit('destroy', id) },
+    editItemElements (name, id) { this.$emit('editItemElements', name, id) }
   }
-};
+}
 </script>

@@ -5,168 +5,166 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import Crud from '@/utils/crud/components/Crud.vue'
-  import {
-    mapActions,
-    mapMutations
-  } from 'vuex'
+import Vue from 'vue'
+import Crud from '@/utils/crud/components/Crud.vue'
+import {
+  mapActions
+} from 'vuex'
 
-  export default {
-    data() {
+export default {
+  data () {
+    return {
+      prefix: 'admin',
+      path: 'users',
+      pageTitle: 'admin.users'
+    }
+  },
+  computed: {
+    itemElements () {
       return {
-        prefix: 'admin',
-        path: 'users',
-        pageTitle: 'admin.users',
+        userPermissions: {
+          title: this.$t('itemElements.userPermissions.title'),
+          url: 'admin/users/{id}/permissions',
+          controller: 'admin/user-permissions',
+          itemObject: 'permission_users',
+          columns: [
+            {
+              obj: 'name',
+              name: 'permission',
+              header: this.$t('itemElements.userPermissions.headers.permission')
+            }
+          ],
+          primaryId: 'user_id',
+          foreignId: 'permission_id',
+          icon: 'lock_open',
+          color: 'purple',
+          buttonText: this.$t('itemElements.userPermissions.title')
+        }
       }
     },
-    computed: {
-      itemElements() {
-        return {
-          userPermissions: {
-            title: this.$t('itemElements.userPermissions.title'),
-            url: 'admin/users/{id}/permissions',
-            controller: 'admin/user-permissions',
-            itemObject: 'permission_users',
-            columns: [
-              {
-                obj: 'name',
-                name: 'permission',
-                header: this.$t('itemElements.userPermissions.headers.permission'),
-              },
-            ],
-            primaryId: 'user_id',
-            foreignId: 'permission_id',
-            icon: 'lock_open',
-            color: 'purple',
-            buttonText: this.$t('itemElements.userPermissions.title')
-          }
-        }
-      },
-      buttons() {
-        return [{
-          name: 'resetPassword',
-          icon: 'autorenew',
-          color: 'blue',
-          text: this.$t('buttons.resetPassword')
-        }]
-      },
-      fieldsInfo() {
-        return [
-          {
-            text: this.$t('fields.id'),
-            name: 'id',
-            details: false,
-          },
-          {
-            type: 'input',
-            column: 'name',
-            text: this.$t('fields.name'),
-            name: 'name',
-            multiedit: false
-          },
-          {
-            type: 'input',
-            column: 'email',
-            text: this.$t('fields.email'),
-            name: 'email',
-            multiedit: false
-          },
-          {
-            type: 'select',
-            url: 'admin/user-types',
-            list: {
-              value: 'id',
-              text: 'name',
-              data: []
-            },
-            column: 'user_type_id',
-            text: this.$t('fields.userType'),
-            name: 'user_type',
-            apiObject: {
-              name: 'user_type.name',
-            }
-          },
-          {
-            text: this.$t('fields.initialPassword'),
-            name: 'initialPassword',
-            apiObject: {
-              name: 'initial_password',
-            },
-            details: false,
-          },
-        ]
-      },
+    buttons () {
+      return [{
+        name: 'resetPassword',
+        icon: 'autorenew',
+        color: 'blue',
+        text: this.$t('buttons.resetPassword')
+      }]
     },
-    methods: {
-      ...mapMutations([
-        'alertSuccess',
-        'alertError'
-      ]),
-      ...mapActions('crud', [
-        'getItems',
-      ]),
-      resetPassword(item) {
-        Vue.http.put(this.prefix + '/' + this.path + '/' + item.id + '/reset-password')
-          .then((response) => {
-            this.alertSuccess(this.$t('passwordReseted'))
-            this.getItems()
-          })
-      },
-    },
-    components: {
-      Crud
-    },
-    i18n: {
-      messages: {
-        pl: {
-          detailsTitle: 'Użytkownik',
-          fields: {
-            id: 'Id',
-            name: 'Nazwa',
-            email: 'E-mail',
-            initialPassword: 'Hasło początkowe',
-            userType: 'Typ użytkownika'
-          },
-          itemElements: {
-            userPermissions: {
-              title: 'Uprawnienia użytkownika',
-              headers: {
-                permission: 'Uprawnienie'
-              }
-            }
-          },
-          buttons: {
-            resetPassword: 'Reset hasła'
-          },
-          passwordReseted: 'Hasło zostało zmienione',
-          passwordResetError: 'Błąd! Nie udało się zmienić hasła'
+    fieldsInfo () {
+      return [
+        {
+          text: this.$t('fields.id'),
+          name: 'id',
+          details: false
         },
-        en: {
-          detailsTitle: 'User',
-          fields: {
-            id: 'Id',
-            name: 'Name',
-            email: 'E-mail',
-            initialPassword: 'Initial password',
-            userType: 'User type'
+        {
+          type: 'input',
+          column: 'name',
+          text: this.$t('fields.name'),
+          name: 'name',
+          multiedit: false
+        },
+        {
+          type: 'input',
+          column: 'email',
+          text: this.$t('fields.email'),
+          name: 'email',
+          multiedit: false
+        },
+        {
+          type: 'select',
+          url: 'admin/user-types',
+          list: {
+            value: 'id',
+            text: 'name',
+            data: []
           },
-          itemElements: {
-            userPermissions: {
-              title: 'User permissions',
-              headers: {
-                permission: 'Permission'
-              }
-            }
+          column: 'user_type_id',
+          text: this.$t('fields.userType'),
+          name: 'user_type',
+          apiObject: {
+            name: 'user_type.name'
+          }
+        },
+        {
+          text: this.$t('fields.initialPassword'),
+          name: 'initialPassword',
+          apiObject: {
+            name: 'initial_password'
           },
-          buttons: {
-            resetPassword: 'Reset password'
-          },
-          passwordReseted: 'Password changed',
-          passwordResetError: 'Error! Password change unsuccessful'
+          details: false
         }
+      ]
+    }
+  },
+  methods: {
+    ...mapActions('crud', [
+      'getItems'
+    ]),
+    ...mapActions([
+      'openAlertBox'
+    ]),
+    resetPassword (item) {
+      Vue.http.put(this.prefix + '/' + this.path + '/' + item.id + '/reset-password')
+        .then((response) => {
+          this.openAlertBox(['alertSuccess', this.$t('passwordReseted')])
+          this.getItems()
+        })
+    }
+  },
+  components: {
+    Crud
+  },
+  i18n: {
+    messages: {
+      pl: {
+        detailsTitle: 'Użytkownik',
+        fields: {
+          id: 'Id',
+          name: 'Nazwa',
+          email: 'E-mail',
+          initialPassword: 'Hasło początkowe',
+          userType: 'Typ użytkownika'
+        },
+        itemElements: {
+          userPermissions: {
+            title: 'Uprawnienia użytkownika',
+            headers: {
+              permission: 'Uprawnienie'
+            }
+          }
+        },
+        buttons: {
+          resetPassword: 'Reset hasła'
+        },
+        passwordReseted: 'Hasło zostało zmienione',
+        passwordResetError: 'Błąd! Nie udało się zmienić hasła'
+      },
+      en: {
+        detailsTitle: 'User',
+        fields: {
+          id: 'Id',
+          name: 'Name',
+          email: 'E-mail',
+          initialPassword: 'Initial password',
+          userType: 'User type'
+        },
+        itemElements: {
+          userPermissions: {
+            title: 'User permissions',
+            headers: {
+              permission: 'Permission'
+            }
+          }
+        },
+        buttons: {
+          resetPassword: 'Reset password'
+        },
+        passwordReseted: 'Password changed',
+        passwordResetError: 'Error! Password change unsuccessful'
       }
-    },
+    }
   }
+}
 
 </script>

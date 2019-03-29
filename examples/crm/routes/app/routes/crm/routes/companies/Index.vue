@@ -10,7 +10,6 @@
       :editButton="false"
       :watchForCreation="true"
       primaryKey="id"
-      deleteMode="soft"
     ></crud>
     <item-details :fields="itemFields"></item-details>
   </div>
@@ -18,13 +17,11 @@
 
 <script>
 import Crud from '@/utils/crud/components/Crud.vue'
-import FieldsInfoMixin from "./mixins/fields.js";
-import LocalesMixin from "./mixins/locales.js";
-import ItemDetails from "./components/ItemDetails.vue";
-import ExtendedControllerMixin from "@/utils/crud/mixins/extended-controller.js";
+import FieldsInfoMixin from './mixins/fields'
+import LocalesMixin from './mixins/locales'
+import ItemDetails from './components/ItemDetails.vue'
+import ExtendedControllerMixin from '@/utils/crud/mixins/extended-controller'
 import {
-  mapState,
-  mapGetters,
   mapMutations,
   mapActions
 } from 'vuex'
@@ -35,29 +32,28 @@ export default {
     Crud,
     ItemDetails
   },
-  data() {
+  data () {
     return {
       prefix: 'crm',
       path: 'companies',
-      pageTitle: 'crm.companies',
+      pageTitle: 'crm.companies'
     }
   },
   computed: {
     buttons () {
       return [
         {
-          name: "goToItem",
-          icon: "forward",
-          color: "blue",
-          text: this.$t("buttons.goToItem")
-        },
+          name: 'goToItem',
+          icon: 'forward',
+          color: 'blue',
+          text: this.$t('buttons.goToItem')
+        }
       ]
-    },
+    }
   },
   methods: {
-    ...mapMutations(["alertSuccess", "alertError"]),
-    ...mapMutations("crud", ["refreshTable"]),
-    ...mapActions("crud", ["updateItem", "storeItem"]),
-  },
+    ...mapMutations(['alertSuccess', 'alertError']),
+    ...mapActions('crud', ['updateItem', 'storeItem'])
+  }
 }
 </script>

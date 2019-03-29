@@ -1,4 +1,4 @@
-let state = {
+const state = {
   logged: 0,
   user: localStorage.getItem('user'),
   token: localStorage.getItem('token'),
@@ -8,7 +8,7 @@ let state = {
   userPasswordUpdateError: false,
   userPasswordUpdateErrorMsg: '',
   loginWait: false,
-  loginFailed: false,
+  loginFailed: false
 }
 
 export default state
