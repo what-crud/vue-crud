@@ -307,7 +307,7 @@ export default {
                 :editButton="false"`} ${this.selectManyMode ? '' : `
                 :selectManyMode="false"`} ${this.updateManyMode ? '' : `
                 :updateManyMode="false"`} ${this.removeManyMode ? '' : `
-                :removeManyMode="false"`} ${this.showButton1 || this.showButton2 ?`
+                :removeManyMode="false"`} ${this.showButton1 || this.showButton2 ? `
                 :customButtons="buttons"` : ''}
               >
               </crud>
