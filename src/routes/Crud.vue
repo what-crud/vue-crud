@@ -9,6 +9,7 @@
         >
           <v-tab key="crudConfig" ripple>CRUD Configuration</v-tab>
           <v-tab key="fieldsConfig" ripple>Fields Configuration</v-tab>
+          <v-tab key="customButtons" ripple>Custom buttons</v-tab>
           <v-tab key="template" ripple>Template</v-tab>
           <v-tab key="script" ripple>Script</v-tab>
 
@@ -76,7 +77,7 @@
                       <v-switch color="green" label="Details" v-model="descriptionDetails"></v-switch>
                       <v-switch color="green" label="Required" v-model="descriptionRequired"></v-switch>
                       <v-switch color="green" label="Multiedit" v-model="descriptionMultiedit"></v-switch>
-                      <v-select label="Text mode" :items="['text', 'html']" value="text"></v-select>
+                      <v-select label="Text mode" :items="['text', 'html']" v-model="descriptionTextMode"></v-select>
                       <v-select label="Functions" :items="['boolean']" :value="[]" multiple disabled></v-select>
                     </v-flex>
 
@@ -92,6 +93,22 @@
                     </v-flex>
                   </v-layout>
                 </v-card-text>
+            </v-card>
+          </v-tab-item>
+
+          <v-tab-item key="customButtons">
+            <v-card flat>
+              <v-card-text>
+                <v-layout row wrap>
+                  <v-flex xs12 md6 px-5>
+                    <v-switch color="green" label="Show alert button" v-model="showButton1"></v-switch>
+                  </v-flex>
+
+                  <v-flex xs12 md6 px-5>
+                    <v-switch color="green" label="Show form button" v-model="showButton2"></v-switch>
+                  </v-flex>
+                </v-layout>
+              </v-card-text>
             </v-card>
           </v-tab-item>
           <v-tab-item key="template">
@@ -129,9 +146,23 @@
       :selectManyMode="selectManyMode"
       :updateManyMode="updateManyMode"
       :removeManyMode="removeManyMode"
+      :customButtons="buttons"
     >
     </crud>
     <alert-box></alert-box>
+    <v-dialog
+      v-model="dialog"
+      max-width="290"
+    >
+      <v-card>
+        <v-card-text>
+          id: {{ item.id}}
+        </v-card-text>
+        <v-card-text>
+          name: {{ item.name}}
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -142,6 +173,7 @@ import AlertBox from '@/utils/app/components/AlertBox.vue'
 export default {
   data () {
     return {
+      dialog: false,
       trueConst: true,
       falseConst: false,
       activeTab: 'crudConfig',
@@ -166,16 +198,29 @@ export default {
       descriptionMultiedit: true,
       descriptionDetails: true,
       descriptionRequired: false,
-      descriptionFieldType: 'textarea',
+      descriptionFieldType: 'richTextBox',
+      descriptionTextMode: 'html',
       activeTable: true,
       activeMultiedit: false,
       activeDetails: false,
       activeTextMode: 'html',
-      activeFunctions: ['boolean']
+      activeFunctions: ['boolean'],
+      showButton1: true,
+      showButton2: true,
+      item: {}
     }
   },
   created () {
     this.detailsTitle = this.$t('detailsTitle')
+  },
+  methods: {
+    showAlert (item) {
+      alert(`id: ${item.id}, name: ${item.name}`)
+    },
+    showForm (item) {
+      this.item = item
+      this.dialog = true
+    }
   },
   computed: {
     fieldsInfo () {
@@ -201,7 +246,8 @@ export default {
         required: this.descriptionRequired,
         table: this.descriptionTable,
         details: this.descriptionDetails,
-        multiedit: this.descriptionMultiedit
+        multiedit: this.descriptionMultiedit,
+        textMode: this.descriptionTextMode
       },
       {
         type: 'checkbox',
@@ -219,6 +265,27 @@ export default {
         textMode: this.activeTextMode
       }
       ]
+    },
+    button1 () {
+      return [{
+        name: 'showAlert',
+        icon: 'notification_important',
+        color: 'yellow',
+        text: this.$t('buttons.showAlert')
+      }]
+    },
+    button2 () {
+      return [{
+        name: 'showForm',
+        icon: 'insert_comment',
+        color: 'blue',
+        text: this.$t('buttons.showForm')
+      }]
+    },
+    buttons () {
+      let obj1 = this.showButton1 ? this.button1 : []
+      let obj2 = this.showButton2 ? this.button2 : []
+      return [...obj1, ...obj2]
     },
     template () {
       return `
@@ -240,10 +307,24 @@ export default {
                 :editButton="false"`} ${this.selectManyMode ? '' : `
                 :selectManyMode="false"`} ${this.updateManyMode ? '' : `
                 :updateManyMode="false"`} ${this.removeManyMode ? '' : `
-                :removeManyMode="false"`}
+                :removeManyMode="false"`} ${this.showButton1 || this.showButton2 ?`
+                :customButtons="buttons"` : ''}
               >
               </crud>
-              <alert-box></alert-box>
+              <alert-box></alert-box> ${!this.showButton2 ? '' : `
+              <v-dialog
+                v-model="dialog"
+                max-width="290"
+              >
+                <v-card>
+                  <v-card-text>
+                    id: {{ item.id}}
+                  </v-card-text>
+                  <v-card-text>
+                    name: {{ item.name}}
+                  </v-card-text>
+                </v-card>
+              </v-dialog>`}
             </div>
           </template>
         `
@@ -304,8 +385,33 @@ export default {
                     textMode: ${this.activeTextMode},
                   },
                 ]
-              },
-            },
+              }, ${this.showButton1 || this.showButton2 ? `
+              buttons () { 
+                return [ ${this.showButton1 ? `
+                  {
+                    name: 'showAlert',
+                    icon: 'notification_important',
+                    color: 'yellow',
+                    text: this.$t('buttons.showAlert')
+                  },` : ''} ${this.showButton2 ? `
+                  {
+                    name: 'showForm',
+                    icon: 'insert_comment',
+                    color: 'blue',
+                    text: this.$t('buttons.showForm')
+                  }` : ''}
+                ]
+              },` : ''}
+            }, ${this.showButton1 || this.showButton2 ? `
+            methods: { ${this.showButton1 ? `
+              showAlert (item) {
+                alert(\`id: \${item.id}, name: \${item.name}\`)
+              },` : ''} ${this.showButton2 ? `
+              showForm (item) {
+                this.item = item
+                this.dialog = true
+              }` : ''}
+            },` : ''}
             components: {
               Crud,
               AlertBox,
@@ -340,6 +446,10 @@ export default {
           name: 'Name',
           description: 'Description',
           active: 'Active'
+        },
+        buttons: {
+          showAlert: 'Show alert',
+          showForm: 'Show form'
         }
       }
     }
