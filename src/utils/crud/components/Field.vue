@@ -282,8 +282,7 @@ export default {
         date: '####-##-##',
         time: '##:##',
         datetime: '####-##-## ##:##:##'
-      },
-      editor: null
+      }
     }
   },
   watch: {
@@ -333,34 +332,6 @@ export default {
     }
   },
   mounted () {
-    if (this.field.type === 'richTextBox') {
-      this.editor = new Editor({
-        extensions: [
-          new Blockquote(),
-          new BulletList(),
-          new CodeBlock(),
-          new HardBreak(),
-          new Heading({ levels: [1, 2, 3] }),
-          new HorizontalRule(),
-          new ListItem(),
-          new OrderedList(),
-          new TodoItem(),
-          new TodoList(),
-          new Bold(),
-          new Code(),
-          new Italic(),
-          new Link(),
-          new Strike(),
-          new Underline(),
-          new History()
-        ],
-        content: ``,
-        onBlur: () => {
-          this.value = this.editor.getHTML()
-          this.valueChanged()
-        }
-      })
-    }
   },
   created () {
     if (this.field.type === 'select') {
@@ -375,13 +346,45 @@ export default {
     }
   },
   beforeDestroy () {
-    if (this.field.type === 'richTextBox') {
+    if (this.field.type === 'richTextBox' && this.editor !== null) {
       this.editor.destroy()
     }
   },
   computed: {
     ...mapState('crud', ['uploadPath']),
     ...mapState('crud', ['details', 'path', 'prefix']),
+    editor () {
+      let editor = null
+      if (this.field.type === 'richTextBox') {
+        editor = new Editor({
+          extensions: [
+            new Blockquote(),
+            new BulletList(),
+            new CodeBlock(),
+            new HardBreak(),
+            new Heading({ levels: [1, 2, 3] }),
+            new HorizontalRule(),
+            new ListItem(),
+            new OrderedList(),
+            new TodoItem(),
+            new TodoList(),
+            new Bold(),
+            new Code(),
+            new Italic(),
+            new Link(),
+            new Strike(),
+            new Underline(),
+            new History()
+          ],
+          content: ``,
+          onBlur: () => {
+            this.getEditorContent(this.editor.getHTML())
+            this.valueChanged()
+          }
+        })
+      }
+      return editor
+    },
     rules () {
       const self = this
       return {
@@ -397,6 +400,9 @@ export default {
     }
   },
   methods: {
+    getEditorContent (content) {
+      this.value = content
+    },
     valueChanged () {
       this.$emit('valueChanged', this.value, this.field.name)
     },
