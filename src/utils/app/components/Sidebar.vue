@@ -16,7 +16,7 @@
       >
         <v-list>
           <v-list-tile>
-            <v-list-tile-avatar tile v-if="showLogo" size="60" style="margin-right: 20px;">
+            <v-list-tile-avatar tile v-if="showLogo" :size="logoSize" style="margin-right: 20px;">
               <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
             </v-list-tile-avatar>
             <v-list-tile-title class="title" :class="titleDark ? 'white--text' : 'black--text'">
@@ -125,6 +125,10 @@ export default {
     logo: {
       type: String,
       default: 'vue-crud-avatar.png'
+    },
+    logoSize: {
+      type: Number,
+      default: 50
     },
     navColor: {
       type: String,
