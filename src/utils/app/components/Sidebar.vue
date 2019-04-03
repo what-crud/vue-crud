@@ -6,6 +6,8 @@
     class="main-sidebar"
     :class="sidebarColor"
     :dark="sidebarDark"
+    fixed
+    app
   >
     <router-link :to="titleLink" style="text-decoration:none">
       <v-toolbar
