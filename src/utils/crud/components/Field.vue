@@ -1,5 +1,4 @@
 <template>
-  
   <span v-if="field.show">
     <!-- text field: input / number / decimal / date / time / datetime -->
     <v-text-field
