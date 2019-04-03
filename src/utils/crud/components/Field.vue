@@ -1,4 +1,5 @@
 <template>
+  
   <span v-if="field.show">
     <!-- text field: input / number / decimal / date / time / datetime -->
     <v-text-field
@@ -282,7 +283,8 @@ export default {
         date: '####-##-##',
         time: '##:##',
         datetime: '####-##-## ##:##:##'
-      }
+      },
+      editor: null
     }
   },
   watch: {
@@ -339,6 +341,33 @@ export default {
       } else {
         this.refreshList(this.field.url)
       }
+    } else if (this.field.type === 'richTextBox') {
+      this.editor = new Editor({
+        extensions: [
+          new Blockquote(),
+          new BulletList(),
+          new CodeBlock(),
+          new HardBreak(),
+          new Heading({ levels: [1, 2, 3] }),
+          new HorizontalRule(),
+          new ListItem(),
+          new OrderedList(),
+          new TodoItem(),
+          new TodoList(),
+          new Bold(),
+          new Code(),
+          new Italic(),
+          new Link(),
+          new Strike(),
+          new Underline(),
+          new History()
+        ],
+        content: ``,
+        onBlur: () => {
+          this.getEditorContent(this.editor.getHTML())
+          this.valueChanged()
+        }
+      })
     }
   },
   beforeDestroy () {
@@ -349,38 +378,6 @@ export default {
   computed: {
     ...mapState('crud', ['uploadPath']),
     ...mapState('crud', ['details', 'path', 'prefix']),
-    editor () {
-      let editor = null
-      if (this.field.type === 'richTextBox') {
-        editor = new Editor({
-          extensions: [
-            new Blockquote(),
-            new BulletList(),
-            new CodeBlock(),
-            new HardBreak(),
-            new Heading({ levels: [1, 2, 3] }),
-            new HorizontalRule(),
-            new ListItem(),
-            new OrderedList(),
-            new TodoItem(),
-            new TodoList(),
-            new Bold(),
-            new Code(),
-            new Italic(),
-            new Link(),
-            new Strike(),
-            new Underline(),
-            new History()
-          ],
-          content: ``,
-          onBlur: () => {
-            this.getEditorContent(this.editor.getHTML())
-            this.valueChanged()
-          }
-        })
-      }
-      return editor
-    },
     rules () {
       const self = this
       return {
