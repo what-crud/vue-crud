@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span v-if="field.show">
     <!-- text field: input / number / decimal / date / time / datetime -->
     <v-text-field
       hide-details
@@ -332,14 +332,10 @@ export default {
     }
   },
   mounted () {
-  },
-  created () {
     if (this.field.type === 'select') {
       this.listData = []
       if (this.field.async) {
         this.listLoader = false
-        this.listSearch = ''
-        this.oldSearch = ''
       } else {
         this.refreshList(this.field.url)
       }
@@ -411,7 +407,6 @@ export default {
       this.listLoader = true
       const required = this.field.required !== undefined ? this.field.required : true
       Vue.http.get(url).then((response) => {
-        this.listLoader = false
         const items = response.body
         selectItems = items.map((item) => {
           const rItem = item
@@ -437,6 +432,7 @@ export default {
         } else {
           this.listData = selectItems
         }
+        this.listLoader = false
       })
     },
     fileUploadBtn (status) {

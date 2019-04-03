@@ -11,7 +11,7 @@
             :key="i"
           >
             <v-layout row wrap>
-              <v-flex class="sm1" v-if="details.action == 'multiedit'">
+              <v-flex class="sm1" v-if="details.action == 'multiedit' && field.show">
                 <input type="checkbox" v-model="field.updateColumn">
               </v-flex>
               <v-flex :class="details.action == 'multiedit' ? 'sm11' : 'sm12'">
@@ -42,7 +42,6 @@
             @click="update()"
           >{{ $t('global.details.buttons.modify') }}</v-btn>
           <v-btn
-            :disabled="!details.formValid"
             v-else-if="details.action == 'multiedit'"
             color="orange"
             flat="flat"
@@ -68,25 +67,50 @@ export default {
   },
   props: ['title', 'detailsFields'],
   data () {
-    return {}
+    return {
+      fields: []
+    }
   },
-  created () {
+  watch: {
+    detailsShow: function (val) {
+      if (val) {
+        this.setFields()
+      }
+    }
+  },
+  mounted () {
     this.resetItem()
+    this.setFields()
   },
   computed: {
     ...mapState('crud', ['details', 'path', 'prefix', 'selectedIds']),
-    fields () {
-      const fields = this.detailsFields.filter((field) => {
-        let isIncluded = true
-        if (this.details.action === 'create') {
-          isIncluded = field.create !== false
-        } else if (this.details.action === 'multiedit') {
-          isIncluded = field.multiedit !== false
-        }
-        return isIncluded
-      })
-      const result = fields.map((field) => {
+    itemData () {
+      const result = {}
+      for (const field of this.fields) {
+        result[field.column] = field.value ? field.value : null
+      }
+      return result
+    },
+    detailsShow () {
+      return this.details.show
+    }
+  },
+  methods: {
+    ...mapActions('crud', ['updateItem', 'storeItem', 'mulitipleItemsUpdate']),
+    ...mapActions([
+      'openAlertBox'
+    ]),
+    ...mapMutations('crud', ['resetItem']),
+    setFields () {
+      const result = this.detailsFields.map((field) => {
         const rField = field
+        let show = true
+        if (this.details.action === 'create') {
+          show = field.create !== false
+        } else if (this.details.action === 'multiedit') {
+          show = field.multiedit !== false
+        }
+        rField.show = show
         rField.value = this.details.item[field.column]
         if (typeof rField.value !== 'undefined') {
           if (field.type === 'select') {
@@ -113,22 +137,8 @@ export default {
         }
         return rField
       })
-      return result
+      this.$set(this, 'fields', result)
     },
-    itemData () {
-      const result = {}
-      for (const field of this.fields) {
-        result[field.column] = field.value ? field.value : null
-      }
-      return result
-    }
-  },
-  methods: {
-    ...mapActions('crud', ['updateItem', 'storeItem', 'mulitipleItemsUpdate']),
-    ...mapActions([
-      'openAlertBox'
-    ]),
-    ...mapMutations('crud', ['resetItem']),
     valueChanged (val, fieldName) {
       this.$set(this.fields[this.fields.findIndex(el => el.name === fieldName)], 'value', val)
     },

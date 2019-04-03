@@ -125,10 +125,12 @@ export default {
         time: '##:##',
         datetime: '####-##-## ##:##:##'
       },
-      reload: false
+      reload: false,
+      fields: []
     }
   },
-  created () {
+  mounted () {
+    this.setFields()
     for (const field of this.fields) {
       field.required = field.required !== false
       if (field.type === 'select') {
@@ -173,9 +175,16 @@ export default {
     }
   },
   watch: {
+    item: {
+      handler (val) {
+        this.setFields()
+      },
+      deep: true
+    },
     detailsDialog: {
       handler (val) {
         if (val === true) {
+          this.setFields()
           for (const field of this.fields) {
             if (field.type === 'select') {
               if (field.async) {
@@ -262,8 +271,11 @@ export default {
         input: [v => !!v || self.$t('global.details.rules.required')],
         required: v => !!v || self.$t('global.details.rules.required')
       }
-    },
-    fields () {
+    }
+  },
+  methods: {
+    ...mapActions('crud', ['updateItemDetail']),
+    setFields () {
       const result = this.fieldsInfo.map((field) => {
         const rField = field
         rField.value = this.item[field.column]
@@ -279,11 +291,8 @@ export default {
         }
         return rField
       })
-      return result
-    }
-  },
-  methods: {
-    ...mapActions('crud', ['updateItemDetail']),
+      this.$set(this, 'fields', result)
+    },
     update (field) {
       setTimeout(() => {
         if (field.value !== field.oldValue) {
