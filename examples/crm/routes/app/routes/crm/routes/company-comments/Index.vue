@@ -1,5 +1,5 @@
 <template>
-  <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
+  <crud :prefix="prefix" :path="path" :paths="paths" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
   </crud>
 </template>
 
@@ -12,8 +12,13 @@ export default {
   mixins: [FieldsInfoMixin, LocalesMixin],
   data () {
     return {
-      prefix: 'crm',
+      prefix: 'crud/crm',
       path: 'company-comments',
+      paths: {
+        i: 'crm/company-comments',
+        st: 'crm/company-comments',
+        u: 'crm/company-comments'
+      },
       pageTitle: 'crm.companyComments'
     }
   },

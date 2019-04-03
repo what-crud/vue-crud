@@ -15,7 +15,7 @@ import Crud from '@/utils/crud/components/Crud.vue'
 export default {
   data () {
     return {
-      prefix: 'crm',
+      prefix: 'crud/crm',
       path: 'company-comment-types',
       pageTitle: 'crm.companyCommentTypes'
     }

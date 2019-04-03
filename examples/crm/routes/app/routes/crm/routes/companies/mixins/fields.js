@@ -12,7 +12,8 @@ export default {
           column: 'name',
           text: this.$t('fields.name'),
           grid: 'xs12 sm6 md4 lg6 xl4',
-          name: 'name'
+          name: 'name',
+          multiedit: false
         },
         {
           type: 'input',
@@ -22,11 +23,12 @@ export default {
           name: 'commonName',
           apiObject: {
             name: 'common_name'
-          }
+          },
+          multiedit: false
         },
         {
           type: 'select',
-          url: 'crm/company-types',
+          url: 'crud/crm/company-types',
           list: {
             value: 'id',
             text: 'name',
@@ -141,7 +143,6 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl3',
           name: 'city',
           create: false,
-          multiedit: false,
           required: false
         },
         {
@@ -151,7 +152,6 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl3',
           table: false,
           create: false,
-          multiedit: false,
           required: false
         },
         {
@@ -161,7 +161,6 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl3',
           table: false,
           create: false,
-          multiedit: false,
           required: false
         },
         {
@@ -171,7 +170,6 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl3',
           table: false,
           create: false,
-          multiedit: false,
           required: false
         },
         {

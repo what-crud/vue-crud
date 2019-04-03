@@ -33,7 +33,7 @@ export default {
         },
         {
           type: 'select',
-          url: 'crm/languages',
+          url: 'crud/crm/languages',
           list: {
             value: 'id',
             text: 'name',

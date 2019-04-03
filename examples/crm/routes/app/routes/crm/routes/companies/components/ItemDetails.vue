@@ -2,7 +2,6 @@
   <item-details-container :title="$t('title')" :fields="fields" :basicInformation="$t('basicInformation')">
     <v-tab key="positions" ripple>{{ $t('positions') }}</v-tab>
     <v-tab key="comments" ripple>{{ $t('comments') }}</v-tab>
-    <!-- <v-tab key="files" ripple>{{ $t('files') }}</v-tab> -->
     <!-- Positions -->
     <v-tab-item key="positions">
       <v-card flat>
@@ -19,15 +18,6 @@
         </v-card-text>
       </v-card>
     </v-tab-item>
-    <!-- Files -->
-    <!-- <v-tab-item key="files">
-      <v-card flat>
-        <v-card-text>
-          <company-files></company-files>
-          <image-container></image-container>
-        </v-card-text>
-      </v-card>
-    </v-tab-item> -->
   </item-details-container>
 </template>
 
@@ -36,8 +26,6 @@ import ItemDetailsContainer from '@/utils/crud/components/ItemDetailsContainer.v
 import ItemDetailsContainerMixin from '@/utils/crud/mixins/item-details-container'
 import CompanyPositions from './CompanyPositions.vue'
 import CompanyComments from './CompanyComments.vue'
-// import CompanyFiles from './CompanyFiles.vue'
-// import ImageContainer from './ImageContainer.vue'
 
 export default {
   mixins: [ItemDetailsContainerMixin],
@@ -45,8 +33,6 @@ export default {
     ItemDetailsContainer,
     CompanyPositions,
     CompanyComments
-    // CompanyFiles,
-    // ImageContainer
   },
   created () {
     this.setIdColumn('id')

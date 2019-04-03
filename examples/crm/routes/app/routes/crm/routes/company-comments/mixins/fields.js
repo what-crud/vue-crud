@@ -40,7 +40,7 @@ export default {
         },
         {
           type: 'select',
-          url: 'crm/company-comment-types',
+          url: 'crud/crm/company-comment-types',
           list: {
             value: 'id',
             text: 'name',

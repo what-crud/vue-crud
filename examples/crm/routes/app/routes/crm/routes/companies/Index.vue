@@ -4,6 +4,7 @@
       :customButtons="buttons"
       :prefix="prefix"
       :path="path"
+      :paths="paths"
       :pageTitle="pageTitle"
       :fieldsInfo="fieldsInfo"
       :detailsTitle="$t('detailsTitle')"
@@ -34,8 +35,12 @@ export default {
   },
   data () {
     return {
-      prefix: 'crm',
+      prefix: 'crud/crm',
       path: 'companies',
+      paths: {
+        i: 'crm/companies',
+        sh: 'crm/companies'
+      },
       pageTitle: 'crm.companies'
     }
   },

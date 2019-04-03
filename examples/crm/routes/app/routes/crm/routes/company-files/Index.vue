@@ -1,5 +1,5 @@
 <template>
-  <crud :meta="meta" :fileMode="true" :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
+  <crud :meta="meta" :fileMode="true" :prefix="prefix" :path="path" :paths="paths" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
   </crud>
 </template>
 
@@ -11,6 +11,14 @@ export default {
     return {
       prefix: 'crm',
       path: 'company-files',
+      paths: {
+        sh: 'crud/crm/company-files',
+        st: 'crud/crm/company-files',
+        u: 'crud/crm/company-files',
+        d: 'crud/crm/company-files',
+        mu: 'crud/crm/company-files',
+        md: 'crud/crm/company-files'
+      },
       pageTitle: 'crm.companyFiles',
       meta: [
         {
