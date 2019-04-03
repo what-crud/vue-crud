@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span v-if="field.show">
     <!-- text field: input / number / decimal / date / time / datetime -->
     <v-text-field
       hide-details
@@ -282,8 +282,7 @@ export default {
         date: '####-##-##',
         time: '##:##',
         datetime: '####-##-## ##:##:##'
-      },
-      editor: null
+      }
     }
   },
   watch: {
@@ -333,55 +332,55 @@ export default {
     }
   },
   mounted () {
-    if (this.field.type === 'richTextBox') {
-      this.editor = new Editor({
-        extensions: [
-          new Blockquote(),
-          new BulletList(),
-          new CodeBlock(),
-          new HardBreak(),
-          new Heading({ levels: [1, 2, 3] }),
-          new HorizontalRule(),
-          new ListItem(),
-          new OrderedList(),
-          new TodoItem(),
-          new TodoList(),
-          new Bold(),
-          new Code(),
-          new Italic(),
-          new Link(),
-          new Strike(),
-          new Underline(),
-          new History()
-        ],
-        content: ``,
-        onBlur: () => {
-          this.value = this.editor.getHTML()
-          this.valueChanged()
-        }
-      })
-    }
-  },
-  created () {
     if (this.field.type === 'select') {
       this.listData = []
       if (this.field.async) {
         this.listLoader = false
-        this.listSearch = ''
-        this.oldSearch = ''
       } else {
         this.refreshList(this.field.url)
       }
     }
   },
   beforeDestroy () {
-    if (this.field.type === 'richTextBox') {
+    if (this.field.type === 'richTextBox' && this.editor !== null) {
       this.editor.destroy()
     }
   },
   computed: {
     ...mapState('crud', ['uploadPath']),
     ...mapState('crud', ['details', 'path', 'prefix']),
+    editor () {
+      let editor = null
+      if (this.field.type === 'richTextBox') {
+        editor = new Editor({
+          extensions: [
+            new Blockquote(),
+            new BulletList(),
+            new CodeBlock(),
+            new HardBreak(),
+            new Heading({ levels: [1, 2, 3] }),
+            new HorizontalRule(),
+            new ListItem(),
+            new OrderedList(),
+            new TodoItem(),
+            new TodoList(),
+            new Bold(),
+            new Code(),
+            new Italic(),
+            new Link(),
+            new Strike(),
+            new Underline(),
+            new History()
+          ],
+          content: ``,
+          onBlur: () => {
+            this.getEditorContent(this.editor.getHTML())
+            this.valueChanged()
+          }
+        })
+      }
+      return editor
+    },
     rules () {
       const self = this
       return {
@@ -397,6 +396,9 @@ export default {
     }
   },
   methods: {
+    getEditorContent (content) {
+      this.value = content
+    },
     valueChanged () {
       this.$emit('valueChanged', this.value, this.field.name)
     },
@@ -405,7 +407,6 @@ export default {
       this.listLoader = true
       const required = this.field.required !== undefined ? this.field.required : true
       Vue.http.get(url).then((response) => {
-        this.listLoader = false
         const items = response.body
         selectItems = items.map((item) => {
           const rItem = item
@@ -431,6 +432,7 @@ export default {
         } else {
           this.listData = selectItems
         }
+        this.listLoader = false
       })
     },
     fileUploadBtn (status) {

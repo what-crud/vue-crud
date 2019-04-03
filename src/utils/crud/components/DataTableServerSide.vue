@@ -226,7 +226,7 @@ export default {
       let filteredItems
       Vue.http.post(`${this.prefix}/${this.path}/search`, params)
         .then((response) => {
-          const items = response.body.data
+          const items = response.body
           filteredItems = items.map(obj => getItemsList(obj, this.tableFields, this.meta, this.primaryKey, this.customButtons, this.activeColumnName))
           const data = filteredItems.map((item) => {
             const row = []
