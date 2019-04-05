@@ -268,7 +268,7 @@ export default {
     EditorMenuBar,
     EditorContent
   },
-  props: ['field', 'fieldValue'],
+  props: ['field', 'fieldValue', 'reload'],
   data () {
     return {
       listData: [],
@@ -283,7 +283,8 @@ export default {
         time: '##:##',
         datetime: '####-##-## ##:##:##'
       },
-      editor: null
+      editor: null,
+      searchActive: true
     }
   },
   watch: {
@@ -294,6 +295,19 @@ export default {
         this.editor.setContent(content)
       }
     },
+    reload: function (val) {
+      if (val) {
+        if (this.field.type === 'file') {
+          this.uploadLoader = false
+          this.uploadStatus = 'ready'
+        } else if (this.field.type === 'select' && this.field.async) {
+          this.listOldSearch = ''
+          let val = this.value || ''
+          const url = `${this.field.url}/id/${val}`
+          this.refreshList(url)
+        }
+      }
+    },
     uploadStatus: function (val) {
       if (val !== 'ready') {
         setTimeout(() => {
@@ -301,29 +315,9 @@ export default {
         }, 1000)
       }
     },
-    details: {
-      handler (val) {
-        if (val.show === true) {
-          if (this.field.type === 'file') {
-            this.uploadLoader = false
-            this.uploadStatus = 'ready'
-          }
-        }
-        if (val.show === true && val.action === 'edit') {
-          if (this.field.type === 'select') {
-            if (this.field.async) {
-              this.listOldSearch = ''
-              const url = `${this.field.url}/id/${this.value}`
-              this.refreshList(url)
-            }
-          }
-        }
-      },
-      deep: true
-    },
     listSearch: function (val) {
       setTimeout(() => {
-        if (this.field.type === 'select' && this.field.async) {
+        if (this.field.type === 'select' && this.field.async && this.searchActive) {
           if (this.listSearch === val) {
             const url = `${this.field.url}/phrase/${val}`
             this.refreshList(url)
@@ -396,9 +390,10 @@ export default {
       this.value = content
     },
     valueChanged () {
-      this.$emit('valueChanged', this.value, this.field.name)
+      this.$emit('valueChanged', this.value, this.field.column)
     },
     refreshList (url) {
+      this.searchActive = false
       let selectItems
       this.listLoader = true
       const required = this.field.required !== undefined ? this.field.required : true
@@ -429,6 +424,7 @@ export default {
           this.listData = selectItems
         }
         this.listLoader = false
+        this.searchActive = true
       })
     },
     fileUploadBtn (status) {

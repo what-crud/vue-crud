@@ -18,6 +18,7 @@
                 <field
                   :field="field"
                   :fieldValue="field.value"
+                  :reload="reload"
                   @valueChanged="valueChanged"
                 ></field>
               </v-flex>
@@ -68,6 +69,7 @@ export default {
   props: ['title', 'detailsFields'],
   data () {
     return {
+      reload: false,
       fields: []
     }
   },
@@ -75,6 +77,10 @@ export default {
     detailsShow: function (val) {
       if (val) {
         this.setFields()
+        this.reload = true
+        setTimeout(() => {
+          this.reload = false
+        }, 100)
       }
     }
   },
@@ -139,8 +145,8 @@ export default {
       })
       this.$set(this, 'fields', result)
     },
-    valueChanged (val, fieldName) {
-      this.$set(this.fields[this.fields.findIndex(el => el.name === fieldName)], 'value', val)
+    valueChanged (val, fieldColumn) {
+      this.$set(this.fields[this.fields.findIndex(el => el.column === fieldColumn)], 'value', val)
     },
     close () {
       this.details.show = false
