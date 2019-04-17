@@ -93,7 +93,7 @@ export default {
     itemData () {
       const result = {}
       for (const field of this.fields) {
-        result[field.column] = field.value ? field.value : null
+        result[field.column] = field.value !== undefined ? field.value : null
       }
       return result
     },
