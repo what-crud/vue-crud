@@ -72,21 +72,21 @@ export default {
       this.createChildDialog(this.childItemName)
     },
     suspend (id) {
+      let obj = {}
+      obj[this.activeColumnName] = 0
       this.updateChild([
         id,
-        {
-          active: 0
-        },
+        obj,
         this.$t('global.alerts.suspended'),
         this.path
       ])
     },
     restore (id) {
+      let obj = {}
+      obj[this.activeColumnName] = 1
       this.updateChild([
         id,
-        {
-          active: 1
-        },
+        obj,
         this.$t('global.alerts.restored'),
         this.path
       ])

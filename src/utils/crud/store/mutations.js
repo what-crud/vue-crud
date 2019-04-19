@@ -92,6 +92,8 @@ const mutations = {
     state.itemElements.itemObject = obj.itemObject
     state.itemElements.primaryId = obj.primaryId
     state.itemElements.foreignId = obj.foreignId
+    state.itemElements.connectionKeyName = obj.connectionKeyName
+    state.itemElements.dictionaryKeyName = obj.dictionaryKeyName
     state.itemElements.show = true
   },
   openImageContainer (state, item) {

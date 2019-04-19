@@ -144,9 +144,11 @@ export default {
     items () {
       const statusObject = this.itemElements.itemObject
       const { columns } = this.itemElements
+      const connectionKeyName = this.itemElements.connectionKeyName || 'id'
+      const dictionaryKeyName = this.itemElements.dictionaryKeyName || 'id'
       const items = this.itemElements.data.map((item) => {
         const rItem = {}
-        rItem.id = item.id
+        rItem.id = item[dictionaryKeyName]
         for (const column of columns) {
           const prop = column.obj.split('.').reduce((object, property) => object[property] || '', item)
           rItem[column.name] = prop
@@ -155,7 +157,7 @@ export default {
           if (item[statusObject].length > 0) {
             rItem.added = '<span hidden>1</span>Tak'
             rItem.filterStatus = 1
-            rItem.connectionId = item[statusObject][0].id
+            rItem.connectionId = item[statusObject][0][connectionKeyName]
           } else {
             rItem.added = '<span hidden>0</span>Nie'
             rItem.filterStatus = 0
