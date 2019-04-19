@@ -16,7 +16,7 @@ import Crud from '@/utils/crud/components/Crud.vue'
 export default {
   data () {
     return {
-      prefix: 'admin',
+      prefix: 'crud/admin',
       path: 'permissions',
       pageTitle: 'admin.permissions'
     }
@@ -27,7 +27,7 @@ export default {
         permissionUsers: {
           title: this.$t('itemElements.permissionUsers.title'),
           url: 'admin/permissions/{id}/users',
-          controller: 'admin/user-permissions',
+          controller: 'crud/admin/user-permissions',
           itemObject: 'user_permissions',
           columns: [
             {

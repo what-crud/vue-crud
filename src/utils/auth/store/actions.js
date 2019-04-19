@@ -48,21 +48,27 @@ const actions = {
       })
   },
   editUser ({
-    commit
+    commit,
+    dispatch
   }, data) {
     Vue.http.post('auth/user', data)
-      .then(response => response.json())
-      .then((result) => {
+      .then(response => {
+        let result = response.json()
         commit('editUser', result)
+      }, (error) => {
+        dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
       })
   },
   editPassword ({
-    commit
+    commit,
+    dispatch
   }, data) {
     Vue.http.post('auth/user-password', data)
-      .then(response => response.json())
-      .then((result) => {
+      .then(response => {
+        let result = response.json()
         commit('editPassword', result)
+      }, (error) => {
+        dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
       })
   }
 }

@@ -1,6 +1,15 @@
 <template>
-  <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')"
-    :customButtons="buttons" :itemElements="itemElements" ref="crud">
+  <crud
+    :prefix="prefix"
+    :path="path"
+    :paths="paths"
+    :pageTitle="pageTitle"
+    :fieldsInfo="fieldsInfo"
+    :detailsTitle="$t('detailsTitle')"
+    :customButtons="buttons"
+    :itemElements="itemElements"
+    ref="crud"
+  >
   </crud>
 </template>
 
@@ -14,8 +23,12 @@ import {
 export default {
   data () {
     return {
-      prefix: 'admin',
+      prefix: 'crud/admin',
       path: 'users',
+      paths: {
+        i: 'admin/users',
+        st: 'admin/users'
+      },
       pageTitle: 'admin.users'
     }
   },
@@ -25,7 +38,7 @@ export default {
         userPermissions: {
           title: this.$t('itemElements.userPermissions.title'),
           url: 'admin/users/{id}/permissions',
-          controller: 'admin/user-permissions',
+          controller: 'crud/admin/user-permissions',
           itemObject: 'permission_users',
           columns: [
             {
@@ -73,7 +86,7 @@ export default {
         },
         {
           type: 'select',
-          url: 'admin/user-types',
+          url: 'crud/admin/user-types',
           list: {
             value: 'id',
             text: 'name',
@@ -105,7 +118,7 @@ export default {
       'openAlertBox'
     ]),
     resetPassword (item) {
-      Vue.http.put(this.prefix + '/' + this.path + '/' + item.id + '/reset-password')
+      Vue.http.put('admin/users/' + item.id + '/reset-password')
         .then((response) => {
           this.openAlertBox(['alertSuccess', this.$t('passwordReseted')])
           this.getItems()

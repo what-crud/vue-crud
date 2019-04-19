@@ -2,6 +2,7 @@
   <crud
     :prefix="prefix"
     :path="path"
+    :paths="paths"
     :pageTitle="pageTitle"
     :fieldsInfo="fieldsInfo"
     :detailsTitle="$t('detailsTitle')"
@@ -16,8 +17,11 @@ import Crud from '@/utils/crud/components/Crud.vue'
 export default {
   data () {
     return {
-      prefix: 'admin',
+      prefix: 'crud/admin',
       path: 'user-permissions',
+      paths: {
+        i: 'admin/user-permissions'
+      },
       pageTitle: 'admin.userPermissions'
     }
   },
@@ -31,7 +35,7 @@ export default {
         },
         {
           type: 'select',
-          url: 'admin/users',
+          url: 'crud/admin/users',
           list: {
             value: 'id',
             text: 'name',
@@ -54,7 +58,7 @@ export default {
         },
         {
           type: 'select',
-          url: 'admin/permissions',
+          url: 'crud/admin/permissions',
           list: {
             value: 'id',
             text: 'name',

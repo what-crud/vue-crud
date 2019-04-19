@@ -2,7 +2,7 @@
   <v-layout v-if="loginWait" class="login-loader" justify-center align-center>
     <v-progress-circular indeterminate v-bind:size="100" v-bind:width="5" color="primary"></v-progress-circular>
   </v-layout>
-  <v-layout v-else row wrap class="white" color="primary" ma-3>
+  <v-layout v-else row wrap class="white" color="primary">
       <v-alert class="login-failed" type="error" :value="loginFailed" dismissible>
         {{ $t('global.login.failed') }}
       </v-alert>
