@@ -4,24 +4,27 @@
       <component
         :is="componentLoader"
         :meta="meta"
-        :customButtons="customButtons"
-        :itemElements="itemElements"
-        :deleteMode="deleteMode"
-        :editButton="editButton"
-        :tableFields="tableFields"
-        :primaryKey="primaryKey"
-        :activeColumnName="activeColumnName"
-        :createMode="createMode"
-        :editMode="editMode"
-        :mainFilter="mainFilter"
-        :fieldFilters="fieldFilters"
-        :refreshButton="refreshButton"
-        :exportButton="exportButton"
-        :selectManyMode="selectManyMode"
-        :updateManyMode="updateManyMode"
-        :removeManyMode="removeManyMode"
+        :custom-buttons="customButtons"
+        :item-elements="itemElements"
+        :delete-mode="deleteMode"
+        :edit-button="editButton"
+        :table-fields="tableFields"
+        :primary-key="primaryKey"
+        :active-column-name="activeColumnName"
+        :create-mode="createMode"
+        :edit-mode="editMode"
+        :main-filter="mainFilter"
+        :field-filters="fieldFilters"
+        :refresh-button="refreshButton"
+        :export-button="exportButton"
+        :select-many-mode="selectManyMode"
+        :update-many-mode="updateManyMode"
+        :remove-many-mode="removeManyMode"
       ></component>
-      <item-details :title="detailsTitle" :detailsFields="detailsFields"></item-details>
+      <item-details
+        :title="detailsTitle"
+        :details-fields="detailsFields"
+      ></item-details>
       <item-elements></item-elements>
       <image-container></image-container>
     </div>

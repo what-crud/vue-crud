@@ -1,12 +1,16 @@
 <template>
   <div>
       <company-positions-table
-        :fieldsInfo="fileteredTableFields"
-        :detailsLoader="detailsLoader" :tableData="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"
-        deleteMode="both"
-        :itemElements="itemElements"
+        :fields-info="fileteredTableFields"
+        :details-loader="detailsLoader"
+        :table-data="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"
+        delete-mode="both"
+        :item-elements="itemElements"
       ></company-positions-table>
-      <company-position-details :details="details" :fieldsInfo="fileteredDetailsFields"></company-position-details>
+      <company-position-details
+        :details="details"
+        :fields-info="fileteredDetailsFields"
+      ></company-position-details>
       <company-position-tasks></company-position-tasks>
   </div>
 </template>

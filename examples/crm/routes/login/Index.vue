@@ -1,8 +1,8 @@
 <template>
   <login-form
     redirect="/home"
-    :localeSelectable="true"
-    :showLogo="true"
+    :locale-selectable="true"
+    :show-logo="true"
     logo="vue-crud-lg.png"
   ></login-form>
 </template>

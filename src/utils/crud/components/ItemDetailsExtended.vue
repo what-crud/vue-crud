@@ -11,7 +11,7 @@
           <field
             v-else
             :field="field"
-            :fieldValue="field.value"
+            :field-value="field.value"
             :reload="reload"
             @valueChanged="valueChanged"
           ></field>

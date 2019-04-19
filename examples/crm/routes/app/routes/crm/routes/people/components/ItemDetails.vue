@@ -1,12 +1,17 @@
 <template>
-  <item-details-container :title="$t('title')" :fields="fields" :basicInformation="$t('basicInformation')">
+  <item-details-container :title="$t('title')" :fields="fields" :basic-information="$t('basicInformation')">
     <v-tab key="positions" ripple>{{ $t('positions') }}</v-tab>
     <v-tab key="comments" ripple>{{ $t('comments') }}</v-tab>
     <!-- Positions -->
     <v-tab-item key="positions">
       <v-card flat>
         <v-card-text>
-          <person-positions :exclude="['id', 'person']" path="crm/positions" childItemName="personPositions" fkName="person_id"></person-positions>
+          <person-positions
+            :exclude="['id', 'person']"
+            path="crm/positions"
+            child-item-name="personPositions"
+            fk-name="person_id"
+          ></person-positions>
         </v-card-text>
       </v-card>
     </v-tab-item>
@@ -14,7 +19,12 @@
     <v-tab-item key="comments">
       <v-card flat>
         <v-card-text>
-          <person-comments :exclude="['id', 'person']" path="crm/person-comments" childItemName="personComments" fkName="person_id"></person-comments>
+          <person-comments
+            :exclude="['id', 'person']"
+            path="crm/person-comments"
+            child-item-name="personComments"
+            fk-name="person_id"
+          ></person-comments>
         </v-card-text>
       </v-card>
     </v-tab-item>

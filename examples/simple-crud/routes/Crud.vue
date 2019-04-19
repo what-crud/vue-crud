@@ -28,12 +28,24 @@
       </v-flex>
     </v-layout>
     <h1 style="text-align:center">CRUD</h1>
-    <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo"
-      :detailsTitle="detailsTitle" :deleteMode="deleteMode" :refreshButton="refreshButton"
-      :exportButton="exportButton" :fieldFilters="fieldFilters" :mainFilter="mainFilter"
-      :createMode="createMode" :editMode="editMode" :editButton="editButton"
-      :selectManyMode="selectManyMode" :updateManyMode="updateManyMode"
-      :removeManyMode="removeManyMode">
+    <crud
+      :prefix="prefix"
+      :path="path"
+      :page-title="pageTitle"
+      :fields-info="fieldsInfo"
+      :details-title="detailsTitle"
+      :delete-mode="deleteMode"
+      :refresh-button="refreshButton"
+      :export-button="exportButton"
+      :field-filters="fieldFilters"
+      :main-filter="mainFilter"
+      :create-mode="createMode"
+      :edit-mode="editMode"
+      :edit-button="editButton"
+      :select-many-mode="selectManyMode"
+      :update-many-mode="updateManyMode"
+      :remove-many-mode="removeManyMode"
+    >
     </crud>
     <alert-box></alert-box>
   </div>

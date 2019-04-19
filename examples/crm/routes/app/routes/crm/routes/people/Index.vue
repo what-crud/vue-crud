@@ -1,17 +1,17 @@
 <template>
   <div>
     <crud
-      :customButtons="buttons"
+      :custom-buttons="buttons"
       :prefix="prefix"
       :path="path"
       :paths="paths"
-      :pageTitle="pageTitle"
-      :fieldsInfo="fieldsInfo"
-      :detailsTitle="$t('detailsTitle')"
-      :editButton="false"
-      :watchForCreation="true"
-      primaryKey="id"
-      deleteMode="soft"
+      :page-title="pageTitle"
+      :fields-info="fieldsInfo"
+      :details-title="$t('detailsTitle')"
+      :edit-button="false"
+      :watch-for-creation="true"
+      primary-key="id"
+      delete-mode="soft"
       mode="ServerSide"
     ></crud>
     <item-details :fields="itemFields"></item-details>

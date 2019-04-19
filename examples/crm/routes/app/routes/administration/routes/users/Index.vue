@@ -3,11 +3,11 @@
     :prefix="prefix"
     :path="path"
     :paths="paths"
-    :pageTitle="pageTitle"
-    :fieldsInfo="fieldsInfo"
-    :detailsTitle="$t('detailsTitle')"
-    :customButtons="buttons"
-    :itemElements="itemElements"
+    :page-title="pageTitle"
+    :fields-info="fieldsInfo"
+    :details-title="$t('detailsTitle')"
+    :custom-buttons="buttons"
+    :item-elements="itemElements"
     ref="crud"
   >
   </crud>

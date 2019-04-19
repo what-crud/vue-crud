@@ -2,10 +2,10 @@
   <crud
     :prefix="prefix"
     :path="path"
-    :pageTitle="pageTitle"
-    :fieldsInfo="fieldsInfo"
-    :detailsTitle="$t('detailsTitle')"
-    :itemElements="itemElements"
+    :page-title="pageTitle"
+    :fields-info="fieldsInfo"
+    :details-title="$t('detailsTitle')"
+    :item-elements="itemElements"
   >
   </crud>
 </template>

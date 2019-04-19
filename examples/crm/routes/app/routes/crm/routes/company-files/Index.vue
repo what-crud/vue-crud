@@ -1,5 +1,14 @@
 <template>
-  <crud :meta="meta" :fileMode="true" :prefix="prefix" :path="path" :paths="paths" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
+  <crud
+    :meta="meta"
+    :file-mode="true"
+    :prefix="prefix"
+    :path="path"
+    :paths="paths"
+    :page-title="pageTitle"
+    :fields-info="fieldsInfo"
+    :details-title="$t('detailsTitle')"
+  >
   </crud>
 </template>
 

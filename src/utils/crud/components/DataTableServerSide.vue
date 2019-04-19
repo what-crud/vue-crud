@@ -1,15 +1,15 @@
 <template>
   <v-card flat>
     <data-table-controls
-      :deleteMode="deleteMode"
-      :createMode="createMode"
-      :editMode="editMode"
-      :mainFilter="mainFilter"
-      :fieldFilters="fieldFilters"
-      :refreshButton="refreshButton"
-      :selectManyMode="selectManyMode"
-      :updateManyMode="updateManyMode"
-      :removeManyMode="removeManyMode"
+      :delete-mode="deleteMode"
+      :create-mode="createMode"
+      :edit-mode="editMode"
+      :main-filter="mainFilter"
+      :field-filters="fieldFilters"
+      :refresh-button="refreshButton"
+      :select-many-mode="selectManyMode"
+      :update-many-mode="updateManyMode"
+      :remove-many-mode="removeManyMode"
       @create="create"
       @editSelected="editSelected"
       @suspendSelected="suspendSelected"
@@ -83,13 +83,13 @@
       <template slot="items" slot-scope="props">
         <data-table-row
           :props="props"
-          :editButton='editButton'
-          :customButtons='customButtons'
-          :deleteMode='deleteMode'
-          :itemElements="itemElements"
-          :columnTextModes="columnTextModes"
-          :editMode="editMode"
-          :selectManyMode="selectManyMode"
+          :edit-button='editButton'
+          :custom-buttons='customButtons'
+          :delete-mode='deleteMode'
+          :item-elements="itemElements"
+          :column-text-modes="columnTextModes"
+          :edit-mode="editMode"
+          :select-many-mode="selectManyMode"
           @edit="edit"
           @custom="custom"
           @suspend="suspend"
@@ -99,7 +99,13 @@
         ></data-table-row>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
-        <data-table-footer @setPage="setPage" :pagination="pagination" :pageStart="pageStart" :pageStop="pageStop" :itemsLength="itemsLength"></data-table-footer>
+        <data-table-footer
+          @setPage="setPage"
+          :pagination="pagination"
+          :page-start="pageStart"
+          :page-stop="pageStop"
+          :items-length="itemsLength"
+        ></data-table-footer>
       </template>
     </v-data-table>
   </v-card>

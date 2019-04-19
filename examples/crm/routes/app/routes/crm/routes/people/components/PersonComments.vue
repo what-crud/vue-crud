@@ -1,11 +1,15 @@
 <template>
   <div>
       <person-comments-table
-        :fieldsInfo="fileteredTableFields"
-        :detailsLoader="detailsLoader" :tableData="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"
-        deleteMode="soft"
+        :fields-info="fileteredTableFields"
+        :details-loader="detailsLoader"
+        :table-data="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"
+        delete-mode="soft"
       ></person-comments-table>
-      <person-comment-details :details="details" :fieldsInfo="fileteredDetailsFields"></person-comment-details>
+      <person-comment-details
+        :details="details"
+        :fields-info="fileteredDetailsFields"
+      ></person-comment-details>
   </div>
 </template>
 

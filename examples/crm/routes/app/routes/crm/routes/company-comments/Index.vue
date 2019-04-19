@@ -1,5 +1,12 @@
 <template>
-  <crud :prefix="prefix" :path="path" :paths="paths" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
+  <crud
+    :prefix="prefix"
+    :path="path"
+    :paths="paths"
+    :page-title="pageTitle"
+    :fields-info="fieldsInfo"
+    :details-title="$t('detailsTitle')"
+  >
   </crud>
 </template>
 

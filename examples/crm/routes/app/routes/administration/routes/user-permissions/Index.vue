@@ -3,10 +3,10 @@
     :prefix="prefix"
     :path="path"
     :paths="paths"
-    :pageTitle="pageTitle"
-    :fieldsInfo="fieldsInfo"
-    :detailsTitle="$t('detailsTitle')"
-    deleteMode="hard"
+    :page-title="pageTitle"
+    :fields-info="fieldsInfo"
+    :details-title="$t('detailsTitle')"
+    delete-mode="hard"
   >
   </crud>
 </template>

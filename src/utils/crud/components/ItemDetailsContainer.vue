@@ -32,7 +32,10 @@
       <div grid-list-md text-xs-center>
         <v-layout row wrap>
           <v-flex xs12 lg5 pa-3>
-            <item-details-extended :title="basicInformation" :fieldsInfo="fields"></item-details-extended>
+            <item-details-extended
+              :title="basicInformation"
+              :fields-info="fields"
+            ></item-details-extended>
           </v-flex>
           <v-flex xs12 lg7 pa-3>
             <v-card class="children-tabs">

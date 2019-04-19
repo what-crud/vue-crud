@@ -1,11 +1,15 @@
 <template>
   <div>
       <person-positions-table
-        :fieldsInfo="fileteredTableFields"
-        :detailsLoader="detailsLoader" :tableData="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"
-        deleteMode="both"
+        :fields-info="fileteredTableFields"
+        :details-loader="detailsLoader"
+        :table-data="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"
+        delete-mode="both"
       ></person-positions-table>
-      <person-position-details :details="details" :fieldsInfo="fileteredDetailsFields"></person-position-details>
+      <person-position-details
+        :details="details"
+        :fields-info="fileteredDetailsFields"
+      ></person-position-details>
   </div>
 </template>
 

@@ -2,17 +2,17 @@
   <div>
     <sidebar
       :items="sidebarItems"
-      expandOn="click"
-      :lockSidebarBtn="true"
+      expand-on="click"
+      :lock-sidebar-btn="true"
       :title="$store.state.title"
-      titleLink="/home"
-      :showLogo="true"
+      title-link="/home"
+      :show-logo="true"
       logo="vue-crud-avatar.png"
-      sidebarColor="primary"
-      :sidebarDark="true"
-      titleColor="white"
-      :titleDark="false"
-      navColor="secondary"
+      sidebar-color="primary"
+      :sidebar-dark="true"
+      title-color="white"
+      :title-dark="false"
+      nav-color="secondary"
     >
       <template slot="nav">
         <v-list-tile-action>
@@ -22,9 +22,9 @@
       </template>
     </sidebar>
     <toolbar
-      :profileBtn="profile"
-      :localesBtn="true"
-      :logoutBtn="true"
+      :profile-btn="profile"
+      :locales-btn="true"
+      :logout-btn="true"
       color="primary"
       :dark="true"
     >

@@ -129,7 +129,13 @@ The simplest possible code that supports CRUD operations for one table will look
 ```vue
 <template>
   <div>
-    <crud :prefix="prefix" :path="path" :pageTitle="pageTitle" :fieldsInfo="fieldsInfo" :detailsTitle="$t('detailsTitle')">
+    <crud
+      :prefix="prefix"
+      :path="path"
+      :page-title="pageTitle"
+      :fields-info="fieldsInfo"
+      :details-title="$t('detailsTitle')"
+    >
     </crud>
     <alert-box></alert-box>
   </div>

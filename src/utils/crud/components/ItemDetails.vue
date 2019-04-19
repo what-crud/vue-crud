@@ -17,7 +17,7 @@
               <v-flex :class="details.action == 'multiedit' ? 'sm11' : 'sm12'">
                 <field
                   :field="field"
-                  :fieldValue="field.value"
+                  :field-value="field.value"
                   :reload="reload"
                   @valueChanged="valueChanged"
                 ></field>

@@ -8,7 +8,7 @@
           <div v-for="(field, i) in fields" :key="i">
             <field
               :field="field"
-              :fieldValue="field.value"
+              :field-value="field.value"
               :reload="reload"
               @valueChanged="valueChanged"
             ></field>
