@@ -1,6 +1,6 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="$store.state.app.profileDialog" max-width="500px">
+    <v-dialog persistent v-model="$store.state.app.profileDialog" max-width="500px">
       <v-card>
         <v-card-title>
           <span class="headline">{{ $t('global.profile.title') }}</span>
