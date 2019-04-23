@@ -77,10 +77,12 @@ export default {
     detailsShow: function (val) {
       if (val) {
         this.setFields()
-        this.reload = true
-        setTimeout(() => {
-          this.reload = false
-        }, 100)
+        if (this.details.action === 'edit') {
+          this.reload = true
+          setTimeout(() => {
+            this.reload = false
+          }, 100)
+        }
       }
     }
   },
