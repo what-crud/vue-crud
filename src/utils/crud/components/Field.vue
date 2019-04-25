@@ -4,7 +4,7 @@
     <v-text-field
       hide-details
       :rules="fieldRules(field)"
-      v-if="['input', 'number', 'decimal', 'date', 'time', 'datetime'].includes(field.type)"
+      v-if="['input', 'number', 'decimal', 'time', 'datetime'].includes(field.type)"
       :label="field.text"
       v-model="value"
       :disabled="field.disabled"
@@ -15,6 +15,37 @@
       :return-masked-value="['date', 'time', 'datetime'].includes(field.type) ? true : false"
       @blur="valueChanged()"
     ></v-text-field>
+    <!-- date -->
+    <v-menu
+      v-else-if="field.type == 'date'"
+      v-model="datepicker"
+      :close-on-content-click="false"
+      :nudge-right="40"
+      lazy
+      transition="scale-transition"
+      offset-y
+      full-width
+      min-width="290px"
+    >
+      <template v-slot:activator="{ on }">
+        <v-text-field
+          v-model="value"
+          :label="field.text"
+          prepend-icon="event"
+          readonly
+          v-on="on"
+          @blur="valueChanged()"
+        ></v-text-field>
+      </template>
+      <v-date-picker
+        v-model="value"
+        @input="datepicker = false"
+        :first-day-of-week="firstDayOfWeek"
+        :locale="locale"
+        scrollable
+        @change="valueChanged()"
+      ></v-date-picker>
+    </v-menu>
     <!-- text area -->
     <v-textarea
       hide-details
@@ -79,31 +110,6 @@
         </template>
       </v-autocomplete>
     </template>
-    <!-- date picker -->
-    <v-menu
-      v-else-if="field.type == 'datePicker'"
-      lazy
-      :close-on-content-click="true"
-      v-model="field.show"
-      transition="scale-transition"
-      offset-y
-      full-width
-      :nudge-right="40"
-      min-width="290px"
-      :return-value.sync="field.value"
-      :disabled="field.disabled"
-    >
-      <v-text-field
-        hide-details
-        slot="activator"
-        :label="field.text"
-        v-model="value"
-        prepend-icon="event"
-        :disabled="field.disabled"
-        @change="valueChanged()"
-      ></v-text-field>
-      <v-date-picker v-model="value" no-title scrollable></v-date-picker>
-    </v-menu>
     <!-- rich text editor -->
     <template v-else-if="field.type == 'richTextBox'">
       <div class="field-container">
@@ -239,6 +245,7 @@
 </template>
 <script>
 import Vue from 'vue'
+import { crud } from '@/config/crud'
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import {
   Blockquote,
@@ -284,7 +291,8 @@ export default {
         datetime: '####-##-## ##:##:##'
       },
       editor: null,
-      searchActive: true
+      searchActive: true,
+      datepicker: false
     }
   },
   watch: {
@@ -383,6 +391,12 @@ export default {
         filename = JSON.parse(this.value).filename
       }
       return filename
+    },
+    locale () {
+      return crud.locale || 'en-us'
+    },
+    firstDayOfWeek () {
+      return crud.firstDayOfWeek || 0
     }
   },
   methods: {

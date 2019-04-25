@@ -124,8 +124,8 @@ export default {
           if (field.type === 'select') {
             const defaultVal = field.list.default || 1
             rField.value = field.stringId ? this.details.item[field.column] : parseInt(this.details.item[field.column]) || defaultVal
-          } else if (field.type === 'datePicker') {
-            rField.value = this.details.item[field.column].substring(0, 10)
+          } else if (field.type === 'date') {
+            rField.value = (this.details.item[field.column] || '').substring(0, 10)
           } else if (field.type === 'checkbox') {
             rField.value = parseInt(this.details.item[field.column]) === 1
           }

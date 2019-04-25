@@ -72,7 +72,7 @@ export default {
     pageTitle: String,
     editButton: {
       type: Boolean,
-      default: crud.editButton || null
+      default: crud.editButton || true
     },
     deleteMode: {
       type: String,
