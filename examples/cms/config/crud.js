@@ -29,10 +29,10 @@ export const crud = {
     list: (param) => {
       return param ? param.map(obj => obj.tableList).join(', ') : ''
     },
-    listTasks: (param) => {
-      return param ? param.map(obj => {
-        return obj.task.name
-      }).join('<br>') : ''
+    listTags: (param) => {
+      return `<div style="max-width:200px;">${param ? param.map(obj => {
+        return `<span class="crud-label">${obj.tag.name}</span>`
+      }).join('') : ''}</div>`
     },
     lastReset: (param) => {
       if (param.length > 0) {

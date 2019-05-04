@@ -8,15 +8,15 @@
       title-link="/home"
       :show-logo="true"
       logo="vue-crud-avatar.png"
-      sidebar-color="primary"
+      sidebar-color="secondary"
       :sidebar-dark="true"
-      title-color="secondary"
+      title-color="primary"
       :title-dark="true"
-      nav-color="secondary"
+      nav-color="primary"
     >
       <template slot="nav">
         <v-list-tile-action>
-          <v-icon color="secondary">person</v-icon>
+          <v-icon color="primary">person</v-icon>
         </v-list-tile-action>
         <v-list-tile-title class="white--text">{{ userInfo.name }}</v-list-tile-title>
       </template>
@@ -25,7 +25,7 @@
       :profile-btn="profile"
       :locales-btn="true"
       :logout-btn="true"
-      color="primary"
+      color="secondary"
       :dark="true"
     >
       <template slot="left">
@@ -58,7 +58,7 @@
     </v-content>
     <footnote
       v-if="footer"
-      color="secondary"
+      color="primary"
       :dark="true"
     >
       <template slot="left">

@@ -64,6 +64,13 @@ export default {
           text: this.$t('fields.code'),
           name: 'code',
           multiedit: false
+        },
+        {
+          type: 'input',
+          column: 'path',
+          text: this.$t('fields.path'),
+          name: 'path',
+          multiedit: false
         }
       ]
     }
@@ -78,7 +85,8 @@ export default {
         fields: {
           id: 'Id',
           name: 'Nazwa',
-          code: 'Kod'
+          code: 'Kod',
+          path: 'Ścieżka'
         },
         itemElements: {
           permissionUsers: {
@@ -94,7 +102,8 @@ export default {
         fields: {
           id: 'Id',
           name: 'Name',
-          code: 'Code'
+          code: 'Code',
+          path: 'Path'
         },
         itemElements: {
           permissionUsers: {

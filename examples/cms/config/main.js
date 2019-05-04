@@ -14,8 +14,8 @@ export const main = {
   primaryTheme: 'dark',
   secondaryTheme: 'dark',
   theme: {
-    primary: '#DD2C00',
-    secondary: '#9E9E9E',
+    primary: '#AB47BC',
+    secondary: '#424242',
     accent: '#82B1FF',
     error: '#FF5252',
     info: '#2196F3',
