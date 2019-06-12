@@ -1,0 +1,37 @@
+language: node_js
+node_js: 'node'
+
+notifications:
+  webhooks: https://www.travisbuddy.com/?insertMode=update&only=failed,errored
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.15.2
+  - export PATH="$HOME/.yarn/bin:$PATH"
+
+install:
+  - yarn --frozen-lockfile --non-interactive
+
+stages:
+  - name: test
+  - name: deploy
+
+jobs:
+  include:
+    - stage: test
+      name: 'Lint and test'
+      script:
+        - yarn load-template empty
+        - yarn lint
+        - yarn test:unit
+
+    - stage: deploy
+      script:
+        - yarn load-template empty
+        - yarn lint
+        - yarn test:unit
+        - yarn build
