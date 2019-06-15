@@ -18,7 +18,7 @@ const actions = {
   },
   logout ({ commit }) {
     return new Promise((resolve) => {
-      Vue.http.get('auth/logout')
+      Vue.http.post('auth/logout')
         .then(response => response.json())
         .then(() => {
           commit('logout')
