@@ -46,7 +46,7 @@ import {
 import ItemDetails from './ItemDetails.vue'
 import ItemElements from './ItemElements.vue'
 import ImageContainer from './ImageContainer.vue'
-import { crud } from '@/config/crud'
+import crud from '@/config/crud'
 
 export default {
   components: {

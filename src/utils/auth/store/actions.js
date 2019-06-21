@@ -1,10 +1,30 @@
 import Vue from 'vue'
+import api from '@/config/api'
+import auth from '@/config/auth'
+
+const getUrl = (url) => {
+  let urlArray = []
+  if (auth.api) {
+    urlArray.push(auth.api)
+  } else {
+    urlArray.push(api.url)
+    if (api.path.prefix) {
+      urlArray.push(api.path.prefix)
+    }
+  }
+  if (auth.prefix) {
+    urlArray.push(auth.prefix)
+  }
+  urlArray.push(url)
+  return urlArray.join('/')
+}
 
 const actions = {
   login ({ commit }, credential) {
     commit('loginWait', true)
     return new Promise((resolve) => {
-      Vue.http.post('auth/login', credential)
+      const path = auth.paths.login || 'login'
+      Vue.http.post(getUrl(path), credential)
         .then(response => response.json())
         .then((result) => {
           commit('login', result)
@@ -18,7 +38,8 @@ const actions = {
   },
   logout ({ commit }) {
     return new Promise((resolve) => {
-      Vue.http.post('auth/logout')
+      const path = auth.paths.logout || 'logout'
+      Vue.http.post(getUrl(path))
         .then(response => response.json())
         .then(() => {
           commit('logout')
@@ -28,7 +49,8 @@ const actions = {
   },
   getUser ({ commit }) {
     return new Promise((resolve) => {
-      Vue.http.get('auth/user')
+      const path = auth.paths.getUser || 'user'
+      Vue.http.get(getUrl(path))
         .then(response => response.json())
         .then((response) => {
           if ([400, 401, 403].includes(response.status)) {
@@ -41,19 +63,18 @@ const actions = {
   refreshToken ({
     commit
   }, data) {
-    Vue.http.post('auth/refresh-token')
+    const path = auth.paths.refreshToken || 'refresh-token'
+    Vue.http.post(getUrl(path))
       .then(response => response.json())
       .then((result) => {
         commit('refreshToken', result)
       })
   },
-  editUser ({
-    commit,
-    dispatch
-  }, data) {
-    Vue.http.post('auth/user', data)
+  editUser ({ commit, dispatch }, data) {
+    const path = auth.paths.editUser || 'user'
+    Vue.http.post(getUrl(path), data)
       .then(response => {
-        let result = response.json()
+        let result = response.body
         commit('editUser', result)
       }, (error) => {
         dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
@@ -63,9 +84,11 @@ const actions = {
     commit,
     dispatch
   }, data) {
-    Vue.http.post('auth/user-password', data)
+    const path = auth.paths.changePassword || 'password'
+    Vue.http.post(getUrl(path), data)
       .then(response => {
-        let result = response.json()
+        let result = response.body
+        console.log(result)
         commit('editPassword', result)
       }, (error) => {
         dispatch('openAlertBox', ['alertError', error.statusText], { root: true })

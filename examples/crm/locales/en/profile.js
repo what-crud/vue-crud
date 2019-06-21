@@ -3,17 +3,18 @@ export default {
   close: 'Close',
   rules: {
     required: 'Field is required',
-    atLeast: 'Field must be at least',
-    less: 'Field must be less than',
-    more: 'Pole musi mieć more than',
+    min: 'Field must have at least',
+    max: 'Field must be not longer than',
     characters: 'characters',
-    emailMustBeValid: 'E-mail must be valid',
+    fieldIncorrect: 'Field is incorrect',
+    loginIncorrect: 'E-mail is incorrect',
+    passwordIncorrect: 'Password is incorrect',
     passwordMustDiffer: 'New password must be different from the old password',
-    passwordMustBeSame: 'Password can\'t be different'
+    passwordMustBeSame: 'Old and new password can\'t be different'
   },
   user: {
+    login: 'E-mail address',
     name: 'User name',
-    email: 'E-mail address',
     restore: 'Restore',
     save: 'Save',
     updated: 'User data has been updated'

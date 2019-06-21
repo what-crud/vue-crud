@@ -1,4 +1,4 @@
-export const main = {
+export default {
   title: 'Vue CRUD',
   locales: [{
     name: 'en',

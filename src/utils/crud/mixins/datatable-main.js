@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     ...mapState('app', ['page']),
-    ...mapState('crud', ['filesPath', 'prefix', 'path', 'nextItem', 'moveItemRun',
+    ...mapState('crud', ['prefix', 'path', 'nextItem', 'moveItemRun',
       'moveItemDirection', 'currentItemIndex'
     ]),
     ...mapGetters('crud', ['itemsList']),

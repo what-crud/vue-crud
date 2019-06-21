@@ -1,10 +1,12 @@
 export default {
-  title: 'YourCMS',
-  email: 'E-mail',
+  title: 'Vue CRUD',
+  login: 'E-mail',
+  username: 'Username',
   password: 'Password',
   failed: 'Login attempt unsuccessful',
   submit: 'Submit',
   passwordRequired: 'Password is required',
-  emailRequired: 'E-mail is required',
-  incorrectEmail: 'E-mail format is incorrect'
+  incorrectPassword: 'Password is incorrect',
+  loginRequired: 'E-mail is required',
+  incorrectLogin: 'E-mail format is incorrect'
 }
