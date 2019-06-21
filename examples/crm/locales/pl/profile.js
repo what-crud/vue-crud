@@ -3,17 +3,18 @@ export default {
   close: 'Zamknij',
   rules: {
     required: 'Pole jest wymagane',
-    atLeast: 'Pole musi mieć przynajmniej',
-    less: 'Pole musi mieć mniej niż',
-    more: 'Pole musi mieć więcej niż',
+    min: 'Pole musi mieć przynajmniej',
+    max: 'Pole musi mieć maksymalnie',
     characters: 'znaków',
-    emailMustBeValid: 'E-mail musi mieć poprawny format',
+    fieldIncorrect: 'Pole jest niepoprawne',
+    loginIncorrect: 'E-mail jest niepoprawny',
+    passwordIncorrect: 'Hasło jest niepoprawne',
     passwordMustDiffer: 'Nowe hasło musi się różnić od poprzedniego',
     passwordMustBeSame: 'Hasła nie mogą się różnić'
   },
   user: {
+    login: 'Adres e-mail',
     name: 'Nazwa Użytkownika',
-    email: 'Adres e-mail',
     restore: 'Przywróć',
     save: 'Zapisz',
     updated: 'Dane użytkownika zostały zaktualizowane'
@@ -28,3 +29,4 @@ export default {
     change: 'Zmień hasło'
   }
 }
+
