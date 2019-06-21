@@ -23,7 +23,8 @@ const actions = {
   login ({ commit }, credential) {
     commit('loginWait', true)
     return new Promise((resolve) => {
-      Vue.http.post(getUrl('login'), credential)
+      const path = auth.login || 'login'
+      Vue.http.post(getUrl(path), credential)
         .then(response => response.json())
         .then((result) => {
           commit('login', result)
@@ -37,7 +38,8 @@ const actions = {
   },
   logout ({ commit }) {
     return new Promise((resolve) => {
-      Vue.http.post(getUrl('logout'))
+      const path = auth.logout || 'logout'
+      Vue.http.post(getUrl(path))
         .then(response => response.json())
         .then(() => {
           commit('logout')
@@ -47,7 +49,8 @@ const actions = {
   },
   getUser ({ commit }) {
     return new Promise((resolve) => {
-      Vue.http.get(getUrl('user'))
+      const path = auth.getUser || 'user'
+      Vue.http.get(getUrl(path))
         .then(response => response.json())
         .then((response) => {
           if ([400, 401, 403].includes(response.status)) {
@@ -60,7 +63,8 @@ const actions = {
   refreshToken ({
     commit
   }, data) {
-    Vue.http.post(getUrl('refresh-token'))
+    const path = auth.refreshToken || 'refresh-token'
+    Vue.http.post(getUrl(path))
       .then(response => response.json())
       .then((result) => {
         commit('refreshToken', result)
@@ -70,7 +74,8 @@ const actions = {
     commit,
     dispatch
   }, data) {
-    Vue.http.post(getUrl('user'), data)
+    const path = auth.editUser || 'user'
+    Vue.http.post(getUrl(path), data)
       .then(response => {
         let result = response.json()
         commit('editUser', result)
@@ -82,7 +87,8 @@ const actions = {
     commit,
     dispatch
   }, data) {
-    Vue.http.post(getUrl('user-password'), data)
+    const path = auth.changePassword || 'password'
+    Vue.http.post(getUrl(path), data)
       .then(response => {
         let result = response.json()
         commit('editPassword', result)
