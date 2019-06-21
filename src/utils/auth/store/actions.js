@@ -23,7 +23,7 @@ const actions = {
   login ({ commit }, credential) {
     commit('loginWait', true)
     return new Promise((resolve) => {
-      const path = auth.login || 'login'
+      const path = auth.paths.login || 'login'
       Vue.http.post(getUrl(path), credential)
         .then(response => response.json())
         .then((result) => {
@@ -38,7 +38,7 @@ const actions = {
   },
   logout ({ commit }) {
     return new Promise((resolve) => {
-      const path = auth.logout || 'logout'
+      const path = auth.paths.logout || 'logout'
       Vue.http.post(getUrl(path))
         .then(response => response.json())
         .then(() => {
@@ -49,7 +49,7 @@ const actions = {
   },
   getUser ({ commit }) {
     return new Promise((resolve) => {
-      const path = auth.getUser || 'user'
+      const path = auth.paths.getUser || 'user'
       Vue.http.get(getUrl(path))
         .then(response => response.json())
         .then((response) => {
@@ -63,21 +63,18 @@ const actions = {
   refreshToken ({
     commit
   }, data) {
-    const path = auth.refreshToken || 'refresh-token'
+    const path = auth.paths.refreshToken || 'refresh-token'
     Vue.http.post(getUrl(path))
       .then(response => response.json())
       .then((result) => {
         commit('refreshToken', result)
       })
   },
-  editUser ({
-    commit,
-    dispatch
-  }, data) {
-    const path = auth.editUser || 'user'
+  editUser ({ commit, dispatch }, data) {
+    const path = auth.paths.editUser || 'user'
     Vue.http.post(getUrl(path), data)
       .then(response => {
-        let result = response.json()
+        let result = response.body
         commit('editUser', result)
       }, (error) => {
         dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
@@ -87,10 +84,11 @@ const actions = {
     commit,
     dispatch
   }, data) {
-    const path = auth.changePassword || 'password'
+    const path = auth.paths.changePassword || 'password'
     Vue.http.post(getUrl(path), data)
       .then(response => {
-        let result = response.json()
+        let result = response.body
+        console.log(result)
         commit('editPassword', result)
       }, (error) => {
         dispatch('openAlertBox', ['alertError', error.statusText], { root: true })

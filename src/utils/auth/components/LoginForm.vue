@@ -91,7 +91,7 @@ export default {
       'locales'
     ]),
     loginRegex () {
-      return auth.loginRegex ? auth.loginRegex : (auth.loginWithEmail ? emailRegex : alphanumericRegex)
+      return auth.loginRegex ? auth.loginRegex : (auth.loginWithEmail ? this.emailRegex : this.alphanumericRegex)
     },
     loginRules () {
       return [
@@ -100,7 +100,7 @@ export default {
       ]
     },
     passwordRegex () {
-      return auth.passwordRegex ? auth.passwordRegex : alphanumericRegex
+      return auth.passwordRegex ? auth.passwordRegex : this.alphanumericRegex
     },
     passwordRules () {
       return [

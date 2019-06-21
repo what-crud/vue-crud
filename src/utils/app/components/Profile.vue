@@ -1,6 +1,6 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog persistent v-model="$store.state.app.profileDialog" max-width="500px">
+    <v-dialog persistent v-model="profileDialog" max-width="500px">
       <v-card>
         <v-card-title>
           <span class="headline">{{ $t('global.profile.title') }}</span>
@@ -12,12 +12,41 @@
             <v-alert v-if="userUpdated" outline color="success" icon="check_circle" value="true">
               {{ $t('global.profile.user.updated') }}
             </v-alert>
-            <v-text-field :label="$t('global.profile.user.name')" v-model="user.name" :rules="userRules.name"></v-text-field>
-            <v-text-field :label="$t('global.profile.user.email')" v-model="user.email" :rules="userRules.email"></v-text-field>
+            <!-- User login -->
+            <v-text-field
+              :label="$t('global.profile.user.login')"
+              v-model="login"
+              :rules="loginRules"
+              :required="loginEditable"
+              :disabled="!loginEditable"
+            ></v-text-field>
+            <!-- user custom fields -->
+            <v-text-field
+              v-for="field in customFields"
+              :key="field.name"
+              :label="field.label"
+              v-model="field.value"
+              :rules="customFieldRules(field)"
+              :required="field.required"
+              :disabled="!field.editable"
+            ></v-text-field>
           </v-card-text>
           <v-card-actions>
-            <v-btn class="blue--text" flat @click="getUser()">{{ $t('global.profile.user.restore') }}</v-btn>
-            <v-btn class="green--text" flat @click="editUser(user)" :disabled="!userValid">{{ $t('global.profile.user.save') }}</v-btn>
+            <v-btn
+              class="blue--text"
+              flat
+              @click="getUser()"
+            >
+              {{ $t('global.profile.user.restore') }}
+            </v-btn>
+            <v-btn
+              class="green--text"
+              flat
+              @click="editUser(user)"
+              :disabled="!userValid"
+            >
+              {{ $t('global.profile.user.save') }}
+            </v-btn>
           </v-card-actions>
         </v-form>
 
@@ -31,22 +60,59 @@
               {{ $t('global.profile.password.updateError') }}
               <br> {{ password.updateErrorMsg }}
             </v-alert>
-            <v-text-field :label="$t('global.profile.password.old')" v-model="password.old" :rules="passwordRules.old" :append-icon="e1 ? 'visibility' : 'visibility_off'"
-              @click:append="() => (e1 = !e1)" :type="e1 ? 'password' : 'text'" counter></v-text-field>
-            <v-text-field :label="$t('global.profile.password.new')" v-model="password.new" :rules="passwordRules.new" min="8" :append-icon="e2 ? 'visibility' : 'visibility_off'"
-              @click:append="() => (e2 = !e2)" :type="e2 ? 'password' : 'text'" counter></v-text-field>
-            <v-text-field :label="$t('global.profile.password.repeat')" v-model="password.repeat" :rules="passwordRules.repeat" min="8" :append-icon="e3 ? 'visibility' : 'visibility_off'"
-              @click:append="() => (e3 = !e3)" :type="e3 ? 'password' : 'text'" counter></v-text-field>
+            <v-text-field
+              :label="$t('global.profile.password.old')"
+              v-model="password.old"
+              :rules="passwordRules.old"
+              :append-icon="pass1 ? 'visibility' : 'visibility_off'"
+              @click:append="() => (pass1 = !pass1)" :type="pass1 ? 'password' : 'text'"
+              counter
+            ></v-text-field>
+            <v-text-field
+              :label="$t('global.profile.password.new')"
+              v-model="password.new"
+              :rules="passwordRules.new"
+              :append-icon="pass2 ? 'visibility' : 'visibility_off'"
+              @click:append="() => (pass2 = !pass2)" :type="pass2 ? 'password' : 'text'"
+              counter
+            ></v-text-field>
+            <v-text-field
+              :label="$t('global.profile.password.repeat')"
+              v-model="password.repeat"
+              :rules="passwordRules.repeat"
+              :append-icon="pass3 ? 'visibility' : 'visibility_off'"
+              @click:append="() => (pass3 = !pass3)" :type="pass3 ? 'password' : 'text'"
+              counter
+            ></v-text-field>
           </v-card-text>
           <v-card-actions>
-            <v-btn class="blue--text" flat @click="clearPasswords()">{{ $t('global.profile.password.clear') }}</v-btn>
-            <v-btn class="green--text" flat @click="editPasswordAndClear()" :disabled="!passwordValid">{{ $t('global.profile.password.change') }}</v-btn>
+            <v-btn
+              class="blue--text"
+              flat
+              @click="clearPasswords()"
+            >
+              {{ $t('global.profile.password.clear') }}
+            </v-btn>
+            <v-btn
+              class="green--text"
+              flat
+              @click="editPasswordAndClear()"
+              :disabled="!passwordValid"
+            >
+              {{ $t('global.profile.password.change') }}
+            </v-btn>
           </v-card-actions>
         </v-form>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="black--text" flat @click.native="$store.state.app.profileDialog = false">{{ $t('global.profile.close') }}</v-btn>
+          <v-btn
+            class="black--text"
+            flat
+            @click.native="$store.state.app.profileDialog = false"
+          >
+            {{ $t('global.profile.close') }}
+          </v-btn>
         </v-card-actions>
 
       </v-card>
@@ -56,29 +122,36 @@
 
 <script>
 import {
+  mapState,
   mapGetters,
   mapActions
 } from 'vuex'
+import auth from '@/config/auth'
 
 export default {
   name: 'profile',
   data: () => ({
-    userValid: false,
-    user: {
-      name: '',
-      email: ''
-    },
+    login: '',
+    loginEditable: auth.loginEditable || true,
+    loginFieldName: auth.loginFieldName || 'login',
     passwordValid: false,
     password: {
       old: '',
       new: '',
       repeat: ''
     },
-    e1: true,
-    e2: true,
-    e3: true
+    customFields: [],
+    userValid: false,
+    pass1: true,
+    pass2: true,
+    pass3: true,
+    alphanumericRegex: /^[a-zA-Z0-9]+$/,
+    emailRegex: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
   }),
   computed: {
+    ...mapState('app', [
+      'profileDialog'
+    ]),
     ...mapGetters('auth', [
       'userInfo',
       'userUpdated',
@@ -86,45 +159,55 @@ export default {
       'userPasswordUpdateError',
       'userPasswordUpdateErrorMsg'
     ]),
-    userRules () {
-      const self = this
+    loginRules () {
+      const min = auth.loginMinLength || 4
+      const max = auth.loginMaxLength || 100
+      const regex = auth.loginRegex || (auth.loginWithEmail ? this.emailRegex : this.alphanumericRegex)
+      return [
+        v => !!v || this.$t('global.profile.rules.required'),
+        v => regex.test(v) || this.$t('global.profile.rules.loginIncorrect'),
+        v => (v === undefined || v.length <= max) || `${this.$t('global.profile.rules.max')} ${max} ${this.$t('global.profile.rules.characters')}`,
+        v => (v === undefined || v.length >= min) || `${this.$t('global.profile.rules.min')} ${min} ${this.$t('global.profile.rules.characters')}`
+      ]
+    },
+    passwordRules () {
+      const min = auth.passwordMinLength || 8
+      const max = auth.passwordMaxLength || 100
+      const regex = auth.passwordRegex || this.alphanumericRegex
       return {
-        name: [
-          v => !!v || self.$t('global.profile.rules.required'),
-          v => v.length < 100 || `${self.$t('global.profile.rules.less')} 100 ${self.$t('global.profile.rules.characters')}`,
-          v => v.length > 4 || `${self.$t('global.profile.rules.more')} 4 ${self.$t('global.profile.rules.characters')}`
+        old: [
+          v => !!v || this.$t('global.profile.rules.required')
         ],
-        email: [
-          v => !!v || self.$t('global.profile.rules.required'),
-          v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || self.$t('global.profile.rules.emailMustBeValid')
+        new: [
+          v => !!v || this.$t('global.profile.rules.required'),
+          v => regex.test(v) || this.$t('global.profile.rules.passwordIncorrect'),
+          v => v.length <= max || `${this.$t('global.profile.rules.max')} ${max} ${this.$t('global.profile.rules.characters')}`,
+          v => v.length >= min || `${this.$t('global.profile.rules.min')} ${min} ${this.$t('global.profile.rules.characters')}`,
+          v => v !== this.password.old || this.$t('global.profile.rules.passwordMustDiffer')
+        ],
+        repeat: [
+          v => !!v || this.$t('global.profile.rules.required'),
+          v => regex.test(v) || this.$t('global.profile.rules.passwordIncorrect'),
+          v => v.length <= max || `${this.$t('global.profile.rules.max')} ${max} ${this.$t('global.profile.rules.characters')}`,
+          v => v.length >= min || `${this.$t('global.profile.rules.min')} ${min} ${this.$t('global.profile.rules.characters')}`,
+          v => v === this.password.new || this.$t('global.profile.rules.passwordMustBeSame')
         ]
       }
     },
-    passwordRules () {
-      const self = this
-      return {
-        old: [
-          v => !!v || self.$t('global.profile.rules.required')
-        ],
-        new: [
-          v => !!v || self.$t('global.profile.rules.required'),
-          v => v.length < 100 || `${self.$t('global.profile.rules.less')} 100 ${self.$t('global.profile.rules.characters')}`,
-          v => v.length >= 8 || `${self.$t('global.profile.rules.atLeast')} 8 ${self.$t('global.profile.rules.characters')}`,
-          v => v !== self.password.old || self.$t('global.profile.rules.passwordMustDiffer')
-        ],
-        repeat: [
-          v => !!v || self.$t('global.profile.rules.required'),
-          v => v.length < 100 || `${self.$t('global.profile.rules.less')} 100 ${self.$t('global.profile.rules.characters')}`,
-          v => v.length >= 8 || `${self.$t('global.profile.rules.atLeast')} 8 ${self.$t('global.profile.rules.characters')}`,
-          v => v === self.password.new || self.$t('global.profile.rules.passwordMustBeSame')
-        ]
+    user () {
+      let user = {}
+      user[this.loginFieldName] = this.login
+      for (let field of this.customFields) {
+        user[field.name] = field.value
       }
+      return user
     }
   },
-  created () {
-    this.getUser()
-  },
   methods: {
+    ...mapActions('auth', [
+      'editUser',
+      'editPassword'
+    ]),
     clearPasswords () {
       this.password.old = ''
       this.password.new = ''
@@ -132,17 +215,34 @@ export default {
     },
     getUser () {
       const user = this.userInfo
-      this.user.name = user.name
-      this.user.email = user.email
+      this.login = user[this.loginFieldName]
+      const customFields = auth.customFields || []
+      this.customFields = customFields.map((field) => {
+        let rField = field
+        rField.value = user[field.name]
+        rField.label = this.$t(`global.profile.user.${field.name}`)
+        return rField
+      })
     },
     editPasswordAndClear () {
       this.editPassword(this.password)
       this.clearPasswords()
     },
-    ...mapActions('auth', [
-      'editUser',
-      'editPassword'
-    ])
+    customFieldRules (field) {
+      const min = field.min || 0
+      const max = field.max || 100
+      const regex = field.regex || /^.{0,100}$/
+      const required = field.required
+      return [
+        v => (!required || !!v) || this.$t('global.profile.rules.required'),
+        v => regex.test(v) || this.$t('global.profile.rules.fieldIncorrect'),
+        v => (v === undefined || v.length <= max) || `${this.$t('global.profile.rules.max')} ${max} ${this.$t('global.profile.rules.characters')}`,
+        v => (v === undefined || v.length >= min) || `${this.$t('global.profile.rules.min')} ${min} ${this.$t('global.profile.rules.characters')}`
+      ]
+    }
+  },
+  created () {
+    this.getUser()
   }
 }
 
