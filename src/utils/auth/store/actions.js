@@ -4,12 +4,11 @@ import auth from '@/config/auth'
 
 const getUrl = (url) => {
   let urlArray = []
-  if (auth.api){
+  if (auth.api) {
     urlArray.push(auth.api)
-  }
-  else {
+  } else {
     urlArray.push(api.url)
-    if (api.path.prefix){
+    if (api.path.prefix) {
       urlArray.push(api.path.prefix)
     }
   }
