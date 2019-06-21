@@ -22,7 +22,7 @@
             </v-list>
           </v-menu>
           <v-text-field
-            :label="loginLabel"
+            :label="$t('global.login.login')"
             v-model="user"
             :rules="loginRules"
             required
@@ -77,7 +77,9 @@ export default {
       valid: false,
       password: '',
       user: '',
-      passwordHidden: true
+      passwordHidden: true,
+      alphanumericRegex: /^[a-zA-Z0-9]+$/,
+      emailRegex: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
     }
   },
   computed: {
@@ -88,37 +90,22 @@ export default {
     ...mapState([
       'locales'
     ]),
-    loginRules () {
-      return auth.loginType === 'email' ? this.emailRules : this.userNameRules
+    loginRegex () {
+      return auth.loginRegex ? auth.loginRegex : (auth.loginWithEmail ? emailRegex : alphanumericRegex)
     },
-    loginLabel () {
-      return auth.loginType === 'email' ? this.$t('global.login.email') : this.$t('global.login.username')
+    loginRules () {
+      return [
+        v => !!v || this.$t('global.login.loginRequired'),
+        v => this.emailRegex.test(v) || this.$t('global.login.incorrectLogin')
+      ]
     },
     passwordRegex () {
-      return auth.passwordRegex ? auth.passwordRegex : /^[a-zA-Z0-9]+$/
-    },
-    emailRegex () {
-      return auth.loginRegex ? auth.loginRegex : /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-    },
-    userNameRegex () {
-      return auth.loginRegex ? auth.loginRegex : /^[a-zA-Z0-9]+$/
+      return auth.passwordRegex ? auth.passwordRegex : alphanumericRegex
     },
     passwordRules () {
       return [
         v => !!v || this.$t('global.login.passwordRequired'),
         v => this.passwordRegex.test(v) || this.$t('global.login.incorrectPassword')
-      ]
-    },
-    emailRules () {
-      return [
-        v => !!v || this.$t('global.login.emailRequired'),
-        v => this.emailRegex.test(v) || this.$t('global.login.incorrectEmail')
-      ]
-    },
-    userNameRules () {
-      return [
-        v => !!v || this.$t('global.login.userNameRequired'),
-        v => this.userNameRegex.test(v) || this.$t('global.login.incorrectUserName')
       ]
     },
     credential () {
