@@ -1,18 +1,15 @@
 import 'babel-polyfill'
 import Vue from 'vue'
+import http from './plugins/http'
 import i18n from './locales/index'
-import './plugins/vuetify'
-import './plugins/vue-resource'
-import './plugins/custom/'
-import App from './App.vue'
 import router from './router'
 import store from './store'
-import './register-service-worker'
-import api from './config/api'
+import './plugins/vuetify'
+import './plugins/custom/'
+import App from './App.vue'
 
 Vue.config.productionTip = true
-Vue.http.options.emulateJSON = true
-Vue.http.options.root = api.url + api.path.default
+
 Vue.http.interceptors.push((request, next) => {
   if (localStorage.getItem('token')) {
     request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'))
@@ -26,7 +23,7 @@ Vue.http.interceptors.push((request, next) => {
 })
 
 if ('-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style) {
-  window.addEventListener('hashchange', function (event) {
+  window.addEventListener('hashchange', function () {
     var currentPath = window.location.hash.slice(1)
     if (router.path !== currentPath) {
       router.push(currentPath)
@@ -35,6 +32,7 @@ if ('-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in d
 }
 
 new Vue({
+  http,
   i18n,
   router,
   store,
