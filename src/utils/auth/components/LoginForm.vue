@@ -21,9 +21,21 @@
               </v-list-tile>
             </v-list>
           </v-menu>
-          <v-text-field :label="$t('global.login.email')" v-model="email" :rules="emailRules" required></v-text-field>
-          <v-text-field :label="$t('global.login.password')" v-model="password" :rules="passwordRules" :counter="30" required :append-icon="passAppendIcon"
-          @click:append="() => (passwordHidden = !passwordHidden)" :type="passTextFieldType"></v-text-field>
+          <v-text-field
+            :label="loginLabel"
+            v-model="user"
+            :rules="loginRules"
+            required
+          ></v-text-field>
+          <v-text-field
+            :label="$t('global.login.password')"
+            v-model="password"
+            :rules="passwordRules"
+            :counter="30"
+            required
+            :append-icon="passAppendIcon"
+            @click:append="() => (passwordHidden = !passwordHidden)" :type="passTextFieldType"
+          ></v-text-field>
           <v-btn type="submit" @click="loginAttempt()" :disabled="!valid" class="primary white--text">
               {{ $t('global.login.submit') }}
           </v-btn>
@@ -38,6 +50,7 @@ import {
   mapMutations,
   mapActions
 } from 'vuex'
+import auth from '@/config/auth'
 
 export default {
   name: 'login',
@@ -63,7 +76,7 @@ export default {
     return {
       valid: false,
       password: '',
-      email: '',
+      user: '',
       passwordHidden: true
     }
   },
@@ -75,24 +88,44 @@ export default {
     ...mapState([
       'locales'
     ]),
+    loginRules () {
+      return auth.loginType === 'email' ? this.emailRules : this.userNameRules
+    },
+    loginLabel () {
+      return auth.loginType === 'email' ? this.$t('global.login.email') : this.$t('global.login.username')
+    },
+    passwordRegex () {
+      return auth.passwordRegex ? auth.passwordRegex : /^[a-zA-Z0-9]+$/
+    },
+    emailRegex () {
+      return auth.loginRegex ? auth.loginRegex : /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+    },
+    userNameRegex () {
+      return auth.loginRegex ? auth.loginRegex : /^[a-zA-Z0-9]+$/
+    },
     passwordRules () {
       return [
-        v => !!v || this.$t('global.login.passwordRequired')
+        v => !!v || this.$t('global.login.passwordRequired'),
+        v => this.passwordRegex.test(v) || this.$t('global.login.incorrectPassword')
       ]
     },
     emailRules () {
       return [
         v => !!v || this.$t('global.login.emailRequired'),
-        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('global.login.incorrectEmail')
+        v => this.emailRegex.test(v) || this.$t('global.login.incorrectEmail')
+      ]
+    },
+    userNameRules () {
+      return [
+        v => !!v || this.$t('global.login.userNameRequired'),
+        v => this.userNameRegex.test(v) || this.$t('global.login.incorrectUserName')
       ]
     },
     credential () {
-      const { email } = this
-      const { password } = this
-      return {
-        email,
-        password
-      }
+      let credentials = {}
+      credentials[auth.loginFieldName || 'login'] = this.user
+      credentials[auth.passwordFieldName || 'password'] = this.password
+      return credentials
     },
     passTextFieldType () {
       return this.passwordHidden ? 'password' : 'text'
