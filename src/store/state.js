@@ -1,6 +1,4 @@
-import {
-  main
-} from '@/config/main'
+import main from '@/config/main'
 
 const defaults = {
   title: 'Vue CRUD',
