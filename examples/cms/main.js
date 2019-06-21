@@ -1,10 +1,10 @@
-import 'babel-polyfill'
 import Vue from 'vue'
-import http from './plugins/http'
 import i18n from './locales/index'
 import router from './router'
 import store from './store'
+import http from './plugins/http'
 import './plugins/vuetify'
+import './plugins/ie'
 import './plugins/custom/'
 import App from './App.vue'
 
@@ -21,15 +21,6 @@ Vue.http.interceptors.push((request, next) => {
     }
   })
 })
-
-if ('-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style) {
-  window.addEventListener('hashchange', function () {
-    var currentPath = window.location.hash.slice(1)
-    if (router.path !== currentPath) {
-      router.push(currentPath)
-    }
-  }, false)
-}
 
 new Vue({
   http,
