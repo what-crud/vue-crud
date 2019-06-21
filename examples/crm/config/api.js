@@ -1,4 +1,4 @@
-export const api = {
+export default {
   url: 'http://crm-api.id-a.pl/',
   path: {
     default: 'api',

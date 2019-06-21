@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import vueResource from 'vue-resource'
 import store from './store'
+import api from '.@/config/api'
 
 Vue.use(vueResource)
 
@@ -14,3 +15,15 @@ Vue.http.interceptors.push((request, next) => {
     }
   })
 })
+
+Vue.http.options.emulateJSON = true
+Vue.http.options.root = api.url + api.path.default
+const http = {
+  root: '/root',
+  emulateJSON: true,
+  headers: {
+    Authorization: 'Basic YXBpOnBhc3N3b3Jk'
+  },
+}
+
+export default http

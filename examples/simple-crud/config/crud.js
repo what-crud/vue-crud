@@ -1,1 +1,1 @@
-export const crud = {}
+export default {}

@@ -1,4 +1,4 @@
-export const main = {
+export default {
   title: 'YourCMS',
   locales: [{
     name: 'en',

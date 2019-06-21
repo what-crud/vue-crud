@@ -1,4 +1,4 @@
-export const crud = {
+export default {
   activityColumnName: 'active',
   primaryKey: 'id',
   deleteMode: 'soft',

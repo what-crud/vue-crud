@@ -245,7 +245,7 @@
 </template>
 <script>
 import Vue from 'vue'
-import { crud } from '@/config/crud'
+import crud from '@/config/crud'
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import {
   Blockquote,

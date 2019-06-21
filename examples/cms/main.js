@@ -8,7 +8,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './register-service-worker'
-import { api } from './config/api'
+import api from './config/api'
 
 Vue.config.productionTip = true
 Vue.http.options.emulateJSON = true

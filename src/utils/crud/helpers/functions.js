@@ -1,4 +1,4 @@
-import { crud } from '@/config/crud'
+import crud from '@/config/crud'
 
 const fieldModifiers = crud.fieldModifiers || {}
 
