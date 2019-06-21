@@ -8,8 +8,6 @@ import './plugins/ie'
 import './plugins/custom/'
 import App from './App.vue'
 
-Vue.config.productionTip = true
-
 Vue.http.interceptors.push((request, next) => {
   if (localStorage.getItem('token')) {
     request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'))

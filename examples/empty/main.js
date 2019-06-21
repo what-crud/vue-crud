@@ -8,8 +8,6 @@ import './plugins/ie'
 import './plugins/custom/'
 import App from './App.vue'
 
-Vue.config.productionTip = true
-
 new Vue({
   http,
   i18n,
