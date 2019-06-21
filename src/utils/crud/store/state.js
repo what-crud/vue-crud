@@ -1,5 +1,15 @@
 import api from '@/config/api'
 
+const joinUrl = (items) => {
+  let urlArray = []
+  for (let item of items) {
+    if (item) {
+      urlArray.push(item)
+    }
+  }
+  return urlArray.join('/')
+}
+
 const state = {
   prefix: '',
   path: '',
@@ -52,8 +62,8 @@ const state = {
   childItemsMapping: [],
   childItems: {},
   // files
-  filesPath: api.url + api.path.storage,
-  uploadPath: `${api.url + api.path.default}/${api.path.upload}`
+  filesPath: joinUrl([api.url, api.path.storage]),
+  uploadPath: joinUrl([api.url, api.path.prefix, api.path.upload])
 }
 
 export default state

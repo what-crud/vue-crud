@@ -56,7 +56,7 @@ export default {
       'openImageContainer'
     ]),
     download (item) {
-      download(this.filesPath + item.path, item.filename)
+      download(`${this.filesPath}/${item.path}`, item.filename)
     },
     isImage (mime) {
       const supportedMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
