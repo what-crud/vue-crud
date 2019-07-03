@@ -203,7 +203,7 @@ Parameters:
 - `loginRegex` - default: */^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/* - property needed to new login validation,
 - `passwordFieldName` - default: *'password'* - name of password field needed to communication with API,
 - `passwordEditable` - default: *true* - information if user can edit his password,
-- `passwordMinLength` - default: *1* - min length of user's password. Property is needed during password changing,
+- `passwordMinLength` - default: *8* - min length of user's password. Property is needed during password changing,
 - `passwordMaxLength` - default: *100* - max length of user's password. Property is needed during password changing,
 - `customFields` - default: *[] (empty array)* - list of other user's fields (except of login and password). These fields will be shown on user's profile form. Properties:
     - `name` - default: *undefined* - name of field needed to communication with API,
