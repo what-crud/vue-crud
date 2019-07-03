@@ -1,11 +1,12 @@
+const env = require('./env');
+
 module.exports = {
+  ...env.config,
   serviceWorker: true,
   title: 'Vue CRUD',
   description: 'Vue.js based REST-ful CRUD system',
   plugins: {
-    '@vuepress/google-analytics': {
-      ga: 'UA-76471143-7'
-    },
+    ...env.plugins,
     '@vuepress/pwa': {
       serviceWorker: true,
       updatePopup: {
@@ -14,7 +15,6 @@ module.exports = {
       }
     }
   },
-  ga: 'UA-76471143-7',
   head: [
     ['link', {
       rel: 'icon',
