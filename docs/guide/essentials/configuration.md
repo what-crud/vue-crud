@@ -14,7 +14,7 @@ Create **api.js** file in **src/config** directory. You may use template located
 #### src/config/api.js:
 
 ```js
-export const api = {
+export default {
     url: 'http://crm-api.id-a.pl/',
     path: {
         default: 'api',
@@ -38,7 +38,7 @@ The **examples/`example`/config** folder also contains the **main.js** file. Cop
 #### src/config/main.js:
 
 ``` js
-export const main = {
+export default {
     title: "Vue CRUD",
     locales: [{
             name: 'en',
@@ -78,7 +78,7 @@ Create **crud.js** file in **src/config** directory. You may use template locate
 #### src/config/crud.js:
 
 ```js
-export const crud = {
+export default {
   activityColumnName: 'active',
   primaryKey: 'id',
   deleteMode: 'soft',
@@ -124,20 +124,94 @@ export const crud = {
 ```
 
 Parameters:
-- `activityColumnName` - default: *'active'* - default CRUD.vue component's `activityColumnName` property value,
-- `primaryKey` - default: *'id'* - default CRUD.vue component's `primaryKey` property value,
-- `deleteMode` - default: *'soft'* - default CRUD.vue component's `deleteMode` property value,
-- `editButton` - default: *true* - default CRUD.vue component's `editButton` property value,
-- `createMode` - default: *true* - default CRUD.vue component's `createMode` property value,
-- `editMode` - default: *true* - default CRUD.vue component's `editMode` property value,
-- `mainFilter` - default: *true* - default CRUD.vue component's `mainFilter` property value,
-- `fieldFilter` - default: *true* - default CRUD.vue component's `fieldFilter` property value,
-- `exportButton` - default: *true* - default CRUD.vue component's `exportButton` property value,
-- `refreshButton` - default: *true* - default CRUD.vue component's `refreshButton` property value,
-- `selectManyMode` - default: *true* - default CRUD.vue component's `selectManyMode` property value,
-- `updateManyMode` - default: *true* - default CRUD.vue component's `updateManyMode` property value,
-- `removeManyMode` - default: *true* - default CRUD.vue component's `removeManyMode` property value,
-- `fieldModifiers` - default: *{}* - Object with list of functions modifying the contents of fields in the table
+- `activityColumnName` - default: `'active'` CRUD.vue component's `activityColumnName` property value,
+- `primaryKey` - default: `'id'` CRUD.vue component's `primaryKey` property value,
+- `deleteMode` - default: `'soft'` CRUD.vue component's `deleteMode` property value,
+- `editButton` - default: `true` CRUD.vue component's `editButton` property value,
+- `createMode` - default: `true` CRUD.vue component's `createMode` property value,
+- `editMode` - default: `true` CRUD.vue component's `editMode` property value,
+- `mainFilter` - default: `true` CRUD.vue component's `mainFilter` property value,
+- `fieldFilter` - default: `true` CRUD.vue component's `fieldFilter` property value,
+- `exportButton` - default: `true` CRUD.vue component's `exportButton` property value,
+- `refreshButton` - default: `true` CRUD.vue component's `refreshButton` property value,
+- `selectManyMode` - default: `true` CRUD.vue component's `selectManyMode` property value,
+- `updateManyMode` - default: `true` CRUD.vue component's `updateManyMode` property value,
+- `removeManyMode` - default: `true` CRUD.vue component's `removeManyMode` property value,
+- `fieldModifiers` - default: `{}` - Object with list of functions modifying the contents of fields in the table
+
+### Authentication
+Create **auth.js** file in **src/config** directory. You may use template located in **examples/`example`/config/auth.js**. Here you can set default authentication configuration.
+
+#### src/config/auth.js:
+
+```js
+export default {
+  api: 'http://127.0.0.1:8000/api',
+  prefix: 'auth',
+  paths: {
+    login: 'login',
+    logout: 'logout',
+    getUser: 'user',
+    refreshToken: 'refresh-token',
+    editUser: 'user',
+    changePassword: 'user-password'
+  },
+  loginWithEmail: true,
+  loginFieldName: 'email',
+  loginEditable: true,
+  loginMinLength: 4,
+  loginMaxLength: 100,
+  loginRegex: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+  passwordFieldName: 'password',
+  passwordEditable: true,
+  passwordMinLength: 1,
+  passwordMaxLength: 100,
+  customFields: [
+    {
+      name: 'name',
+      regex: /^.{0,100}$/,
+      editable: true,
+      minLength: 0,
+      maxLength: 100,
+      required: true
+    }
+  ]
+}
+
+```
+
+Parameters:
+- `api` - default: `url` + `path.default` (from **api.js** file) joined fith slash - root url to authentication system API,
+- `prefix` - default: `undefined` - next element of auth API url (after `api` property). It may be helpful if authentication system uses the same API as whole application. Then you can set only `url` property in **api.js** file and `prefix` property in **auth.js** file,
+- `paths` - default:
+    ```js
+    {
+      login: 'login',
+      logout: 'logout',
+      getUser: 'user',
+      refreshToken: 'refresh-token',
+      editUser: 'user',
+      changePassword: 'password'
+    }
+    ```
+    an object with a list of paths to individual resources. Eg. if `api` equals `https://your-app.com`, `prefix` is `auth`, then path to edit user data will be: 'https://your-app.com/auth/user',
+- `loginWithEmail` - default: `true` - information if application have to use e-mail regex for validation,
+- `loginFieldName` - default: `'email'` - name of login field needed to communication with API,
+- `loginEditable` - default: `true` - information if user can edit his login,
+- `loginMinLength` - default: `4` - min length of user's login. Property is needed during login changing,
+- `loginMaxLength` - default: `100` - max length of user's login. Property is needed during login changing,
+- `loginRegex` - default: `/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/` or `/^[a-zA-Z0-9]+$/` if loginWithEmail property is set to `false` - property needed to new login validation,
+- `passwordFieldName` - default: `'password'` - name of password field needed to communication with API,
+- `passwordEditable` - default: `true` - information if user can edit his password,
+- `passwordMinLength` - default: `8` - min length of user's password. Property is needed during password changing,
+- `passwordMaxLength` - default: `100` - max length of user's password. Property is needed during password changing,
+- `customFields` - default: `[]` (empty array) - list of other user's fields (except of login and password). These fields will be shown on user's profile form. Properties:
+    - `name` - default: `undefined` - name of field needed to communication with API,
+    - `editable` - default: `true` - information if user can modify this field,
+    - `required` - default: `undefined` - information if field is obligatory,
+    - `regex` - default: `/^.{0,100}$/`,
+    - `min` - default: `0` - min length of field. Property is needed during field changing,
+    - `max` - default: `100` - max length of field. Property is needed during field changing,
 
 ### Custom store (Vuex) modules
 Create **store-modules.js** file in **src/config** directory. You may use template located in **examples/`example`/config/store-modules.js**. Here you can add your own modules to the Vuex store.
@@ -164,47 +238,30 @@ Copy **examples/`example`/public** folder with the content to your project main 
 Create **main.js** file in **src** directory. This file should look like that:
 
 ```js
-import "babel-polyfill" // IE support
-import Vue from 'vue' // required
-import i18n from './locales/index.js' // required - CRUD always uses i18n
-import './plugins/vuetify' // required - Vue CRUD is base on this UI framework
-import './plugins/vue-resource' // required - CRUD uses vue-resource
+import Vue from 'vue'
+import i18n from './locales/index'
+import router from './router'
+import store from './store'
+import http from './plugins/http'
+import './plugins/vuetify'
+import './plugins/ie'
 import './plugins/custom/'
-import App from './App.vue' // project's home component - optional
-import router from './router' // project's main router - optional
-import store from './store' // project's Vuex store - required
-import './register-service-worker' // optional
-import { api } from './config/api' // required - API config file
+import App from './App.vue'
 
-Vue.config.productionTip = false
-Vue.http.options.emulateJSON = true;
-
-// API root URL
-Vue.http.options.root = api.url + api.path.default
-
-// Interceptor that pushes token to each request (optional, if auth system is used)
 Vue.http.interceptors.push((request, next) => {
   if (localStorage.getItem('token')) {
-    request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'))
   }
   next(response => {
     if (response.status === 400 || response.status === 401 || response.status === 403) {
       store.commit('auth/logout')
-      router.push({path: '/login'})
+      router.push({ path: '/login' })
     }
   })
 })
 
-if ('-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style) {
-  window.addEventListener("hashchange", function(event) {
-    var currentPath = window.location.hash.slice(1);
-    if (router.path !== currentPath) {
-      router.push(currentPath)
-    }
-  }, false)
-}
-
 new Vue({
+  http,
   i18n,
   router,
   store,
