@@ -124,20 +124,20 @@ export default {
 ```
 
 Parameters:
-- `activityColumnName` - default: *'active'* - default CRUD.vue component's `activityColumnName` property value,
-- `primaryKey` - default: *'id'* - default CRUD.vue component's `primaryKey` property value,
-- `deleteMode` - default: *'soft'* - default CRUD.vue component's `deleteMode` property value,
-- `editButton` - default: *true* - default CRUD.vue component's `editButton` property value,
-- `createMode` - default: *true* - default CRUD.vue component's `createMode` property value,
-- `editMode` - default: *true* - default CRUD.vue component's `editMode` property value,
-- `mainFilter` - default: *true* - default CRUD.vue component's `mainFilter` property value,
-- `fieldFilter` - default: *true* - default CRUD.vue component's `fieldFilter` property value,
-- `exportButton` - default: *true* - default CRUD.vue component's `exportButton` property value,
-- `refreshButton` - default: *true* - default CRUD.vue component's `refreshButton` property value,
-- `selectManyMode` - default: *true* - default CRUD.vue component's `selectManyMode` property value,
-- `updateManyMode` - default: *true* - default CRUD.vue component's `updateManyMode` property value,
-- `removeManyMode` - default: *true* - default CRUD.vue component's `removeManyMode` property value,
-- `fieldModifiers` - default: *{}* - Object with list of functions modifying the contents of fields in the table
+- `activityColumnName` - default: `'active'` CRUD.vue component's `activityColumnName` property value,
+- `primaryKey` - default: `'id'` CRUD.vue component's `primaryKey` property value,
+- `deleteMode` - default: `'soft'` CRUD.vue component's `deleteMode` property value,
+- `editButton` - default: `true` CRUD.vue component's `editButton` property value,
+- `createMode` - default: `true` CRUD.vue component's `createMode` property value,
+- `editMode` - default: `true` CRUD.vue component's `editMode` property value,
+- `mainFilter` - default: `true` CRUD.vue component's `mainFilter` property value,
+- `fieldFilter` - default: `true` CRUD.vue component's `fieldFilter` property value,
+- `exportButton` - default: `true` CRUD.vue component's `exportButton` property value,
+- `refreshButton` - default: `true` CRUD.vue component's `refreshButton` property value,
+- `selectManyMode` - default: `true` CRUD.vue component's `selectManyMode` property value,
+- `updateManyMode` - default: `true` CRUD.vue component's `updateManyMode` property value,
+- `removeManyMode` - default: `true` CRUD.vue component's `removeManyMode` property value,
+- `fieldModifiers` - default: `{}` - Object with list of functions modifying the contents of fields in the table
 
 ### Authentication
 Create **auth.js** file in **src/config** directory. You may use template located in **examples/`example`/config/auth.js**. Here you can set default authentication configuration.
@@ -181,8 +181,8 @@ export default {
 ```
 
 Parameters:
-- `api` - default: *url + path.default (from **api.js** file)* - root url to authentication system API,
-- `prefix` - default: *undefined* - next element of auth API url (after `api` property). It may be helpful if authentication system uses the same API as whole application. Then you can set only `url` property in **api.js** file and `prefix` property in **auth.js** file,
+- `api` - default: `url + path.default (from **api.js** file)* - root url to authentication system API,
+- `prefix` - default: `undefined* - next element of auth API url (after `api` property). It may be helpful if authentication system uses the same API as whole application. Then you can set only `url` property in **api.js** file and `prefix` property in **auth.js** file,
 - `paths` - default:
     ```js
     {
@@ -195,23 +195,23 @@ Parameters:
     }
     ```
     an object with a list of paths to individual resources. Eg. if `api` equals `https://your-app.com`, `prefix` is `auth`, then path to edit user data will be: 'https://your-app.com/auth/user',
-- `loginWithEmail` - default: *true* - information if application have to use e-mail regex for validation,
-- `loginFieldName` - default: *'email'* - name of login field needed to communication with API,
-- `loginEditable` - default: *true* - information if user can edit his login,
-- `loginMinLength` - default: *4* - min length of user's login. Property is needed during login changing,
-- `loginMaxLength` - default: *100* - max length of user's login. Property is needed during login changing,
-- `loginRegex` - default: */^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/* - property needed to new login validation,
-- `passwordFieldName` - default: *'password'* - name of password field needed to communication with API,
-- `passwordEditable` - default: *true* - information if user can edit his password,
-- `passwordMinLength` - default: *8* - min length of user's password. Property is needed during password changing,
-- `passwordMaxLength` - default: *100* - max length of user's password. Property is needed during password changing,
-- `customFields` - default: *[] (empty array)* - list of other user's fields (except of login and password). These fields will be shown on user's profile form. Properties:
-    - `name` - default: *undefined* - name of field needed to communication with API,
-    - `editable` - default: *true* - information if user can modify this field,
-    - `required` - default: *undefined* - information if field is obligatory,
-    - `regex` - default: */^.{0,100}$/*,
-    - `min` - default: *0* - min length of field. Property is needed during field changing,
-    - `max` - default: *100* - max length of field. Property is needed during field changing,
+- `loginWithEmail` - default: `true` - information if application have to use e-mail regex for validation,
+- `loginFieldName` - default: `'email'` - name of login field needed to communication with API,
+- `loginEditable` - default: `true` - information if user can edit his login,
+- `loginMinLength` - default: `4` - min length of user's login. Property is needed during login changing,
+- `loginMaxLength` - default: `100` - max length of user's login. Property is needed during login changing,
+- `loginRegex` - default: `/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/` or `/^[a-zA-Z0-9]+$/` if loginWithEmail property is set to `false` - property needed to new login validation,
+- `passwordFieldName` - default: `'password'` - name of password field needed to communication with API,
+- `passwordEditable` - default: `true` - information if user can edit his password,
+- `passwordMinLength` - default: `8` - min length of user's password. Property is needed during password changing,
+- `passwordMaxLength` - default: `100` - max length of user's password. Property is needed during password changing,
+- `customFields` - default: `[]` (empty array) - list of other user's fields (except of login and password). These fields will be shown on user's profile form. Properties:
+    - `name` - default: `undefined` - name of field needed to communication with API,
+    - `editable` - default: `true` - information if user can modify this field,
+    - `required` - default: `undefined` - information if field is obligatory,
+    - `regex` - default: `/^.{0,100}$/`,
+    - `min` - default: `0` - min length of field. Property is needed during field changing,
+    - `max` - default: `100` - max length of field. Property is needed during field changing,
 
 ### Custom store (Vuex) modules
 Create **store-modules.js** file in **src/config** directory. You may use template located in **examples/`example`/config/store-modules.js**. Here you can add your own modules to the Vuex store.
