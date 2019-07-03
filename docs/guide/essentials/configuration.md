@@ -195,19 +195,16 @@ Parameters:
     }
     ```
     an object with a list of paths to individual resources. Eg. if `api` equals `https://your-app.com`, `prefix` is `auth`, then path to edit user data will be: 'https://your-app.com/auth/user',
-- `loginWithEmail` - default: *true*,
-- `loginFieldName` - default: *'email'*,
-- `loginEditable` - default: *true*,
-- `loginMinLength` - default: *4*,
-- `loginMaxLength` - default: *100*,
-- `loginRegex` - default: */^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/*,
-- `passwordFieldName` - default: *'password'*,
-- `passwordEditable` - default: *true*,
-- `passwordMinLength` - default: *1*,
-- `passwordMaxLength` - default: *100*,
-
-
-
+- `loginWithEmail` - default: *true* - information if application have to use e-mail regex for validation,
+- `loginFieldName` - default: *'email'* - name of login field needed to communication with API,
+- `loginEditable` - default: *true* - information if user can edit his login,
+- `loginMinLength` - default: *4* - minimal length of user's login. Property is needed during login changing,
+- `loginMaxLength` - default: *100* - minimal length of user's login. Property is needed during login changing,
+- `loginRegex` - default: */^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/* - property needed to new login validation,
+- `passwordFieldName` - default: *'password'* - name of password field needed to communication with API,
+- `passwordEditable` - default: *true* - information if user can edit his password,
+- `passwordMinLength` - default: *1* - minimal length of user's password. Property is needed during password changing,
+- `passwordMaxLength` - default: *100* - minimal length of user's password. Property is needed during password changing,
 
 ### Custom store (Vuex) modules
 Create **store-modules.js** file in **src/config** directory. You may use template located in **examples/`example`/config/store-modules.js**. Here you can add your own modules to the Vuex store.
