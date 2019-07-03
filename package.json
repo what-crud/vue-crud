@@ -10,8 +10,8 @@
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "load-template": "node template-loader.js",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:dev": "node docs.js && vuepress dev docs",
+    "docs:build": "node docs.js && vuepress build docs"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
