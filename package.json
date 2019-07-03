@@ -9,7 +9,9 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "load-template": "node template-loader.js"
+    "load-template": "node template-loader.js",
+    "docs:dev": "node docs.js && vuepress dev docs",
+    "docs:build": "node docs.js && vuepress build docs"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
@@ -33,6 +35,8 @@
     "@vue/cli-service": "^3.2.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
+    "@vuepress/plugin-google-analytics": "^1.0.2",
+    "@vuepress/plugin-pwa": "^1.0.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
@@ -44,6 +48,7 @@
     "stylus-loader": "^3.0.2",
     "vue-cli-plugin-vuetify": "^0.4.6",
     "vue-template-compiler": "^2.5.17",
+    "vuepress": "^1.0.2",
     "vuetify-loader": "^1.0.5"
   },
   "postcss": {
