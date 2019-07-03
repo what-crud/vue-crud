@@ -181,8 +181,8 @@ export default {
 ```
 
 Parameters:
-- `api` - default: `url + path.default (from **api.js** file)* - root url to authentication system API,
-- `prefix` - default: `undefined* - next element of auth API url (after `api` property). It may be helpful if authentication system uses the same API as whole application. Then you can set only `url` property in **api.js** file and `prefix` property in **auth.js** file,
+- `api` - default: `url` + `path.default` (from **api.js** file) joined fith slash - root url to authentication system API,
+- `prefix` - default: `undefined` - next element of auth API url (after `api` property). It may be helpful if authentication system uses the same API as whole application. Then you can set only `url` property in **api.js** file and `prefix` property in **auth.js** file,
 - `paths` - default:
     ```js
     {
