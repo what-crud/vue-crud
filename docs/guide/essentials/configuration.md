@@ -195,6 +195,16 @@ Parameters:
     }
     ```
     an object with a list of paths to individual resources. Eg. if `api` equals `https://your-app.com`, `prefix` is `auth`, then path to edit user data will be: 'https://your-app.com/auth/user',
+- `loginWithEmail` - default: *true*,
+- `loginFieldName` - default: *'email'*,
+- `loginEditable` - default: *true*,
+- `loginMinLength` - default: *4*,
+- `loginMaxLength` - default: *100*,
+- `loginRegex` - default: */^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/*,
+- `passwordFieldName` - default: *'password'*,
+- `passwordEditable` - default: *true*,
+- `passwordMinLength` - default: *1*,
+- `passwordMaxLength` - default: *100*,
 
 
 
