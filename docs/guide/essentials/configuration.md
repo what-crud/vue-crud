@@ -14,7 +14,7 @@ Create **api.js** file in **src/config** directory. You may use template located
 #### src/config/api.js:
 
 ```js
-export const api = {
+export default {
     url: 'http://crm-api.id-a.pl/',
     path: {
         default: 'api',
@@ -38,7 +38,7 @@ The **examples/`example`/config** folder also contains the **main.js** file. Cop
 #### src/config/main.js:
 
 ``` js
-export const main = {
+export default {
     title: "Vue CRUD",
     locales: [{
             name: 'en',
@@ -78,7 +78,7 @@ Create **crud.js** file in **src/config** directory. You may use template locate
 #### src/config/crud.js:
 
 ```js
-export const crud = {
+export default {
   activityColumnName: 'active',
   primaryKey: 'id',
   deleteMode: 'soft',
