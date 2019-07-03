@@ -76,14 +76,8 @@ The record creation / editing form supports the following types of fields:
     Credentials with limited privileges (readonly):\
     Login:  guest@vue-crud.com\
     Pass:   ajSGenC0\
-    To get full user account, contact me on my <a href="http://id-a.pl" target="_blank">company site</a>.
-
-<video width="100%" height="auto" autoplay controls>
-  <source src="/video/demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-To get full user account, contact me (Szczepan Masny) on my <a href="http://id-a.pl" target="_blank">company site</a>.
+    To get full user account, contact me (Szczepan Masny) on my
+    <a href="http://id-a.pl" target="_blank">company site</a>.
 
 ## License
 [MIT](https://opensource.org/licenses/MIT)
