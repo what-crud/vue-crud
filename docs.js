@@ -5,7 +5,7 @@ const env = `${rootDir}/env.js`
 
 if (!fs.existsSync(env)) {
   fs.copyFile(defaultEnv, env, (err) => {
-    if (err) throw err;
+    if (err) throw err
     console.log('Default env file has been created')
-  });
+  })
 }
