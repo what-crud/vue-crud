@@ -1,0 +1,15 @@
+# Vue CRUD Contributing Guide
+Hello and thank you for interest in helping make Vue CRUD better. Please take a few moments to review the following guidelines.
+
+## Reporting Issues
+* Try to search for your issue, it may have been answered.
+* See if the error is reproduceable with the latest version.
+* Use [issue templates](https://github.com/what-crud/vue-crud/tree/master/.github/ISSUE_TEMPLATE) for bug reports and feature requests.
+
+## Pull Requests
+* Always work on a new branch. Making changes on your fork's `dev` or `master` branch can cause problems. (See [The beginner's guide to contributing to a GitHub project](https://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project/))
+* Bug fixes should be submitted to the `master` branch.
+* New features and breaking changes should be submitted to the `dev` branch.
+* Use a descriptive title no more than 64 characters long. This will be used as the commit message when your PR is merged. 
+* For changes and feature requests, please include an example of what you are trying to solve and an example of the markup. It is preferred that you create an issue first however, as that will allow the team to review your proposal before you start. 
+* Please reference the issue # that the PR resolves, something like `Fixes #1234` or `Resolves #6458` (See [closing issues using keywords](https://help.github.com/articles/closing-issues-using-keywords/))
