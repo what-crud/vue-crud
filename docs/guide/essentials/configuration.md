@@ -139,6 +139,16 @@ Parameters:
 - `removeManyMode` - default: *true* - default CRUD.vue component's `removeManyMode` property value,
 - `fieldModifiers` - default: *{}* - Object with list of functions modifying the contents of fields in the table
 
+### Authentication
+Create **auth.js** file in **src/config** directory. You may use template located in **examples/`example`/config/auth.js**. Here you can set default authentication configuration.
+
+#### src/config/auth.js:
+
+```js
+```
+
+Parameters:
+
 ### Custom store (Vuex) modules
 Create **store-modules.js** file in **src/config** directory. You may use template located in **examples/`example`/config/store-modules.js**. Here you can add your own modules to the Vuex store.
 
