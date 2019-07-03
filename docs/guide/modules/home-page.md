@@ -1,0 +1,3 @@
+# Home page
+The home page is the place where the user will be redirected immediately after logging in. Routing to this page must necessarily be included in the file `src/routes/main/router.js`. The page is located in the file `src/routes/main/routes/home/Index.vue`.\
+By default, the site is very simple, but of course you can expand it, for example by creating on it a dashboard or something else. You can connect to the store, you can create nested routing and everything that JavaScript and Vue.js allow.
