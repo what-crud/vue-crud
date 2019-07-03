@@ -3,6 +3,7 @@ node_js: 'node'
 
 notifications:
   webhooks: https://www.travisbuddy.com/?insertMode=update&only=failed,errored
+  email: false
 
 cache:
   yarn: true
