@@ -198,13 +198,20 @@ Parameters:
 - `loginWithEmail` - default: *true* - information if application have to use e-mail regex for validation,
 - `loginFieldName` - default: *'email'* - name of login field needed to communication with API,
 - `loginEditable` - default: *true* - information if user can edit his login,
-- `loginMinLength` - default: *4* - minimal length of user's login. Property is needed during login changing,
-- `loginMaxLength` - default: *100* - minimal length of user's login. Property is needed during login changing,
+- `loginMinLength` - default: *4* - min length of user's login. Property is needed during login changing,
+- `loginMaxLength` - default: *100* - max length of user's login. Property is needed during login changing,
 - `loginRegex` - default: */^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/* - property needed to new login validation,
 - `passwordFieldName` - default: *'password'* - name of password field needed to communication with API,
 - `passwordEditable` - default: *true* - information if user can edit his password,
-- `passwordMinLength` - default: *1* - minimal length of user's password. Property is needed during password changing,
-- `passwordMaxLength` - default: *100* - minimal length of user's password. Property is needed during password changing,
+- `passwordMinLength` - default: *1* - min length of user's password. Property is needed during password changing,
+- `passwordMaxLength` - default: *100* - max length of user's password. Property is needed during password changing,
+- `customFields` - default: *[] (empty array)* - list of other user's fields (except of login and password). These fields will be shown on user's profile form. Properties:
+    - `name` - default: *undefined* - name of field needed to communication with API,
+    - `editable` - default: *true* - information if user can modify this field,
+    - `required` - default: *undefined* - information if field is obligatory,
+    - `regex` - default: */^.{0,100}$/*,
+    - `min` - default: *0* - min length of field. Property is needed during field changing,
+    - `max` - default: *100* - max length of field. Property is needed during field changing,
 
 ### Custom store (Vuex) modules
 Create **store-modules.js** file in **src/config** directory. You may use template located in **examples/`example`/config/store-modules.js**. Here you can add your own modules to the Vuex store.
