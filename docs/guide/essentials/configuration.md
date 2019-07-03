@@ -174,47 +174,30 @@ Copy **examples/`example`/public** folder with the content to your project main 
 Create **main.js** file in **src** directory. This file should look like that:
 
 ```js
-import "babel-polyfill" // IE support
-import Vue from 'vue' // required
-import i18n from './locales/index.js' // required - CRUD always uses i18n
-import './plugins/vuetify' // required - Vue CRUD is base on this UI framework
-import './plugins/vue-resource' // required - CRUD uses vue-resource
+import Vue from 'vue'
+import i18n from './locales/index'
+import router from './router'
+import store from './store'
+import http from './plugins/http'
+import './plugins/vuetify'
+import './plugins/ie'
 import './plugins/custom/'
-import App from './App.vue' // project's home component - optional
-import router from './router' // project's main router - optional
-import store from './store' // project's Vuex store - required
-import './register-service-worker' // optional
-import { api } from './config/api' // required - API config file
+import App from './App.vue'
 
-Vue.config.productionTip = false
-Vue.http.options.emulateJSON = true;
-
-// API root URL
-Vue.http.options.root = api.url + api.path.default
-
-// Interceptor that pushes token to each request (optional, if auth system is used)
 Vue.http.interceptors.push((request, next) => {
   if (localStorage.getItem('token')) {
-    request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'))
   }
   next(response => {
     if (response.status === 400 || response.status === 401 || response.status === 403) {
       store.commit('auth/logout')
-      router.push({path: '/login'})
+      router.push({ path: '/login' })
     }
   })
 })
 
-if ('-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style) {
-  window.addEventListener("hashchange", function(event) {
-    var currentPath = window.location.hash.slice(1);
-    if (router.path !== currentPath) {
-      router.push(currentPath)
-    }
-  }, false)
-}
-
 new Vue({
+  http,
   i18n,
   router,
   store,
