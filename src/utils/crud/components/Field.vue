@@ -4,20 +4,20 @@
     <v-text-field
       hide-details
       :rules="fieldRules(field)"
-      v-if="['input', 'number', 'decimal', 'time', 'datetime'].includes(field.type)"
+      v-if="['input', 'number', 'decimal', 'time', 'datetime'].includes(fieldType)"
       :label="field.text"
       v-model="value"
       :disabled="field.disabled"
-      :type="['number', 'decimal'].includes(field.type) ? 'number' : 'text'"
-      :step="field.type == 'decimal' ? 0.01 : 1"
+      :type="['number', 'decimal'].includes(fieldType) ? 'number' : 'text'"
+      :step="fieldType == 'decimal' ? 0.01 : 1"
       min="0"
-      :mask="['date', 'time', 'datetime'].includes(field.type) ? masks[field.type] : undefined"
-      :return-masked-value="['date', 'time', 'datetime'].includes(field.type) ? true : false"
+      :mask="['date', 'time', 'datetime'].includes(fieldType) ? masks[fieldType] : undefined"
+      :return-masked-value="['date', 'time', 'datetime'].includes(fieldType) ? true : false"
       @blur="valueChanged()"
     ></v-text-field>
     <!-- date -->
     <v-menu
-      v-else-if="field.type == 'date'"
+      v-else-if="fieldType == 'date'"
       v-model="datepicker"
       :close-on-content-click="false"
       :nudge-right="40"
@@ -50,14 +50,14 @@
     <v-textarea
       hide-details
       :rules="fieldRules(field)"
-      v-else-if="field.type == 'textarea'"
+      v-else-if="fieldType == 'textarea'"
       :label="field.text"
       v-model="value"
       :disabled="field.disabled"
       @blur="valueChanged()"
     ></v-textarea>
     <!-- file upload -->
-    <div v-else-if="field.type == 'file'" class="field-container">
+    <div v-else-if="fieldType == 'file'" class="field-container">
       <v-layout row wrap>
         <v-flex class="sm5" pr-2>
           <v-btn dark class="jbtn-file" :loading="uploadLoader" :class="fileUploadBtn(uploadStatus)">
@@ -89,7 +89,7 @@
       </v-layout>
     </div>
     <!-- select -->
-    <template v-else-if="field.type == 'select'">
+    <template v-else-if="fieldType == 'select'">
       <v-autocomplete
         hide-details
         :rules="fieldRules(field)"
@@ -111,7 +111,7 @@
       </v-autocomplete>
     </template>
     <!-- rich text editor -->
-    <template v-else-if="field.type == 'richTextBox'">
+    <template v-else-if="fieldType == 'richTextBox'">
       <div class="field-container">
         <label class="field-label">{{field.text}}</label>
         <div class="editor" style="border: 1px solid #aaa;">
@@ -233,7 +233,7 @@
       </div>
     </template>
     <!-- checkbox -->
-    <v-checkbox v-else-if="field.type == 'checkbox'"
+    <v-checkbox v-else-if="fieldType == 'checkbox'"
       hide-details
       color="primary"
       v-model="value"
@@ -275,7 +275,12 @@ export default {
     EditorMenuBar,
     EditorContent
   },
-  props: ['field', 'fieldValue', 'reload'],
+  props: [
+    'field',
+    'fieldValue',
+    'reload',
+    'dynamicFieldType'
+  ],
   data () {
     return {
       listData: [],
@@ -298,17 +303,17 @@ export default {
   watch: {
     fieldValue: function (val) {
       this.value = val
-      if (this.field.type === 'richTextBox') {
+      if (this.fieldType === 'richTextBox') {
         let content = val !== null && val !== undefined ? val : ''
         this.editor.setContent(content)
       }
     },
     reload: function (val) {
       if (val) {
-        if (this.field.type === 'file') {
+        if (this.fieldType === 'file') {
           this.uploadLoader = false
           this.uploadStatus = 'ready'
-        } else if (this.field.type === 'select' && this.field.async) {
+        } else if (this.fieldType === 'select' && this.field.async) {
           this.listOldSearch = ''
           let val = this.value || ''
           const url = `${this.field.url}/id/${val}`
@@ -325,7 +330,7 @@ export default {
     },
     listSearch: function (val) {
       setTimeout(() => {
-        if (this.field.type === 'select' && this.field.async && this.searchActive) {
+        if (this.fieldType === 'select' && this.field.async && this.searchActive) {
           if (this.listSearch === val) {
             const url = `${this.field.url}/phrase/${val}`
             this.refreshList(url)
@@ -335,7 +340,7 @@ export default {
     }
   },
   mounted () {
-    if (this.field.type === 'select') {
+    if (this.fieldType === 'select') {
       if (!this.field.url) {
         this.listData = this.field.list.data
       } else {
@@ -346,7 +351,7 @@ export default {
           this.refreshList(this.field.url)
         }
       }
-    } else if (this.field.type === 'richTextBox') {
+    } else if (this.fieldType === 'richTextBox') {
       this.editor = new Editor({
         extensions: [
           new Blockquote(),
@@ -376,13 +381,16 @@ export default {
     }
   },
   beforeDestroy () {
-    if (this.field.type === 'richTextBox' && this.editor !== null) {
+    if (this.fieldType === 'richTextBox' && this.editor !== null) {
       this.editor.destroy()
     }
   },
   computed: {
     ...mapState('crud', ['uploadPath']),
     ...mapState('crud', ['details', 'path', 'prefix']),
+    fieldType () {
+      return this.field.type === 'dynamic' ? this.dynamicFieldType : this.field.type
+    },
     rules () {
       const self = this
       return {
@@ -393,9 +401,13 @@ export default {
       return !this.field.async && this.field.url !== undefined
     },
     filename () {
-      let filename = ''
-      if (this.field.type === 'file' && this.value !== undefined && this.value !== null) {
-        filename = JSON.parse(this.value).filename
+      let filename
+      if (this.fieldType === 'file' && this.value !== undefined && this.value !== null) {
+        try {
+          filename = JSON.parse(this.value).filename
+        } catch (e) {
+          return ''
+        }
       }
       return filename
     },

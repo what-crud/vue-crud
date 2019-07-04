@@ -17,6 +17,7 @@
               <v-flex :class="details.action == 'multiedit' ? 'sm11' : 'sm12'">
                 <field
                   :field="field"
+                  :dynamic-field-type="dynamicFieldType(field.typeField)"
                   :field-value="field.value"
                   :reload="reload"
                   @valueChanged="valueChanged"
@@ -146,6 +147,10 @@ export default {
         return rField
       })
       this.$set(this, 'fields', result)
+    },
+    dynamicFieldType (fieldType) {
+      const refField = this.fields.find((field) => field.name === fieldType)
+      return refField ? refField.value : undefined;
     },
     valueChanged (val, fieldColumn) {
       this.$set(this.fields[this.fields.findIndex(el => el.column === fieldColumn)], 'value', val)
