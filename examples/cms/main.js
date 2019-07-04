@@ -21,7 +21,6 @@ Vue.http.interceptors.push((request, next) => {
 })
 
 new Vue({
-  http,
   i18n,
   router,
   store,
