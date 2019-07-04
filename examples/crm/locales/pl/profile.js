@@ -29,4 +29,3 @@ export default {
     change: 'Zmień hasło'
   }
 }
-
