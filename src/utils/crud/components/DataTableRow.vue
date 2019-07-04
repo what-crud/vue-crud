@@ -55,11 +55,19 @@
     </td>
     <!-- table fields -->
     <template v-for="(field, key) in props.item">
-      <td v-if="key != 'meta'" :key="key">
-        <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
-        <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
-        <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
-        <span v-else-if="columnTextModes[key] == 'file'">
+      <td v-if="key !== 'meta'" :key="key">
+        <!-- html -->
+        <span v-if="columnTextModes[key] === 'html'" v-html="field"></span>
+        <!-- cropped text -->
+        <span v-else-if="columnTextModes[key] === 'cropped'" class="cell-nowrap">
+          {{ field | cropped }}
+        </span>
+        <!-- text -->
+        <span v-else-if="columnTextModes[key] === 'text'">
+          {{ field }}
+        </span>
+        <!-- file -->
+        <span v-else-if="columnTextModes[key] === 'file'">
           <file-details :fieldInfo="fileFieldToJSON(field)"></file-details>
         </span>
       </td>
@@ -82,6 +90,7 @@ export default {
     'deleteMode',
     'itemElements',
     'columnTextModes',
+    'dynamicTextModes',
     'editMode',
     'selectManyMode'
   ],
