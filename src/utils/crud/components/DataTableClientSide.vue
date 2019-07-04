@@ -106,7 +106,7 @@
           :custom-buttons='customButtons'
           :delete-mode='deleteMode'
           :item-elements="itemElements"
-          :column-text-modes="columnTextModes"
+          :column-text-modes="columnTextModes(props)"
           :edit-mode="editMode"
           :select-many-mode="selectManyMode"
           @edit="edit"

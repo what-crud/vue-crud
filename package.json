@@ -1,13 +1,13 @@
 {
   "name": "vue-crud",
-  "version": "1.0.0",
+  "version": "0.12.0",
   "private": true,
   "description": "Vue CRUD",
   "author": "Szczepan Masny <szczepanmasny@gmail.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "lint": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "test:unit": "vue-cli-service test:unit",
     "load-template": "node template-loader.js",
     "docs:dev": "node docs.js && vuepress dev docs",

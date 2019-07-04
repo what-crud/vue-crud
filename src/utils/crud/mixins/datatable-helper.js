@@ -34,13 +34,6 @@ export default {
       }]
       return [...actionHeader, ...this.cleanHeaders]
     },
-    columnTextModes () {
-      const columnTextModes = {}
-      for (const field of this.tableFields) {
-        columnTextModes[field.name.toLowerCase()] = field.textMode || 'cropped'
-      }
-      return columnTextModes
-    },
     statuses () {
       return [
         {
@@ -91,6 +84,22 @@ export default {
       this.pagination.page = 1
       this.search = ''
       this.selectedStatuses = [1]
+    },
+    columnTextModes (props) {
+      const columnTextModes = {}
+      for (const field of this.tableFields) {
+        let textMode = 'cropped'
+        if (field.textMode) {
+          textMode = field.textMode
+        } else if (field.type === 'dynamic') {
+          const refField = props.item[field.typeField]
+          if (refField === 'file') {
+            textMode = 'file'
+          }
+        }
+        columnTextModes[field.name.toLowerCase()] = textMode
+      }
+      return columnTextModes
     }
   }
 }
