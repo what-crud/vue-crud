@@ -2,7 +2,6 @@
   <crud
     :prefix="prefix"
     :path="path"
-    :paths="paths"
     :page-title="pageTitle"
     :fields-info="fieldsInfo"
     :details-title="$t('detailsTitle')"
@@ -17,12 +16,9 @@ import Crud from '@/utils/crud/components/Crud.vue'
 export default {
   data () {
     return {
-      prefix: 'crud/admin',
-      path: 'user-permissions',
-      paths: {
-        i: 'admin/user-permissions'
-      },
-      pageTitle: 'admin.userPermissions'
+      prefix: 'crud/cms',
+      path: 'settings',
+      pageTitle: 'cms.settings'
     }
   },
   computed: {
@@ -35,41 +31,41 @@ export default {
         },
         {
           type: 'select',
-          url: 'crud/admin/users',
           list: {
-            value: 'id',
-            text: 'name',
-            data: []
+            value: 'name',
+            text: 'label',
+            data: [
+              {
+                name: 'input',
+                label: this.$t('fieldTypes.input')
+              },
+              {
+                name: 'textarea',
+                label: this.$t('fieldTypes.textarea')
+              },
+              {
+                name: 'file',
+                label: this.$t('fieldTypes.file')
+              }
+            ]
           },
-          column: 'user_id',
-          text: this.$t('fields.user'),
-          name: 'user',
-          apiObject: {
-            name: 'user.name'
-          }
+          stringId: true,
+          column: 'type',
+          text: this.$t('fields.type'),
+          name: 'type'
         },
         {
-          text: this.$t('fields.userEmail'),
-          name: 'userEmail',
-          apiObject: {
-            name: 'user.email'
-          },
-          details: false
+          type: 'input',
+          column: 'name',
+          text: this.$t('fields.name'),
+          name: 'name'
         },
         {
-          type: 'select',
-          url: 'crud/admin/permissions',
-          list: {
-            value: 'id',
-            text: 'name',
-            data: []
-          },
-          column: 'permission_id',
-          text: this.$t('fields.permission'),
-          name: 'permission',
-          apiObject: {
-            name: 'permission.name'
-          }
+          type: 'dynamic',
+          typeField: 'type',
+          column: 'value',
+          text: this.$t('fields.value'),
+          name: 'value'
         }
       ]
     }
@@ -80,23 +76,31 @@ export default {
   i18n: {
     messages: {
       pl: {
-        detailsTitle: 'Użytkownik - uprawnienie',
+        detailsTitle: 'Parametr',
         fields: {
           id: 'Id',
-          user: 'Użytkownik',
-          userEmail: 'E-mail użytkownika',
-          permission: 'Uprawnienie',
-          permissionCode: 'Kod uprawnienia'
+          type: 'Typ pola',
+          name: 'Nazwa parametru',
+          value: 'Wartość'
+        },
+        fieldTypes: {
+          input: 'Tekst',
+          textarea: 'Długi tekst',
+          file: 'Plik',
         }
       },
       en: {
-        detailsTitle: 'User - permission',
+        detailsTitle: 'Parameter',
         fields: {
           id: 'Id',
-          user: 'User',
-          userEmail: 'User\'s e-mail',
-          permission: 'Permission',
-          permissionCode: 'Permission code'
+          type: 'Field type',
+          name: 'Name',
+          value: 'Value'
+        },
+        fieldTypes: {
+          input: 'Input',
+          textarea: 'Textarea',
+          file: 'File',
         }
       }
     }
