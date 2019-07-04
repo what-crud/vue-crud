@@ -1,8 +1,10 @@
 // custom modules
 import administration from '@/routes/app/routes/administration/store/'
-import crm from '@/routes/app/routes/crm/store/'
+import cms from '@/routes/app/routes/cms/store/'
+import blog from '@/routes/app/routes/blog/store/'
 
 export default {
   administration,
-  crm
+  cms,
+  blog
 }
