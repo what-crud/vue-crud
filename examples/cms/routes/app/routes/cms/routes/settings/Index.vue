@@ -86,7 +86,7 @@ export default {
         fieldTypes: {
           input: 'Tekst',
           textarea: 'Długi tekst',
-          file: 'Plik',
+          file: 'Plik'
         }
       },
       en: {
@@ -100,7 +100,7 @@ export default {
         fieldTypes: {
           input: 'Input',
           textarea: 'Textarea',
-          file: 'File',
+          file: 'File'
         }
       }
     }

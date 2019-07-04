@@ -150,7 +150,7 @@ export default {
     },
     dynamicFieldType (fieldType) {
       const refField = this.fields.find((field) => field.name === fieldType)
-      return refField ? refField.value : undefined;
+      return refField ? refField.value : undefined
     },
     valueChanged (val, fieldColumn) {
       this.$set(this.fields[this.fields.findIndex(el => el.column === fieldColumn)], 'value', val)

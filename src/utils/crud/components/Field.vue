@@ -397,7 +397,7 @@ export default {
         required: v => !!v || self.$t('global.details.rules.required')
       }
     },
-    listRefreshable() {
+    listRefreshable () {
       return !this.field.async && this.field.url !== undefined
     },
     filename () {

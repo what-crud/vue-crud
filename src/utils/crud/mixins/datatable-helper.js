@@ -89,10 +89,9 @@ export default {
       const columnTextModes = {}
       for (const field of this.tableFields) {
         let textMode = 'cropped'
-        if (field.textMode ) {
+        if (field.textMode) {
           textMode = field.textMode
-        }
-        else if (field.type === 'dynamic') {
+        } else if (field.type === 'dynamic') {
           const refField = props.item[field.typeField]
           if (refField === 'file') {
             textMode = 'file'
