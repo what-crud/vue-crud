@@ -105,7 +105,7 @@
         @change="valueChanged()"
         :search-input.sync="listSearch"
       >
-        <template v-if="!field.async" v-slot:append-outer>
+        <template v-if="listRefreshable" v-slot:append-outer>
           <v-icon color="blue" @click="refreshList(field.url)">refresh</v-icon>
         </template>
       </v-autocomplete>
@@ -336,11 +336,15 @@ export default {
   },
   mounted () {
     if (this.field.type === 'select') {
-      this.listData = []
-      if (this.field.async) {
-        this.listLoader = false
+      if (!this.field.url) {
+        this.listData = this.field.list.data
       } else {
-        this.refreshList(this.field.url)
+        this.listData = []
+        if (this.field.async) {
+          this.listLoader = false
+        } else {
+          this.refreshList(this.field.url)
+        }
       }
     } else if (this.field.type === 'richTextBox') {
       this.editor = new Editor({
@@ -384,6 +388,9 @@ export default {
       return {
         required: v => !!v || self.$t('global.details.rules.required')
       }
+    },
+    listRefreshable() {
+      return !this.field.async && this.field.url !== undefined
     },
     filename () {
       let filename = ''
