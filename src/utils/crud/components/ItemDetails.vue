@@ -122,13 +122,18 @@ export default {
         rField.show = show
         rField.value = this.details.item[field.column]
         if (typeof rField.value !== 'undefined') {
+          const fieldValue = this.details.item[field.column]
           if (field.type === 'select') {
             const defaultVal = field.list.default || 1
-            rField.value = field.stringId ? this.details.item[field.column] : parseInt(this.details.item[field.column]) || defaultVal
+            rField.value = field.stringId ? fieldValue : parseInt(fieldValue) || defaultVal
           } else if (field.type === 'date') {
-            rField.value = (this.details.item[field.column] || '').substring(0, 10)
+            rField.value = (fieldValue || '').substring(0, 10)
           } else if (field.type === 'checkbox') {
-            rField.value = parseInt(this.details.item[field.column]) === 1
+            if ([1, '1', true, 'true'].includes(fieldValue)) {
+              rField.value = 1
+            } else if ([0, '0', false, 'false'].includes(fieldValue)) {
+              rField.value = 0
+            }
           }
           if (field.apiObject) {
             if (field.apiObject.useFunctionsInDetails) {
@@ -142,7 +147,7 @@ export default {
             }
           }
         } else if (field.type === 'checkbox') {
-          rField.value = false
+          rField.value = 0
         }
         return rField
       })

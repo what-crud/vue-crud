@@ -13,7 +13,7 @@
 |prefix|-|`String`|`false`|null|
 |path|-|`String`|`false`|null|
 |paths|-|`Object`|`false`|-|
-|fieldsInfo|-|`Array`|`false`|-|
+|fieldsInfo|Array of objects ( [See list of available properties](/guide/crud/field-options.html) ) |`Array`|`false`|-|
 |detailsTitle|-|`String`|`false`|-|
 |pageTitle|-|`String`|`false`|-|
 |editButton|-|`Boolean`|`false`|crud.editButton || null|
