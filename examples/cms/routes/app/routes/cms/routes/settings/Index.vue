@@ -63,6 +63,9 @@ export default {
         {
           type: 'dynamic',
           typeField: 'type',
+          textModes: {
+            file: 'file'
+          },
           column: 'value',
           text: this.$t('fields.value'),
           name: 'value'
