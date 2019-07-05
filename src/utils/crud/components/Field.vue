@@ -239,7 +239,7 @@
       v-model="value"
       :label="field.text"
       :disabled="field.disabled"
-      @change="valueChanged()"
+      @change="checkboxUpdated()"
     ></v-checkbox>
   </span>
 </template>
@@ -421,6 +421,10 @@ export default {
   methods: {
     getEditorContent (content) {
       this.value = content
+    },
+    checkboxUpdated () {
+      this.value = this.value ? 1 : 0
+      this.valueChanged()
     },
     valueChanged () {
       this.$emit('valueChanged', this.value, this.field.column)
