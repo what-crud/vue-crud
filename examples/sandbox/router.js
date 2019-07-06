@@ -29,6 +29,8 @@ const router = new Router({
         var auth = localStorage.getItem('token')
         if (auth) {
           next('/')
+        } else {
+          next()
         }
       }
     },
