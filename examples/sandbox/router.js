@@ -1,15 +1,35 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Crud from './routes/Crud.vue'
+import App from './routes/App.vue'
+import Login from './routes/Login.vue'
+import Logged from './routes/Logged.vue'
 
 Vue.use(Router)
 
 const router = new Router({
-  routes: [{
-    path: '/',
-    name: 'crud',
-    component: Crud
-  }]
+  routes: [
+    {
+      path: '/crud',
+      name: 'crud',
+      component: Crud
+    },
+    {
+      path: '/app',
+      name: 'app',
+      component: App
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/logged',
+      name: 'logged',
+      component: Logged
+    }
+  ]
 })
 
 export default router
