@@ -445,7 +445,24 @@ export default {
                     id: 'Id',
                     name: 'Name',
                     description: 'Description',
-                    active: 'active',
+                    active: 'Active'
+                  },
+                  buttons: {
+                    showAlert: 'Show alert',
+                    showForm: 'Show form'
+                  }
+                },
+                pl: {
+                  detailsTitle: 'Zadanie',
+                  fields: {
+                    id: 'Id',
+                    name: 'Nazwa',
+                    description: 'Opis',
+                    active: 'Aktywne'
+                  },
+                  buttons: {
+                    showAlert: 'Pokaż alert',
+                    showForm: 'Pokaż formularz'
                   }
                 }
               }
@@ -471,6 +488,19 @@ export default {
         buttons: {
           showAlert: 'Show alert',
           showForm: 'Show form'
+        }
+      },
+      pl: {
+        detailsTitle: 'Zadanie',
+        fields: {
+          id: 'Id',
+          name: 'Nazwa',
+          description: 'Opis',
+          active: 'Aktywne'
+        },
+        buttons: {
+          showAlert: 'Pokaż alert',
+          showForm: 'Pokaż formularz'
         }
       }
     }
