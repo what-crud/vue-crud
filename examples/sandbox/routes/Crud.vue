@@ -12,6 +12,7 @@
           <v-tab key="customButtons" ripple>Custom buttons</v-tab>
           <v-tab key="template" ripple>Template</v-tab>
           <v-tab key="script" ripple>Script</v-tab>
+          <v-tab key="otherSites" ripple>Other sites</v-tab>
 
           <v-tab-item key="crudConfig">
             <v-card flat>
@@ -122,6 +123,26 @@
             <v-card flat style="max-height: 400px;overflow-y:auto">
               <v-card-text>
                 <code style="width:100%" v-text="script"></code>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item key="otherSites">
+            <v-card flat style="max-height: 400px;overflow-y:auto">
+              <v-card-text>
+                <ul>
+                  <li>
+                    <router-link to="/app">App layout demo/sandbox</router-link>
+                  </li>
+                  <li>
+                    <router-link to="/login">Login demo/sandbox</router-link>
+                  </li>
+                  <li>
+                    <a href="https://github.com/what-crud/vue-crud" target="_blank">GitHub</a>
+                  </li>
+                  <li>
+                    <a href="https://vue-crud.github.io/" target="_blank">Docs</a>
+                  </li>
+                </ul>
               </v-card-text>
             </v-card>
           </v-tab-item>
