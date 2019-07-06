@@ -1,10 +1,12 @@
 export default {
-  title: 'Vue CRUD',
-  email: 'E-mail',
+  title: 'Your App',
+  login: 'E-mail',
+  username: 'Nazwa użytkownika',
   password: 'Hasło',
   failed: 'Próba zalogowania nie powiodła się',
   submit: 'Zaloguj',
   passwordRequired: 'Hasło jest wymagane',
-  emailRequired: 'Adres e-mail jest wymagany',
-  incorrectEmail: 'E-mail jest niepoprawny'
+  incorrectPassword: 'Hasło ma niepoprawny format',
+  loginRequired: 'Adres e-mail jest wymagany',
+  incorrectLogin: 'E-mail ma niepoprawny format'
 }
