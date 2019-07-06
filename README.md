@@ -70,11 +70,12 @@ The record creation / editing form supports the following types of fields:
 * Decimal
 * Textarea,
 * Rich Text Box,
-* Select (list from related table),
+* Select (hardcoded list or obtained from API),
 * Datepicker,
 * Timepicker,
 * Checkbox,
-* Files
+* Files,
+* **NEW!** Dynamic (user can select field type separately for each record)
 
 ## Demo versions
 
