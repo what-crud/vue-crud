@@ -2,6 +2,7 @@ const fs = require('fs-extra')
 const templates = [
   'empty',
   'simple-crud',
+  'sandbox',
   'crm',
   'cms'
 ]
