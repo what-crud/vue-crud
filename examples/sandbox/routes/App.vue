@@ -1,103 +1,5 @@
 <template>
     <div>
-      <v-layout row wrap mb-5>
-        <v-flex xs12>
-          <v-tabs
-            v-model="activeTab"
-            color="grey lighten-3"
-            slider-color="primary"
-          >
-            <v-tab key="toolbarConfig" ripple>Toolbar</v-tab>
-            <v-tab key="sidebarConfig" ripple>Sidebar</v-tab>
-            <v-tab key="footerConfig" ripple>Footer</v-tab>
-            <v-tab key="template" ripple>Template</v-tab>
-            <v-tab key="script" ripple>Script</v-tab>
-            <v-tab key="style" ripple>Style</v-tab>
-
-            <v-tab-item key="toolbarConfig">
-              <v-card flat>
-                <v-card-text>
-                  <v-layout row wrap>
-                    <v-flex xs12 md6 lg4 px-5>
-                        <v-text-field label="Title" v-model="toolbarTitle"></v-text-field>
-                        <v-text-field label="Title link" v-model="toolbarTitleLink" disabled></v-text-field>
-                        <v-switch color="green" label="Left slot" v-model="toolbarLeftSlot"></v-switch>
-                    </v-flex>
-                    <v-flex xs12 md6 lg4 px-5>
-                        <v-switch color="green" label="Show logo" v-model="toolbarShowLogo"></v-switch>
-                        <v-select label="Logo" :items="['vue-crud-sm.png', 'cake.png', 'donut.png']" v-model="toolbarLogo"></v-select>
-                        <v-switch color="green" label="Profile button" v-model="toolbarProfileBtn"></v-switch>
-                    </v-flex>
-                    <v-flex xs12 md6 lg4 px-5>
-                        <v-switch color="green" label="Right slot" v-model="toolbarRightSlot"></v-switch>
-                        <v-switch color="green" label="Locales button" v-model="toolbarLocalesBtn"></v-switch>
-                        <v-switch color="green" label="Logout button" v-model="toolbarLogoutBtn"></v-switch>
-                    </v-flex>
-                  </v-layout>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-            <v-tab-item key="sidebarConfig">
-              <v-card flat>
-                <v-card-text>
-                  <v-layout row wrap>
-                    <v-flex xs12 md6 lg4 px-5>
-                      <v-select label="Expand on" :items="['click', 'mouseover']" v-model="sidebarExpandOn"></v-select>
-                      <v-switch color="green" label="Lock sidebar option" v-model="sidebarLockBtn"></v-switch>
-                    </v-flex>
-                    <v-flex xs12 md6 lg4 px-5>
-                        <v-switch color="green" label="Show routes" v-model="sidebarShowItems"></v-switch>
-                        <v-switch color="green" label="Title slot" v-model="sidebarSlotTitle"></v-switch>
-                    </v-flex>
-                    <v-flex xs12 md6 lg4 px-5>
-                        <v-switch color="green" label="Slot over routes" v-model="sidebarSlotOver"></v-switch>
-                        <v-switch color="green" label="Slot under routes" v-model="sidebarSlotUnder"></v-switch>
-                    </v-flex>
-                  </v-layout>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-            <v-tab-item key="footerConfig">
-              <v-card flat>
-                <v-card-text>
-                  <v-layout row wrap>
-                    <v-flex xs12 md6 lg4 px-5>
-                        <v-switch color="green" label="Slot left" v-model="footerSlotLeft"></v-switch>
-                    </v-flex>
-                    <v-flex xs12 md6 lg4 px-5>
-                        <v-switch color="green" label="Slot center" v-model="footerSlotCenter"></v-switch>
-                    </v-flex>
-                    <v-flex xs12 md6 lg4 px-5>
-                        <v-switch color="green" label="Slot right" v-model="footerSlotRight"></v-switch>
-                    </v-flex>
-                  </v-layout>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-            <v-tab-item key="template">
-              <v-card flat>
-                <v-card-text text-xs-center>
-                  <code style="width:100%;max-height: 400px;overflow-y:auto" v-text="template"></code>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-            <v-tab-item key="script">
-              <v-card flat style="max-height: 400px;overflow-y:auto">
-                <v-card-text>
-                  <code style="width:100%" v-text="script"></code>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-            <v-tab-item key="style">
-              <v-card flat style="max-height: 400px;overflow-y:auto">
-                <v-card-text>
-                  <code style="width:100%" v-text="style"></code>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-          </v-tabs>
-        </v-flex>
-      </v-layout>
       <toolbar
         :title="toolbarTitle"
         :titleLink="toolbarTitleLink"
@@ -150,6 +52,115 @@
           </v-list>
         </template>
       </sidebar>
+      <v-content class="content">
+        <v-container fluid fill-height class="main-container">
+          <v-layout style="width:100%">
+            <v-flex xs12>
+              <v-card flat class="main-card">
+                <v-card-text class="content-container">
+
+                  <v-tabs
+                    v-model="activeTab"
+                    color="grey lighten-3"
+                    slider-color="primary"
+                  >
+                    <v-tab key="toolbarConfig" ripple>Toolbar</v-tab>
+                    <v-tab key="sidebarConfig" ripple>Sidebar</v-tab>
+                    <v-tab key="footerConfig" ripple>Footer</v-tab>
+                    <v-tab key="template" ripple>Template</v-tab>
+                    <v-tab key="script" ripple>Script</v-tab>
+                    <v-tab key="style" ripple>Style</v-tab>
+
+                    <v-tab-item key="toolbarConfig">
+                      <v-card flat>
+                        <v-card-text>
+                          <v-layout row wrap>
+                            <v-flex xs12 md6 lg4 px-5>
+                                <v-text-field label="Title" v-model="toolbarTitle"></v-text-field>
+                                <v-text-field label="Title link" v-model="toolbarTitleLink" disabled></v-text-field>
+                                <v-switch color="green" label="Left slot" v-model="toolbarLeftSlot"></v-switch>
+                            </v-flex>
+                            <v-flex xs12 md6 lg4 px-5>
+                                <v-switch color="green" label="Show logo" v-model="toolbarShowLogo"></v-switch>
+                                <v-select label="Logo" :items="['vue-crud-sm.png', 'cake.png', 'donut.png']" v-model="toolbarLogo"></v-select>
+                                <v-switch color="green" label="Profile button" v-model="toolbarProfileBtn"></v-switch>
+                            </v-flex>
+                            <v-flex xs12 md6 lg4 px-5>
+                                <v-switch color="green" label="Right slot" v-model="toolbarRightSlot"></v-switch>
+                                <v-switch color="green" label="Locales button" v-model="toolbarLocalesBtn"></v-switch>
+                                <v-switch color="green" label="Logout button" v-model="toolbarLogoutBtn"></v-switch>
+                            </v-flex>
+                          </v-layout>
+                        </v-card-text>
+                      </v-card>
+                    </v-tab-item>
+                    <v-tab-item key="sidebarConfig">
+                      <v-card flat>
+                        <v-card-text>
+                          <v-layout row wrap>
+                            <v-flex xs12 md6 lg4 px-5>
+                              <v-select label="Expand on" :items="['click', 'mouseover']" v-model="sidebarExpandOn"></v-select>
+                              <v-switch color="green" label="Lock sidebar option" v-model="sidebarLockBtn"></v-switch>
+                            </v-flex>
+                            <v-flex xs12 md6 lg4 px-5>
+                                <v-switch color="green" label="Show routes" v-model="sidebarShowItems"></v-switch>
+                                <v-switch color="green" label="Title slot" v-model="sidebarSlotTitle"></v-switch>
+                            </v-flex>
+                            <v-flex xs12 md6 lg4 px-5>
+                                <v-switch color="green" label="Slot over routes" v-model="sidebarSlotOver"></v-switch>
+                                <v-switch color="green" label="Slot under routes" v-model="sidebarSlotUnder"></v-switch>
+                            </v-flex>
+                          </v-layout>
+                        </v-card-text>
+                      </v-card>
+                    </v-tab-item>
+                    <v-tab-item key="footerConfig">
+                      <v-card flat>
+                        <v-card-text>
+                          <v-layout row wrap>
+                            <v-flex xs12 md6 lg4 px-5>
+                                <v-switch color="green" label="Slot left" v-model="footerSlotLeft"></v-switch>
+                            </v-flex>
+                            <v-flex xs12 md6 lg4 px-5>
+                                <v-switch color="green" label="Slot center" v-model="footerSlotCenter"></v-switch>
+                            </v-flex>
+                            <v-flex xs12 md6 lg4 px-5>
+                                <v-switch color="green" label="Slot right" v-model="footerSlotRight"></v-switch>
+                            </v-flex>
+                          </v-layout>
+                        </v-card-text>
+                      </v-card>
+                    </v-tab-item>
+                    <v-tab-item key="template">
+                      <v-card flat>
+                        <v-card-text text-xs-center>
+                          <code style="width:100%;max-height: 400px;overflow-y:auto" v-text="template"></code>
+                        </v-card-text>
+                      </v-card>
+                    </v-tab-item>
+                    <v-tab-item key="script">
+                      <v-card flat style="max-height: 400px;overflow-y:auto">
+                        <v-card-text>
+                          <code style="width:100%" v-text="script"></code>
+                        </v-card-text>
+                      </v-card>
+                    </v-tab-item>
+                    <v-tab-item key="style">
+                      <v-card flat style="max-height: 400px;overflow-y:auto">
+                        <v-card-text>
+                          <code style="width:100%" v-text="style"></code>
+                        </v-card-text>
+                      </v-card>
+                    </v-tab-item>
+                  </v-tabs>
+
+                  <alert-box></alert-box>
+                </v-card-text>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-content>
       <footnote v-if="footer">
         <template slot="left" v-if="footerSlotLeft">
           <v-icon>code</v-icon>
