@@ -5,6 +5,8 @@ import App from './routes/App.vue'
 import Login from './routes/Login.vue'
 import Logged from './routes/Logged.vue'
 
+import store from '@/store/'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -22,12 +24,32 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      beforeEnter: (to, from, next) => {
+        var auth = localStorage.getItem('token')
+        if (auth) {
+          next('/')
+        }
+      }
     },
     {
-      path: '/logged',
+      path: '/',
       name: 'logged',
-      component: Logged
+      component: Logged,
+      beforeEnter: (to, from, next) => {
+        var auth = localStorage.getItem('token')
+        if (!auth) {
+          store.commit('auth/logout')
+          next('/login')
+        } else {
+          Vue.http.get('auth/user')
+            .then(() => {
+              next()
+            }, () => {
+              next('/login')
+            })
+        }
+      }
     }
   ]
 })

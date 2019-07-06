@@ -1,5 +1,5 @@
 export default {
-  api: 'http://127.0.0.1:8000/api',
+  api: 'http://crm-api.id-a.pl/api',
   prefix: 'auth',
   paths: {
     login: 'login',

@@ -85,7 +85,7 @@ import LoginForm from '@/utils/auth/components/LoginForm.vue'
 export default {
   data: () => ({
     activeTab: 'config',
-    redirect: '/app',
+    redirect: '/',
     localeSelectable: true,
     showLogo: true,
     logo: 'vue-crud-lg.png'
