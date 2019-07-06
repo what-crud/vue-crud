@@ -42,7 +42,9 @@ npm install
 3. Choose one of the following templates:
 - `empty`,
 - `simple-crud`,
-- `crm`
+- `sandbox`,
+- `crm`,
+- `cms`
 
 ...and type e.g.:
 ``` console
