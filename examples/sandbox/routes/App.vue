@@ -154,7 +154,6 @@
                     </v-tab-item>
                   </v-tabs>
 
-                  <alert-box></alert-box>
                 </v-card-text>
               </v-card>
             </v-flex>
@@ -215,18 +214,19 @@ export default {
         text: 'blog.name',
         model: false,
         route: '/app',
-        children: [{
-          text: 'blog.posts',
-          route: ''
-        },
-        {
-          text: 'blog.categories',
-          route: ''
-        },
-        {
-          text: 'blog.tasks',
-          route: ''
-        },
+        children: [
+          {
+            text: 'blog.posts',
+            route: ''
+          },
+          {
+            text: 'blog.categories',
+            route: ''
+          },
+          {
+            text: 'blog.tags',
+            route: ''
+          }
         ]
       },
       {
@@ -373,50 +373,19 @@ export default {
                       text: "crm.name",
                       model: false,
                       route: "/crm",
-                      children: [{
-                              text: "crm.companies",
-                              route: "/companies"
-                          },
-                          {
-                              text: "crm.companyTypes",
-                              route: "/company-types"
-                          },
-                          {
-                              text: "crm.companyFiles",
-                              route: "/company-files"
-                          },
-                          {
-                              text: "crm.companyComments",
-                              route: "/company-comments"
-                          },
-                          {
-                              text: "crm.companyCommentTypes",
-                              route: "/company-comment-types"
-                          },
-                          {
-                              text: "crm.people",
-                              route: "/people"
-                          },
-                          {
-                              text: "crm.personComments",
-                              route: "/person-comments"
-                          },
-                          {
-                              text: "crm.personCommentTypes",
-                              route: "/person-comment-types"
-                          },
-                          {
-                              text: "crm.positions",
-                              route: "/positions"
-                          },
-                          {
-                              text: "crm.positionTasks",
-                              route: "/position-tasks"
-                          },
-                          {
-                              text: "crm.tasks",
-                              route: "/tasks"
-                          }
+                      children: [
+                        {
+                          text: 'blog.posts',
+                          route: ''
+                        },
+                        {
+                          text: 'blog.categories',
+                          route: ''
+                        },
+                        {
+                          text: 'blog.tags',
+                          route: ''
+                        },
                       ]
                   },
                   {
@@ -457,27 +426,28 @@ export default {
     style () {
       return `
           <style scoped>
-            .main-container {
-              padding: 10px;
-            }
-            .content {
-              min-height: 100vh;
-              overflow-x: auto;
-              background-color: #f2f2f2;
-            }
-            .main-card {
-              background-color: #f2f2f2;
-            }
-            .card-title {
-              padding: 0;
-            }
-            .content-container {
-              margin-bottom: 100px;
-              padding: 0;
-            }
-            .headline {
-              padding-bottom: 10px;
-            }
+          .main-container {
+            padding: 10px 0 0 0;
+            background-color: white;
+          }
+          .content {
+            min-height: 100vh;
+            overflow-x: auto;
+            background-color: white;
+          }
+          .main-card {
+            background-color: white;
+          }
+          .card-title {
+            padding: 0;
+          }
+          .content-container {
+            margin-bottom: 100px;
+            padding: 0;
+          }
+          .headline {
+            padding-bottom: 10px;
+          }
           </style>
         `
     }
@@ -491,26 +461,27 @@ export default {
   }
 }
 </script>
-  <style scoped>
-  .main-container {
-    padding: 10px;
-  }
-  .content {
-    min-height: 100vh;
-    overflow-x: auto;
-    background-color: #f2f2f2;
-  }
-  .main-card {
-    background-color: #f2f2f2;
-  }
-  .card-title {
-    padding: 0;
-  }
-  .content-container {
-    margin-bottom: 100px;
-    padding: 0;
-  }
-  .headline {
-    padding-bottom: 10px;
-  }
-  </style>
+<style scoped>
+.main-container {
+  padding: 10px 0 0 0;
+  background-color: white;
+}
+.content {
+  min-height: 100vh;
+  overflow-x: auto;
+  background-color: white;
+}
+.main-card {
+  background-color: white;
+}
+.card-title {
+  padding: 0;
+}
+.content-container {
+  margin-bottom: 100px;
+  padding: 0;
+}
+.headline {
+  padding-bottom: 10px;
+}
+</style>

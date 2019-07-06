@@ -2,20 +2,11 @@ export default {
   home: {
     name: ''
   },
-  crm: {
-    name: 'CRM',
-    companies: 'Companies',
-    people: 'People',
-    positions: 'Positions',
-    companyTypes: 'Company Types',
-    companyCommentTypes: 'Companies - comment types',
-    personCommentTypes: 'People - comment types',
-    companyComments: 'Companies - comments',
-    personComments: 'People - comments',
-    positionTasks: 'Positions - tasks',
-    tasks: 'Tasks',
-    companyFiles: 'Companies - files',
-    personFiles: 'People - files'
+  blog: {
+    name: 'Blog',
+    posts: 'Posts',
+    categories: 'Categories',
+    tags: 'Tags'
   },
   admin: {
     name: 'Administration',
