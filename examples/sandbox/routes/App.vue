@@ -212,53 +212,21 @@ export default {
     sidebarItems: [
       {
         icon: 'people',
-        text: 'crm.name',
+        text: 'blog.name',
         model: false,
         route: '/app',
         children: [{
-          text: 'crm.companies',
+          text: 'blog.posts',
           route: ''
         },
         {
-          text: 'crm.companyTypes',
+          text: 'blog.categories',
           route: ''
         },
         {
-          text: 'crm.companyFiles',
+          text: 'blog.tasks',
           route: ''
         },
-        {
-          text: 'crm.companyComments',
-          route: ''
-        },
-        {
-          text: 'crm.companyCommentTypes',
-          route: ''
-        },
-        {
-          text: 'crm.people',
-          route: ''
-        },
-        {
-          text: 'crm.personComments',
-          route: ''
-        },
-        {
-          text: 'crm.personCommentTypes',
-          route: ''
-        },
-        {
-          text: 'crm.positions',
-          route: ''
-        },
-        {
-          text: 'crm.positionTasks',
-          route: ''
-        },
-        {
-          text: 'crm.tasks',
-          route: ''
-        }
         ]
       },
       {
