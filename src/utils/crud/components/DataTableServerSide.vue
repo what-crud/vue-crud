@@ -42,7 +42,14 @@
 
         <!-- Search in table -->
         <span style="margin-right:15px;margin-left:15px;display:inline-block;width:250px;" v-if="mainFilter">
-          <v-text-field append-icon="search" :label="$t('global.datatable.search')" single-line hide-details v-model="search" min-width="200" @input="searchItems(true)"></v-text-field>
+          <v-text-field
+            append-icon="search"
+            :label="$t('global.datatable.search')"
+            single-line hide-details
+            v-model="search"
+            min-width="200"
+            @input="searchItems(true)"
+          ></v-text-field>
         </span>
 
         <!-- Select statuses (active/inactive) -->
@@ -127,7 +134,8 @@ export default {
     return {
       searching: false,
       newSearchRequest: false,
-      ignorePaginationWatcher: false
+      ignorePaginationWatcher: false,
+      searchTimeout: null
     }
   },
   created () {
@@ -198,16 +206,13 @@ export default {
       this.searchItems(true)
     },
     searchItems (resetPage) {
+      clearTimeout(this.searchTimeout)
       if (resetPage) {
         this.ignorePaginationWatcher = true
         this.pagination.page = 1
       }
-      const params1 = JSON.stringify(this.params)
-      setTimeout(() => {
-        const params2 = JSON.stringify(this.params)
-        if (params1 === params2) {
-          this.getItemsServerSide([this.params])
-        }
+      this.searchTimeout = setTimeout(() => {
+        this.getItemsServerSide([this.params])
       }, 500)
     },
     moveDetailsItem (page, index) {
