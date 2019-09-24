@@ -5,7 +5,7 @@
       <v-flex xs12 lg3 text-xs-center>
         <!-- Dialog for creating item -->
         <v-tooltip top v-if="createMode">
-          <v-btn fab dark color="green" @click="create()" slot="activator">
+          <v-btn fab dark color="light-blue lighten-2" @click="create()" slot="activator">
             <v-icon>add</v-icon>
           </v-btn>
           <span>{{ $t('global.datatable.add') }}</span>
