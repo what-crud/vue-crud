@@ -1,5 +1,9 @@
 <template>
-  <tr @dblclick="rowDblclickAction(props.item, props.index)" :class="[activityClass(props.item.meta.active), currentClass(props.item.meta.id)]">
+  <tr
+    @dblclick="emitDoubleClick(props.item, props.index)"
+    :class="[activityClass(props.item.meta.active),
+    currentClass(props.item.meta.id)]"
+  >
     <td v-if="selectManyMode">
       <v-checkbox
         hide-details
@@ -10,48 +14,65 @@
     <!-- action buttons -->
     <td class="cell-nowrap">
       <!-- edit record -->
-      <v-tooltip top v-if="editButton && editMode">
-        <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id, props.index)" slot="activator">
-          <v-icon>edit</v-icon>
-        </v-btn>
-        <span>{{ $t('global.datatable.buttons.edit') }}</span>
-      </v-tooltip>
+      <crud-button
+        v-if="editButton && editMode"
+        xs
+        color="orange"
+        @clicked="edit(props.item.meta.id, props.index)"
+        icon="edit"
+        :tooltip="$t('global.datatable.buttons.edit')"
+      ></crud-button>
       <!-- custom buttons -->
-      <v-tooltip top v-for="(customButton) in customButtons" :key="customButton.name">
-        <v-btn fab :disabled="!props.item.meta.buttons[customButton.name]" small class="xs white--text" :color="customButton.color" @click="custom(customButton.name, props.item, props.index)" slot="activator">
-          <v-icon>{{ customButton.icon }}</v-icon>
-        </v-btn>
-        <span>{{ customButton.text }}</span>
-      </v-tooltip>
+      <crud-button
+        v-for="(customButton) in customButtons"
+        :key="customButton.name"
+        :disabled="!props.item.meta.buttons[customButton.name]"
+        xs
+        :color="customButton.color"
+        @clicked="custom(customButton.name, props.item, props.index)"
+        :icon="customButton.icon"
+        :tooltip="customButton.text"
+      ></crud-button>
       <!-- buttons for open modal with item elements -->
-      <v-tooltip top v-for="(button, key) in itemElements" :key="key">
-        <v-btn fab small class="xs white--text" :color="button.color" @click="editItemElements(key, props.item.meta.id)" slot="activator">
-          <v-icon>{{ button.icon }}</v-icon>
-        </v-btn>
-        <span>{{ button.buttonText }}</span>
-      </v-tooltip>
+      <crud-button
+        v-for="(button, key) in itemElements"
+        :key="key"
+        xs
+        :color="button.color"
+        @clicked="editItemElements(key, props.item.meta.id)"
+        :icon="button.icon"
+        :tooltip="button.buttonText"
+      ></crud-button>
       <!-- suspend/restore record (if soft deletes are enabled) -->
       <template v-if="['soft', 'both'].includes(deleteMode)">
-        <v-tooltip top v-if="props.item.meta.active == '1'">
-          <v-btn fab small class="xs white--text" color="red" @click="suspend(props.item.meta.id)" slot="activator">
-            <v-icon>undo</v-icon>
-          </v-btn>
-          <span>{{ $t('global.datatable.buttons.suspend') }}</span>
-        </v-tooltip>
-        <v-tooltip top v-else>
-          <v-btn fab small class="xs white--text" color="green" @click="restore(props.item.meta.id)" slot="activator">
-            <v-icon>redo</v-icon>
-          </v-btn>
-          <span>{{ $t('global.datatable.buttons.restore') }}</span>
-        </v-tooltip>
+        <!-- suspend button -->
+        <crud-button
+          v-if="props.item.meta.active == '1'"
+          xs
+          color="red"
+          @clicked="suspend(props.item.meta.id)"
+          icon="undo"
+          :tooltip="$t('global.datatable.buttons.suspend')"
+        ></crud-button>
+        <!-- restore button -->
+        <crud-button
+          v-else
+          xs
+          color="green"
+          @clicked="restore(props.item.meta.id)"
+          icon="redo"
+          :tooltip="$t('global.datatable.buttons.restore')"
+        ></crud-button>
       </template>
       <!-- hard delete -->
-      <v-tooltip top v-if="['hard', 'both'].includes(deleteMode)">
-        <v-btn fab small class="xs white--text" color="red" @click="destroy(props.item.meta.id)" slot="activator">
-          <v-icon>delete</v-icon>
-        </v-btn>
-        <span>{{ $t('global.datatable.buttons.delete') }}</span>
-      </v-tooltip>
+      <crud-button
+        v-if="['hard', 'both'].includes(deleteMode)"
+        xs
+        color="black"
+        @clicked="destroy(props.item.meta.id)"
+        icon="delete"
+        :tooltip="$t('global.datatable.buttons.delete')"
+      ></crud-button>
     </td>
     <!-- table fields -->
     <template v-for="(field, key) in props.item">
@@ -76,24 +97,29 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import CrudButton from './Button.vue'
 import FileDetails from './FileDetails.vue'
 
 export default {
   components: {
+    CrudButton,
     FileDetails
   },
-  props: [
-    'props',
-    'editButton',
-    'customButtons',
-    'deleteMode',
-    'itemElements',
-    'columnTextModes',
-    'dynamicTextModes',
-    'editMode',
-    'selectManyMode'
-  ],
+  props: {
+    props: {},
+    editButton: {},
+    customButtons: {},
+    deleteMode: {},
+    itemElements: {},
+    columnTextModes: {},
+    dynamicTextModes: {},
+    editMode: {},
+    selectManyMode: {
+      type: Boolean,
+      default: false
+    },
+    currentItemId: {}
+  },
   filters: {
     cropped (field) {
       let rField
@@ -105,9 +131,6 @@ export default {
       }
       return rField
     }
-  },
-  computed: {
-    ...mapState('crud', ['currentItemId'])
   },
   methods: {
     fileFieldToJSON (field) {
@@ -124,22 +147,7 @@ export default {
       const currentId = this.currentItemId
       return itemId === currentId ? 'current-row' : ''
     },
-    rowDblclickAction (item, index) {
-      if (this.editMode) {
-        let goToItemButton = false
-        for (const button of this.customButtons) {
-          if (button.name === 'goToItem') {
-            goToItemButton = true
-            break
-          }
-        }
-        if (goToItemButton) {
-          this.custom('goToItem', item, index)
-        } else {
-          this.edit(item.meta.id, index)
-        }
-      }
-    },
+    emitDoubleClick (item, index) { this.$emit('doubleClick', item, index) },
     edit (id, index) { this.$emit('edit', id, index) },
     custom (name, item, index) { this.$emit('custom', name, item, index) },
     suspend (id) { this.$emit('suspend', id) },

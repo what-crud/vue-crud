@@ -94,72 +94,31 @@
       :no-data-text="$t('global.datatable.noDataAvailable')"
       :rows-per-page-text="$t('global.datatable.rowsPerPageText')">
       <template slot="items" slot-scope="props">
-        <tr @dblclick="rowDblclickAction(props.item.meta.id)" :class="activityClass(props.item.meta.active)">
-          <!-- action buttons -->
-          <td class="cell-nowrap">
-            <!-- edit record -->
-            <v-tooltip top v-if="editButton">
-              <v-btn fab small class="xs white--text" color="orange" @click="edit(props.item.meta.id)" slot="activator">
-                <v-icon>edit</v-icon>
-              </v-btn>
-              <span>{{ $t('global.datatable.buttons.edit') }}</span>
-            </v-tooltip>
-            <!-- custom buttons -->
-            <v-tooltip top v-for="(customButton) in customButtons" :key="customButton.name">
-              <v-btn fab small class="xs white--text" :color="customButton.color" @click="custom(customButton.name, props.item, props.index)" slot="activator">
-                <v-icon>{{ customButton.icon }}</v-icon>
-              </v-btn>
-              <span>{{ customButton.text }}</span>
-            </v-tooltip>
-            <!-- buttons for open modal with item elements -->
-            <v-tooltip top v-for="(button, key) in itemElements" :key="key">
-              <v-btn
-                fab
-                small
-                class="xs white--text"
-                :color="button.color"
-                @click="editItemElements(key, props.item.meta.id)"
-                slot="activator"
-              >
-                <v-icon>{{ button.icon }}</v-icon>
-              </v-btn>
-              <span>{{ button.buttonText }}</span>
-            </v-tooltip>
-            <!-- suspend/restore record (if soft deletes are enabled) -->
-            <template v-if="['soft', 'both'].includes(deleteMode)">
-              <v-tooltip top v-if="props.item.meta.active == '1'">
-                <v-btn fab small class="xs white--text" color="red" @click="suspend(props.item.meta.id)" slot="activator">
-                  <v-icon>undo</v-icon>
-                </v-btn>
-                <span>{{ $t('global.datatable.buttons.suspend') }}</span>
-              </v-tooltip>
-              <v-tooltip top v-else>
-                <v-btn fab small class="xs white--text" color="green" @click="restore(props.item.meta.id)" slot="activator">
-                  <v-icon>redo</v-icon>
-                </v-btn>
-                <span>{{ $t('global.datatable.buttons.restore') }}</span>
-              </v-tooltip>
-            </template>
-            <!-- hard delete -->
-            <v-tooltip top v-if="['hard', 'both'].includes(deleteMode)">
-              <v-btn fab small class="xs white--text" color="red" @click="destroy(props.item.meta.id)" slot="activator">
-                <v-icon>delete</v-icon>
-              </v-btn>
-              <span>{{ $t('global.datatable.buttons.delete') }}</span>
-            </v-tooltip>
-          </td>
-          <!-- table fields -->
-          <template v-for="(field, key) in props.item">
-            <td v-if="key != 'meta'" :key="key" max-width="20px !important;">
-              <span v-if="columnTextModes[key] == 'html'" v-html="field"></span>
-              <span v-else-if="columnTextModes[key] == 'cropped'" class="cell-nowrap">{{ field | cropped }}</span>
-              <span v-else-if="columnTextModes[key] == 'text'">{{ field }}</span>
-            </td>
-          </template>
-        </tr>
+        <data-table-row
+          :props="props"
+          :edit-button='editButton'
+          :custom-buttons='customButtons'
+          :delete-mode='deleteMode'
+          :edit-mode="editMode"
+          :item-elements="itemElements"
+          :column-text-modes="setColumnTextModes(props)"
+          @edit="edit"
+          @custom="custom"
+          @suspend="suspend"
+          @restore="restore"
+          @destroy="destroy"
+          @editItemElements="editItemElements"
+          @doubleClick="resolveRowDoubleClick"
+        ></data-table-row>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
-        <data-table-footer @setPage="setPage" :pagination="pagination" :pageStart="pageStart" :pageStop="pageStop" :itemsLength="itemsLength"></data-table-footer>
+        <data-table-footer
+          @setPage="setPage"
+          :pagination="pagination"
+          :pageStart="pageStart"
+          :pageStop="pageStop"
+          :itemsLength="itemsLength"
+        ></data-table-footer>
       </template>
     </v-data-table>
     <div class="details-loader-container">
@@ -178,9 +137,14 @@ import {
 } from 'vuex'
 import ClientSideFilteringMixin from '../mixins/datatable-client-side-filtering'
 import HelperMixin from '../mixins/datatable-helper'
+import DataTableRow from '../components/DataTableRow.vue'
+import crud from '@/config/crud'
 
 export default {
   mixins: [ClientSideFilteringMixin, HelperMixin],
+  components: {
+    DataTableRow
+  },
   props: {
     title: String,
     fieldsInfo: Array,
@@ -226,21 +190,10 @@ export default {
     detailsLoader: {
       type: Boolean,
       default: false
-    }
-  },
-  data () {
-    return {}
-  },
-  filters: {
-    cropped (field) {
-      let rField
-      const maxLength = 40
-      if (typeof field === 'string' || field instanceof String) {
-        rField = field.length <= maxLength ? field : `${field.substring(0, maxLength - 3)}...`
-      } else {
-        rField = field
-      }
-      return rField
+    },
+    editMode: {
+      type: Boolean,
+      default: crud.editMode === undefined ? true : crud.editMode
     }
   },
   computed: {
@@ -254,6 +207,9 @@ export default {
     },
     excelName () {
       return `${this.$t(`global.routes.${this.page}`)} - ${this.title}`
+    },
+    columnTextModes () {
+      return this.setColumnTextModes()
     }
   },
   methods: {
@@ -264,12 +220,8 @@ export default {
     ...mapActions('crud', [
       'getItemElements'
     ]),
-    activityClass (isActive) {
-      let className = ''
-      if (['soft', 'both'].includes(this.deleteMode)) {
-        className = parseInt(isActive) === 1 ? 'row-active' : 'row-inactive'
-      }
-      return className
+    resolveRowDoubleClick (item) {
+      this.edit(item.meta.id)
     },
     edit (id) {
       this.$parent.edit(id)
@@ -306,32 +258,12 @@ export default {
       const obj = this.itemElements[name]
       this.setItemElementsInfo([id, obj])
       this.getItemElements()
-    },
-    rowDblclickAction (id) {
-      if (this.editButton) {
-        this.edit(id)
-      }
     }
   }
 }
 </script>
 
 <style scoped>
-.xs {
-  width: 25px;
-  height: 25px;
-  margin: 3 !important;
-}
-
-.xs > div {
-  padding: 3px !important;
-}
-
-.xs > div > i {
-  height: 12px !important;
-  width: 12px !important;
-  line-height: 12px;
-}
 .child-card {
   min-height: 400px;
   max-height: calc(100vh - 150px);

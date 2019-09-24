@@ -85,7 +85,7 @@ export default {
       this.search = ''
       this.selectedStatuses = [1]
     },
-    columnTextModes (props) {
+    setColumnTextModes (props) {
       const columnTextModes = {}
       for (const field of this.tableFields) {
         let textMode = 'cropped'

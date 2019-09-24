@@ -106,15 +106,17 @@
           :custom-buttons='customButtons'
           :delete-mode='deleteMode'
           :item-elements="itemElements"
-          :column-text-modes="columnTextModes(props)"
+          :column-text-modes="setColumnTextModes(props)"
           :edit-mode="editMode"
           :select-many-mode="selectManyMode"
+          :current-item-id="currentItemId"
           @edit="edit"
           @custom="custom"
           @suspend="suspend"
           @restore="restore"
           @destroy="destroy"
           @editItemElements="editItemElements"
+          @doubleClick="resolveRowDoubleClick"
         ></data-table-row>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
