@@ -34,7 +34,7 @@
         </template>
         <!-- hard delete -->
         <v-tooltip top v-if="['hard', 'both'].includes(deleteMode) && selectManyMode && removeManyMode">
-          <v-btn class="white--text" fab small color="red" @click="destroySelected()" slot="activator">
+          <v-btn class="white--text" fab small color="black" @click="destroySelected()" slot="activator">
             <v-icon>delete</v-icon>
           </v-btn>
           <span>{{ $t('global.datatable.buttons.deleteSelected') }}</span>
