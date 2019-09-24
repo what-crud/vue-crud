@@ -95,7 +95,8 @@ export default {
       'setIdColumn',
       'setChildItemsMapping',
       'moveItem',
-      'setNextItem'
+      'setNextItem',
+      'itemDetails'
     ]),
     escapeHandler (event) {
       if (event.which === 27) {
@@ -114,6 +115,9 @@ export default {
     next () {
       this.moveItem(['next', true])
     }
+  },
+  destroyed() {
+    this.itemDetails({})
   }
 }
 

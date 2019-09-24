@@ -55,10 +55,6 @@ export default {
     item: {
       handler (val) {
         this.setFields()
-        this.reload = true
-        setTimeout(() => {
-          this.reload = false
-        }, 100)
       },
       deep: true
     }
@@ -93,6 +89,10 @@ export default {
         return rField
       })
       this.$set(this, 'fields', result)
+      this.reload = true
+      setTimeout(() => {
+        this.reload = false
+      }, 100)
     },
     update (field) {
       const obj = {}
