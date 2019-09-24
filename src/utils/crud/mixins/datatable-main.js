@@ -137,7 +137,7 @@ export default {
     ...mapActions([
       'openAlertBox'
     ]),
-    resolveRowDoubleClick(item, index) {
+    resolveRowDoubleClick (item, index) {
       if (this.editMode) {
         let goToItemButton = false
         for (const button of this.customButtons) {

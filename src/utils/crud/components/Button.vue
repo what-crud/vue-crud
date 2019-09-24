@@ -21,18 +21,18 @@ export default {
   props: {
     small: {
       type: Boolean,
-      default: true,
+      default: true
     },
     dark: {
       type: Boolean,
-      default: true,
+      default: true
     },
     xs: {
       type: Boolean,
-      default: false,
+      default: false
     },
     color: {
-      type: String,
+      type: String
     },
     tooltip: {
       type: String

@@ -116,7 +116,7 @@ export default {
       this.moveItem(['next', true])
     }
   },
-  destroyed() {
+  destroyed () {
     this.itemDetails({})
   }
 }
