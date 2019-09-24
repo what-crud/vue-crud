@@ -27,7 +27,9 @@ const getters = {
   // extended details
   item: state => state.item,
   childrenList: state => (fields, meta, primaryKey, childItemName, activeColumnName) => {
-    const result = state.childItems[childItemName].items.map(
+    const childItemsObj = state.childItems[childItemName];
+    const items = childItemsObj.items || []
+    const result = items.map(
       obj => getItemsList(
         obj,
         fields,
