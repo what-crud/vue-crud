@@ -1,5 +1,11 @@
 <template>
-  <v-dialog v-model="detailsDialog" fullscreen transition="dialog-bottom-transition" :overlay=true>
+  <v-dialog
+    v-model="detailsDialog"
+    fullscreen
+    transition="dialog-bottom-transition"
+    :overlay="true"
+    persistent
+  >
     <v-card class="dialog-content">
       <v-toolbar dark class="primary">
         <v-layout row wrap justify-center align-center>
