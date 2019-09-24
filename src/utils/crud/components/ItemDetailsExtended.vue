@@ -11,6 +11,7 @@
           <field
             v-else
             :field="field"
+            :dynamic-field-type="dynamicFieldType(field.typeField)"
             :field-value="field.value"
             :reload="reload"
             @valueChanged="valueChanged"
@@ -79,6 +80,7 @@ export default {
         const rField = field
         rField.value = this.item[field.column]
         rField.oldValue = rField.value
+        rField.show = true
         if (field.type === 'select') {
           const defaultVal = field.list.default || ''
           rField.value = (field.stringId
@@ -120,6 +122,10 @@ export default {
         Vue.set(this.item, field.column, field.value)
         this.update(field)
       }
+    },
+    dynamicFieldType (fieldType) {
+      const refField = this.fields.find((field) => field.name === fieldType)
+      return refField ? refField.value : undefined
     }
   }
 }
