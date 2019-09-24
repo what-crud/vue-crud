@@ -4,7 +4,7 @@ export default {
       pl: {
         detailsTitle: 'Osoba',
         buttons: {
-          goToPerson: 'Przejdź do osoby'
+          goToItem: 'Przejdź do osoby'
         },
         fields: {
           id: 'Id',
@@ -21,7 +21,7 @@ export default {
       en: {
         detailsTitle: 'Person',
         buttons: {
-          goToPerson: 'Go to person'
+          goToItem: 'Go to person'
         },
         fields: {
           id: 'Id',

@@ -4,7 +4,7 @@ export default {
       pl: {
         detailsTitle: 'Firma',
         buttons: {
-          goToCompany: 'Przejdź do firmy'
+          goToItem: 'Przejdź do firmy'
         },
         fields: {
           id: 'Id',
@@ -56,7 +56,7 @@ export default {
       en: {
         detailsTitle: 'Company',
         buttons: {
-          goToCompany: 'Go to company'
+          goToItem: 'Go to company'
         },
         fields: {
           id: 'Id',
@@ -93,7 +93,7 @@ export default {
           correspondenceCity: 'City (corresp.)',
           correspondenceBorough: 'Borough (corresp.)',
           correspondenceCounty: 'County (corresp.)',
-          correspondenceVvoivodship: 'Voivodship (corresp.)',
+          correspondenceVoivodship: 'Voivodship (corresp.)',
           active: 'Aktywna'
         },
         itemElements: {
