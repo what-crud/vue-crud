@@ -8,10 +8,10 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
-    "test:unit": "vue-cli-service test:unit",
-    "load-template": "node template-loader.js",
+    "docs:build": "node docs.js && vuepress build docs",
     "docs:dev": "node docs.js && vuepress dev docs",
-    "docs:build": "node docs.js && vuepress build docs"
+    "load-template": "node template-loader.js",
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
@@ -23,7 +23,7 @@
     "vue-i18n": "^8.14.1",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.1.3",
-    "vuetify": "^1.3.0",
+    "vuetify": "^2.0.0",
     "vuex": "^3.0.1",
     "xlsx": "^0.14.1"
   },
@@ -43,13 +43,15 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "fs-extra": "^7.0.1",
+    "sass": "^1.17.4",
+    "sass-loader": "^7.1.0",
     "script-loader": "^0.7.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
-    "vue-cli-plugin-vuetify": "^0.4.6",
+    "vue-cli-plugin-vuetify": "^0.6.3",
     "vue-template-compiler": "^2.5.17",
     "vuepress": "^1.0.2",
-    "vuetify-loader": "^1.0.5"
+    "vuetify-loader": "^1.2.2"
   },
   "postcss": {
     "plugins": {
