@@ -3,22 +3,32 @@
     <v-progress-circular indeterminate v-bind:size="100" v-bind:width="5" color="primary"></v-progress-circular>
   </v-layout>
   <v-layout v-else row wrap class="white" color="primary">
-      <v-alert class="login-failed" type="error" :value="loginFailed" dismissible>
-        {{ $t('global.login.failed') }}
-      </v-alert>
+    <v-alert class="login-failed" type="error" :value="loginFailed" dismissible>
+      {{ $t('global.login.failed') }}
+    </v-alert>
     <v-flex xs10 offset-xs1 sm8 offset-sm2 md6 offset-md3 lg4 offset-lg4 xl2 offset-xl5 class="parent text-xs-center">
       <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
       <h1 class="app-title primary--text">{{ $t('global.login.title') }}</h1>
       <template>
         <v-form v-model="valid" ref="form" lazy-validation v-on:submit.prevent>
-          <v-menu bottom left v-if="localeSelectable">
-            <v-btn icon slot="activator" dark class="secondary">
-              <v-icon>translate</v-icon>
-            </v-btn>
+          <v-menu v-if="localeSelectable">
+            <template v-slot:activator="{ on }">
+              <v-btn
+                v-on="on"
+                dark
+                color="secondary"
+              >
+                <v-icon>mdi-translate</v-icon>
+              </v-btn>
+            </template>
             <v-list>
-              <v-list-tile v-for="(locale, i) in locales" :key="i" @click="changeLocale(locale.name)">
-                <v-list-tile-title>{{ locale.text }}</v-list-tile-title>
-              </v-list-tile>
+              <v-list-item
+                v-for="(locale, i) in locales"
+                :key="i"
+                @click="changeLocale(locale.name)"
+              >
+                <v-list-item-title>{{ locale.text }}</v-list-item-title>
+              </v-list-item>
             </v-list>
           </v-menu>
           <v-text-field
