@@ -16,6 +16,7 @@
               <v-btn
                 v-on="on"
                 dark
+                fab
                 color="secondary"
               >
                 <v-icon>mdi-translate</v-icon>
