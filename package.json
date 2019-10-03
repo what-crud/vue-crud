@@ -14,7 +14,7 @@
     "docs:build": "node docs.js && vuepress build docs"
   },
   "dependencies": {
-    "babel-polyfill": "^7.6.0",
+    "babel-polyfill": "^6.26.0",
     "file-saver": "^2.0.2",
     "register-service-worker": "^1.6.2",
     "tiptap": "^1.26.0",
