@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar :dark="dark" :color="color" fixed app>
+  <v-app-bar :dark="dark" :color="color" fixed app>
 
     <slot name="left"></slot>
     <v-spacer></v-spacer>
@@ -32,7 +32,7 @@
       </v-btn>
     </a>
 
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <script>
