@@ -1,16 +1,54 @@
 <template>
-  <v-layout v-if="loginWait" class="login-loader" justify-center align-center>
-    <v-progress-circular indeterminate v-bind:size="100" v-bind:width="5" color="primary"></v-progress-circular>
+  <v-layout
+    v-if="loginWait"
+    class="login-loader"
+    justify-center
+    align-center
+  >
+    <v-progress-circular
+      indeterminate
+      v-bind:size="100"
+      v-bind:width="5"
+      color="primary"
+    ></v-progress-circular>
   </v-layout>
-  <v-layout v-else row wrap class="white" color="primary">
-    <v-alert class="login-failed" type="error" :value="loginFailed" dismissible>
+  <v-layout
+    v-else
+    row
+    wrap
+    class="white"
+    color="primary"
+  >
+    <v-alert
+      class="login-failed mx-2"
+      type="error"
+      :value="loginFailed"
+      dismissible
+      px-2
+    >
       {{ $t('global.login.failed') }}
     </v-alert>
-    <v-flex xs10 offset-xs1 sm8 offset-sm2 md6 offset-md3 lg4 offset-lg4 xl2 offset-xl5 class="parent text-xs-center">
-      <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
+    <v-flex
+      xs10 offset-xs1
+      sm8 offset-sm2
+      md6 offset-md3
+      lg4 offset-lg4
+      xl2 offset-xl5
+      class="parent text-xs-center"
+    >
+      <img
+        v-if="showLogo"
+        class="logo"
+        :src="require(`@/assets/images/${logo}`)"
+      >
       <h1 class="app-title primary--text">{{ $t('global.login.title') }}</h1>
       <template>
-        <v-form v-model="valid" ref="form" lazy-validation v-on:submit.prevent>
+        <v-form
+          v-model="valid"
+          ref="form"
+          lazy-validation
+          v-on:submit.prevent
+        >
           <v-menu v-if="localeSelectable">
             <template v-slot:activator="{ on }">
               <v-btn
@@ -19,7 +57,7 @@
                 fab
                 color="secondary"
               >
-                <v-icon>mdi-translate</v-icon>
+                <v-icon>translate</v-icon>
               </v-btn>
             </template>
             <v-list>
@@ -45,10 +83,16 @@
             :counter="30"
             required
             :append-icon="passAppendIcon"
-            @click:append="() => (passwordHidden = !passwordHidden)" :type="passTextFieldType"
+            @click:append="() => (passwordHidden = !passwordHidden)"
+            :type="passTextFieldType"
           ></v-text-field>
-          <v-btn type="submit" @click="loginAttempt()" :disabled="!valid" class="primary white--text">
-              {{ $t('global.login.submit') }}
+          <v-btn
+            type="submit"
+            @click="loginAttempt()"
+            :disabled="!valid"
+            class="primary white--text"
+          >
+            {{ $t('global.login.submit') }}
           </v-btn>
         </v-form>
       </template>
