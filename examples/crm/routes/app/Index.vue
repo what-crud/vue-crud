@@ -15,10 +15,10 @@
       nav-color="secondary"
     >
       <template slot="nav">
-        <v-list-tile-action>
+        <v-list-item-action>
           <v-icon color="secondary">person</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-title class="white--text">{{ userInfo.name }}</v-list-tile-title>
+        </v-list-item-action>
+        <v-list-item-title class="white--text">{{ userInfo.name }}</v-list-item-title>
       </template>
     </sidebar>
     <toolbar

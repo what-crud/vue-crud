@@ -120,10 +120,10 @@ export default {
       :lock-sidebar-btn="true"
     >
       <template slot="title">
-        <v-list-tile-action>
+        <v-list-item-action>
           <v-icon color="primary">person</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-title>{{ userInfo.name }}</v-list-tile-title>
+        </v-list-item-action>
+        <v-list-item-title>{{ userInfo.name }}</v-list-item-title>
       </template>
       <template slot="over"></template>
       <template slot="under"></template>

@@ -15,32 +15,32 @@
         :class="titleColor"
       >
         <v-list>
-          <v-list-tile>
-            <v-list-tile-avatar tile v-if="showLogo" :size="logoSize" style="margin-right: 20px;">
+          <v-list-item>
+            <v-list-item-avatar tile v-if="showLogo" :size="logoSize" style="margin-right: 20px;">
               <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
-            </v-list-tile-avatar>
-            <v-list-tile-title class="title" :class="titleDark ? 'white--text' : 'black--text'">
+            </v-list-item-avatar>
+            <v-list-item-title class="title" :class="titleDark ? 'white--text' : 'black--text'">
               {{ title }}
-            </v-list-tile-title>
-          </v-list-tile>
+            </v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-toolbar>
     </router-link>
     <v-divider></v-divider>
     <v-list class="pa-1" :class="`${navColor}--text`">
-      <v-list-tile v-if="sidebarMini && lockSidebarBtn && !locked" @click.stop="toggleLock">
-        <v-list-tile-action>
+      <v-list-item v-if="sidebarMini && lockSidebarBtn && !locked" @click.stop="toggleLock">
+        <v-list-item-action>
           <v-icon :color="navColor !== '' ? navColor : (sidebarDark ? 'white' : 'black')">chevron_right</v-icon>
-        </v-list-tile-action>
-      </v-list-tile>
-      <v-list-tile v-if="!sidebarMini">
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item v-if="!sidebarMini">
         <slot name="nav"></slot>
-        <v-list-tile-action v-if="lockSidebarBtn && locked">
+        <v-list-item-action v-if="lockSidebarBtn && locked">
           <v-btn icon @click.stop="toggleLock">
             <v-icon :color="navColor !== '' ? navColor : (sidebarDark ? 'white' : 'black')">chevron_left</v-icon>
           </v-btn>
-        </v-list-tile-action>
-      </v-list-tile>
+        </v-list-item-action>
+      </v-list-item>
     </v-list>
     <slot name="over"></slot>
     <v-list dense>
@@ -53,27 +53,27 @@
           append-icon=""
           active-class="sidebarDark ? 'white--text' : 'black--text'"
         >
-          <v-list-tile slot="activator">
-            <v-list-tile-content>
-              <v-list-tile-title>
+          <v-list-item slot="activator">
+            <v-list-item-content>
+              <v-list-item-title>
                 {{ $t('global.routes.' + item.text) }}
-              </v-list-tile-title>
-            </v-list-tile-content>
-            <v-list-tile-action v-if="item.icon">
+              </v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action v-if="item.icon">
               <v-icon>{{ item.model ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
+            </v-list-item-action>
+          </v-list-item>
           <template v-if="!$store.state.sidebarMini">
-            <v-list-tile v-for="(child, i) in item.children" :key="i" :href="'#' + item.route + child.route" class="link">
-              <v-list-tile-action v-if="child.icon">
+            <v-list-item v-for="(child, i) in item.children" :key="i" :href="'#' + item.route + child.route" class="link">
+              <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
                   {{ $t('global.routes.' + child.text) }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
           </template>
         </v-list-group>
       </template>

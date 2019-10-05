@@ -18,9 +18,9 @@
         <v-icon>translate</v-icon>
       </v-btn>
       <v-list>
-        <v-list-tile v-for="(locale, i) in locales" :key="i" @click="changeLocale(locale.name)">
-          <v-list-tile-title>{{ locale.text }}</v-list-tile-title>
-        </v-list-tile>
+        <v-list-item v-for="(locale, i) in locales" :key="i" @click="changeLocale(locale.name)">
+          <v-list-item-title>{{ locale.text }}</v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-menu>
     <v-btn v-if="profileBtn" icon @click.stop="openProfileDialog">

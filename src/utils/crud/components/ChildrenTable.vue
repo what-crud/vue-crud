@@ -28,7 +28,7 @@
               <v-icon>filter_list</v-icon>
             </v-btn>
             <v-list style="overflow-y:false;">
-              <v-list-tile v-for="(item, index) in filterColumns" :key="index">
+              <v-list-item v-for="(item, index) in filterColumns" :key="index">
                 <v-autocomplete
                   :items="filterModes"
                   v-model="item.mode"
@@ -39,7 +39,7 @@
                   @input="updateColumnFilterMode($event, index)"
                 ></v-autocomplete>
                 <v-text-field v-model="item.value" hide-details :label="item.text" @input="updateFilterColumns($event, index)"></v-text-field>
-              </v-list-tile>
+              </v-list-item>
             </v-list>
           </v-menu>
 
