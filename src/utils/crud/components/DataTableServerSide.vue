@@ -111,7 +111,7 @@
     <v-data-table
       :must-sort="true"
       v-model="selected"
-      :select-all="selectManyMode ? 'black' : false"
+      :show-select="selectManyMode"
       :rows-per-page-items="[20, 50, 100]"
       :pagination.sync="pagination"
       light

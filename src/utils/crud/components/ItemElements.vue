@@ -36,7 +36,7 @@
         :must-sort="true"
         v-model="selected"
         :pagination.sync="pagination"
-        select-all="black"
+        show-select
         :rows-per-page-items="[10, 25, { text: $t('global.itemElements.all'), value: -1 }]"
         light
         :headers="headers"

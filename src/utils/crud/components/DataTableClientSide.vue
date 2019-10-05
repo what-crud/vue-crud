@@ -87,7 +87,7 @@
       class="datatable"
       :must-sort="true"
       v-model="selected"
-      :select-all="selectManyMode ? 'black' : false"
+      :show-select="selectManyMode"
       :rows-per-page-items="[20, 50, { text: $t('global.datatable.all'), value: -1 }]"
       :pagination.sync="pagination"
       :headers="headers"
