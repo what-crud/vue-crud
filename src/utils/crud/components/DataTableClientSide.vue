@@ -20,10 +20,22 @@
     >
       <template slot="center">
         <!-- Search by fields -->
-        <v-menu offset-y :close-on-content-click="false" max-height="50vh" style="margin-right:15px;margin-left:15px" v-if="fieldFilters">
-          <v-btn small fab dark slot="activator" class="primary">
-            <v-icon>filter_list</v-icon>
-          </v-btn>
+        <v-menu
+          offset-y
+          :close-on-content-click="false"
+          max-height="50vh"
+          style="margin-right:15px;margin-left:15px"
+          v-if="fieldFilters"
+        >
+          <template v-slot:activator="{ on }">
+            <v-btn
+              v-on="on"
+              small fab dark
+              class="primary mb-2"
+            >
+              <v-icon>filter_list</v-icon>
+            </v-btn>
+          </template>
           <v-list style="overflow-y:false;">
             <v-list-item v-for="(item, index) in filterColumns" :key="index">
               <v-autocomplete
