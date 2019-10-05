@@ -1,32 +1,33 @@
 <template>
-  <v-layout
-    row wrap
+  <div
     class="login-form white"
     color="primary"
   >
     <v-alert
-      class="login-form__fail-alert mx-2"
+      class="login-form__fail-alert px-5"
       type="error"
       :value="loginFailed"
       dismissible
-      px-2
     >
       {{ $t('global.login.failed') }}
     </v-alert>
-    <div class="login-form__wrapper d-flex flex-column align-center justify-center">
-      <v-layout
-        v-if="loginWait"
-        class="login-form__loader"
-        justify-center
+    <div
+      class="
+        login-form__wrapper
+        d-flex
+        flex-column
         align-center
-      >
-        <v-progress-circular
-          indeterminate
-          v-bind:size="100"
-          v-bind:width="5"
-          color="primary"
-        ></v-progress-circular>
-      </v-layout>
+        justify-center
+      "
+    >
+      <v-progress-circular
+        class="login-form__loader"
+        v-if="loginWait"
+        indeterminate
+        v-bind:size="100"
+        v-bind:width="5"
+        color="primary"
+      ></v-progress-circular>
       <div
         v-else
         class="login-form__form">
@@ -35,7 +36,16 @@
           class="mb-2"
           :src="require(`@/assets/images/${logo}`)"
         >
-        <h1 class="login-form__title text-center primary--text display-1 font-weight-bold mb-10">
+        <h1
+          class="
+            login-form__title
+            text-center
+            primary--text
+            display-1
+            font-weight-bold
+            mb-10
+          "
+        >
           {{ $t('global.login.title') }}
         </h1>
         <v-form
@@ -44,13 +54,11 @@
           v-on:submit.prevent
           ref="form"
         >
-          <v-menu
-            v-if="localeSelectable"
-          >
+          <v-menu v-if="localeSelectable">
             <template v-slot:activator="{ on }">
               <v-btn
                 v-on="on"
-                dark fab
+                dark fab small
                 color="secondary"
                 class="mb-2"
               >
@@ -85,7 +93,6 @@
             class="mb-5"
           ></v-text-field>
           <v-btn
-            type="submit"
             block
             @click="loginAttempt()"
             :disabled="!valid"
@@ -96,7 +103,7 @@
         </v-form>
       </div>
     </div>
-  </v-layout>
+  </div>
 </template>
 <script>
 import {
@@ -197,13 +204,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .login-form {
-  &__loader {
-    height:400px;
-    max-height:70vh;
-  }
   &__fail-alert {
     width:100%;
-    position:relative;
+    position:absolute;
     top: 0;
     left:0;
   }
