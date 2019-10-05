@@ -1,8 +1,17 @@
 <template>
   <v-card-title class="card-title table-controls">
-    <v-layout row wrap>
+    <v-row no-gutters>
 
-      <v-flex xs12 lg3 text-xs-center>
+      <v-col
+        xs="12"
+        lg="3"
+        class="
+          d-flex
+          align-center
+          justify-center
+          justify-lg-start
+        "
+      >
         <!-- Dialog for creating item -->
         <v-tooltip top v-if="createMode">
           <template v-slot:activator="{ on }">
@@ -78,9 +87,17 @@
           <span>{{ $t('global.datatable.buttons.deleteSelected') }}</span>
         </v-tooltip>
         <slot name="left"></slot>
-      </v-flex>
+      </v-col>
 
-      <v-flex xs12 lg6 text-xs-center>
+      <v-col
+        xs="12"
+        lg="6"
+        class="
+          d-flex
+          align-center
+          justify-center
+        "
+      >
         <slot name="center"></slot>
         <v-tooltip top v-if="mainFilter || fieldFilters">
           <template v-slot:activator="{ on }">
@@ -95,9 +112,18 @@
           </template>
           <span>{{ $t('global.datatable.buttons.clearFilters') }}</span>
         </v-tooltip>
-      </v-flex>
+      </v-col>
 
-      <v-flex xs12 lg3 text-xs-center>
+      <v-col
+        xs="12"
+        lg="3"
+        class="
+          d-flex
+          align-center
+          justify-center
+          justify-lg-end
+        "
+      >
         <!-- Refresh table -->
         <v-tooltip top v-if="refreshButton">
           <template v-slot:activator="{ on }">
@@ -114,9 +140,9 @@
         </v-tooltip>
         <!-- Clear filters -->
         <slot name="right"></slot>
-      </v-flex>
+      </v-col>
 
-    </v-layout>
+    </v-row>
   </v-card-title>
 
 </template>
