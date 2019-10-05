@@ -27,7 +27,7 @@
           color="primary"
         ></v-progress-circular>
       </v-layout>
-      <div 
+      <div
         v-else
         class="login-form__form">
         <img
