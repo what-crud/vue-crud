@@ -1,107 +1,102 @@
 <template>
-  <div class="login-form">
-    <v-layout
-      v-if="loginWait"
-      class="login-form__loader"
-      justify-center
-      align-center
+  <v-layout
+    row wrap
+    class="login-form white"
+    color="primary"
+  >
+    <v-alert
+      class="login-form__fail-alert mx-2"
+      type="error"
+      :value="loginFailed"
+      dismissible
+      px-2
     >
-      <v-progress-circular
-        indeterminate
-        v-bind:size="100"
-        v-bind:width="5"
-        color="primary"
-      ></v-progress-circular>
-    </v-layout>
-    <v-layout
-      v-else
-      row
-      wrap
-      class="white"
-      color="primary"
-    >
-      <v-alert
-        class="login-form__fail-alert mx-2"
-        type="error"
-        :value="loginFailed"
-        dismissible
-        px-2
+      {{ $t('global.login.failed') }}
+    </v-alert>
+    <div class="login-form__wrapper d-flex flex-column align-center justify-center">
+      <v-layout
+        v-if="loginWait"
+        class="login-form__loader"
+        justify-center
+        align-center
       >
-        {{ $t('global.login.failed') }}
-      </v-alert>
-      <v-flex
-        xs10 offset-xs1
-        sm8 offset-sm2
-        md6 offset-md3
-        lg4 offset-lg4
-        xl2 offset-xl5
-        class="login-form__wrapper text-xs-center"
-      >
+        <v-progress-circular
+          indeterminate
+          v-bind:size="100"
+          v-bind:width="5"
+          color="primary"
+        ></v-progress-circular>
+      </v-layout>
+      <div 
+        v-else
+        class="login-form__form">
         <img
           v-if="showLogo"
-          class="login-form__logo"
+          class="mb-2"
           :src="require(`@/assets/images/${logo}`)"
         >
-        <h1 class="login-form__title primary--text">
+        <h1 class="login-form__title text-center primary--text display-1 font-weight-bold mb-10">
           {{ $t('global.login.title') }}
         </h1>
-        <template>
-          <v-form
-            v-model="valid"
-            ref="form"
-            lazy-validation
-            v-on:submit.prevent
+        <v-form
+          v-model="valid"
+          lazy-validation
+          v-on:submit.prevent
+          ref="form"
+        >
+          <v-menu
+            v-if="localeSelectable"
           >
-            <v-menu v-if="localeSelectable">
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  v-on="on"
-                  dark
-                  fab
-                  color="secondary"
-                >
-                  <v-icon>translate</v-icon>
-                </v-btn>
-              </template>
-              <v-list>
-                <v-list-item
-                  v-for="(locale, i) in locales"
-                  :key="i"
-                  @click="changeLocale(locale.name)"
-                >
-                  <v-list-item-title>{{ locale.text }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-            <v-text-field
-              :label="$t('global.login.login')"
-              v-model="user"
-              :rules="loginRules"
-              required
-            ></v-text-field>
-            <v-text-field
-              :label="$t('global.login.password')"
-              v-model="password"
-              :rules="passwordRules"
-              :counter="30"
-              required
-              :append-icon="passAppendIcon"
-              @click:append="() => (passwordHidden = !passwordHidden)"
-              :type="passTextFieldType"
-            ></v-text-field>
-            <v-btn
-              type="submit"
-              @click="loginAttempt()"
-              :disabled="!valid"
-              class="primary white--text"
-            >
-              {{ $t('global.login.submit') }}
-            </v-btn>
-          </v-form>
-        </template>
-      </v-flex>
-    </v-layout>
-  </div>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                v-on="on"
+                dark fab
+                color="secondary"
+                class="mb-2"
+              >
+                <v-icon>translate</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="(locale, i) in locales"
+                :key="i"
+                @click="changeLocale(locale.name)"
+              >
+                <v-list-item-title>{{ locale.text }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <v-text-field
+            :label="$t('global.login.login')"
+            v-model="user"
+            :rules="loginRules"
+            required
+          ></v-text-field>
+          <v-text-field
+            :label="$t('global.login.password')"
+            v-model="password"
+            :rules="passwordRules"
+            :counter="30"
+            required
+            :append-icon="passAppendIcon"
+            @click:append="() => (passwordHidden = !passwordHidden)"
+            :type="passTextFieldType"
+            class="mb-5"
+          ></v-text-field>
+          <v-btn
+            type="submit"
+            block
+            @click="loginAttempt()"
+            :disabled="!valid"
+            class="primary white--text"
+          >
+            {{ $t('global.login.submit') }}
+          </v-btn>
+        </v-form>
+      </div>
+    </div>
+  </v-layout>
 </template>
 <script>
 import {
@@ -202,21 +197,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .login-form {
-  &__title {
-    margin-top: 30px;
-    margin-bottom: 20px;
-    font-size: 30px;
-  }
   &__loader {
     height:400px;
     max-height:70vh;
-  }
-  &__logo {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width:300px;
-    height:auto;
   }
   &__fail-alert {
     width:100%;
@@ -225,10 +208,16 @@ export default {
     left:0;
   }
   &__wrapper {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    height: 100vh;
+    width: 100%;
+  }
+  &__form {
+    width: 300px;
+    position:relative;
+  }
+  &__logo {
+    width:100%;
+    height:auto;
   }
 }
 </style>
