@@ -75,9 +75,17 @@
       </template>
       <template slot="right">
         <v-tooltip left v-if="exportButton">
-          <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator" :loading="excelLoading">
-            <v-icon>save_alt</v-icon>
-          </v-btn>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              fab dark small
+              color="green darken-4"
+              @click="exportToExcel()"
+              v-on="on"
+              :loading="excelLoading"
+            >
+              <v-icon>save_alt</v-icon>
+            </v-btn>
+          </template>
           <span>{{ $t('global.datatable.buttons.copyToExcel') }}</span>
         </v-tooltip>
       </template>
