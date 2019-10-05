@@ -33,7 +33,6 @@
       </v-card-title>
       <!-- Table -->
       <v-data-table
-        :disable-initial-sort="true"
         :must-sort="true"
         v-model="selected"
         :pagination.sync="pagination"

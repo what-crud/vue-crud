@@ -83,7 +83,6 @@
 
     <!-- Table -->
     <v-data-table
-      :disable-initial-sort="true"
       :must-sort="true"
       :rows-per-page-items="[10, 25, { text: $t('global.datatable.all'), value: -1 }]"
       :pagination.sync="pagination"

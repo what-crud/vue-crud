@@ -109,7 +109,6 @@
 
     <!-- Table -->
     <v-data-table
-      :disable-initial-sort="true"
       :must-sort="true"
       v-model="selected"
       :select-all="selectManyMode ? 'black' : false"

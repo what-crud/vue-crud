@@ -85,7 +85,6 @@
     <!-- Table -->
     <v-data-table
       class="datatable"
-      :disable-initial-sort="true"
       :must-sort="true"
       v-model="selected"
       :select-all="selectManyMode ? 'black' : false"
