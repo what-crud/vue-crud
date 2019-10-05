@@ -13,10 +13,19 @@
     </router-link>
     <v-spacer></v-spacer>
     <slot name="right"></slot>
-    <v-menu menu-props="bottom" left v-if="localesBtn">
-      <v-btn icon slot="activator" dark>
-        <v-icon>translate</v-icon>
-      </v-btn>
+    <v-menu
+      menu-props="bottom"
+      left
+      v-if="localesBtn"
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          v-on="on"
+          icon dark fab
+        >
+          <v-icon>translate</v-icon>
+        </v-btn>
+      </template>
       <v-list>
         <v-list-item v-for="(locale, i) in locales" :key="i" @click="changeLocale(locale.name)">
           <v-list-item-title>{{ locale.text }}</v-list-item-title>
