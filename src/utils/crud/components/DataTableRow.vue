@@ -9,9 +9,9 @@
   >
     <td v-if="selectManyMode">
       <v-checkbox
-        hide-details
+        class="data-table-row__select"
+        hide-details dense
         v-model="props.selected"
-        color="black"
       ></v-checkbox>
     </td>
     <!-- action buttons -->
@@ -170,6 +170,9 @@ export default {
   &--inactive {
     color: rgb(244, 67, 54);
     box-shadow: 4px 0px 0px 0px rgb(244, 67, 54) inset;
+  }
+  &__select {
+    margin-top: 0;
   }
 }
 </style>

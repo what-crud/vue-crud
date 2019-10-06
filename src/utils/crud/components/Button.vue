@@ -1,18 +1,20 @@
 <template>
   <v-tooltip top>
-    <v-btn
-      fab
-      :x-small="xSmall"
-      :small="small"
-      :large="large"
-      :x-large="xLarge"
-      :dark="dark"
-      :color="color"
-      @click="emitClick()"
-      slot="activator"
-    >
-      <v-icon>{{ icon }}</v-icon>
-    </v-btn>
+    <template v-slot:activator="{ on }">
+      <v-btn
+        fab
+        :x-small="xSmall"
+        :small="small"
+        :large="large"
+        :x-large="xLarge"
+        :dark="dark"
+        :color="color"
+        @click="emitClick()"
+        v-on="on"
+      >
+        <v-icon>{{ icon }}</v-icon>
+      </v-btn>
+    </template>
     <span>{{ tooltip }}</span>
   </v-tooltip>
 </template>
