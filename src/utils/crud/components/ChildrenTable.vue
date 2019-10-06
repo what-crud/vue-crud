@@ -1,9 +1,18 @@
 <template>
   <v-card class="child-card">
     <v-card-title class="card-title table-controls">
-      <v-layout row wrap>
+      <v-row no-gutters>
 
-        <v-flex xs12 xl2>
+        <v-col
+          xs="12"
+          xl="2"
+          class="
+            d-flex
+            align-center
+            justify-center
+            justify-xl-start
+          "
+        >
           <!-- Dialog for creating item -->
           <v-tooltip top v-if="createButton">
             <v-btn fab small dark color="light-blue lighten-2" @click="create()" slot="activator">
@@ -18,9 +27,18 @@
             </v-btn>
             <span>{{ customHeaderButton.text }}</span>
           </v-tooltip>
-        </v-flex>
+        </v-col>
 
-        <v-flex xs12 xl10 text-xs-left text-xl-right>
+        <v-col
+          xs="12"
+          xl="10"
+          class="
+            d-flex
+            align-center
+            justify-center
+            justify-xl-end
+          "
+        >
 
           <!-- Search by fields -->
           <v-menu offset-y :close-on-content-click="false" max-height="50vh" style="margin-right:30px;">
@@ -77,8 +95,8 @@
             <span>{{ $t('global.datatable.buttons.copyToExcel') }}</span>
           </v-tooltip>
 
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
     </v-card-title>
 
     <!-- Table -->
