@@ -5,7 +5,12 @@ import main from '@/config/main'
 Vue.use(Vuetify)
 
 export default new Vuetify({
-  theme: main.theme,
+  theme: {
+    dark: false,
+    themes: {
+      light: main.theme
+    }
+  },
   icons: {
     iconfont: 'mdi'
   }
