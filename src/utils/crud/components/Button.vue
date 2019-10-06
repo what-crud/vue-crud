@@ -2,7 +2,8 @@
   <v-tooltip top>
     <template v-slot:activator="{ on }">
       <v-btn
-        fab
+        class="mr-1"
+        icon
         :x-small="xSmall"
         :small="small"
         :large="large"
