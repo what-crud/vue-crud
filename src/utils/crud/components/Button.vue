@@ -12,6 +12,7 @@
         :color="color"
         @click="emitClick()"
         v-on="on"
+        :loading="loading"
       >
         <v-icon>{{ icon }}</v-icon>
       </v-btn>
@@ -56,7 +57,11 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    }
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
   },
   methods: {
     emitClick () {

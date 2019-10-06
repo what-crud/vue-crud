@@ -14,19 +14,24 @@
           "
         >
           <!-- Dialog for creating item -->
-          <v-tooltip top v-if="createButton">
-            <v-btn fab small dark color="light-blue lighten-2" @click="create()" slot="activator">
-              <v-icon>add</v-icon>
-            </v-btn>
-            <span>{{ $t('global.datatable.add') }}</span>
-          </v-tooltip>
+          <crud-button
+            v-if="createButton"
+            x-large
+            color="light-blue lighten-2"
+            @clicked="create()"
+            icon="add"
+            :tooltip="$t('global.datatable.add')"
+          ></crud-button>
           <!-- custom buttons -->
-          <v-tooltip top v-for="(customHeaderButton) in customHeaderButtons" :key="customHeaderButton.name">
-            <v-btn fab small class="white--text" :color="customHeaderButton.color" @click="customHeaderAction(customHeaderButton.name)" slot="activator">
-              <v-icon>{{ customHeaderButton.icon }}</v-icon>
-            </v-btn>
-            <span>{{ customHeaderButton.text }}</span>
-          </v-tooltip>
+          <crud-button
+            v-for="(customHeaderButton) in customHeaderButtons"
+            :key="customHeaderButton.name"
+            large
+            :color="customHeaderButton.color"
+            @clicked="customHeaderAction(customHeaderButton.name)"
+            :icon="customHeaderButton.icon"
+            :tooltip="customHeaderButton.text"
+          ></crud-button>
         </v-col>
 
         <v-col
@@ -42,9 +47,16 @@
 
           <!-- Search by fields -->
           <v-menu offset-y :close-on-content-click="false" max-height="50vh" style="margin-right:30px;">
-            <v-btn small fab dark slot="activator" class="primary">
-              <v-icon>filter_list</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                large
+                color="grey"
+                icon="filter_list"
+                v-on="on"
+              >
+                <v-icon>filter_list</v-icon>
+              </v-btn>
+            </template>
             <v-list style="overflow-y:false;">
               <v-list-item v-for="(item, index) in filterColumns" :key="index">
                 <v-autocomplete
@@ -74,26 +86,24 @@
           </template>
 
           <!-- Clear filters -->
-          <v-tooltip top>
-            <v-btn
-              class="white--text"
-              fab
-              small
-              color="red"
-              @click="clearFilters()"
-              slot="activator"
-            >
-              <v-icon>delete_sweep</v-icon>
-            </v-btn>
-            <span>{{ $t('global.datatable.buttons.clearFilters') }}</span>
-          </v-tooltip>
+          <crud-button
+            large
+            color="grey"
+            @clicked="clearFilters()"
+            icon="delete_sweep"
+            :tooltip="$t('global.datatable.buttons.clearFilters')"
+          ></crud-button>
 
-          <v-tooltip left>
-            <v-btn class="white--text" fab small color="green darken-4" @click="exportToExcel()" slot="activator" :loading="excelLoading">
-              <v-icon>save_alt</v-icon>
-            </v-btn>
-            <span>{{ $t('global.datatable.buttons.copyToExcel') }}</span>
-          </v-tooltip>
+          <!-- Export to Excel -->
+          <crud-button
+            v-if="exportButton"
+            large
+            color="green darken-4"
+            @clicked="exportToExcel()"
+            icon="save_alt"
+            :tooltip="$t('global.datatable.buttons.copyToExcel')"
+            :loading="excelLoading"
+          ></crud-button>
 
         </v-col>
       </v-row>
@@ -156,12 +166,14 @@ import {
 import ClientSideFilteringMixin from '../mixins/datatable-client-side-filtering'
 import HelperMixin from '../mixins/datatable-helper'
 import DataTableRow from '../components/DataTableRow.vue'
+import CrudButton from './Button.vue'
 import crud from '@/config/crud'
 
 export default {
   mixins: [ClientSideFilteringMixin, HelperMixin],
   components: {
-    DataTableRow
+    DataTableRow,
+    CrudButton
   },
   props: {
     title: String,

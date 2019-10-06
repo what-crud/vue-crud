@@ -29,9 +29,10 @@
         >
           <template v-slot:activator="{ on }">
             <v-btn
+              large
+              color="grey"
+              icon="filter_list"
               v-on="on"
-              small fab dark
-              class="primary mx-1"
             >
               <v-icon>filter_list</v-icon>
             </v-btn>
@@ -86,21 +87,15 @@
         </template>
       </template>
       <template slot="right">
-        <v-tooltip left v-if="exportButton">
-          <template v-slot:activator="{ on }">
-            <v-btn
-              fab dark small
-              color="green darken-4"
-              class="mx-1"
-              @click="exportToExcel()"
-              v-on="on"
-              :loading="excelLoading"
-            >
-              <v-icon>save_alt</v-icon>
-            </v-btn>
-          </template>
-          <span>{{ $t('global.datatable.buttons.copyToExcel') }}</span>
-        </v-tooltip>
+        <crud-button
+          v-if="exportButton"
+          large
+          color="green darken-4"
+          @clicked="exportToExcel()"
+          icon="save_alt"
+          :tooltip="$t('global.datatable.buttons.copyToExcel')"
+          :loading="excelLoading"
+        ></crud-button>
       </template>
     </data-table-controls>
     <!-- Table -->
@@ -159,8 +154,12 @@ import {
 import MainMixin from '../mixins/datatable-main'
 import ClientSideFilteringMixin from '../mixins/datatable-client-side-filtering'
 import HelperMixin from '../mixins/datatable-helper'
+import CrudButton from './Button.vue'
 
 export default {
+  components: {
+    CrudButton
+  },
   mixins: [MainMixin, ClientSideFilteringMixin, HelperMixin],
   data () {
     return {}
