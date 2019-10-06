@@ -105,7 +105,6 @@
     </data-table-controls>
     <!-- Table -->
     <v-data-table
-      class="datatable"
       v-model="selected"
       :show-select="selectManyMode"
       :rows-per-page-items="[20, 50, { text: $t('global.datatable.all'), value: -1 }]"
@@ -117,7 +116,7 @@
       :no-data-text="$t('global.datatable.noDataAvailable')"
       :rows-per-page-text="$t('global.datatable.rowsPerPageText')"
       :loading="loading"
-      light multi-sort
+      light multi-sort dense
     >
       <template slot="item" slot-scope="props">
         <data-table-row

@@ -1,8 +1,11 @@
 <template>
   <tr
     @dblclick="emitDoubleClick(props.item, props.index)"
-    :class="[activityClass(props.item.meta.active),
-    currentClass(props.item.meta.id)]"
+    :class="[
+      'data-table-row',
+      activityClass(props.item.meta.active),
+      currentClass(props.item.meta.id)
+    ]"
   >
     <td v-if="selectManyMode">
       <v-checkbox
@@ -139,7 +142,7 @@ export default {
     activityClass (isActive) {
       let className = ''
       if (['soft', 'both', 'filter'].includes(this.deleteMode)) {
-        className = parseInt(isActive) === 1 ? 'row-active' : 'row-inactive'
+        className = `data-table-row--${parseInt(isActive) === 1 ? 'active' : 'inactive'}`
       }
       return className
     },
@@ -157,3 +160,16 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.data-table-row {
+  cursor: pointer;
+  &--current {
+    background-color: #dddddd;
+  }
+  &--inactive {
+    color: rgb(244, 67, 54);
+    box-shadow: 4px 0px 0px 0px rgb(244, 67, 54) inset;
+  }
+}
+</style>
