@@ -96,7 +96,6 @@
 
           <!-- Export to Excel -->
           <crud-button
-            v-if="exportButton"
             large
             color="green darken-4"
             @clicked="exportToExcel()"
