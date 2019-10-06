@@ -4,6 +4,8 @@
       fab
       :x-small="xSmall"
       :small="small"
+      :large="large"
+      :x-large="xLarge"
       :dark="dark"
       :color="color"
       @click="emitClick()"
@@ -24,6 +26,14 @@ export default {
       default: false
     },
     small: {
+      type: Boolean,
+      default: false
+    },
+    large: {
+      type: Boolean,
+      default: false
+    },
+    xLarge: {
       type: Boolean,
       default: false
     },
