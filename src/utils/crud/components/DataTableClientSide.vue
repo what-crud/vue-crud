@@ -113,11 +113,11 @@
       :headers="headers"
       :items="filteredItems"
       item-key="meta.id"
-      multi-sort
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
       :rows-per-page-text="$t('global.datatable.rowsPerPageText')"
       :loading="loading"
+      light multi-sort
     >
       <template slot="item" slot-scope="props">
         <data-table-row

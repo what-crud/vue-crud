@@ -86,13 +86,14 @@
       :must-sort="true"
       :rows-per-page-items="[10, 25, { text: $t('global.datatable.all'), value: -1 }]"
       :pagination.sync="pagination"
-      light
       :headers="headers"
       :items="filteredItems"
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
-      :rows-per-page-text="$t('global.datatable.rowsPerPageText')">
-      <template slot="items" slot-scope="props">
+      :rows-per-page-text="$t('global.datatable.rowsPerPageText')"
+      light multi-sort
+    >
+      <template slot="item" slot-scope="props">
         <data-table-row
           :props="props"
           :edit-button='editButton'

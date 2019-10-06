@@ -115,7 +115,6 @@
       :show-select="selectManyMode"
       :rows-per-page-items="[20, 50, 100]"
       :pagination.sync="pagination"
-      light
       :headers="headers"
       :items="items"
       item-key="meta.id"
@@ -124,6 +123,7 @@
       :rows-per-page-text="$t('global.datatable.rowsPerPageText')"
       :total-items="totalItems"
       :loading="loading"
+      light
     >
       <template slot="item" slot-scope="props">
         <data-table-row
