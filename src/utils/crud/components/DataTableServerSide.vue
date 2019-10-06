@@ -125,7 +125,7 @@
       :total-items="totalItems"
       :loading="loading"
     >
-      <template slot="items" slot-scope="props">
+      <template slot="item" slot-scope="props">
         <data-table-row
           :props="props"
           :edit-button='editButton'

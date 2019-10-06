@@ -106,7 +106,6 @@
     <!-- Table -->
     <v-data-table
       class="datatable"
-      :must-sort="true"
       v-model="selected"
       :show-select="selectManyMode"
       :rows-per-page-items="[20, 50, { text: $t('global.datatable.all'), value: -1 }]"
@@ -114,12 +113,13 @@
       :headers="headers"
       :items="filteredItems"
       item-key="meta.id"
+      multi-sort
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
       :rows-per-page-text="$t('global.datatable.rowsPerPageText')"
       :loading="loading"
     >
-      <template slot="items" slot-scope="props">
+      <template slot="item" slot-scope="props">
         <data-table-row
           :props="props"
           :edit-button='editButton'
