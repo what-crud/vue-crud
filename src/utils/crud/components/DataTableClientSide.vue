@@ -31,7 +31,7 @@
             <v-btn
               v-on="on"
               small fab dark
-              class="primary mb-2"
+              class="primary mx-1"
             >
               <v-icon>filter_list</v-icon>
             </v-btn>
@@ -91,6 +91,7 @@
             <v-btn
               fab dark small
               color="green darken-4"
+              class="mx-1"
               @click="exportToExcel()"
               v-on="on"
               :loading="excelLoading"

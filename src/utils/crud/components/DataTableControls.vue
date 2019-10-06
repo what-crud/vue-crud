@@ -1,5 +1,5 @@
 <template>
-  <v-card-title class="card-title table-controls">
+  <v-card-title class="card-title table-controls px-3">
     <v-row no-gutters>
 
       <v-col
@@ -18,6 +18,7 @@
             <v-btn
               fab dark
               color="light-blue lighten-2"
+              class="mx-1"
               @click="create()"
               v-on="on"
             >
@@ -32,6 +33,7 @@
             <v-btn
               fab dark small
               color="orange"
+              class="mx-1"
               @click="editSelected()"
               v-on="on"
             >
@@ -47,6 +49,7 @@
               <v-btn
                 fab dark small
                 color="red"
+                class="mx-1"
                 @click="suspendSelected()"
                 v-on="on"
               >
@@ -60,6 +63,7 @@
               <v-btn
                 fab dark small
                 color="green"
+                class="mx-1"
                 @click="restoreSelected()"
                 v-on="on"
               >
@@ -78,6 +82,7 @@
             <v-btn
               fab dark small
               color="black"
+              class="mx-1"
               @click="destroySelected()"
               v-on="on"
             >
@@ -104,6 +109,7 @@
             <v-btn
               fab dark small
               color="red"
+              class="mx-1"
               @click="clearFilters()"
               v-on="on"
             >
@@ -130,6 +136,7 @@
             <v-btn
               fab dark small
               color="blue"
+              class="mx-1"
               @click="refreshTable()"
               v-on="on"
             >
