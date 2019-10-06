@@ -16,7 +16,7 @@
       <!-- edit record -->
       <crud-button
         v-if="editButton && editMode"
-        xs
+        x-small
         color="orange"
         @clicked="edit(props.item.meta.id, props.index)"
         icon="edit"
@@ -27,7 +27,7 @@
         v-for="(customButton) in customButtons"
         :key="customButton.name"
         :disabled="!props.item.meta.buttons[customButton.name]"
-        xs
+        x-small
         :color="customButton.color"
         @clicked="custom(customButton.name, props.item, props.index)"
         :icon="customButton.icon"
@@ -37,7 +37,7 @@
       <crud-button
         v-for="(button, key) in itemElements"
         :key="key"
-        xs
+        x-small
         :color="button.color"
         @clicked="editItemElements(key, props.item.meta.id)"
         :icon="button.icon"
@@ -48,7 +48,7 @@
         <!-- suspend button -->
         <crud-button
           v-if="props.item.meta.active == '1'"
-          xs
+          x-small
           color="red"
           @clicked="suspend(props.item.meta.id)"
           icon="undo"
@@ -57,7 +57,7 @@
         <!-- restore button -->
         <crud-button
           v-else
-          xs
+          x-small
           color="green"
           @clicked="restore(props.item.meta.id)"
           icon="redo"
@@ -67,7 +67,7 @@
       <!-- hard delete -->
       <crud-button
         v-if="['hard', 'both'].includes(deleteMode)"
-        xs
+        x-small
         color="black"
         @clicked="destroy(props.item.meta.id)"
         icon="delete"

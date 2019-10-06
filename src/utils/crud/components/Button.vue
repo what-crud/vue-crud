@@ -2,9 +2,9 @@
   <v-tooltip top>
     <v-btn
       fab
+      :x-small="xSmall"
       :small="small"
       :dark="dark"
-      :class="{xs: xs}"
       :color="color"
       @click="emitClick()"
       slot="activator"
@@ -19,17 +19,17 @@
 
 export default {
   props: {
+    xSmall: {
+      type: Boolean,
+      default: false
+    },
     small: {
       type: Boolean,
-      default: true
+      default: false
     },
     dark: {
       type: Boolean,
       default: true
-    },
-    xs: {
-      type: Boolean,
-      default: false
     },
     color: {
       type: String
@@ -53,21 +53,3 @@ export default {
 }
 
 </script>
-
-<style scoped>
-.xs {
-  width: 25px;
-  height: 25px;
-  margin: 3 !important;
-}
-
-.xs > div {
-  padding: 3px !important;
-}
-
-.xs > div > i {
-  height: 12px !important;
-  width: 12px !important;
-  line-height: 12px;
-}
-</style>
