@@ -29,7 +29,7 @@ Vue CRUD provides a set of utilities, from which you can compose your own applic
     - Search phrase in selected column (exact, like and list mode)
   - versions:
     - client side (small tables < 2000 records)
-    - cerver side (> 2000 records)
+    - server side (> 2000 records)
   - other functions and features:
     - datatable mechanism allows selection of the number of records per page, page transition and sorting,
     - management of a child table from the parent table module,
