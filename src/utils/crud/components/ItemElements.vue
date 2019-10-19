@@ -77,7 +77,7 @@
       </v-data-table>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="black" flat="flat" @click.native="close()">{{ $t('global.itemElements.buttons.close') }}</v-btn>
+        <v-btn color="black" text @click.native="close()">{{ $t('global.itemElements.buttons.close') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
