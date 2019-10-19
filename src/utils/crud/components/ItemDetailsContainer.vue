@@ -6,8 +6,8 @@
     hide-overlay
     persistent
   >
-    <v-card class="dialog-content">
-      <v-toolbar dark color="primary">
+    <v-card class="secondary">
+      <v-toolbar dark color="primary" style="border-radius: 0;">
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <div class="details-loader-container">
@@ -31,23 +31,27 @@
           </v-btn>
         </div>
       </v-toolbar>
-      <div grid-list-md text-xs-center>
-        <v-layout row wrap>
-          <v-flex xs12 lg5 pa-3>
+      <v-card-title>
+        <v-row wrap dense>
+          <v-col xs12 lg5 class="pa-3">
             <item-details-extended
               :title="basicInformation"
               :fields-info="fields"
             ></item-details-extended>
-          </v-flex>
-          <v-flex xs12 lg7 pa-3>
+          </v-col>
+          <v-col xs12 lg7 class="pa-3">
             <v-card class="children-tabs">
-              <v-tabs color="secondary" dark slider-color="primary">
+              <v-tabs
+                background-color="primary"
+                dark
+                slider-color="secondary"
+              >
                 <slot></slot>
               </v-tabs>
             </v-card>
-          </v-flex>
-        </v-layout>
-      </div>
+          </v-col>
+        </v-row>
+      </v-card-title>
     </v-card>
   </v-dialog>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-text dark class="secondary white--text">
+    <v-card-text dark class="primary white--text">
       <h4 style="text-transform:uppercase;">{{ title }}</h4>
     </v-card-text>
     <v-card-text class="details-container">
