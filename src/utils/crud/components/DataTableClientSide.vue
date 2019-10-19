@@ -114,14 +114,13 @@
       :loading="loading"
       light multi-sort dense
     >
-      <template slot="item" slot-scope="props">
-        <data-table-row
-          :props="props"
+      <template v-slot:item.actions="{ item }">
+        <data-table-row-actions
+          :item="item"
           :edit-button='editButton'
           :custom-buttons='customButtons'
           :delete-mode='deleteMode'
           :item-elements="itemElements"
-          :column-text-modes="setColumnTextModes(props)"
           :edit-mode="editMode"
           :select-many-mode="selectManyMode"
           :current-item-id="currentItemId"
@@ -132,8 +131,26 @@
           @destroy="destroy"
           @editItemElements="editItemElements"
           @doubleClick="resolveRowDoubleClick"
-        ></data-table-row>
+        />
       </template>
+      <!-- <data-table-row
+        :props="props"
+        :edit-button='editButton'
+        :custom-buttons='customButtons'
+        :delete-mode='deleteMode'
+        :item-elements="itemElements"
+        :column-text-modes="setColumnTextModes(props)"
+        :edit-mode="editMode"
+        :select-many-mode="selectManyMode"
+        :current-item-id="currentItemId"
+        @edit="edit"
+        @custom="custom"
+        @suspend="suspend"
+        @restore="restore"
+        @destroy="destroy"
+        @editItemElements="editItemElements"
+        @doubleClick="resolveRowDoubleClick"
+      ></data-table-row> -->
       <template slot="footer.page-text" slot-scope="{ pageStart, pageStop, itemsLength }">
         <data-table-footer
           @setPage="setPage"

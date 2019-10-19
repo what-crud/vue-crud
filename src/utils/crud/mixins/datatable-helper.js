@@ -30,6 +30,7 @@ export default {
     headers () {
       const actionHeader = [{
         text: this.$t('global.datatable.fields.action'),
+        value: 'actions',
         sortable: false
       }]
       return [...actionHeader, ...this.cleanHeaders]
