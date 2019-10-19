@@ -104,7 +104,7 @@
     <v-data-table
       v-model="selected"
       :show-select="selectManyMode"
-      :pagination.sync="pagination"
+      :options.sync="pagination"
       :headers="headers"
       :items="filteredItems"
       item-key="meta.id"
@@ -134,7 +134,7 @@
           @doubleClick="resolveRowDoubleClick"
         ></data-table-row>
       </template>
-      <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
+      <template slot="footer.page-text" slot-scope="{ pageStart, pageStop, itemsLength }">
         <data-table-footer
           @setPage="setPage"
           :pagination="pagination"

@@ -7,7 +7,13 @@
       {{ $t('global.datatable.page') }}:
       &nbsp;
       <span style="width:50px;display:inline-block !important;">
-        <v-text-field :value="pagination.page" @input="setPage($event)" type="number" min="1" :max="calcPages"></v-text-field>
+        <v-text-field
+          :value="pagination.page"
+          @input="setPage($event)"
+          type="number"
+          min="1"
+          :max="calcPages"
+        />
       </span>
     </span>
   </span>
@@ -23,7 +29,7 @@ export default {
   ],
   computed: {
     calcPages () {
-      return Math.ceil(this.itemsLength / this.pagination.rowsPerPage)
+      return Math.ceil(this.itemsLength / this.pagination.itemsPerPage)
     }
   },
   methods: {

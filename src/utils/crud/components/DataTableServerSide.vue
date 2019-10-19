@@ -107,14 +107,14 @@
       :must-sort="true"
       v-model="selected"
       :show-select="selectManyMode"
-      :pagination.sync="pagination"
+      :options.sync="pagination"
       :headers="headers"
       :items="items"
       item-key="meta.id"
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
       :footer-props="footerProps"
-      :total-items="totalItems"
+      :server-items-length="totalItems"
       :loading="loading"
       light
     >
