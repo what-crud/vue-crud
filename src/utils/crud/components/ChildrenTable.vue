@@ -128,6 +128,7 @@
           :edit-mode="editMode"
           :item-elements="itemElements"
           :column-text-modes="setColumnTextModes(props)"
+          :items-per-page="10"
           @edit="edit"
           @custom="custom"
           @suspend="suspend"
@@ -238,16 +239,6 @@ export default {
     },
     columnTextModes () {
       return this.setColumnTextModes()
-    },
-    itemsPerPageOptions () {
-      return [
-        10,
-        25,
-        {
-          text: this.$t('global.datatable.all'),
-          value: -1
-        }
-      ]
     }
   },
   methods: {

@@ -43,6 +43,7 @@
         :no-results-text="$t('global.itemElements.noMatchingResults')"
         :no-data-text="$t('global.itemElements.noDataAvailable')"
         :footer-props="footerProps"
+        :items-per-page="20"
       >
         <template slot="items" slot-scope="props">
           <td>
@@ -141,12 +142,11 @@ export default {
     },
     itemsPerPageOptions () {
       return [
+        5,
         10,
-        25,
-        {
-          text: this.$t('global.datatable.all'),
-          value: -1
-        }
+        20,
+        50,
+        100
       ]
     },
     footerProps () {

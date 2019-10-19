@@ -114,31 +114,42 @@
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
       :footer-props="footerProps"
+      :items-per-page="20"
       :server-items-length="totalItems"
       :loading="loading"
       light
     >
-      <template slot="item" slot-scope="props">
-        <data-table-row
-          :props="props"
-          :edit-button='editButton'
-          :custom-buttons='customButtons'
-          :delete-mode='deleteMode'
-          :item-elements="itemElements"
-          :column-text-modes="setColumnTextModes(props)"
-          :edit-mode="editMode"
-          :select-many-mode="selectManyMode"
-          :current-item-id="currentItemId"
-          @edit="edit"
-          @custom="custom"
-          @suspend="suspend"
-          @restore="restore"
-          @destroy="destroy"
-          @editItemElements="editItemElements"
-          @doubleClick="resolveRowDoubleClick"
-        ></data-table-row>
+      <template
+        v-for="(header, i) in headers"
+        v-slot:[`item.${header.value}`]="{ item }"
+      >
+        <span :key="i">
+          <data-table-row-actions
+            v-if="header.value==='actions'"
+            :item="item"
+            :edit-button='editButton'
+            :custom-buttons='customButtons'
+            :delete-mode='deleteMode'
+            :item-elements="itemElements"
+            :edit-mode="editMode"
+            :select-many-mode="selectManyMode"
+            @edit="edit"
+            @custom="custom"
+            @suspend="suspend"
+            @restore="restore"
+            @destroy="destroy"
+            @editItemElements="editItemElements"
+            @doubleClick="resolveRowDoubleClick"
+          />
+          <span v-else>
+            <data-table-row-field
+              :value="item[header.value]"
+              :text-mode="textMode(item, header.value)"
+            />
+          </span>
+        </span>
       </template>
-      <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
+      <template slot="footer.page-text" slot-scope="{ pageStart, pageStop, itemsLength }">
         <data-table-footer
           @setPage="setPage"
           :pagination="pagination"
@@ -193,8 +204,8 @@ export default {
     params () {
       return {
         sortBy: this.pagination.sortBy,
-        descending: this.pagination.descending,
-        rowsPerPage: this.pagination.rowsPerPage,
+        sortDesc: this.pagination.sortDesc,
+        rowsPerPage: this.pagination.itemsPerPage,
         page: this.pagination.page,
         search: this.search,
         filterColumns: this.filterColumns,
@@ -203,9 +214,6 @@ export default {
         activeColumnName: this.activeColumnName,
         mode: 'paginate'
       }
-    },
-    itemsPerPageOptions () {
-      return [20, 50, 100]
     }
   },
   watch: {

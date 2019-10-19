@@ -193,18 +193,6 @@ export default {
     ...mapState('crud', ['loading', 'detailsDialog', 'tableRefreshing']),
     totalItems () {
       return this.filteredItems.length
-    },
-    itemsPerPageOptions () {
-      return [
-        5,
-        10,
-        20,
-        50,
-        {
-          text: this.$t('global.datatable.all'),
-          value: -1
-        }
-      ]
     }
   },
   watch: {

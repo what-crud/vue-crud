@@ -63,6 +63,15 @@ export default {
         }
       ]
     },
+    itemsPerPageOptions () {
+      return [
+        5,
+        10,
+        20,
+        50,
+        100
+      ]
+    },
     footerProps () {
       return {
         showFirstLastPage: true,
