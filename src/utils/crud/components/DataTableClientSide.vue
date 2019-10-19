@@ -111,6 +111,7 @@
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
       :footer-props="footerProps"
+      :items-per-page="20"
       :loading="loading"
       light multi-sort dense
     >
@@ -202,6 +203,8 @@ export default {
     },
     itemsPerPageOptions () {
       return [
+        5,
+        10,
         20,
         50,
         {
