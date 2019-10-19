@@ -64,6 +64,7 @@ export default {
     },
     footerProps () {
       return {
+        showFirstLastPage: true,
         rowsPerPageText: this.$t('global.datatable.rowsPerPageText'),
         itemsPerPageOptions: this.itemsPerPageOptions
       }
