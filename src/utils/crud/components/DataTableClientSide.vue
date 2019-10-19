@@ -115,23 +115,33 @@
       :loading="loading"
       light multi-sort dense
     >
-      <template v-slot:item.actions="{ item }">
-        <data-table-row-actions
-          :item="item"
-          :edit-button='editButton'
-          :custom-buttons='customButtons'
-          :delete-mode='deleteMode'
-          :item-elements="itemElements"
-          :edit-mode="editMode"
-          :select-many-mode="selectManyMode"
-          @edit="edit"
-          @custom="custom"
-          @suspend="suspend"
-          @restore="restore"
-          @destroy="destroy"
-          @editItemElements="editItemElements"
-          @doubleClick="resolveRowDoubleClick"
-        />
+      <template
+        v-for="(header, i) in headers"
+        v-slot:[`item.${header.value}`]="{ item }"
+      >
+        <span :key="i">
+          <data-table-row-actions
+            v-if="header.value==='actions'"
+            :item="item"
+            :edit-button='editButton'
+            :custom-buttons='customButtons'
+            :delete-mode='deleteMode'
+            :item-elements="itemElements"
+            :edit-mode="editMode"
+            :select-many-mode="selectManyMode"
+            @edit="edit"
+            @custom="custom"
+            @suspend="suspend"
+            @restore="restore"
+            @destroy="destroy"
+            @editItemElements="editItemElements"
+            @doubleClick="resolveRowDoubleClick"
+          />
+          <span v-else>{{ item[header.value] }}</span>
+        </span>
+      </template>
+      <template v-slot:item[actions]="{ item }">
+
       </template>
 
       <!-- <data-table-row

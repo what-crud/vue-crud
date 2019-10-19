@@ -69,7 +69,7 @@ export default {
         rowsPerPageText: this.$t('global.datatable.rowsPerPageText'),
         itemsPerPageOptions: this.itemsPerPageOptions
       }
-    },
+    }
   },
   methods: {
     updateColumnFilterMode (val, index) {
