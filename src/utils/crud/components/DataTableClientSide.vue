@@ -102,14 +102,13 @@
     <v-data-table
       v-model="selected"
       :show-select="selectManyMode"
-      :rows-per-page-items="[20, 50, { text: $t('global.datatable.all'), value: -1 }]"
       :pagination.sync="pagination"
       :headers="headers"
       :items="filteredItems"
       item-key="meta.id"
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
-      :rows-per-page-text="$t('global.datatable.rowsPerPageText')"
+      :footer-props="footerProps"
       :loading="loading"
       light multi-sort dense
     >
@@ -181,6 +180,16 @@ export default {
     ...mapState('crud', ['loading', 'detailsDialog', 'tableRefreshing']),
     totalItems () {
       return this.filteredItems.length
+    },
+    itemsPerPageOptions () {
+      return [
+        20,
+        50,
+        {
+          text: this.$t('global.datatable.all'),
+          value: -1
+        }
+      ]
     }
   },
   watch: {

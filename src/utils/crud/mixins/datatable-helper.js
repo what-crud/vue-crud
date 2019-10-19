@@ -61,7 +61,13 @@ export default {
           text: this.$t('global.datatable.filterModes.options.list')
         }
       ]
-    }
+    },
+    footerProps () {
+      return {
+        rowsPerPageText: this.$t('global.datatable.rowsPerPageText'),
+        itemsPerPageOptions: this.itemsPerPageOptions
+      }
+    },
   },
   methods: {
     updateColumnFilterMode (val, index) {

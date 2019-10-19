@@ -111,13 +111,12 @@
     <!-- Table -->
     <v-data-table
       :must-sort="true"
-      :rows-per-page-items="[10, 25, { text: $t('global.datatable.all'), value: -1 }]"
       :pagination.sync="pagination"
       :headers="headers"
       :items="filteredItems"
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
-      :rows-per-page-text="$t('global.datatable.rowsPerPageText')"
+      :footer-props="footerProps"
       light multi-sort
     >
       <template slot="item" slot-scope="props">
@@ -239,6 +238,16 @@ export default {
     },
     columnTextModes () {
       return this.setColumnTextModes()
+    },
+    itemsPerPageOptions () {
+      return [
+        10,
+        25,
+        {
+          text: this.$t('global.datatable.all'),
+          value: -1
+        }
+      ]
     }
   },
   methods: {

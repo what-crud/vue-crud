@@ -108,14 +108,13 @@
       :must-sort="true"
       v-model="selected"
       :show-select="selectManyMode"
-      :rows-per-page-items="[20, 50, 100]"
       :pagination.sync="pagination"
       :headers="headers"
       :items="items"
       item-key="meta.id"
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
-      :rows-per-page-text="$t('global.datatable.rowsPerPageText')"
+      :footer-props="footerProps"
       :total-items="totalItems"
       :loading="loading"
       light
@@ -205,6 +204,9 @@ export default {
         activeColumnName: this.activeColumnName,
         mode: 'paginate'
       }
+    },
+    itemsPerPageOptions () {
+      return [20, 50, 100]
     }
   },
   watch: {

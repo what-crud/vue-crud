@@ -37,13 +37,12 @@
         v-model="selected"
         :pagination.sync="pagination"
         show-select
-        :rows-per-page-items="[10, 25, { text: $t('global.itemElements.all'), value: -1 }]"
         light
         :headers="headers"
         :items="filteredItems"
         :no-results-text="$t('global.itemElements.noMatchingResults')"
         :no-data-text="$t('global.itemElements.noDataAvailable')"
-        :rows-per-page-text="$t('global.itemElements.rowsPerPageText')"
+        :footer-props="footerProps"
       >
         <template slot="items" slot-scope="props">
           <td>
@@ -139,6 +138,22 @@ export default {
         }
       ]
       return [...actionHeader, ...headers, ...addedHeader]
+    },
+    itemsPerPageOptions () {
+      return [
+        10,
+        25,
+        {
+          text: this.$t('global.datatable.all'),
+          value: -1
+        }
+      ]
+    },
+    footerProps () {
+      return {
+        rowsPerPageText: this.$t('global.datatable.rowsPerPageText'),
+        itemsPerPageOptions: this.itemsPerPageOptions
+      }
     },
     items () {
       const statusObject = this.itemElements.itemObject
