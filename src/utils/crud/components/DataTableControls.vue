@@ -3,8 +3,6 @@
     <v-row no-gutters>
 
       <v-col
-        xs="12"
-        lg="3"
         class="
           d-flex
           align-center
@@ -60,8 +58,6 @@
       </v-col>
 
       <v-col
-        xs="12"
-        lg="6"
         class="
           d-flex
           align-center
@@ -80,8 +76,6 @@
       </v-col>
 
       <v-col
-        xs="12"
-        lg="3"
         class="
           d-flex
           align-center

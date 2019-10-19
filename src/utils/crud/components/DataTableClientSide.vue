@@ -24,7 +24,6 @@
           offset-y
           :close-on-content-click="false"
           max-height="50vh"
-          style="margin-right:15px;margin-left:15px"
           v-if="fieldFilters"
         >
           <template v-slot:activator="{ on }">
@@ -59,20 +58,23 @@
         </v-menu>
 
         <!-- Search in table -->
-        <span  style="margin-right:15px;margin-left:15px;display:inline-block;width:250px;" v-if="mainFilter">
+        <span
+          v-if="mainFilter"
+          class="data-table__search"
+        >
           <v-text-field
+            class="data-table__search-input"
             append-icon="search"
             :label="$t('global.datatable.search')"
             single-line
             hide-details
             v-model="search"
-            min-width="200"
           ></v-text-field>
         </span>
 
         <!-- Select statuses (active/inactive) -->
         <template v-if="['soft', 'both', 'filter'].includes(deleteMode)">
-          <span style="margin-right:15px;margin-left:15px;display:inline-block;width:250px;">
+          <span class="data-table__select-statuses">
             <v-autocomplete
               :label="$t('global.datatable.status.title')"
               v-bind:items="statuses"
@@ -218,3 +220,20 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+  .data-table {
+    &__search {
+      margin: 0 15px;
+      display: inline-block;
+      width: 250px;
+    }
+    &__search-input {
+      margin-top: -8px;
+    }
+    &__select-statuses {
+      margin: 0 15px;
+      display: inline-block;
+      width: 250px;
+    }
+  }
+</style>
