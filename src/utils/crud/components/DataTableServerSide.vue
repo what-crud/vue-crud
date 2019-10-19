@@ -104,7 +104,6 @@
 
     <!-- Table -->
     <v-data-table
-      :must-sort="true"
       v-model="selected"
       :show-select="selectManyMode"
       :options.sync="pagination"
@@ -117,7 +116,7 @@
       :items-per-page="20"
       :server-items-length="totalItems"
       :loading="loading"
-      light
+      light multi-sort dense
     >
       <template
         v-for="(header, i) in headers"
