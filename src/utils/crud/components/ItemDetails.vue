@@ -28,25 +28,25 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="black" flat="flat" @click.native="close()">{{ $t('global.details.buttons.close') }}</v-btn>
+          <v-btn color="black" text @click.native="close()">{{ $t('global.details.buttons.close') }}</v-btn>
           <v-btn
             :disabled="!details.formValid"
             v-if="details.action == 'create'"
             color="green"
-            flat="flat"
+            text
             @click="store()"
           >{{ $t('global.details.buttons.create') }}</v-btn>
           <v-btn
             :disabled="!details.formValid"
             v-else-if="details.action == 'edit'"
             color="orange"
-            flat="flat"
+            text
             @click="update()"
           >{{ $t('global.details.buttons.modify') }}</v-btn>
           <v-btn
             v-else-if="details.action == 'multiedit'"
             color="orange"
-            flat="flat"
+            text
             @click="updateSelected()"
           >{{ $t('global.details.buttons.modifySelected') }}</v-btn>
         </v-card-actions>
