@@ -111,13 +111,13 @@
     <!-- Table -->
     <v-data-table
       :must-sort="true"
-      :pagination.sync="pagination"
+      :options.sync="pagination"
       :headers="headers"
       :items="filteredItems"
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
       :footer-props="footerProps"
-      light multi-sort
+      light multi-sort dense
     >
       <template slot="item" slot-scope="props">
         <data-table-row

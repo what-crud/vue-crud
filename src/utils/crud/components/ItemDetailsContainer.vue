@@ -3,37 +3,33 @@
     v-model="detailsDialog"
     fullscreen
     transition="dialog-bottom-transition"
-    :overlay="true"
+    hide-overlay
     persistent
   >
     <v-card class="dialog-content">
-      <v-toolbar dark class="primary">
-        <v-layout row wrap justify-center align-center>
-          <v-flex class="xs4 text-xs-left">
-            <v-toolbar-title>{{ title }}</v-toolbar-title>
-          </v-flex>
-          <v-flex class="xs4 text-xs-center">
-            <div class="details-loader-container">
-              <v-layout v-if="detailsLoading" class="details-loader" justify-center align-center>
-                <v-progress-circular indeterminate :size="50" :width="2" color="white"></v-progress-circular>
-              </v-layout>
-            </div>
-          </v-flex>
-          <v-flex class="xs4 text-xs-right">
-            <v-btn icon dark @click.native="refresh()">
-              <v-icon>refresh</v-icon>
-            </v-btn>
-            <v-btn icon dark @click.native="previous()">
-              <v-icon>navigate_before</v-icon>
-            </v-btn>
-            <v-btn icon dark @click.native="next()">
-              <v-icon>navigate_next</v-icon>
-            </v-btn>
-            <v-btn icon @click.native="close()" dark>
-              <v-icon>close</v-icon>
-            </v-btn>
-          </v-flex>
-        </v-layout>
+      <v-toolbar dark color="primary">
+        <v-toolbar-title>{{ title }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <div class="details-loader-container">
+          <v-layout v-if="detailsLoading" class="details-loader" justify-center align-center>
+            <v-progress-circular indeterminate :size="50" :width="2" color="white"></v-progress-circular>
+          </v-layout>
+        </div>
+        <v-spacer></v-spacer>
+        <div>
+          <v-btn icon dark @click.native="refresh()">
+            <v-icon>refresh</v-icon>
+          </v-btn>
+          <v-btn icon dark @click.native="previous()">
+            <v-icon>navigate_before</v-icon>
+          </v-btn>
+          <v-btn icon dark @click.native="next()">
+            <v-icon>navigate_next</v-icon>
+          </v-btn>
+          <v-btn icon @click.native="close()" dark>
+            <v-icon>close</v-icon>
+          </v-btn>
+        </div>
       </v-toolbar>
       <div grid-list-md text-xs-center>
         <v-layout row wrap>
