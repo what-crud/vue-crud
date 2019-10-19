@@ -1,15 +1,15 @@
 <template>
-  <v-card-title class="card-title table-controls px-3">
-    <v-row no-gutters>
+  <v-card-title
+    class="
+      card-title
+      table-controls
+      px-3
+      d-flex
+      justify-space-between
+    "
+  >
 
-      <v-col
-        class="
-          d-flex
-          align-center
-          justify-center
-          justify-lg-start
-        "
-      >
+      <div>
         <!-- Dialog for creating item -->
         <crud-button
           v-if="createMode"
@@ -55,34 +55,22 @@
           :tooltip="$t('global.datatable.buttons.deleteSelected')"
         ></crud-button>
         <slot name="left"></slot>
-      </v-col>
+      </div>
 
-      <v-col
-        class="
-          d-flex
-          align-center
-          justify-center
-        "
-      >
-        <slot name="center"></slot>
-        <crud-button
-          v-if="mainFilter || fieldFilters"
-          large
-          color="grey"
-          @clicked="clearFilters()"
-          icon="delete_sweep"
-          :tooltip="$t('global.datatable.buttons.clearFilters')"
-        ></crud-button>
-      </v-col>
+      <div>
+          <slot name="center"></slot>
+          <crud-button
+            v-if="mainFilter || fieldFilters"
+            large
+            color="grey"
+            @clicked="clearFilters()"
+            icon="delete_sweep"
+            :tooltip="$t('global.datatable.buttons.clearFilters')"
+          ></crud-button>
+      </div>
 
-      <v-col
-        class="
-          d-flex
-          align-center
-          justify-center
-          justify-lg-end
-        "
-      >
+      <div>
+
         <!-- Refresh table -->
         <crud-button
           v-if="refreshButton"
@@ -94,9 +82,7 @@
         ></crud-button>
         <!-- Clear filters -->
         <slot name="right"></slot>
-      </v-col>
-
-    </v-row>
+      </div>
   </v-card-title>
 
 </template>
