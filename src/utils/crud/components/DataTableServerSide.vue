@@ -31,7 +31,7 @@
             <v-btn
               large
               color="grey"
-              icon="filter_list"
+              icon
               v-on="on"
             >
               <v-icon>filter_list</v-icon>
