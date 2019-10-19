@@ -137,31 +137,14 @@
             @editItemElements="editItemElements"
             @doubleClick="resolveRowDoubleClick"
           />
-          <span v-else>{{ item[header.value] }}</span>
+          <span v-else>
+            <data-table-row-field
+              :value="item[header.value]"
+              :text-mode="textMode(item, header.value)"
+            />
+          </span>
         </span>
       </template>
-      <template v-slot:item[actions]="{ item }">
-
-      </template>
-
-      <!-- <data-table-row
-        :props="props"
-        :edit-button='editButton'
-        :custom-buttons='customButtons'
-        :delete-mode='deleteMode'
-        :item-elements="itemElements"
-        :column-text-modes="setColumnTextModes(props)"
-        :edit-mode="editMode"
-        :select-many-mode="selectManyMode"
-        :current-item-id="currentItemId"
-        @edit="edit"
-        @custom="custom"
-        @suspend="suspend"
-        @restore="restore"
-        @destroy="destroy"
-        @editItemElements="editItemElements"
-        @doubleClick="resolveRowDoubleClick"
-      ></data-table-row> -->
       <template slot="footer.page-text" slot-scope="{ pageStart, pageStop, itemsLength }">
         <data-table-footer
           @setPage="setPage"

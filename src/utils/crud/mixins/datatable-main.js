@@ -6,12 +6,14 @@ import {
 } from 'vuex'
 import DataTableRow from '../components/DataTableRow.vue'
 import DataTableRowActions from '../components/DataTableRowActions.vue'
+import DataTableRowField from '../components/DataTableRowField.vue'
 import DataTableControls from '../components/DataTableControls.vue'
 
 export default {
   components: {
     DataTableRow,
     DataTableRowActions,
+    DataTableRowField,
     DataTableControls
   },
   props: [
