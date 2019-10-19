@@ -77,43 +77,14 @@ export default {
     customButtons: {},
     deleteMode: {},
     itemElements: {},
-    columnTextModes: {},
     dynamicTextModes: {},
     editMode: {},
     selectManyMode: {
       type: Boolean,
       default: false
-    },
-    currentItemId: {}
-  },
-  filters: {
-    cropped (field) {
-      let rField
-      const maxLength = 40
-      if (typeof field === 'string' || field instanceof String) {
-        rField = field.length <= maxLength ? field : `${field.substring(0, maxLength - 3)}...`
-      } else {
-        rField = field
-      }
-      return rField
     }
   },
   methods: {
-    fileFieldToJSON (field) {
-      return JSON.parse(field)
-    },
-    activityClass (isActive) {
-      let className = ''
-      if (['soft', 'both', 'filter'].includes(this.deleteMode)) {
-        className = `data-table-row--${parseInt(isActive) === 1 ? 'active' : 'inactive'}`
-      }
-      return className
-    },
-    currentClass (itemId) {
-      const currentId = this.currentItemId
-      return itemId === currentId ? 'current-row' : ''
-    },
-    emitDoubleClick (item, index) { this.$emit('doubleClick', item, index) },
     edit (id, index) { this.$emit('edit', id, index) },
     custom (name, item, index) { this.$emit('custom', name, item, index) },
     suspend (id) { this.$emit('suspend', id) },

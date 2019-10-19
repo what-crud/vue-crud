@@ -124,7 +124,6 @@
           :item-elements="itemElements"
           :edit-mode="editMode"
           :select-many-mode="selectManyMode"
-          :current-item-id="currentItemId"
           @edit="edit"
           @custom="custom"
           @suspend="suspend"
@@ -134,6 +133,7 @@
           @doubleClick="resolveRowDoubleClick"
         />
       </template>
+
       <!-- <data-table-row
         :props="props"
         :edit-button='editButton'
