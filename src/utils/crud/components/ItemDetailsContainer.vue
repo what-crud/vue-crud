@@ -31,21 +31,19 @@
           </v-btn>
         </div>
       </v-toolbar>
-      <v-card-title>
-        <v-row wrap dense>
-          <v-col xs12 xl5 class="pa-3">
-            <item-details-extended
-              :title="basicInformation"
-              :fields-info="fields"
-            ></item-details-extended>
-          </v-col>
-          <v-col xs12 xl7 class="pa-3">
-            <v-tabs slider-color="secondary">
-              <slot></slot>
-            </v-tabs>
-          </v-col>
-        </v-row>
-      </v-card-title>
+      <v-row no-gutters>
+        <v-col cols="12" lg="5" class="pa-3">
+          <item-details-extended
+            :title="basicInformation"
+            :fields-info="fields"
+          ></item-details-extended>
+        </v-col>
+        <v-col cols="12" lg="7" class="pa-3">
+          <v-tabs slider-color="secondary">
+            <slot></slot>
+          </v-tabs>
+        </v-col>
+      </v-row>
     </v-card>
   </v-dialog>
 </template>
