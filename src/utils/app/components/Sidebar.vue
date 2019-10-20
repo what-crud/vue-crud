@@ -15,7 +15,7 @@
         :class="titleColor"
       >
         <v-list>
-          <v-list-item>
+          <v-list-item style="padding: 0;">
             <v-list-item-avatar tile v-if="showLogo" :size="logoSize" style="margin-right: 20px;">
               <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
             </v-list-item-avatar>
@@ -200,6 +200,3 @@ export default {
   })
 }
 </script>
-<style scoped>
-
-</style>
