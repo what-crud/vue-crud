@@ -28,7 +28,11 @@
     </router-link>
     <v-divider></v-divider>
     <v-list class="pa-1" :class="`${navColor}--text`">
-      <v-list-item v-if="sidebarMini && lockSidebarBtn && !locked" @click.stop="toggleLock">
+      <v-list-item
+        v-if="sidebarMini && lockSidebarBtn && !locked"
+        :ripple="false"
+        @click.stop="toggleLock"
+      >
         <v-list-item-action>
           <v-icon :color="navColor !== '' ? navColor : (sidebarDark ? 'white' : 'black')">chevron_right</v-icon>
         </v-list-item-action>
