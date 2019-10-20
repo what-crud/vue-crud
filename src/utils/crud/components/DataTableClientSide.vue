@@ -211,7 +211,7 @@ export default {
     ...mapActions('crud', ['getItems']),
     moveDetailsItem (page, index) {
       this.pagination.page = page
-      const realIndex = (page - 1) * this.pagination.rowsPerPage + index
+      const realIndex = (page - 1) * this.pagination.itemsPerPage + index
       const newItemId = this.filteredItems[realIndex].meta.id
       this.setCurrentItem({ id: newItemId, index })
       this.getItemDetails([newItemId]).then((response) => {

@@ -85,8 +85,8 @@ export default {
     }
   },
   methods: {
-    edit (id, index) { this.$emit('edit', id, index) },
-    custom (name, item, index) { this.$emit('custom', name, item, index) },
+    edit (id) { this.$emit('edit', id) },
+    custom (name, item) { this.$emit('custom', name, item) },
     suspend (id) { this.$emit('suspend', id) },
     restore (id) { this.$emit('restore', id) },
     destroy (id) { this.$emit('destroy', id) },

@@ -273,6 +273,9 @@ export default {
         })
       })
     },
+    getItemIndex (id) {
+      return this.items.map((item) => item.meta.id).indexOf(id)
+    },
     exportToExcel () {
       this.excelLoading = true
       const headers = this.cleanHeaders.map(header => header.text)

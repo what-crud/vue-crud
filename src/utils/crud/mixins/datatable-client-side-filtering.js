@@ -86,6 +86,9 @@ export default {
     }
   },
   methods: {
+    getItemIndex (id) {
+      return this.filteredItems.map((item) => item.meta.id).indexOf(id)
+    },
     exportToExcel () {
       this.excelLoading = true
       const headers = this.cleanHeaders.map(header => header.text)
