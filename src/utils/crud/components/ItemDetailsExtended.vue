@@ -1,25 +1,21 @@
 <template>
-  <v-card>
-    <v-card-text dark class="primary white--text">
-      <h4 style="text-transform:uppercase;">{{ title }}</h4>
-    </v-card-text>
-    <v-card-text class="details-container">
-      <v-layout row wrap>
-        <v-flex class="field" :class="field.grid" v-for="(field, i) in fields" :key="i" pr-2>
-          <!-- divider -->
-          <h3 v-if="field.type == 'divider'" class="text-xs-center section-header">{{ field.text }}</h3>
-          <field
-            v-else
-            :field="field"
-            :dynamic-field-type="dynamicFieldType(field.typeField)"
-            :field-value="field.value"
-            :reload="reload"
-            @valueChanged="valueChanged"
-          ></field>
-        </v-flex>
-      </v-layout>
-    </v-card-text>
-  </v-card>
+  <div>
+    <h4 style="text-transform:uppercase;">{{ title }}</h4>
+    <v-row wrap no-gutters>
+      <v-flex class="field" :class="field.grid" v-for="(field, i) in fields" :key="i" pr-2>
+        <!-- divider -->
+        <h3 v-if="field.type == 'divider'" class="text-xs-center section-header">{{ field.text }}</h3>
+        <field
+          v-else
+          :field="field"
+          :dynamic-field-type="dynamicFieldType(field.typeField)"
+          :field-value="field.value"
+          :reload="reload"
+          @valueChanged="valueChanged"
+        ></field>
+      </v-flex>
+    </v-row>
+  </div>
 </template>
 
 <script>
@@ -131,10 +127,6 @@ export default {
 }
 </script>
 <style scoped>
-.details-container {
-  max-height: calc(100vh - 150px);
-  overflow-y: auto;
-}
 .section-header {
   padding-top: 20px;
   padding-bottom: 10px;
@@ -143,10 +135,5 @@ export default {
   padding-left: 5px;
   color: rgba(0, 0, 0, 0.54);
   font-size: 16px;
-}
-.field {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 </style>

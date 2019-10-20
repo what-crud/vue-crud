@@ -1,6 +1,6 @@
 <template>
-  <v-card class="child-card">
-    <v-card-title class="card-title table-controls">
+  <div class="child-card">
+    <div class="card-title table-controls">
       <v-row no-gutters>
 
         <v-col
@@ -106,7 +106,7 @@
 
         </v-col>
       </v-row>
-    </v-card-title>
+    </div>
 
     <!-- Table -->
     <v-data-table
@@ -153,7 +153,7 @@
         <v-progress-circular indeterminate :size="100" :width="3" color="primary"></v-progress-circular>
       </v-layout>
     </div>
-  </v-card>
+  </div>
 </template>
 
 <script>
