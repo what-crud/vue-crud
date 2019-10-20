@@ -1,111 +1,99 @@
 <template>
   <div class="child-card">
-    <div class="card-title table-controls">
-      <v-row no-gutters>
+    <div
+      class="
+        card-title
+        table-controls
+        px-3
+        d-flex
+        justify-space-between
+      "
+    >
+      <div>
+        <!-- Dialog for creating item -->
+        <crud-button
+          v-if="createButton"
+          x-large
+          color="light-blue lighten-2"
+          @clicked="create()"
+          icon="add"
+          :tooltip="$t('global.datatable.add')"
+        ></crud-button>
+        <!-- custom buttons -->
+        <crud-button
+          v-for="(customHeaderButton) in customHeaderButtons"
+          :key="customHeaderButton.name"
+          large
+          :color="customHeaderButton.color"
+          @clicked="customHeaderAction(customHeaderButton.name)"
+          :icon="customHeaderButton.icon"
+          :tooltip="customHeaderButton.text"
+        ></crud-button>
+      </div>
 
-        <v-col
-          xs="12"
-          xl="2"
-          class="
-            d-flex
-            align-center
-            justify-center
-            justify-xl-start
-          "
-        >
-          <!-- Dialog for creating item -->
-          <crud-button
-            v-if="createButton"
-            x-large
-            color="light-blue lighten-2"
-            @clicked="create()"
-            icon="add"
-            :tooltip="$t('global.datatable.add')"
-          ></crud-button>
-          <!-- custom buttons -->
-          <crud-button
-            v-for="(customHeaderButton) in customHeaderButtons"
-            :key="customHeaderButton.name"
-            large
-            :color="customHeaderButton.color"
-            @clicked="customHeaderAction(customHeaderButton.name)"
-            :icon="customHeaderButton.icon"
-            :tooltip="customHeaderButton.text"
-          ></crud-button>
-        </v-col>
-
-        <v-col
-          xs="12"
-          xl="10"
-          class="
-            d-flex
-            align-center
-            justify-center
-            justify-xl-end
-          "
-        >
-
-          <!-- Search by fields -->
-          <v-menu offset-y :close-on-content-click="false" max-height="50vh" style="margin-right:30px;">
-            <template v-slot:activator="{ on }">
-              <v-btn
-                large
-                color="grey"
-                icon
-                v-on="on"
-              >
-                <v-icon>filter_list</v-icon>
-              </v-btn>
-            </template>
-            <v-list style="overflow-y:false;">
-              <v-list-item v-for="(item, index) in filterColumns" :key="index">
-                <v-autocomplete
-                  :items="filterModes"
-                  v-model="item.mode"
-                  item-text="text"
-                  item-value="name"
-                  :label="$t('global.datatable.filterModes.label')"
-                  hide-details
-                  @input="updateColumnFilterMode($event, index)"
-                ></v-autocomplete>
-                <v-text-field v-model="item.value" hide-details :label="item.text" @input="updateFilterColumns($event, index)"></v-text-field>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
-          <!-- Search in table -->
-          <span style="margin-right:30px;display:inline-block;width:250px;">
-            <v-text-field append-icon="search" :label="$t('global.datatable.search')" single-line hide-details v-model="search" min-width="200"></v-text-field>
-          </span>
-
-          <!-- Select statuses (active/inactive) -->
-          <template v-if="['soft', 'both'].includes(deleteMode)">
-            <span style="margin-right:30px;display:inline-block;width:250px;">
-              <v-autocomplete :label="$t('global.datatable.status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value" multiple chips></v-autocomplete>
-            </span>
+      <div>
+        <!-- Search by fields -->
+        <v-menu offset-y :close-on-content-click="false" max-height="50vh" style="margin-right:30px;">
+          <template v-slot:activator="{ on }">
+            <v-btn
+              large
+              color="grey"
+              icon
+              v-on="on"
+            >
+              <v-icon>filter_list</v-icon>
+            </v-btn>
           </template>
+          <v-list style="overflow-y:false;">
+            <v-list-item v-for="(item, index) in filterColumns" :key="index">
+              <v-autocomplete
+                :items="filterModes"
+                v-model="item.mode"
+                item-text="text"
+                item-value="name"
+                :label="$t('global.datatable.filterModes.label')"
+                hide-details
+                @input="updateColumnFilterMode($event, index)"
+              ></v-autocomplete>
+              <v-text-field v-model="item.value" hide-details :label="item.text" @input="updateFilterColumns($event, index)"></v-text-field>
+            </v-list-item>
+          </v-list>
+        </v-menu>
 
-          <!-- Clear filters -->
-          <crud-button
-            large
-            color="grey"
-            @clicked="clearFilters()"
-            icon="delete_sweep"
-            :tooltip="$t('global.datatable.buttons.clearFilters')"
-          ></crud-button>
+        <!-- Search in table -->
+        <span style="margin-right:30px;display:inline-block;width:250px;">
+          <v-text-field append-icon="search" :label="$t('global.datatable.search')" single-line hide-details v-model="search" min-width="200"></v-text-field>
+        </span>
+        
+        <!-- Select statuses (active/inactive) -->
+        <template v-if="['soft', 'both'].includes(deleteMode)">
+          <span style="margin-right:30px;display:inline-block;width:250px;">
+            <v-autocomplete :label="$t('global.datatable.status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value" multiple chips></v-autocomplete>
+          </span>
+        </template>
+      </div>
 
-          <!-- Export to Excel -->
-          <crud-button
-            large
-            color="green darken-4"
-            @clicked="exportToExcel()"
-            icon="save_alt"
-            :tooltip="$t('global.datatable.buttons.copyToExcel')"
-            :loading="excelLoading"
-          ></crud-button>
+      <div>
+        <!-- Clear filters -->
+        <crud-button
+          large
+          color="grey"
+          @clicked="clearFilters()"
+          icon="delete_sweep"
+          :tooltip="$t('global.datatable.buttons.clearFilters')"
+        ></crud-button>
 
-        </v-col>
-      </v-row>
+        <!-- Export to Excel -->
+        <crud-button
+          large
+          color="green darken-4"
+          @clicked="exportToExcel()"
+          icon="save_alt"
+          :tooltip="$t('global.datatable.buttons.copyToExcel')"
+          :loading="excelLoading"
+        ></crud-button>
+      </div>
+
     </div>
 
     <!-- Table -->
