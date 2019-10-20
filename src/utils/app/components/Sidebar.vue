@@ -51,7 +51,7 @@
           :key="item.text"
           :prepend-icon="item.icon"
           append-icon=""
-          active-class="sidebarDark ? 'white--text' : 'black--text'"
+          :active-class="sidebarDark ? 'white--text' : 'black--text'"
         >
           <v-list-item slot="activator">
             <v-list-item-content>
