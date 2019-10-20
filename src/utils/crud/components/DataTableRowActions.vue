@@ -1,6 +1,6 @@
 <template>
   <!-- action buttons -->
-  <span>
+  <span style="white-space: nowrap">
     <!-- edit record -->
     <crud-button
       v-if="editButton && editMode"

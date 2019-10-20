@@ -64,7 +64,7 @@
         <span style="margin-right:30px;display:inline-block;width:250px;">
           <v-text-field append-icon="search" :label="$t('global.datatable.search')" single-line hide-details v-model="search" min-width="200"></v-text-field>
         </span>
-        
+
         <!-- Select statuses (active/inactive) -->
         <template v-if="['soft', 'both'].includes(deleteMode)">
           <span style="margin-right:30px;display:inline-block;width:250px;">
@@ -104,29 +104,40 @@
       :items="filteredItems"
       :no-results-text="$t('global.datatable.noMatchingResults')"
       :no-data-text="$t('global.datatable.noDataAvailable')"
+      :items-per-page="10"
       :footer-props="footerProps"
       light multi-sort dense
     >
-      <template slot="item" slot-scope="props">
-        <data-table-row
-          :props="props"
-          :edit-button='editButton'
-          :custom-buttons='customButtons'
-          :delete-mode='deleteMode'
-          :edit-mode="editMode"
-          :item-elements="itemElements"
-          :column-text-modes="setColumnTextModes(props)"
-          :items-per-page="10"
-          @edit="edit"
-          @custom="custom"
-          @suspend="suspend"
-          @restore="restore"
-          @destroy="destroy"
-          @editItemElements="editItemElements"
-          @doubleClick="resolveRowDoubleClick"
-        ></data-table-row>
+      <template
+        v-for="(header, i) in headers"
+        v-slot:[`item.${header.value}`]="{ item }"
+      >
+        <span :key="i">
+          <data-table-row-actions
+            v-if="header.value==='actions'"
+            :item="item"
+            :edit-button='editButton'
+            :custom-buttons='customButtons'
+            :delete-mode='deleteMode'
+            :item-elements="itemElements"
+            :edit-mode="editMode"
+            @edit="edit"
+            @custom="custom"
+            @suspend="suspend"
+            @restore="restore"
+            @destroy="destroy"
+            @editItemElements="editItemElements"
+            @doubleClick="resolveRowDoubleClick"
+          />
+          <span v-else>
+            <data-table-row-field
+              :value="item[header.value]"
+              :text-mode="textMode(item, header.value)"
+            />
+          </span>
+        </span>
       </template>
-      <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
+      <template slot="footer.page-text" slot-scope="{ pageStart, pageStop, itemsLength }">
         <data-table-footer
           @setPage="setPage"
           :pagination="pagination"
@@ -152,14 +163,16 @@ import {
 } from 'vuex'
 import ClientSideFilteringMixin from '../mixins/datatable-client-side-filtering'
 import HelperMixin from '../mixins/datatable-helper'
-import DataTableRow from '../components/DataTableRow.vue'
+import DataTableRowActions from '../components/DataTableRowActions.vue'
+import DataTableRowField from '../components/DataTableRowField.vue'
 import CrudButton from './Button.vue'
 import crud from '@/config/crud'
 
 export default {
   mixins: [ClientSideFilteringMixin, HelperMixin],
   components: {
-    DataTableRow,
+    DataTableRowActions,
+    DataTableRowField,
     CrudButton
   },
   props: {
