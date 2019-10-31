@@ -18,7 +18,7 @@
           @clicked="create()"
           icon="add"
           :tooltip="$t('global.datatable.add')"
-        ></crud-button>
+        />
         <!-- custom buttons -->
         <crud-button
           v-for="(customHeaderButton) in customHeaderButtons"
@@ -28,7 +28,7 @@
           @clicked="customHeaderAction(customHeaderButton.name)"
           :icon="customHeaderButton.icon"
           :tooltip="customHeaderButton.text"
-        ></crud-button>
+        />
       </div>
 
       <div>
@@ -54,21 +54,42 @@
                 :label="$t('global.datatable.filterModes.label')"
                 hide-details
                 @input="updateColumnFilterMode($event, index)"
-              ></v-autocomplete>
-              <v-text-field v-model="item.value" hide-details :label="item.text" @input="updateFilterColumns($event, index)"></v-text-field>
+              />
+              <v-text-field
+                v-model="item.value"
+                hide-details
+                :label="item.text"
+                @input="updateFilterColumns($event, index)"
+              />
             </v-list-item>
           </v-list>
         </v-menu>
 
         <!-- Search in table -->
         <span style="margin-right:30px;display:inline-block;width:250px;">
-          <v-text-field append-icon="search" :label="$t('global.datatable.search')" single-line hide-details v-model="search" min-width="200"></v-text-field>
+          <v-text-field
+            v-model="search"
+            :label="$t('global.datatable.search')"
+            append-icon="search"
+            min-width="200"
+            single-line
+            hide-details
+          />
         </span>
 
         <!-- Select statuses (active/inactive) -->
         <template v-if="['soft', 'both'].includes(deleteMode)">
           <span style="margin-right:30px;display:inline-block;width:250px;">
-            <v-autocomplete :label="$t('global.datatable.status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value" multiple chips></v-autocomplete>
+            <v-autocomplete
+              v-model="selectedStatuses"
+              :label="$t('global.datatable.status.title')"
+              :items="statuses"
+              item-text="text"
+              item-value="value"
+              single-line
+              multiple
+              chips
+            />
           </span>
         </template>
       </div>
@@ -81,7 +102,7 @@
           @clicked="clearFilters()"
           icon="delete_sweep"
           :tooltip="$t('global.datatable.buttons.clearFilters')"
-        ></crud-button>
+        />
 
         <!-- Export to Excel -->
         <crud-button
@@ -91,7 +112,7 @@
           icon="save_alt"
           :tooltip="$t('global.datatable.buttons.copyToExcel')"
           :loading="excelLoading"
-        ></crud-button>
+        />
       </div>
 
     </div>
@@ -137,19 +158,32 @@
           </span>
         </span>
       </template>
-      <template slot="footer.page-text" slot-scope="{ pageStart, pageStop, itemsLength }">
+      <template
+        slot="footer.page-text"
+        slot-scope="{ pageStart, pageStop, itemsLength }"
+      >
         <data-table-footer
-          @setPage="setPage"
           :pagination="pagination"
           :pageStart="pageStart"
           :pageStop="pageStop"
           :itemsLength="itemsLength"
-        ></data-table-footer>
+          @setPage="setPage"
+        />
       </template>
     </v-data-table>
     <div class="details-loader-container">
-      <v-layout v-if="detailsLoader" class="details-loader" justify-center align-center>
-        <v-progress-circular indeterminate :size="100" :width="3" color="primary"></v-progress-circular>
+      <v-layout
+        v-if="detailsLoader"
+        class="details-loader"
+        justify-center
+        align-center
+      >
+        <v-progress-circular
+          :size="100"
+          :width="3"
+          color="primary"
+          indeterminate
+        />
       </v-layout>
     </div>
   </div>

@@ -1,35 +1,59 @@
 <template>
-  <v-dialog persistent v-model="itemElements.show" max-width="800">
+  <v-dialog
+    persistent
+    v-model="itemElements.show"
+    max-width="800"
+  >
     <v-card>
-      <v-card-title class="headline">{{ itemElements.title }}</v-card-title>
+      <v-card-title class="headline">
+        {{ itemElements.title }}
+      </v-card-title>
       <v-card-title>
 
         <!-- add/remove connection -->
         <template>
-          <v-tooltip top>
-            <v-btn class="white--text" fab small color="red" @click="removeMany()" slot="activator">
-              <v-icon>delete</v-icon>
-            </v-btn>
-            <span>{{ $t('global.itemElements.buttons.removeMany') }}</span>
-          </v-tooltip>
-          <v-tooltip top>
-            <v-btn class="white--text" fab small color="green" @click="addMany()" slot="activator">
-              <v-icon>add</v-icon>
-            </v-btn>
-            <span>{{ $t('global.itemElements.buttons.addMany') }}</span>
-          </v-tooltip>
+          <crud-button
+            large
+            color="red"
+            @clicked="removeMany()"
+            icon="delete"
+            :tooltip="$t('global.itemElements.buttons.removeMany')"
+          />
+          <crud-button
+            large
+            color="green"
+            @clicked="addMany()"
+            icon="add"
+            :tooltip="$t('global.itemElements.buttons.addMany')"
+          />
         </template>
+
+        <v-spacer></v-spacer>
 
         <!-- Select statuses (added/no added) -->
         <template>
-          <v-spacer></v-spacer>
-          <v-autocomplete :label="$t('global.itemElements.status.title')" v-bind:items="statuses" v-model="selectedStatuses" single-line item-text="text" item-value="value"
-            multiple chips></v-autocomplete>
+          <v-autocomplete
+            v-model="selectedStatuses"
+            :label="$t('global.itemElements.status.title')"
+            :items="statuses"
+            item-text="text"
+            item-value="value"
+            single-line
+            multiple
+            chips
+          />
         </template>
 
-        <!-- Search in table -->
         <v-spacer></v-spacer>
-        <v-text-field append-icon="search" :label="$t('global.itemElements.search')" single-line hide-details v-model="search"></v-text-field>
+
+        <!-- Search in table -->
+        <v-text-field
+          v-model="search"
+          :label="$t('global.itemElements.search')"
+          append-icon="search"
+          single-line
+          hide-details
+        />
       </v-card-title>
       <!-- Table -->
       <v-data-table
@@ -84,11 +108,16 @@
   </v-dialog>
 </template>
 <script>
+import CrudButton from './Button.vue'
 import {
-  mapState, mapActions
+  mapState,
+  mapActions
 } from 'vuex'
 
 export default {
+  components: {
+    CrudButton
+  },
   props: ['details'],
   data () {
     return {
