@@ -84,7 +84,8 @@
               single-line
               item-text="text"
               item-value="value"
-              multiple chips
+              multiple
+              chips
             ></v-autocomplete>
           </span>
         </template>
@@ -116,7 +117,9 @@
       :items-per-page="20"
       :server-items-length="totalItems"
       :loading="loading"
-      light multi-sort dense
+      light
+      multi-sort
+      dense
     >
       <template
         v-for="(header, i) in headers"

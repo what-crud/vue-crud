@@ -127,7 +127,9 @@
       :no-data-text="$t('global.datatable.noDataAvailable')"
       :items-per-page="10"
       :footer-props="footerProps"
-      light multi-sort dense
+      light
+      multi-sort
+      dense
     >
       <template
         v-for="(header, i) in headers"

@@ -113,7 +113,9 @@
       :footer-props="footerProps"
       :items-per-page="20"
       :loading="loading"
-      light multi-sort dense
+      light
+      multi-sort
+      dense
     >
       <template
         v-for="(header, i) in headers"

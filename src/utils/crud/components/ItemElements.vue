@@ -57,58 +57,80 @@
       </v-card-title>
       <!-- Table -->
       <v-data-table
-        :must-sort="true"
         v-model="selected"
-        :pagination.sync="pagination"
-        show-select
-        light
+        :options.sync="pagination"
         :headers="headers"
         :items="filteredItems"
         :no-results-text="$t('global.itemElements.noMatchingResults')"
         :no-data-text="$t('global.itemElements.noDataAvailable')"
         :footer-props="footerProps"
-        :items-per-page="20"
+        :items-per-page="10"
+        show-select
+        light
       >
-        <template slot="items" slot-scope="props">
-          <td>
-            <v-checkbox hide-details v-model="props.selected" color="black"></v-checkbox>
-          </td>
-          <!-- action buttons -->
-          <td class="text-xs-center">
+        <template
+          v-for="(header, i) in headers"
+          v-slot:[`item.${header.value}`]="{ item }"
+        >
+          <span :key="i">
             <!-- add/remove connection (if soft deletes are enabled) -->
-            <template>
-              <v-tooltip top v-if="props.item.added == '<span hidden>1</span>Tak'">
-                <v-btn fab small class="xs white--text" color="red" @click="remove(props.item.connectionId)" slot="activator">
-                  <v-icon>delete</v-icon>
-                </v-btn>
-                <span>{{ $t('global.itemElements.buttons.remove') }}</span>
-              </v-tooltip>
-              <v-tooltip top v-else>
-                <v-btn fab small class="xs white--text" color="green" @click="add(props.item.id)" slot="activator">
-                  <v-icon>add</v-icon>
-                </v-btn>
-                <span>{{ $t('global.itemElements.buttons.add') }}</span>
-              </v-tooltip>
+            <template v-if="header.value === 'actions'">
+              <crud-button
+                v-if="item.added"
+                small
+                color="red"
+                @clicked="remove(item.connectionId)"
+                icon="delete"
+                :tooltip="$t('global.itemElements.buttons.remove')"
+              />
+              <crud-button
+                v-else
+                small
+                color="green"
+                @clicked="add(item.id)"
+                icon="add"
+                :tooltip="$t('global.itemElements.buttons.add')"
+              />
             </template>
-          </td>
-          <!-- table fields -->
-          <template v-for="(field, key) in props.item">
-            <td v-if="!['id', 'connectionId', 'filterStatus'].includes(key)" class="text-xs-center" v-html="field" :key="key"></td>
-          </template>
+            <span
+              v-else-if="!['id', 'connectionId', 'filterStatus', 'added'].includes(header.value)"
+              v-html="item[header.value]"
+            />
+            <template v-else-if="header.value === 'added'">
+              <span hidden>{{ item[header.value] }}</span>
+              <v-icon>{{ item[header.value] ? 'check' : 'clear' }}</v-icon>
+            </template>
+          </span>
         </template>
-        <template slot="pageText" slot-scope="{ pageStart, pageStop, itemsLength }">
-          {{ $t('global.itemElements.records') }} {{ pageStart }} - {{ pageStop }} {{ $t('global.itemElements.from') }} {{ itemsLength }}
+        <template
+          slot="footer.page-text"
+          slot-scope="{ pageStart, pageStop, itemsLength }"
+        >
+          <data-table-footer
+            :pagination="pagination"
+            :pageStart="pageStart"
+            :pageStop="pageStop"
+            :itemsLength="itemsLength"
+            @setPage="setPage()"
+          />
         </template>
       </v-data-table>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="black" text @click.native="close()">{{ $t('global.itemElements.buttons.close') }}</v-btn>
+        <v-btn
+          color="black"
+          text
+          @click.native="close()"
+        >
+          {{ $t('global.itemElements.buttons.close') }}
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 <script>
 import CrudButton from './Button.vue'
+import DataTableFooter from '../components/DataTableFooter.vue'
 import {
   mapState,
   mapActions
@@ -116,7 +138,8 @@ import {
 
 export default {
   components: {
-    CrudButton
+    CrudButton,
+    DataTableFooter
   },
   props: ['details'],
   data () {
@@ -125,8 +148,8 @@ export default {
       tmp: '',
       search: '',
       pagination: {
-        sortBy: 'added',
-        descending: true
+        sortBy: ['added'],
+        sorDesc: [true]
       },
       selectedStatuses: [1, 0]
     }
@@ -157,7 +180,7 @@ export default {
       const actionHeader = [
         {
           text: this.$t('global.itemElements.fields.action'),
-          align: 'center',
+          value: 'actions',
           sortable: false
         }
       ]
@@ -199,11 +222,11 @@ export default {
         }
         if (typeof item[statusObject] !== 'undefined') {
           if (item[statusObject].length > 0) {
-            rItem.added = '<span hidden>1</span>Tak'
+            rItem.added = true
             rItem.filterStatus = 1
             rItem.connectionId = item[statusObject][0][connectionKeyName]
           } else {
-            rItem.added = '<span hidden>0</span>Nie'
+            rItem.added = false
             rItem.filterStatus = 0
           }
         }
@@ -299,6 +322,9 @@ export default {
     },
     clearSelected () {
       this.selected = []
+    },
+    setPage (page) {
+      this.pagination.page = parseInt(page)
     }
   }
 }
