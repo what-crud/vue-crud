@@ -21,21 +21,24 @@
       "
     >
       <v-progress-circular
-        class="login-form__loader"
         v-if="loginWait"
-        indeterminate
-        v-bind:size="100"
-        v-bind:width="5"
+        :size="100"
+        :width="5"
+        class="login-form__loader"
         color="primary"
-      ></v-progress-circular>
-      <div
-        v-else
-        class="login-form__form">
+        indeterminate
+      />
+
+      <template v-else>
+
+        <!-- logo -->
         <img
           v-if="showLogo"
           class="mb-2"
           :src="require(`@/assets/images/${logo}`)"
         >
+
+        <!-- app title -->
         <h1
           class="
             login-form__title
@@ -48,33 +51,38 @@
         >
           {{ $t('global.login.title') }}
         </h1>
+
+        <!-- locale select -->
+        <v-menu v-if="localeSelectable">
+          <template v-slot:activator="{ on }">
+            <v-btn
+              v-on="on"
+              dark fab small
+              color="secondary"
+              class="mb-2"
+            >
+              <v-icon>translate</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(locale, i) in locales"
+              :key="i"
+              @click="changeLocale(locale.name)"
+            >
+              <v-list-item-title>{{ locale.text }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
+        <!-- login form -->
         <v-form
           v-model="valid"
-          lazy-validation
-          v-on:submit.prevent
+          class="login-form__form"
           ref="form"
+          lazy-validation
+          @submit.prevent
         >
-          <v-menu v-if="localeSelectable">
-            <template v-slot:activator="{ on }">
-              <v-btn
-                v-on="on"
-                dark fab small
-                color="secondary"
-                class="mb-2"
-              >
-                <v-icon>translate</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(locale, i) in locales"
-                :key="i"
-                @click="changeLocale(locale.name)"
-              >
-                <v-list-item-title>{{ locale.text }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
           <v-text-field
             :label="$t('global.login.login')"
             v-model="user"
@@ -101,7 +109,7 @@
             {{ $t('global.login.submit') }}
           </v-btn>
         </v-form>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -216,7 +224,6 @@ export default {
   }
   &__form {
     width: 300px;
-    position:relative;
   }
   &__logo {
     width:100%;
