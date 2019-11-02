@@ -29,7 +29,7 @@
       :dark="true"
     >
       <template slot="left">
-        <div class="headline">
+        <div class="headline d-none d-md-inline">
           <template v-if="$store.state.app.module !=null">
               {{ $t('global.routes.' + $store.state.app.module) }}
           </template>
