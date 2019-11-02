@@ -1,8 +1,8 @@
 <template>
   <v-dialog
-    persistent
     v-model="itemElements.show"
     max-width="800"
+    persistent
   >
     <v-card>
       <v-card-title class="headline">

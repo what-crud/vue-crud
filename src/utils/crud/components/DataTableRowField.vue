@@ -12,7 +12,7 @@
     </span>
     <!-- file -->
     <span v-else-if="textMode === 'file'">
-      <file-details :valueInfo="filevalueToJSON(value)"></file-details>
+      <file-details :fieldInfo="fieldInfoToJSON(value)"></file-details>
     </span>
   </span>
 </template>
@@ -44,7 +44,7 @@ export default {
     }
   },
   methods: {
-    filevalueToJSON (value) {
+    fieldInfoToJSON (value) {
       return JSON.parse(value)
     }
   }
