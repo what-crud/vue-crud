@@ -66,7 +66,8 @@
         :footer-props="footerProps"
         :items-per-page="10"
         show-select
-        light
+        multi-sort
+        dense
       >
         <template
           v-for="(header, i) in headers"
@@ -173,7 +174,6 @@ export default {
       const headers = columns.map((column) => {
         const header = {}
         header.text = column.header
-        header.align = 'center'
         header.value = column.name
         return header
       })
@@ -190,7 +190,11 @@ export default {
           value: 'added'
         }
       ]
-      return [...actionHeader, ...headers, ...addedHeader]
+      return [
+        ...actionHeader,
+        ...headers,
+        ...addedHeader
+      ]
     },
     itemsPerPageOptions () {
       return [
