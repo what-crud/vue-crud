@@ -40,7 +40,7 @@
         <crud-button
           large
           color="green"
-          @clicked="suspendSelected()"
+          @clicked="restoreSelected()"
           icon="redo"
           :tooltip="$t('global.datatable.buttons.restoreSelected')"
         ></crud-button>
