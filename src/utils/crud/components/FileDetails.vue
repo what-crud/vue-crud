@@ -7,14 +7,15 @@
           icon="save"
           :tooltip="$t('global.details.files.download')"
         />
-        <crud-button
-          :style="{ visibility: isImage(field.mime) ? 'visible' : 'hidden' }"
-          small
-          color="primary"
-          @clicked="showImage(field)"
-          icon="search"
-          :tooltip="$t('global.details.files.show')"
-        />
+        <span :style="{ visibility: isImage(field.mime) ? 'visible' : 'hidden' }">
+          <crud-button
+            small
+            color="primary"
+            @clicked="showImage(field)"
+            icon="search"
+            :tooltip="$t('global.details.files.show')"
+          />
+        </span>
         <div style="padding-left:30px;">
             <h4>{{ field.filename }}</h4>
             <p>{{ field.mime }}</p>
