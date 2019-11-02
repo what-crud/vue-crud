@@ -301,11 +301,14 @@ export default {
     }
   },
   watch: {
-    fieldValue: function (val) {
-      this.value = val
-      if (this.fieldType === 'richTextBox') {
-        let content = val !== null && val !== undefined ? val : ''
-        this.editor.setContent(content)
+    fieldValue: {
+      immediate: true,
+      handler(val) { 
+        this.value = val
+        if (this.fieldType === 'richTextBox') {
+          let content = val !== null && val !== undefined ? val : ''
+          this.editor.setContent(content)
+        }
       }
     },
     reload: function (val) {
