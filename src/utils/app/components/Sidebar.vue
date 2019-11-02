@@ -175,7 +175,7 @@ export default {
     dialog: false,
     locked: false,
     expanded: false,
-    isDisplayed: false,
+    isDisplayed: false
   }),
   computed: {
     ...mapState('app', ['isNavigationDrawerDisplayed']),

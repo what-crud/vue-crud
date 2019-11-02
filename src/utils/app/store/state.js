@@ -3,7 +3,7 @@ const state = {
   page: null,
   activeModule: '',
   profileDialog: false,
-  isNavigationDrawerDisplayed: false,
+  isNavigationDrawerDisplayed: false
 }
 
 export default state
