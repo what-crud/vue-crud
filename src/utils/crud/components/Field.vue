@@ -311,8 +311,10 @@ export default {
       handler (val) {
         this.value = val
         if (this.fieldType === 'richTextBox') {
-          let content = val !== null && val !== undefined ? val : ''
-          this.editor.setContent(content)
+          let content = val || ''
+          if (this.editor) {
+            this.editor.setContent(content)
+          }
         }
       }
     },
