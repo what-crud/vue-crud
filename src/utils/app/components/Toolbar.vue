@@ -6,6 +6,10 @@
     fixed
     app
   >
+    <v-app-bar-nav-icon
+      class="d-lg-none"
+      @click.stop="showNavigationDrawer()"
+    />
     <slot name="left"></slot>
     <v-spacer></v-spacer>
     <router-link :to="titleLink">
@@ -130,7 +134,8 @@ export default {
       'setLocale'
     ]),
     ...mapMutations('app', [
-      'openProfileDialog'
+      'openProfileDialog',
+      'showNavigationDrawer'
     ]),
     changeLocale (locale) {
       this.$i18n.locale = locale

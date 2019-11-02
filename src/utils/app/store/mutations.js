@@ -7,6 +7,12 @@ const mutations = {
   },
   setPage (state, value) {
     state.page = value
+  },
+  showNavigationDrawer (state) {
+    state.isNavigationDrawerDisplayed = true
+  },
+  hideNavigationDrawer (state) {
+    state.isNavigationDrawerDisplayed = false
   }
 }
 
