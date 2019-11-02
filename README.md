@@ -77,6 +77,25 @@ The record creation / editing form supports the following types of fields:
 * Files,
 * **NEW!** Dynamic (user can select field type separately for each record)
 
+## Support for mobile devices
+
+### App layout on desktop...
+ <img
+  width="auto"
+  height="400"
+  src="https://user-images.githubusercontent.com/18534115/68077595-9fed6d00-fdc6-11e9-9e52-37dad9bb4bc1.png"
+  alt="app layout on desktop"
+/>
+
+### ... and on mobile device
+ <img
+  width="auto"
+  height="400"
+  src="https://user-images.githubusercontent.com/18534115/68077552-3ff6c680-fdc6-11e9-9b8c-3e92dce596c5.png"
+  alt="app layout on mobile device"
+/>
+
+
 ## Demo versions
 
 #### <a href="http://vue-crud-demo.id-a.pl" target="_blank">DEMO / SANDBOX</a>
