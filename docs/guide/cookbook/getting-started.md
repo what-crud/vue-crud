@@ -49,46 +49,34 @@ If you do not want to, you may not fill in this file at all, but then you will h
 The first place where parameters from this file are used is the file **src/main.js** (project root). Of course, you can theoretically enter whatever you like into this file, but you have not downloaded Vue CRUD to create everything from scratch. Typically, the file will look something like this:
 
 ```js
-import "babel-polyfill"
 import Vue from 'vue'
-import i18n from './locales/index.js'
-import './plugins/vuetify'
-import './plugins/vue-resource'
-import './plugins/custom/'
-import App from './App.vue'
+import i18n from './locales/index'
 import router from './router'
 import store from './store'
-import './register-service-worker'
-import { api } from './config/api'
+import vuetify from './plugins/vuetify'
+import './registerServiceWorker'
+import './plugins/http'
+import './plugins/ie'
+import './plugins/custom/'
+import App from './App.vue'
 
-Vue.config.productionTip = false
-Vue.http.options.emulateJSON = true;
-Vue.http.options.root = api.url + api.path.default
 Vue.http.interceptors.push((request, next) => {
   if (localStorage.getItem('token')) {
-    request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'))
   }
   next(response => {
     if (response.status === 400 || response.status === 401 || response.status === 403) {
       store.commit('auth/logout')
-      router.push({path: '/login'})
+      router.push({ path: '/login' })
     }
   })
 })
-
-if ('-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style) {
-  window.addEventListener("hashchange", function(event) {
-    var currentPath = window.location.hash.slice(1);
-    if (router.path !== currentPath) {
-      router.push(currentPath)
-    }
-  }, false)
-}
 
 new Vue({
   i18n,
   router,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')
 ```
@@ -97,19 +85,18 @@ Let's a look for this code:
 
 ```js
 import Vue from 'vue'
-import './plugins/vue-resource'
-import { api } from './config/api'
-
-Vue.http.options.root = api.url + api.path.default
+import router from './router'
+import store from './store'
+import './plugins/http'
 
 Vue.http.interceptors.push((request, next) => {
   if (localStorage.getItem('token')) {
-    request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'))
   }
   next(response => {
     if (response.status === 400 || response.status === 401 || response.status === 403) {
       store.commit('auth/logout')
-      router.push({path: '/login'})
+      router.push({ path: '/login' })
     }
   })
 })
@@ -117,10 +104,9 @@ Vue.http.interceptors.push((request, next) => {
 
 The initial configuration of communication with the API has been defined here.
 
-`Vue.http.options.root` - root url for each request. Thanks to this parameter, you will no longer need to add your api domain to each request.
 `Vue.http.interceptors` - list of request interceptors. In this example interceptor with **Authorization: Bearer `token`** header has been created. This interceptor has to authenticate each request and force logout if request doesn't pass authentication
 
-So, if your app doesn't require authentication, you can this code:
+So, if your app doesn't require authentication, you don't have to type this code:
 
 ```js
 Vue.http.interceptors.push((request, next) => {
@@ -135,10 +121,11 @@ You do not need to use routing in your project. If your application is extremely
 **main.js**:
 ```js
 import Vue from 'vue'
-import './plugins/vuetify'
+import vuetify from './plugins/vuetify'
 import YourComponent from './YourComponent.vue'
 
 new Vue({
+  vuetify,
   render: h => h(YourComponent)
 }).$mount('#app')
 ```
@@ -163,21 +150,14 @@ But if you want to use routing, add it in the **main.js** file:
 
 ```js
 import Vue from 'vue'
-import './plugins/vuetify'
+import vuetify from './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
-
-if ('-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style) {
-  window.addEventListener("hashchange", function(event) {
-    var currentPath = window.location.hash.slice(1);
-    if (router.path !== currentPath) {
-      router.push(currentPath)
-    }
-  }, false)
-}
+import './plugins/ie'
 
 new Vue({
   router,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')
 ```
