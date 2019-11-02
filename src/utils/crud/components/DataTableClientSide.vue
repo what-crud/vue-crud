@@ -228,7 +228,10 @@ export default {
     &__search {
       margin: 0 15px;
       display: inline-block;
-      width: 250px;
+      width: 120px;
+      @media (min-width: 500px) {
+        width: 250px;
+      }
     }
     &__search-input {
       margin-top: -8px;
@@ -236,7 +239,10 @@ export default {
     &__select-statuses {
       margin: 0 15px;
       display: inline-block;
-      width: 250px;
+      width: 120px;
+      @media (min-width: 500px) {
+        width: 250px;
+      }
     }
   }
 </style>
