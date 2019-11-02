@@ -308,7 +308,7 @@ export default {
   watch: {
     fieldValue: {
       immediate: true,
-      handler(val) { 
+      handler (val) {
         this.value = val
         if (this.fieldType === 'richTextBox') {
           let content = val !== null && val !== undefined ? val : ''
