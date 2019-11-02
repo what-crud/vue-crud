@@ -58,25 +58,30 @@
     ></v-textarea>
     <!-- file upload -->
     <div v-else-if="fieldType == 'file'" class="field-container">
-      <v-layout row wrap>
-        <v-flex class="sm5" pr-2>
-          <v-btn dark class="jbtn-file" :loading="uploadLoader" :class="fileUploadBtn(uploadStatus)">
+      <v-row dense>
+        <v-col cols="12" sm="5">
+          <v-btn
+            :loading="uploadLoader"
+            :class="fileUploadBtn(uploadStatus)"
+            class="jbtn-file"
+            dark
+          >
             {{ $t('global.details.files.upload') }}
             <v-icon dark right>
               {{ fileUploadIcon(uploadStatus) }}
             </v-icon>
             <input
               :id="field.name"
-              type="file"
-              @change="fileSelected($event, field)"
-              accept="*"
               :multiple="false"
               :disabled="field.disabled"
+              type="file"
+              accept="*"
               ref="fileInput"
+              @change="fileSelected($event, field)"
             >
           </v-btn>
-        </v-flex>
-        <v-flex class="sm7">
+        </v-col>
+        <v-col cols="12" sm="7">
           <v-text-field
             hide-details
             :rules="fieldRules(field)"
@@ -85,8 +90,8 @@
             disabled
           >
           </v-text-field>
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
     </div>
     <!-- select -->
     <template v-else-if="fieldType == 'select'">
