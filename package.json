@@ -1,9 +1,9 @@
 {
   "name": "vue-crud",
   "version": "0.14.0",
-  "private": true,
   "description": "Vue CRUD",
   "author": "Szczepan Masny <szczepanmasny@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
