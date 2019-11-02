@@ -16,7 +16,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "file-saver": "^2.0.0",
-    "register-service-worker": "^1.5.2",
+    "register-service-worker": "^1.6.2",
     "tiptap": "^1.14.0",
     "tiptap-extensions": "^1.14.0",
     "vue": "^2.6.10",
