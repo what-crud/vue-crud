@@ -88,7 +88,9 @@ if (args.length !== 1) {
       if (fs.existsSync(tl)) {
         fs.removeSync(tl)
       }
-      fs.copySync(sl, tl)
+      if (fs.existsSync(sl)) {
+        fs.copySync(sl, tl)
+      }
     })
     successLog()
   } else {
