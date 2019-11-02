@@ -11503,7 +11503,7 @@ vuetify@^2.0.0:
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.1.9.tgz#2c91163090675cde2cd1b6208829ac434d7d8877"
   integrity sha512-52CgEyPoGYHba5yocYKBB/LXcikoWzj9jCDTH8LlzH/hvjzkgsuEtFwUustGHyV9GstRaNZOrk4nuUWbPZc3kQ==
 
-vuex@^3.0.1:
+vuex@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.1.1.tgz#0c264bfe30cdbccf96ab9db3177d211828a5910e"
   integrity sha512-ER5moSbLZuNSMBFnEBVGhQ1uCBNJslH9W/Dw2W7GZN23UQA69uapP5GTT9Vm8Trc0PzBSVt6LzF3hGjmv41xcg==
