@@ -1,14 +1,17 @@
 <template>
   <tr
     @dblclick="emitDoubleClick(props.item, props.index)"
-    :class="[activityClass(props.item.meta.active),
-    currentClass(props.item.meta.id)]"
+    :class="[
+      'data-table-row',
+      activityClass(props.item.meta.active),
+      currentClass(props.item.meta.id)
+    ]"
   >
     <td v-if="selectManyMode">
       <v-checkbox
-        hide-details
+        class="data-table-row__select"
+        hide-details dense
         v-model="props.selected"
-        color="black"
       ></v-checkbox>
     </td>
     <!-- action buttons -->
@@ -16,7 +19,7 @@
       <!-- edit record -->
       <crud-button
         v-if="editButton && editMode"
-        xs
+        small
         color="orange"
         @clicked="edit(props.item.meta.id, props.index)"
         icon="edit"
@@ -27,7 +30,7 @@
         v-for="(customButton) in customButtons"
         :key="customButton.name"
         :disabled="!props.item.meta.buttons[customButton.name]"
-        xs
+        small
         :color="customButton.color"
         @clicked="custom(customButton.name, props.item, props.index)"
         :icon="customButton.icon"
@@ -37,7 +40,7 @@
       <crud-button
         v-for="(button, key) in itemElements"
         :key="key"
-        xs
+        small
         :color="button.color"
         @clicked="editItemElements(key, props.item.meta.id)"
         :icon="button.icon"
@@ -48,7 +51,7 @@
         <!-- suspend button -->
         <crud-button
           v-if="props.item.meta.active == '1'"
-          xs
+          small
           color="red"
           @clicked="suspend(props.item.meta.id)"
           icon="undo"
@@ -57,7 +60,7 @@
         <!-- restore button -->
         <crud-button
           v-else
-          xs
+          small
           color="green"
           @clicked="restore(props.item.meta.id)"
           icon="redo"
@@ -67,7 +70,7 @@
       <!-- hard delete -->
       <crud-button
         v-if="['hard', 'both'].includes(deleteMode)"
-        xs
+        small
         color="black"
         @clicked="destroy(props.item.meta.id)"
         icon="delete"
@@ -139,7 +142,7 @@ export default {
     activityClass (isActive) {
       let className = ''
       if (['soft', 'both', 'filter'].includes(this.deleteMode)) {
-        className = parseInt(isActive) === 1 ? 'row-active' : 'row-inactive'
+        className = `data-table-row--${parseInt(isActive) === 1 ? 'active' : 'inactive'}`
       }
       return className
     },
@@ -157,3 +160,19 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.data-table-row {
+  cursor: pointer;
+  &--current {
+    background-color: #dddddd;
+  }
+  &--inactive {
+    color: rgb(244, 67, 54);
+    box-shadow: 4px 0px 0px 0px rgb(244, 67, 54) inset;
+  }
+  &__select {
+    margin-top: 0;
+  }
+}
+</style>

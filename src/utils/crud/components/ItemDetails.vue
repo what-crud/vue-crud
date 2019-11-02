@@ -1,9 +1,16 @@
 <template>
-  <v-dialog persistent v-model="details.show" max-width="600" style="position:static !important;">
+  <v-dialog
+    v-model="details.show"
+    max-width="600"
+    style="position:static !important;"
+    persistent
+  >
     <v-card>
       <v-card-title
         class="headline"
-      >{{ details.action == 'multiedit' ? $t('global.details.multipleUpdateTitle') : title }}</v-card-title>
+      >
+        {{ details.action == 'multiedit' ? $t('global.details.multipleUpdateTitle') : title }}
+      </v-card-title>
       <v-form v-model="details.formValid">
         <v-card-text class="details-list">
           <div
@@ -11,8 +18,14 @@
             :key="i"
           >
             <v-layout row wrap>
-              <v-flex class="sm1" v-if="details.action == 'multiedit' && field.show">
-                <input type="checkbox" v-model="field.updateColumn">
+              <v-flex
+                v-if="details.action == 'multiedit' && field.show"
+                class="sm1"
+              >
+                <input
+                  type="checkbox"
+                  v-model="field.updateColumn"
+                >
               </v-flex>
               <v-flex :class="details.action == 'multiedit' ? 'sm11' : 'sm12'">
                 <field
@@ -28,25 +41,25 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="black" flat="flat" @click.native="close()">{{ $t('global.details.buttons.close') }}</v-btn>
+          <v-btn color="black" text @click.native="close()">{{ $t('global.details.buttons.close') }}</v-btn>
           <v-btn
             :disabled="!details.formValid"
             v-if="details.action == 'create'"
             color="green"
-            flat="flat"
+            text
             @click="store()"
           >{{ $t('global.details.buttons.create') }}</v-btn>
           <v-btn
             :disabled="!details.formValid"
             v-else-if="details.action == 'edit'"
             color="orange"
-            flat="flat"
+            text
             @click="update()"
           >{{ $t('global.details.buttons.modify') }}</v-btn>
           <v-btn
             v-else-if="details.action == 'multiedit'"
             color="orange"
-            flat="flat"
+            text
             @click="updateSelected()"
           >{{ $t('global.details.buttons.modifySelected') }}</v-btn>
         </v-card-actions>

@@ -15,10 +15,10 @@
       nav-color="secondary"
     >
       <template slot="nav">
-        <v-list-tile-action>
+        <v-list-item-action>
           <v-icon color="secondary">person</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-title class="white--text">{{ userInfo.name }}</v-list-tile-title>
+        </v-list-item-action>
+        <v-list-item-title class="white--text">{{ userInfo.name }}</v-list-item-title>
       </template>
     </sidebar>
     <toolbar
@@ -29,7 +29,7 @@
       :dark="true"
     >
       <template slot="left">
-        <div class="headline">
+        <div class="headline d-none d-md-inline">
           <template v-if="$store.state.app.module !=null">
               {{ $t('global.routes.' + $store.state.app.module) }}
           </template>

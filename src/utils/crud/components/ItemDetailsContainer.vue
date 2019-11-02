@@ -3,55 +3,48 @@
     v-model="detailsDialog"
     fullscreen
     transition="dialog-bottom-transition"
-    :overlay="true"
+    hide-overlay
     persistent
+    no-click-animation
   >
-    <v-card class="dialog-content">
-      <v-toolbar dark class="primary">
-        <v-layout row wrap justify-center align-center>
-          <v-flex class="xs4 text-xs-left">
-            <v-toolbar-title>{{ title }}</v-toolbar-title>
-          </v-flex>
-          <v-flex class="xs4 text-xs-center">
-            <div class="details-loader-container">
-              <v-layout v-if="detailsLoading" class="details-loader" justify-center align-center>
-                <v-progress-circular indeterminate :size="50" :width="2" color="white"></v-progress-circular>
-              </v-layout>
-            </div>
-          </v-flex>
-          <v-flex class="xs4 text-xs-right">
-            <v-btn icon dark @click.native="refresh()">
-              <v-icon>refresh</v-icon>
-            </v-btn>
-            <v-btn icon dark @click.native="previous()">
-              <v-icon>navigate_before</v-icon>
-            </v-btn>
-            <v-btn icon dark @click.native="next()">
-              <v-icon>navigate_next</v-icon>
-            </v-btn>
-            <v-btn icon @click.native="close()" dark>
-              <v-icon>close</v-icon>
-            </v-btn>
-          </v-flex>
-        </v-layout>
+    <v-card>
+      <v-toolbar dark color="primary" style="border-radius: 0;">
+        <v-toolbar-title>{{ title }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <div class="details-loader-container">
+          <v-layout v-if="detailsLoading" class="details-loader" justify-center align-center>
+            <v-progress-circular indeterminate :size="50" :width="2" color="white"></v-progress-circular>
+          </v-layout>
+        </div>
+        <v-spacer></v-spacer>
+        <div>
+          <v-btn icon dark @click.native="refresh()">
+            <v-icon>refresh</v-icon>
+          </v-btn>
+          <v-btn icon dark @click.native="previous()">
+            <v-icon>navigate_before</v-icon>
+          </v-btn>
+          <v-btn icon dark @click.native="next()">
+            <v-icon>navigate_next</v-icon>
+          </v-btn>
+          <v-btn icon @click.native="close()" dark>
+            <v-icon>close</v-icon>
+          </v-btn>
+        </div>
       </v-toolbar>
-      <div grid-list-md text-xs-center>
-        <v-layout row wrap>
-          <v-flex xs12 lg5 pa-3>
-            <item-details-extended
-              :title="basicInformation"
-              :fields-info="fields"
-            ></item-details-extended>
-          </v-flex>
-          <v-flex xs12 lg7 pa-3>
-            <v-card class="children-tabs">
-              <v-tabs color="secondary" dark slider-color="primary">
-                <slot></slot>
-              </v-tabs>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </div>
+      <v-row no-gutters>
+        <v-col cols="12" lg="5" class="pa-3">
+          <item-details-extended
+            :title="basicInformation"
+            :fields-info="fields"
+          ></item-details-extended>
+        </v-col>
+        <v-col cols="12" lg="7" class="pa-3">
+          <v-tabs slider-color="secondary">
+            <slot></slot>
+          </v-tabs>
+        </v-col>
+      </v-row>
     </v-card>
   </v-dialog>
 </template>
@@ -122,8 +115,3 @@ export default {
 }
 
 </script>
-<style scoped>
-  .dialog-content {
-    background-color: #f2f2f2;
-  }
-</style>

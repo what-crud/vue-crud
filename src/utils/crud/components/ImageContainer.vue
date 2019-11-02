@@ -1,5 +1,8 @@
 <template>
-  <v-dialog v-model="imageContainer.show" max-width="1000">
+  <v-dialog
+    v-model="imageContainer.show"
+    max-width="1000"
+  >
     <v-card class="text-xs-center">
       <v-card-title primary-title>
       </v-card-title>
@@ -9,12 +12,21 @@
           <div>{{ imageContainer.item.mime }}</div>
           <div>{{ imageContainer.item.size | fileSize }}</div>
         </div>
-        <img :src="image" style="max-height: 50vh;">
+        <img
+          :src="image"
+          style="max-height: 50vh;"
+        >
       </v-card-text>
       <v-responsive></v-responsive>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn flat color="black" @click="closeImageContainer()">{{ $t('global.details.buttons.close') }}</v-btn>
+        <v-btn
+          text
+          color="black"
+          @click="closeImageContainer()"
+        >
+          {{ $t('global.details.buttons.close') }}
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

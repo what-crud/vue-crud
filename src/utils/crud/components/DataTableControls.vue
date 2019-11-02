@@ -1,90 +1,99 @@
 <template>
-  <v-card-title class="card-title table-controls">
-    <v-layout row wrap>
+  <div
+    class="
+      card-title
+      table-controls
+      px-3
+      d-flex
+      align-center
+      justify-space-between
+    "
+  >
+    <div>
+      <!-- Dialog for creating item -->
+      <crud-button
+        v-if="createMode"
+        x-large
+        color="light-blue lighten-2"
+        @clicked="create()"
+        icon="add"
+        :tooltip="$t('global.datatable.add')"
+      ></crud-button>
+      <!-- Multiple edit -->
+      <crud-button
+        v-if="editMode && selectManyMode && updateManyMode"
+        large
+        color="orange"
+        @clicked="editSelected()"
+        icon="edit"
+        :tooltip="$t('global.datatable.buttons.editSelected')"
+      ></crud-button>
+      <!-- suspend/restore record (if soft deletes are enabled) -->
+      <template v-if="['soft', 'both'].includes(deleteMode) && selectManyMode && updateManyMode">
+        <crud-button
+          large
+          color="red"
+          @clicked="suspendSelected()"
+          icon="undo"
+          :tooltip="$t('global.datatable.buttons.suspendSelected')"
+        ></crud-button>
+        <crud-button
+          large
+          color="green"
+          @clicked="restoreSelected()"
+          icon="redo"
+          :tooltip="$t('global.datatable.buttons.restoreSelected')"
+        ></crud-button>
+      </template>
+      <!-- hard delete -->
+      <crud-button
+        v-if="['hard', 'both'].includes(deleteMode) && selectManyMode && removeManyMode"
+        large
+        color="black"
+        @clicked="destroySelected()"
+        icon="delete"
+        :tooltip="$t('global.datatable.buttons.deleteSelected')"
+      ></crud-button>
+      <slot name="left"></slot>
+    </div>
 
-      <v-flex xs12 lg3 text-xs-center>
-        <!-- Dialog for creating item -->
-        <v-tooltip top v-if="createMode">
-          <v-btn fab dark color="light-blue lighten-2" @click="create()" slot="activator">
-            <v-icon>add</v-icon>
-          </v-btn>
-          <span>{{ $t('global.datatable.add') }}</span>
-        </v-tooltip>
-        <!-- Multiple edit -->
-        <v-tooltip top v-if="editMode && selectManyMode && updateManyMode">
-          <v-btn fab small dark color="orange" @click="editSelected()" slot="activator">
-            <v-icon>edit</v-icon>
-          </v-btn>
-          <span>{{ $t('global.datatable.buttons.editSelected') }}</span>
-        </v-tooltip>
-        <!-- suspend/restore record (if soft deletes are enabled) -->
-        <template v-if="['soft', 'both'].includes(deleteMode) && selectManyMode && updateManyMode">
-          <v-tooltip top>
-            <v-btn class="white--text" fab small color="red" @click="suspendSelected()" slot="activator">
-              <v-icon>undo</v-icon>
-            </v-btn>
-            <span>{{ $t('global.datatable.buttons.suspendSelected') }}</span>
-          </v-tooltip>
-          <v-tooltip top>
-            <v-btn class="white--text" fab small color="green" @click="restoreSelected()" slot="activator">
-              <v-icon>redo</v-icon>
-            </v-btn>
-            <span>{{ $t('global.datatable.buttons.restoreSelected') }}</span>
-          </v-tooltip>
-        </template>
-        <!-- hard delete -->
-        <v-tooltip top v-if="['hard', 'both'].includes(deleteMode) && selectManyMode && removeManyMode">
-          <v-btn class="white--text" fab small color="black" @click="destroySelected()" slot="activator">
-            <v-icon>delete</v-icon>
-          </v-btn>
-          <span>{{ $t('global.datatable.buttons.deleteSelected') }}</span>
-        </v-tooltip>
-        <slot name="left"></slot>
-      </v-flex>
-
-      <v-flex xs12 lg6 text-xs-center>
+    <div>
         <slot name="center"></slot>
-        <v-tooltip top v-if="mainFilter || fieldFilters">
-          <v-btn
-            class="white--text"
-            fab
-            small
-            color="red"
-            @click="clearFilters()"
-            slot="activator"
-          >
-            <v-icon>delete_sweep</v-icon>
-          </v-btn>
-          <span>{{ $t('global.datatable.buttons.clearFilters') }}</span>
-        </v-tooltip>
-      </v-flex>
+        <crud-button
+          v-if="mainFilter || fieldFilters"
+          large
+          color="grey"
+          @clicked="clearFilters()"
+          icon="delete_sweep"
+          :tooltip="$t('global.datatable.buttons.clearFilters')"
+        ></crud-button>
+    </div>
 
-      <v-flex xs12 lg3 text-xs-center>
-        <!-- Refresh table -->
-        <v-tooltip top v-if="refreshButton">
-          <v-btn
-            class="white--text"
-            fab
-            small
-            color="blue"
-            @click="refreshTable()"
-            slot="activator"
-          >
-            <v-icon>refresh</v-icon>
-          </v-btn>
-          <span>{{ $t('global.datatable.buttons.refreshTable') }}</span>
-        </v-tooltip>
-        <!-- Clear filters -->
-        <slot name="right"></slot>
-      </v-flex>
+    <div>
 
-    </v-layout>
-  </v-card-title>
+      <!-- Refresh table -->
+      <crud-button
+        v-if="refreshButton"
+        large
+        color="blue"
+        @clicked="refreshTable()"
+        icon="refresh"
+        :tooltip="$t('global.datatable.buttons.refreshTable')"
+      ></crud-button>
+      <!-- Clear filters -->
+      <slot name="right"></slot>
+    </div>
+  </div>
 
 </template>
 
 <script>
+import CrudButton from './Button.vue'
+
 export default {
+  components: {
+    CrudButton
+  },
   props: [
     'deleteMode',
     'createMode',

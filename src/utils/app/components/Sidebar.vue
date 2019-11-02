@@ -1,11 +1,16 @@
 <template>
-  <div @click="click()" @mouseover="mouseover()" @mouseleave="mouseleave()">
+  <div
+    @click="click()"
+    @mouseover="mouseover()"
+    @mouseleave="mouseleave()"
+  >
   <v-navigation-drawer
-    permanent
+    v-model="isDisplayed"
+    :permanent="isAppLarge"
     :mini-variant="sidebarMini"
-    class="main-sidebar"
     :class="sidebarColor"
     :dark="sidebarDark"
+    class="main-sidebar"
     fixed
     app
   >
@@ -15,32 +20,48 @@
         :class="titleColor"
       >
         <v-list>
-          <v-list-tile>
-            <v-list-tile-avatar tile v-if="showLogo" :size="logoSize" style="margin-right: 20px;">
-              <img v-if="showLogo" class="logo" :src="require(`@/assets/images/${logo}`)">
-            </v-list-tile-avatar>
-            <v-list-tile-title class="title" :class="titleDark ? 'white--text' : 'black--text'">
+          <v-list-item style="padding: 0;">
+            <v-list-item-avatar
+              v-if="showLogo"
+              :size="logoSize"
+              style="margin-right: 20px;"
+              tile
+            >
+              <img
+                v-if="showLogo"
+                :src="require(`@/assets/images/${logo}`)"
+                class="logo"
+              >
+            </v-list-item-avatar>
+            <v-list-item-title
+              class="title"
+              :class="titleDark ? 'white--text' : 'black--text'"
+            >
               {{ title }}
-            </v-list-tile-title>
-          </v-list-tile>
+            </v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-toolbar>
     </router-link>
     <v-divider></v-divider>
     <v-list class="pa-1" :class="`${navColor}--text`">
-      <v-list-tile v-if="sidebarMini && lockSidebarBtn && !locked" @click.stop="toggleLock">
-        <v-list-tile-action>
+      <v-list-item
+        v-if="sidebarMini && lockSidebarBtn && !locked"
+        :ripple="false"
+        @click.stop="toggleLock"
+      >
+        <v-list-item-action>
           <v-icon :color="navColor !== '' ? navColor : (sidebarDark ? 'white' : 'black')">chevron_right</v-icon>
-        </v-list-tile-action>
-      </v-list-tile>
-      <v-list-tile v-if="!sidebarMini">
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item v-if="!sidebarMini">
         <slot name="nav"></slot>
-        <v-list-tile-action v-if="lockSidebarBtn && locked">
+        <v-list-item-action v-if="lockSidebarBtn && locked && isAppLarge">
           <v-btn icon @click.stop="toggleLock">
             <v-icon :color="navColor !== '' ? navColor : (sidebarDark ? 'white' : 'black')">chevron_left</v-icon>
           </v-btn>
-        </v-list-tile-action>
-      </v-list-tile>
+        </v-list-item-action>
+      </v-list-item>
     </v-list>
     <slot name="over"></slot>
     <v-list dense>
@@ -51,29 +72,29 @@
           :key="item.text"
           :prepend-icon="item.icon"
           append-icon=""
-          active-class="sidebarDark ? 'white--text' : 'black--text'"
+          :active-class="sidebarDark ? 'white--text' : 'black--text'"
         >
-          <v-list-tile slot="activator">
-            <v-list-tile-content>
-              <v-list-tile-title>
+          <v-list-item slot="activator">
+            <v-list-item-content>
+              <v-list-item-title>
                 {{ $t('global.routes.' + item.text) }}
-              </v-list-tile-title>
-            </v-list-tile-content>
-            <v-list-tile-action v-if="item.icon">
+              </v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action v-if="item.icon">
               <v-icon>{{ item.model ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
+            </v-list-item-action>
+          </v-list-item>
           <template v-if="!$store.state.sidebarMini">
-            <v-list-tile v-for="(child, i) in item.children" :key="i" :href="'#' + item.route + child.route" class="link">
-              <v-list-tile-action v-if="child.icon">
+            <v-list-item v-for="(child, i) in item.children" :key="i" :href="'#' + item.route + child.route" class="link">
+              <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
                   {{ $t('global.routes.' + child.text) }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
           </template>
         </v-list-group>
       </template>
@@ -85,29 +106,12 @@
 
 <script>
 import {
+  mapState,
   mapGetters,
   mapMutations
 } from 'vuex'
 
 export default {
-  created () {
-    this.locked = JSON.parse(localStorage.getItem('sidebarLocked')) || false
-  },
-  computed: {
-    ...mapGetters('auth', ['checkPermission']),
-    sidebarMini () {
-      return this.locked ? false : !this.expanded
-    }
-  },
-  watch: {
-    expanded (val) {
-      if (!val) {
-        for (const item of this.items) {
-          item.model = false
-        }
-      }
-    }
-  },
   props: {
     source: String,
     title: {
@@ -166,10 +170,31 @@ export default {
       default: true
     }
   },
+  data: () => ({
+    setSidebarMini: false,
+    dialog: false,
+    locked: false,
+    expanded: false,
+    isDisplayed: false
+  }),
+  computed: {
+    ...mapState('app', ['isNavigationDrawerDisplayed']),
+    ...mapGetters('auth', ['checkPermission']),
+    sidebarMini () {
+      return this.locked || !this.isAppLarge ? false : !this.expanded
+    },
+    breakpoint () {
+      return this.$vuetify.breakpoint.name
+    },
+    isAppLarge () {
+      return ['xl', 'lg'].includes(this.breakpoint)
+    }
+  },
   methods: {
     ...mapMutations('app', [
       'toggleSidebarWidth',
-      'setSidebarWidth'
+      'setSidebarWidth',
+      'hideNavigationDrawer'
     ]),
     toggleLock () {
       this.locked = !this.locked
@@ -177,29 +202,42 @@ export default {
       this.expanded = this.locked
     },
     click () {
-      if (this.sidebarMini && this.expandOn === 'click' && !this.locked) {
+      if (this.sidebarMini && this.expandOn === 'click' && !this.locked && this.isAppLarge) {
         this.expanded = true
       }
     },
     mouseover () {
-      if (this.sidebarMini && this.expandOn === 'mouseover' && this.locked) {
+      if (this.sidebarMini && this.expandOn === 'mouseover' && this.locked && this.isAppLarge) {
         this.expanded = true
       }
     },
     mouseleave () {
-      if (!this.locked) {
+      if (!this.locked && this.isAppLarge) {
         this.expanded = false
       }
     }
   },
-  data: () => ({
-    setSidebarMini: false,
-    dialog: false,
-    locked: false,
-    expanded: false
-  })
+  created () {
+    this.locked = JSON.parse(localStorage.getItem('sidebarLocked')) || false
+  },
+  watch: {
+    expanded (val) {
+      if (!val) {
+        for (const item of this.items) {
+          item.model = false
+        }
+      }
+    },
+    isNavigationDrawerDisplayed (val) {
+      if (val) {
+        this.isDisplayed = val
+      }
+    },
+    isDisplayed (val) {
+      if (!val) {
+        this.hideNavigationDrawer()
+      }
+    }
+  }
 }
 </script>
-<style scoped>
-
-</style>

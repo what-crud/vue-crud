@@ -34,14 +34,14 @@
           <v-card-actions>
             <v-btn
               class="blue--text"
-              flat
+              text
               @click="getUser()"
             >
               {{ $t('global.profile.user.restore') }}
             </v-btn>
             <v-btn
               class="green--text"
-              flat
+              text
               @click="editUser(user)"
               :disabled="!userValid"
             >
@@ -88,14 +88,14 @@
           <v-card-actions>
             <v-btn
               class="blue--text"
-              flat
+              text
               @click="clearPasswords()"
             >
               {{ $t('global.profile.password.clear') }}
             </v-btn>
             <v-btn
               class="green--text"
-              flat
+              text
               @click="editPasswordAndClear()"
               :disabled="!passwordValid"
             >
@@ -108,7 +108,7 @@
           <v-spacer></v-spacer>
           <v-btn
             class="black--text"
-            flat
+            text
             @click.native="$store.state.app.profileDialog = false"
           >
             {{ $t('global.profile.close') }}

@@ -4,12 +4,14 @@ import {
   mapMutations,
   mapActions
 } from 'vuex'
-import DataTableRow from '../components/DataTableRow.vue'
+import DataTableRowActions from '../components/DataTableRowActions.vue'
+import DataTableRowField from '../components/DataTableRowField.vue'
 import DataTableControls from '../components/DataTableControls.vue'
 
 export default {
   components: {
-    DataTableRow,
+    DataTableRowActions,
+    DataTableRowField,
     DataTableControls
   },
   props: [
@@ -75,7 +77,7 @@ export default {
           page
         } = this.pagination
         const {
-          rowsPerPage
+          itemsPerPage
         } = this.pagination
         const {
           totalItems
@@ -86,15 +88,15 @@ export default {
             currentIndex -= 1
           } else if (page > 1) {
             page -= 1
-            currentIndex = rowsPerPage - 1
+            currentIndex = itemsPerPage - 1
           } else {
             possible = false
           }
         } else if (moveItemDirection === 'next') {
-          if (currentIndex < rowsPerPage - 1 && (page - 1) * rowsPerPage + currentIndex + 1 <
+          if (currentIndex < itemsPerPage - 1 && (page - 1) * itemsPerPage + currentIndex + 1 <
             totalItems) {
             currentIndex += 1
-          } else if (page < Math.ceil(totalItems / rowsPerPage)) {
+          } else if (page < Math.ceil(totalItems / itemsPerPage)) {
             page += 1
             currentIndex = 0
           } else {
@@ -156,7 +158,8 @@ export default {
     refreshTable () {
       this.runTableRefreshing()
     },
-    edit (id, index) {
+    edit (id) {
+      const index = this.getItemIndex(id)
       this.setCurrentItem({
         id,
         index
@@ -254,7 +257,8 @@ export default {
         ])
       }
     },
-    custom (name, item, index) {
+    custom (name, item) {
+      const index = this.getItemIndex(item.meta.id)
       this.$parent.custom(name, item, index)
     },
     editItemElements (name, id) {

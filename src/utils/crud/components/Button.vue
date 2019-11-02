@@ -1,16 +1,22 @@
 <template>
   <v-tooltip top>
-    <v-btn
-      fab
-      :small="small"
-      :dark="dark"
-      :class="{xs: xs}"
-      :color="color"
-      @click="emitClick()"
-      slot="activator"
-    >
-      <v-icon>{{ icon }}</v-icon>
-    </v-btn>
+    <template v-slot:activator="{ on }">
+      <v-btn
+        class="mr-1"
+        icon
+        :x-small="xSmall"
+        :small="small"
+        :large="large"
+        :x-large="xLarge"
+        :dark="dark"
+        :color="color"
+        @click="emitClick()"
+        v-on="on"
+        :loading="loading"
+      >
+        <v-icon>{{ icon }}</v-icon>
+      </v-btn>
+    </template>
     <span>{{ tooltip }}</span>
   </v-tooltip>
 </template>
@@ -19,17 +25,25 @@
 
 export default {
   props: {
+    xSmall: {
+      type: Boolean,
+      default: false
+    },
     small: {
       type: Boolean,
-      default: true
+      default: false
+    },
+    large: {
+      type: Boolean,
+      default: false
+    },
+    xLarge: {
+      type: Boolean,
+      default: false
     },
     dark: {
       type: Boolean,
       default: true
-    },
-    xs: {
-      type: Boolean,
-      default: false
     },
     color: {
       type: String
@@ -43,6 +57,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -53,21 +71,3 @@ export default {
 }
 
 </script>
-
-<style scoped>
-.xs {
-  width: 25px;
-  height: 25px;
-  margin: 3 !important;
-}
-
-.xs > div {
-  padding: 3px !important;
-}
-
-.xs > div > i {
-  height: 12px !important;
-  width: 12px !important;
-  line-height: 12px;
-}
-</style>

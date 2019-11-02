@@ -1,17 +1,21 @@
 <template>
     <span style="display: flex;align-items: center">
-        <v-tooltip top>
-            <v-btn fab small class="xs white--text" color="secondary" slot="activator" @click="download(field)">
-                <v-icon>save</v-icon>
-            </v-btn>
-            <span>{{ $t('global.details.files.download') }}</span>
-        </v-tooltip>
-        <v-tooltip top :style="{ visibility: isImage(field.mime) ? 'visible' : 'hidden' }">
-            <v-btn fab small class="xs white--text" color="primary" slot="activator" @click="showImage(field)">
-                <v-icon>search</v-icon>
-            </v-btn>
-            <span>{{ $t('global.details.files.show') }}</span>
-        </v-tooltip>
+        <crud-button
+          small
+          color="secondary"
+          @clicked="download(field)"
+          icon="save"
+          :tooltip="$t('global.details.files.download')"
+        />
+        <span :style="{ visibility: isImage(field.mime) ? 'visible' : 'hidden' }">
+          <crud-button
+            small
+            color="primary"
+            @clicked="showImage(field)"
+            icon="search"
+            :tooltip="$t('global.details.files.show')"
+          />
+        </span>
         <div style="padding-left:30px;">
             <h4>{{ field.filename }}</h4>
             <p>{{ field.mime }}</p>
@@ -21,6 +25,7 @@
 </template>
 
 <script>
+import CrudButton from './Button.vue'
 import {
   mapState,
   mapMutations
@@ -31,6 +36,9 @@ import {
 } from '../helpers/functions'
 
 export default {
+  components: {
+    CrudButton
+  },
   props: [
     'fieldInfo'
   ],

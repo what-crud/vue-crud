@@ -67,6 +67,7 @@ export default {
             name: 'position_tasks',
             functions: ['listTasks']
           },
+          textMode: 'html',
           details: false
         },
         {

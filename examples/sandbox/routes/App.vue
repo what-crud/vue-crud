@@ -26,29 +26,29 @@
         :lockSidebarBtn="sidebarLockBtn"
       >
         <template slot="title" v-if="sidebarSlotTitle">
-          <v-list-tile-action>
+          <v-list-item-action>
             <v-icon color="primary">person</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>User Name</v-list-tile-title>
+          </v-list-item-action>
+          <v-list-item-title>User Name</v-list-item-title>
         </template>
         <template slot="over" v-if="sidebarSlotOver">
           <v-list>
-            <v-list-tile>
-                <v-list-tile-action>
+            <v-list-item>
+                <v-list-item-action>
                   <v-icon color="primary">code</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title>Slot 1</v-list-tile-title>
-            </v-list-tile>
+                </v-list-item-action>
+                <v-list-item-title>Slot 1</v-list-item-title>
+            </v-list-item>
           </v-list>
         </template>
         <template slot="under" v-if="sidebarSlotUnder">
           <v-list>
-            <v-list-tile>
-                <v-list-tile-action>
+            <v-list-item>
+                <v-list-item-action>
                   <v-icon color="primary">code</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title>Slot 2</v-list-tile-title>
-            </v-list-tile>
+                </v-list-item-action>
+                <v-list-item-title>Slot 2</v-list-item-title>
+            </v-list-item>
           </v-list>
         </template>
       </sidebar>
@@ -283,29 +283,29 @@ export default {
                 :lockSidebarBtn="false"`}
               > ${this.sidebarSlotTitle ? `
                 <template slot="title">
-                  <v-list-tile-action>
+                  <v-list-item-action>
                     <v-icon color="primary">person</v-icon>
-                  </v-list-tile-action>
-                  <v-list-tile-title>User Name</v-list-tile-title>
+                  </v-list-item-action>
+                  <v-list-item-title>User Name</v-list-item-title>
                 </template>` : ''} ${this.sidebarSlotOver ? `
                 <template slot="over">
                   <v-list>
-                    <v-list-tile>
-                        <v-list-tile-action>
+                    <v-list-item>
+                        <v-list-item-action>
                           <v-icon color="primary">code</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-title>Slot 1</v-list-tile-title>
-                    </v-list-tile>
+                        </v-list-item-action>
+                        <v-list-item-title>Slot 1</v-list-item-title>
+                    </v-list-item>
                   </v-list>
                 </template>` : ''} ${this.sidebarSlotUnder ? `
                 <template slot="under">
                   <v-list>
-                    <v-list-tile>
-                        <v-list-tile-action>
+                    <v-list-item>
+                        <v-list-item-action>
                           <v-icon color="primary">code</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-title>Slot 2</v-list-tile-title>
-                    </v-list-tile>
+                        </v-list-item-action>
+                        <v-list-item-title>Slot 2</v-list-item-title>
+                    </v-list-item>
                   </v-list>
                 </template>` : ''}
               </sidebar>

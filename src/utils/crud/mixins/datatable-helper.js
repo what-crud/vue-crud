@@ -30,6 +30,7 @@ export default {
     headers () {
       const actionHeader = [{
         text: this.$t('global.datatable.fields.action'),
+        value: 'actions',
         sortable: false
       }]
       return [...actionHeader, ...this.cleanHeaders]
@@ -61,6 +62,22 @@ export default {
           text: this.$t('global.datatable.filterModes.options.list')
         }
       ]
+    },
+    itemsPerPageOptions () {
+      return [
+        5,
+        10,
+        20,
+        50,
+        100
+      ]
+    },
+    footerProps () {
+      return {
+        showFirstLastPage: true,
+        rowsPerPageText: this.$t('global.datatable.rowsPerPageText'),
+        itemsPerPageOptions: this.itemsPerPageOptions
+      }
     }
   },
   methods: {
@@ -103,6 +120,17 @@ export default {
         columnTextModes[field.name.toLowerCase()] = textMode
       }
       return columnTextModes
+    },
+    textMode (item, key) {
+      const field = this.tableFields.find((field) => field.name === key) || {}
+      let textMode = field.textMode || 'cropped'
+      if (field.type === 'dynamic' && field.textModes) {
+        const refField = item[field.typeField]
+        if (field.textModes[refField]) {
+          textMode = field.textModes[refField]
+        }
+      }
+      return textMode
     }
   }
 }
