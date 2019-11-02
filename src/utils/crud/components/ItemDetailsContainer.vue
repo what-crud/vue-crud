@@ -5,6 +5,7 @@
     transition="dialog-bottom-transition"
     hide-overlay
     persistent
+    no-click-animation
   >
     <v-card>
       <v-toolbar dark color="primary" style="border-radius: 0;">
