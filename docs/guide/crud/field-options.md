@@ -147,7 +147,7 @@ If `url` and `path.default` property has been set in **src/config/api.js** file,
 - field value after change,
 - list with fields configuration
 
-Example:
+Example (slugify title od post):
 
 ```vue
 <template>
