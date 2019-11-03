@@ -141,3 +141,113 @@ fieldsInfo () {
 ::: tip INFO
 If `url` and `path.default` property has been set in **src/config/api.js** file, only the rest of path is required.
 :::
+
+## `onChange`
+*Function*, optional. Function will be triggered after field value change in item details form. Function should have 2 arguments:
+- field value after change,
+- list with fields configuration
+
+Example (slugify title od post):
+
+```vue
+<template>
+  <crud
+    :prefix="prefix"
+    :path="path"
+    :paths="paths"
+    :page-title="pageTitle"
+    :fields-info="fieldsInfo"
+    :details-title="$t('detailsTitle')"
+  >
+  </crud>
+</template>
+
+<script>
+import Crud from '@/utils/crud/components/Crud.vue'
+
+const slugify = (text) => {
+  const a = 'ąàáäâćęèéëêìíïîłńòóöôśùúüûźżñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;'
+  const b = 'aaaaaceeeeeiiiilnoooosuuuuzzncsyoarsnpwgnmuxzh------'
+  const p = new RegExp(a.split('').join('|'), 'g')
+
+  return text.toString().toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(p, c => b.charAt(a.indexOf(c)))
+    .replace(/&/g, '-and-')
+    .replace(/[^\w-]+/g, '')
+    .replace(/--+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '')
+}
+
+export default {
+  data () {
+    return {
+      prefix: 'crud/blog',
+      path: 'posts',
+      paths: {
+        i: 'blog/posts',
+        st: 'blog/posts',
+        u: 'blog/posts'
+      },
+      pageTitle: 'blog.posts'
+    }
+  },
+  computed: {
+    fieldsInfo () {
+      return [
+        {
+          text: this.$t('fields.id'),
+          name: 'id',
+          details: false
+        },
+        {
+          type: 'input',
+          column: 'title',
+          text: this.$t('fields.title'),
+          name: 'title',
+          multiedit: false,
+          onChange: (value, fields) => {
+            fields.find(field => field.name === 'slug').value = slugify(value)
+          }
+        },
+        {
+          type: 'input',
+          column: 'slug',
+          text: this.$t('fields.slug'),
+          name: 'slug',
+          multiedit: false,
+          required: false,
+          table: false
+        }
+      ]
+    }
+  },
+  components: {
+    Crud
+  },
+  i18n: {
+    messages: {
+      pl: {
+        detailsTitle: 'Post',
+        fields: {
+          id: 'Id',
+          title: 'Tytuł',
+          slug: 'Slug'
+        }
+      },
+      en: {
+        detailsTitle: 'Post',
+        fields: {
+          id: 'Id',
+          title: 'Title',
+          slug: 'Slug'
+        }
+      }
+    }
+  }
+}
+
+</script>
+
+```

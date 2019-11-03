@@ -156,7 +156,11 @@ export default {
       this.$set(this, 'fields', result)
     },
     valueChanged (val, fieldColumn) {
-      this.$set(this.fields[this.fields.findIndex(el => el.column === fieldColumn)], 'value', val)
+      const field = this.fields[this.fields.findIndex(el => el.column === fieldColumn)]
+      this.$set(field, 'value', val)
+      if (field.onChange) {
+        field.onChange(val, this.fields)
+      }
     },
     fieldRules (field) {
       const rules = []
