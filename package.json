@@ -43,6 +43,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "fs-extra": "^7.0.1",
+    "material-design-icons-iconfont": "^5.0.1",
     "sass": "^1.17.4",
     "sass-loader": "^7.1.0",
     "script-loader": "^0.7.2",
