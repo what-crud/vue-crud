@@ -116,7 +116,10 @@
     <template v-else-if="fieldType == 'richTextBox'">
       <div class="field-container">
         <label class="field-label">{{field.text}}</label>
-        <rich-text-box />
+        <rich-text-box
+          v-model="value"
+          @change="valueChanged()"
+        />
       </div>
     </template>
     <!-- checkbox -->
@@ -134,9 +137,15 @@
 <script>
 import Vue from 'vue'
 import crud from '@/config/crud'
+
+import RichTextBox from './field-types/RichTextBox.vue'
+
 import { mapState } from 'vuex'
 
 export default {
+  components: {
+    RichTextBox,
+  },
   props: ['field', 'fieldValue', 'reload', 'dynamicFieldType'],
   data () {
     return {

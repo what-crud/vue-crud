@@ -165,14 +165,14 @@ export default {
     EditorMenuBar,
     EditorContent,
   },
-  props: ['field', 'fieldValue'],
+  props: ['value'],
   data () {
     return {
       editor: null,
     }
   },
   watch: {
-    fieldValue: {
+    value: {
       immediate: true,
       handler (val) {
         this.setEditorContent(val)
@@ -202,19 +202,16 @@ export default {
       ],
       content: ``,
       onBlur: () => {
-        this.getEditorContent(this.editor.getHTML())
-        this.onBlur()
+        this.$emit('input', this.editor.getHTML())
+        this.$emit('change')
       },
     })
-    this.setEditorContent(this.fieldValue)
+    this.setEditorContent(this.value)
   },
   beforeDestroy () {
     this.editor.destroy()
   },
   methods: {
-    getEditorContent (content) {
-      this.value = content
-    },
     setEditorContent (content) {
       if (this.editor) {
         this.editor.setContent(content || '')
