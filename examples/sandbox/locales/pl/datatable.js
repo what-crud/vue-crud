@@ -4,19 +4,19 @@ export default {
     options: {
       like: 'Zawiera',
       equals: 'Jest równe',
-      list: 'Lista'
-    }
+      list: 'Lista',
+    },
   },
   noItemsSelected: 'Nie wybrano żadnego elementu',
   confirm: 'Czy na pewno chcesz to zrobić?',
   fields: {
     action: 'Akcja',
-    status: 'Status'
+    status: 'Status',
   },
   status: {
     title: 'Statusy',
     active: 'Aktywne',
-    inactive: 'Nieaktywne'
+    inactive: 'Nieaktywne',
   },
   searchByColumns: 'Szukaj w wybranych kolumnach',
   search: 'Szukaj',
@@ -41,6 +41,6 @@ export default {
     show: 'Pokaż',
     refreshTable: 'Odswież tabelę',
     copyToExcel: 'Kopiuj do Excela',
-    clearFilters: 'Wyczyść filtry'
-  }
+    clearFilters: 'Wyczyść filtry',
+  },
 }

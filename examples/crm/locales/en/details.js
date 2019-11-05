@@ -9,23 +9,23 @@ export default {
     characters: 'characters',
     emailMustBeValid: 'E-mail must be valid',
     passwordMustDiffer: 'New password must be different from the old password',
-    passwordMustBeSame: "Password can't be different"
+    passwordMustBeSame: "Password can't be different",
   },
   alerts: {
     updated: 'Updated',
     updateError: 'Error! Update unsuccessful',
     stored: 'Dodano',
-    storeError: 'Error! Store unsuccessful'
+    storeError: 'Error! Store unsuccessful',
   },
   buttons: {
     create: 'Create',
     modify: 'Modify',
     modifySelected: 'Modify selected records',
-    close: 'Close'
+    close: 'Close',
   },
   files: {
     upload: 'Upload file',
     show: 'Show',
-    download: 'Download'
-  }
+    download: 'Download',
+  },
 }

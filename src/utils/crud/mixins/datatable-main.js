@@ -2,7 +2,7 @@ import {
   mapState,
   mapGetters,
   mapMutations,
-  mapActions
+  mapActions,
 } from 'vuex'
 import DataTableRowActions from '../components/DataTableRowActions.vue'
 import DataTableRowField from '../components/DataTableRowField.vue'
@@ -12,7 +12,7 @@ export default {
   components: {
     DataTableRowActions,
     DataTableRowField,
-    DataTableControls
+    DataTableControls,
   },
   props: [
     'tableFields',
@@ -31,11 +31,11 @@ export default {
     'refreshButton',
     'selectManyMode',
     'updateManyMode',
-    'removeManyMode'
+    'removeManyMode',
   ],
   data () {
     return {
-      selected: []
+      selected: [],
     }
   },
   computed: {
@@ -47,7 +47,7 @@ export default {
       'moveItemRun',
       'moveItemDirection',
       'currentItemIndex',
-      'currentItemId'
+      'currentItemId',
     ]),
     ...mapGetters('crud', ['itemsList']),
     selectedIds () {
@@ -64,23 +64,23 @@ export default {
     },
     excelName () {
       return this.$t(`global.routes.${this.page}`)
-    }
+    },
   },
   watch: {
     moveItemRun (val) {
       if (val) {
         const {
-          moveItemDirection
+          moveItemDirection,
         } = this
         let currentIndex = this.currentItemIndex
         let {
-          page
+          page,
         } = this.pagination
         const {
-          itemsPerPage
+          itemsPerPage,
         } = this.pagination
         const {
-          totalItems
+          totalItems,
         } = this
         let possible = true
         if (moveItemDirection === 'previous') {
@@ -108,7 +108,7 @@ export default {
         }
         this.moveItem(['', false])
       }
-    }
+    },
   },
   methods: {
     ...mapMutations('crud', [
@@ -123,7 +123,7 @@ export default {
       'editItemElementsDialog',
       'setSelectedIds',
       'setCurrentItem',
-      'moveItem'
+      'moveItem',
     ]),
     ...mapActions('crud', [
       'getItem',
@@ -134,10 +134,10 @@ export default {
       'mulitipleItemsUpdate',
       'mulitipleItemsDelete',
       'getItemDetails',
-      'runTableRefreshing'
+      'runTableRefreshing',
     ]),
     ...mapActions([
-      'openAlertBox'
+      'openAlertBox',
     ]),
     resolveRowDoubleClick (item, index) {
       if (this.editMode) {
@@ -162,7 +162,7 @@ export default {
       const index = this.getItemIndex(id)
       this.setCurrentItem({
         id,
-        index
+        index,
       })
       this.getItem([id]).then((response) => {
         this.editItemDialog(id)
@@ -179,7 +179,7 @@ export default {
         id,
         obj,
         this.$t('global.alerts.suspended'),
-        this.$t('global.alerts.suspendError')
+        this.$t('global.alerts.suspendError'),
       ])
     },
     restore (id) {
@@ -189,7 +189,7 @@ export default {
         id,
         obj,
         this.$t('global.alerts.restored'),
-        this.$t('global.alerts.restoreError')
+        this.$t('global.alerts.restoreError'),
       ])
     },
     destroy (id) {
@@ -197,7 +197,7 @@ export default {
         this.deleteItem([
           id,
           this.$t('global.alerts.deleted'),
-          this.$t('global.alerts.deleteError')
+          this.$t('global.alerts.deleteError'),
         ])
       }
     },
@@ -226,11 +226,11 @@ export default {
         this.mulitipleItemsUpdate([{
           ids: this.selectedIds,
           request: {
-            active: 0
-          }
+            active: 0,
+          },
         },
         this.$t('global.alerts.suspended'),
-        this.$t('global.alerts.suspendError')
+        this.$t('global.alerts.suspendError'),
         ])
       }
     },
@@ -239,21 +239,21 @@ export default {
         this.mulitipleItemsUpdate([{
           ids: this.selectedIds,
           request: {
-            active: 1
-          }
+            active: 1,
+          },
         },
         this.$t('global.alerts.restored'),
-        this.$t('global.alerts.restoreError')
+        this.$t('global.alerts.restoreError'),
         ])
       }
     },
     destroySelected () {
       if (this.checkSelected()) {
         this.mulitipleItemsDelete([{
-          ids: this.selectedIds
+          ids: this.selectedIds,
         },
         this.$t('global.alerts.deleted'),
-        this.$t('global.alerts.deleteError')
+        this.$t('global.alerts.deleteError'),
         ])
       }
     },
@@ -281,6 +281,6 @@ export default {
           this.custom('goToItem', item)
         }
       }
-    }
-  }
+    },
+  },
 }

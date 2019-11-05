@@ -57,6 +57,6 @@ const mutations = {
     const { token } = data
     localStorage.setItem('token', token)
     state.token = token
-  }
+  },
 }
 export default mutations

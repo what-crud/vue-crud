@@ -61,7 +61,7 @@ const actions = {
     })
   },
   refreshToken ({
-    commit
+    commit,
   }, data) {
     const path = auth.paths.refreshToken || 'refresh-token'
     Vue.http.post(getUrl(path))
@@ -82,7 +82,7 @@ const actions = {
   },
   editPassword ({
     commit,
-    dispatch
+    dispatch,
   }, data) {
     const path = auth.paths.changePassword || 'password'
     Vue.http.post(getUrl(path), data)
@@ -93,7 +93,7 @@ const actions = {
       }, (error) => {
         dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
       })
-  }
+  },
 }
 
 export default actions

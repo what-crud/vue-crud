@@ -67,9 +67,7 @@
             dark
           >
             {{ $t('global.details.files.upload') }}
-            <v-icon dark right>
-              {{ fileUploadIcon(uploadStatus) }}
-            </v-icon>
+            <v-icon dark right>{{ fileUploadIcon(uploadStatus) }}</v-icon>
             <input
               :id="field.name"
               :multiple="false"
@@ -78,7 +76,7 @@
               accept="*"
               ref="fileInput"
               @change="fileSelected($event, field)"
-            >
+            />
           </v-btn>
         </v-col>
         <v-col cols="12" sm="7">
@@ -88,8 +86,7 @@
             :label="field.text"
             :value="filename"
             disabled
-          >
-          </v-text-field>
+          ></v-text-field>
         </v-col>
       </v-row>
     </div>
@@ -119,126 +116,12 @@
     <template v-else-if="fieldType == 'richTextBox'">
       <div class="field-container">
         <label class="field-label">{{field.text}}</label>
-        <div class="editor" style="border: 1px solid #aaa;">
-          <editor-menu-bar :editor="editor" style="border-bottom: 1px solid #aaa;">
-            <div class="menubar" slot-scope="{ commands, isActive }">
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.bold() }"
-                @click="commands.bold"
-              >
-                <v-icon name="bold">format_bold</v-icon>
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.italic() }"
-                @click="commands.italic"
-              >
-                <v-icon name="italic">format_italic</v-icon>
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.strike() }"
-                @click="commands.strike"
-              >
-                <v-icon name="strike">format_strikethrough</v-icon>
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.underline() }"
-                @click="commands.underline"
-              >
-                <v-icon name="underline">format_underlined</v-icon>
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.code() }"
-                @click="commands.code"
-              >
-                <v-icon name="code">code</v-icon>
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.paragraph() }"
-                @click="commands.paragraph"
-              >
-                P
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.heading({ level: 1 }) }"
-                @click="commands.heading({ level: 1 })"
-              >
-                H1
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.heading({ level: 2 }) }"
-                @click="commands.heading({ level: 2 })"
-              >
-                H2
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.heading({ level: 3 }) }"
-                @click="commands.heading({ level: 3 })"
-              >
-                H3
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.bullet_list() }"
-                @click="commands.bullet_list"
-              >
-                <v-icon name="ul">format_list_bulleted</v-icon>
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.ordered_list() }"
-                @click="commands.ordered_list"
-              >
-                <v-icon name="ol">format_list_numbered</v-icon>
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.blockquote() }"
-                @click="commands.blockquote"
-              >
-                <v-icon name="quote">format_quote</v-icon>
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                :class="{ 'is-active': isActive.code_block() }"
-                @click="commands.code_block"
-              >
-                <v-icon name="code">code</v-icon>
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                @click="commands.horizontal_rule"
-              >
-                <v-icon name="hr">minimize</v-icon>
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                @click="commands.undo"
-              >
-                <v-icon name="undo">undo</v-icon>
-              </v-btn>
-              <v-btn fab small icon
-                class="menubar__button"
-                @click="commands.redo"
-              >
-                <v-icon name="redo">redo</v-icon>
-              </v-btn>
-            </div>
-          </editor-menu-bar>
-          <editor-content class="editor__content" :editor="editor" />
-        </div>
+        <rich-text-box />
       </div>
     </template>
     <!-- checkbox -->
-    <v-checkbox v-else-if="fieldType == 'checkbox'"
+    <v-checkbox
+      v-else-if="fieldType == 'checkbox'"
       hide-details
       color="primary"
       v-model="value"
@@ -251,41 +134,10 @@
 <script>
 import Vue from 'vue'
 import crud from '@/config/crud'
-import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
-import {
-  Blockquote,
-  CodeBlock,
-  HardBreak,
-  Heading,
-  HorizontalRule,
-  OrderedList,
-  BulletList,
-  ListItem,
-  TodoItem,
-  TodoList,
-  Bold,
-  Code,
-  Italic,
-  Link,
-  Strike,
-  Underline,
-  History
-} from 'tiptap-extensions'
-import {
-  mapState
-} from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
-  components: {
-    EditorMenuBar,
-    EditorContent
-  },
-  props: [
-    'field',
-    'fieldValue',
-    'reload',
-    'dynamicFieldType'
-  ],
+  props: ['field', 'fieldValue', 'reload', 'dynamicFieldType'],
   data () {
     return {
       listData: [],
@@ -298,11 +150,10 @@ export default {
       masks: {
         date: '####-##-##',
         time: '##:##',
-        datetime: '####-##-## ##:##:##'
+        datetime: '####-##-## ##:##:##',
       },
-      editor: null,
       searchActive: true,
-      datepicker: false
+      datepicker: false,
     }
   },
   watch: {
@@ -310,13 +161,7 @@ export default {
       immediate: true,
       handler (val) {
         this.value = val
-        if (this.fieldType === 'richTextBox') {
-          let content = val || ''
-          if (this.editor) {
-            this.editor.setContent(content)
-          }
-        }
-      }
+      },
     },
     reload: function (val) {
       if (val) {
@@ -347,7 +192,7 @@ export default {
           }
         }
       }, 500)
-    }
+    },
   },
   mounted () {
     if (this.fieldType === 'select') {
@@ -361,38 +206,6 @@ export default {
           this.refreshList(this.field.url)
         }
       }
-    } else if (this.fieldType === 'richTextBox') {
-      this.editor = new Editor({
-        extensions: [
-          new Blockquote(),
-          new BulletList(),
-          new CodeBlock(),
-          new HardBreak(),
-          new Heading({ levels: [1, 2, 3] }),
-          new HorizontalRule(),
-          new ListItem(),
-          new OrderedList(),
-          new TodoItem(),
-          new TodoList(),
-          new Bold(),
-          new Code(),
-          new Italic(),
-          new Link(),
-          new Strike(),
-          new Underline(),
-          new History()
-        ],
-        content: ``,
-        onBlur: () => {
-          this.getEditorContent(this.editor.getHTML())
-          this.valueChanged()
-        }
-      })
-    }
-  },
-  beforeDestroy () {
-    if (this.fieldType === 'richTextBox' && this.editor !== null) {
-      this.editor.destroy()
     }
   },
   computed: {
@@ -404,7 +217,7 @@ export default {
     rules () {
       const self = this
       return {
-        required: v => !!v || self.$t('global.details.rules.required')
+        required: (v) => !!v || self.$t('global.details.rules.required'),
       }
     },
     listRefreshable () {
@@ -426,12 +239,9 @@ export default {
     },
     firstDayOfWeek () {
       return crud.firstDayOfWeek || 0
-    }
+    },
   },
   methods: {
-    getEditorContent (content) {
-      this.value = content
-    },
     checkboxUpdated () {
       this.value = this.value ? 1 : 0
       this.valueChanged()
@@ -453,9 +263,7 @@ export default {
           }
           if (typeof this.field.list.complexName !== 'undefined') {
             const textArray = this.field.list.complexName.map((textInfo) => {
-              const splittedText = textInfo
-                .split('.')
-                .reduce((object, property) => object[property] || '', item)
+              const splittedText = textInfo.split('.').reduce((object, property) => object[property] || '', item)
               return splittedText
             })
             rItem.complexName = textArray.join(', ')
@@ -478,7 +286,7 @@ export default {
       const btnClasses = {
         ready: 'primary',
         success: 'success',
-        error: 'error'
+        error: 'error',
       }
       return btnClasses[status]
     },
@@ -486,7 +294,7 @@ export default {
       const icons = {
         ready: 'save_alt',
         success: 'check',
-        error: 'close'
+        error: 'close',
       }
       return icons[status]
     },
@@ -507,40 +315,43 @@ export default {
         formData.append('module', this.prefix)
         formData.append('table', this.path)
         formData.append('field', field.column)
-        this.$http.post(this.uploadPath, formData, {}).then((response) => {
-          if (response.body.status === 0) {
-            this.value = JSON.stringify({
-              filename: file.name,
-              mime: file.type,
-              size: file.size,
-              path: response.body.path,
-              uploaded: 1
-            })
-            this.valueChanged()
-            this.uploadStatus = 'success'
-          } else {
-            this.uploadStatus = 'error'
-            if (response.body.status === -1) {
-              this.openAlertBox(['alertError', response.body.msg])
-            } else if (response.body.status === -2) {
-              this.openAlertBox(['alertValidationError', response.body.msg])
+        this.$http.post(this.uploadPath, formData, {}).then(
+          (response) => {
+            if (response.body.status === 0) {
+              this.value = JSON.stringify({
+                filename: file.name,
+                mime: file.type,
+                size: file.size,
+                path: response.body.path,
+                uploaded: 1,
+              })
+              this.valueChanged()
+              this.uploadStatus = 'success'
+            } else {
+              this.uploadStatus = 'error'
+              if (response.body.status === -1) {
+                this.openAlertBox(['alertError', response.body.msg])
+              } else if (response.body.status === -2) {
+                this.openAlertBox(['alertValidationError', response.body.msg])
+              }
             }
-          }
-          this.uploadLoader = false
-        }, () => {
-          this.uploadLoader = false
-          this.uploadStatus = 'error'
-        })
+            this.uploadLoader = false
+          },
+          () => {
+            this.uploadLoader = false
+            this.uploadStatus = 'error'
+          },
+        )
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style scoped>
 .field-label {
-  font-size:12px;
-  color:#777;
+  font-size: 12px;
+  color: #777;
 }
 .field-container {
   margin-top: 10px;
@@ -552,7 +363,7 @@ export default {
   margin: 0px;
   width: 100%;
 }
-.jbtn-file input[type="file"] {
+.jbtn-file input[type='file'] {
   position: absolute;
   top: 0;
   right: 0;

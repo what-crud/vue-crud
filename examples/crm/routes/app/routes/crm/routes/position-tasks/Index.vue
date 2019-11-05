@@ -18,7 +18,7 @@ export default {
     return {
       prefix: 'crm',
       path: 'position-tasks',
-      pageTitle: 'crm.positionTasks'
+      pageTitle: 'crm.positionTasks',
     }
   },
   computed: {
@@ -27,23 +27,23 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           text: this.$t('fields.positionPerson'),
           name: 'positionPerson',
           apiObject: {
-            name: 'position.person.fullname'
+            name: 'position.person.fullname',
           },
-          details: false
+          details: false,
         },
         {
           text: this.$t('fields.positionCompany'),
           name: 'positionCompany',
           apiObject: {
-            name: 'position.company.common_name'
+            name: 'position.company.common_name',
           },
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -52,14 +52,14 @@ export default {
             value: 'id',
             text: 'complexName',
             complexName: ['person.fullname', 'company.common_name', 'name'],
-            data: []
+            data: [],
           },
           column: 'position_id',
           text: this.$t('fields.position'),
           name: 'position',
           apiObject: {
-            name: 'position.name'
-          }
+            name: 'position.name',
+          },
         },
         {
           type: 'select',
@@ -67,20 +67,20 @@ export default {
           list: {
             value: 'id',
             text: 'name',
-            data: []
+            data: [],
           },
           column: 'task_id',
           text: this.$t('fields.task'),
           name: 'task',
           apiObject: {
-            name: 'task.name'
-          }
-        }
+            name: 'task.name',
+          },
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -91,8 +91,8 @@ export default {
           positionPerson: 'Osoba',
           positionCompany: 'Firma',
           position: 'Nazwa stanowiska',
-          task: 'Zadanie'
-        }
+          task: 'Zadanie',
+        },
       },
       en: {
         detailsTitle: 'Position - task',
@@ -101,11 +101,11 @@ export default {
           positionPerson: 'Person',
           positionCompany: 'Company',
           position: 'Position',
-          task: 'Task'
-        }
-      }
-    }
-  }
+          task: 'Task',
+        },
+      },
+    },
+  },
 }
 
 </script>

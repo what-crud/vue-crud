@@ -14,6 +14,6 @@ export default {
     profile,
     datatable,
     details,
-    itemElements
-  }
+    itemElements,
+  },
 }

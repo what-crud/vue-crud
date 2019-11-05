@@ -73,18 +73,18 @@ import { fieldModifiers } from '@/utils/crud/helpers/functions'
 import {
   mapState,
   mapMutations,
-  mapActions
+  mapActions,
 } from 'vuex'
 
 export default {
   components: {
-    Field
+    Field,
   },
   props: ['title', 'detailsFields'],
   data () {
     return {
       reload: false,
-      fields: []
+      fields: [],
     }
   },
   watch: {
@@ -98,7 +98,7 @@ export default {
           }, 100)
         }
       }
-    }
+    },
   },
   mounted () {
     this.resetItem()
@@ -115,12 +115,12 @@ export default {
     },
     detailsShow () {
       return this.details.show
-    }
+    },
   },
   methods: {
     ...mapActions('crud', ['updateItem', 'storeItem', 'mulitipleItemsUpdate']),
     ...mapActions([
-      'openAlertBox'
+      'openAlertBox',
     ]),
     ...mapMutations('crud', ['resetItem']),
     setFields () {
@@ -185,7 +185,7 @@ export default {
         this.details.id,
         this.itemData,
         this.$t('global.alerts.updated'),
-        this.$t('global.alerts.updateError')
+        this.$t('global.alerts.updateError'),
       ]).then((response) => {
         this.close()
       })
@@ -194,7 +194,7 @@ export default {
       this.storeItem([
         this.itemData,
         this.$t('global.alerts.stored'),
-        this.$t('global.alerts.storeError')
+        this.$t('global.alerts.storeError'),
       ]).then((response) => {
         this.close()
       })
@@ -208,13 +208,13 @@ export default {
       this.mulitipleItemsUpdate([
         {
           ids: this.selectedIds,
-          request: keyValuePairs
+          request: keyValuePairs,
         },
         this.$t('global.alerts.updated'),
-        this.$t('global.alerts.updateError')
+        this.$t('global.alerts.updateError'),
       ])
-    }
-  }
+    },
+  },
 }
 </script>
 

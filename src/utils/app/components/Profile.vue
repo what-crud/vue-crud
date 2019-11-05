@@ -124,7 +124,7 @@
 import {
   mapState,
   mapGetters,
-  mapActions
+  mapActions,
 } from 'vuex'
 import auth from '@/config/auth'
 
@@ -138,7 +138,7 @@ export default {
     password: {
       old: '',
       new: '',
-      repeat: ''
+      repeat: '',
     },
     customFields: [],
     userValid: false,
@@ -146,18 +146,18 @@ export default {
     pass2: true,
     pass3: true,
     alphanumericRegex: /^[a-zA-Z0-9]+$/,
-    emailRegex: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+    emailRegex: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
   }),
   computed: {
     ...mapState('app', [
-      'profileDialog'
+      'profileDialog',
     ]),
     ...mapGetters('auth', [
       'userInfo',
       'userUpdated',
       'userPasswordUpdated',
       'userPasswordUpdateError',
-      'userPasswordUpdateErrorMsg'
+      'userPasswordUpdateErrorMsg',
     ]),
     loginRules () {
       const min = auth.loginMinLength || 4
@@ -167,7 +167,7 @@ export default {
         v => !!v || this.$t('global.profile.rules.required'),
         v => regex.test(v) || this.$t('global.profile.rules.loginIncorrect'),
         v => (v === undefined || v.length <= max) || `${this.$t('global.profile.rules.max')} ${max} ${this.$t('global.profile.rules.characters')}`,
-        v => (v === undefined || v.length >= min) || `${this.$t('global.profile.rules.min')} ${min} ${this.$t('global.profile.rules.characters')}`
+        v => (v === undefined || v.length >= min) || `${this.$t('global.profile.rules.min')} ${min} ${this.$t('global.profile.rules.characters')}`,
       ]
     },
     passwordRules () {
@@ -176,22 +176,22 @@ export default {
       const regex = auth.passwordRegex || this.alphanumericRegex
       return {
         old: [
-          v => !!v || this.$t('global.profile.rules.required')
+          v => !!v || this.$t('global.profile.rules.required'),
         ],
         new: [
           v => !!v || this.$t('global.profile.rules.required'),
           v => regex.test(v) || this.$t('global.profile.rules.passwordIncorrect'),
           v => v.length <= max || `${this.$t('global.profile.rules.max')} ${max} ${this.$t('global.profile.rules.characters')}`,
           v => v.length >= min || `${this.$t('global.profile.rules.min')} ${min} ${this.$t('global.profile.rules.characters')}`,
-          v => v !== this.password.old || this.$t('global.profile.rules.passwordMustDiffer')
+          v => v !== this.password.old || this.$t('global.profile.rules.passwordMustDiffer'),
         ],
         repeat: [
           v => !!v || this.$t('global.profile.rules.required'),
           v => regex.test(v) || this.$t('global.profile.rules.passwordIncorrect'),
           v => v.length <= max || `${this.$t('global.profile.rules.max')} ${max} ${this.$t('global.profile.rules.characters')}`,
           v => v.length >= min || `${this.$t('global.profile.rules.min')} ${min} ${this.$t('global.profile.rules.characters')}`,
-          v => v === this.password.new || this.$t('global.profile.rules.passwordMustBeSame')
-        ]
+          v => v === this.password.new || this.$t('global.profile.rules.passwordMustBeSame'),
+        ],
       }
     },
     user () {
@@ -201,12 +201,12 @@ export default {
         user[field.name] = field.value
       }
       return user
-    }
+    },
   },
   methods: {
     ...mapActions('auth', [
       'editUser',
-      'editPassword'
+      'editPassword',
     ]),
     clearPasswords () {
       this.password.old = ''
@@ -237,13 +237,13 @@ export default {
         v => (!required || !!v) || this.$t('global.profile.rules.required'),
         v => regex.test(v) || this.$t('global.profile.rules.fieldIncorrect'),
         v => (v === undefined || v.length <= max) || `${this.$t('global.profile.rules.max')} ${max} ${this.$t('global.profile.rules.characters')}`,
-        v => (v === undefined || v.length >= min) || `${this.$t('global.profile.rules.min')} ${min} ${this.$t('global.profile.rules.characters')}`
+        v => (v === undefined || v.length >= min) || `${this.$t('global.profile.rules.min')} ${min} ${this.$t('global.profile.rules.characters')}`,
       ]
-    }
+    },
   },
   created () {
     this.getUser()
-  }
+  },
 }
 
 </script>

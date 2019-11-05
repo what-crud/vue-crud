@@ -2,7 +2,7 @@ import DataTableFooter from '../components/DataTableFooter.vue'
 
 export default {
   components: {
-    DataTableFooter
+    DataTableFooter,
   },
   data () {
     return {
@@ -11,7 +11,7 @@ export default {
       tmp: '',
       search: '',
       pagination: {},
-      excelLoading: false
+      excelLoading: false,
     }
   },
   computed: {
@@ -31,7 +31,7 @@ export default {
       const actionHeader = [{
         text: this.$t('global.datatable.fields.action'),
         value: 'actions',
-        sortable: false
+        sortable: false,
       }]
       return [...actionHeader, ...this.cleanHeaders]
     },
@@ -39,28 +39,28 @@ export default {
       return [
         {
           text: this.$t('global.datatable.status.active'),
-          value: 1
+          value: 1,
         },
         {
           text: this.$t('global.datatable.status.inactive'),
-          value: 0
-        }
+          value: 0,
+        },
       ]
     },
     filterModes () {
       return [
         {
           name: 'like',
-          text: this.$t('global.datatable.filterModes.options.like')
+          text: this.$t('global.datatable.filterModes.options.like'),
         },
         {
           name: 'equals',
-          text: this.$t('global.datatable.filterModes.options.equals')
+          text: this.$t('global.datatable.filterModes.options.equals'),
         },
         {
           name: 'list',
-          text: this.$t('global.datatable.filterModes.options.list')
-        }
+          text: this.$t('global.datatable.filterModes.options.list'),
+        },
       ]
     },
     itemsPerPageOptions () {
@@ -69,16 +69,16 @@ export default {
         10,
         20,
         50,
-        100
+        100,
       ]
     },
     footerProps () {
       return {
         showFirstLastPage: true,
         rowsPerPageText: this.$t('global.datatable.rowsPerPageText'),
-        itemsPerPageOptions: this.itemsPerPageOptions
+        itemsPerPageOptions: this.itemsPerPageOptions,
       }
-    }
+    },
   },
   methods: {
     updateColumnFilterMode (val, index) {
@@ -131,6 +131,6 @@ export default {
         }
       }
       return textMode
-    }
-  }
+    },
+  },
 }

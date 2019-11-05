@@ -24,14 +24,14 @@ export default {
       paths: {
         i: 'crm/company-comments',
         st: 'crm/company-comments',
-        u: 'crm/company-comments'
+        u: 'crm/company-comments',
       },
-      pageTitle: 'crm.companyComments'
+      pageTitle: 'crm.companyComments',
     }
   },
   components: {
-    Crud
-  }
+    Crud,
+  },
 }
 
 </script>

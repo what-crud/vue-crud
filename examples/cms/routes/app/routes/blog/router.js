@@ -7,23 +7,23 @@ let blogRoutes = [
   {
     path: 'categories',
     name: 'blog-categories',
-    component: Categories
+    component: Categories,
   },
   {
     path: 'posts',
     name: 'blog-posts',
-    component: Posts
+    component: Posts,
   },
   {
     path: 'post-tags',
     name: 'blog-post-tags',
-    component: PostTags
+    component: PostTags,
   },
   {
     path: 'tags',
     name: 'blog-tags',
-    component: Tags
-  }
+    component: Tags,
+  },
 ]
 
 export default blogRoutes

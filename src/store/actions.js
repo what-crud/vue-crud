@@ -6,7 +6,7 @@ const actions = {
     setTimeout(() => {
       commit('closeAlertBox')
     }, 4000)
-  }
+  },
 }
 
 export default actions

@@ -18,7 +18,7 @@ export default {
     return {
       prefix: 'crud/admin',
       path: 'permissions',
-      pageTitle: 'admin.permissions'
+      pageTitle: 'admin.permissions',
     }
   },
   computed: {
@@ -33,15 +33,15 @@ export default {
             {
               obj: 'name',
               name: 'name',
-              header: this.$t('itemElements.permissionUsers.headers.user')
-            }
+              header: this.$t('itemElements.permissionUsers.headers.user'),
+            },
           ],
           primaryId: 'permission_id',
           foreignId: 'user_id',
           icon: 'people',
           color: 'purple',
-          buttonText: this.$t('itemElements.permissionUsers.title')
-        }
+          buttonText: this.$t('itemElements.permissionUsers.title'),
+        },
       }
     },
     fieldsInfo () {
@@ -49,27 +49,27 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
           column: 'name',
           text: this.$t('fields.name'),
           name: 'name',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'input',
           column: 'code',
           text: this.$t('fields.code'),
           name: 'code',
-          multiedit: false
-        }
+          multiedit: false,
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -78,35 +78,35 @@ export default {
         fields: {
           id: 'Id',
           name: 'Nazwa',
-          code: 'Kod'
+          code: 'Kod',
         },
         itemElements: {
           permissionUsers: {
             title: 'Użytkownicy posiadający dane uprawnienie',
             headers: {
-              user: 'Użytkownik'
-            }
-          }
-        }
+              user: 'Użytkownik',
+            },
+          },
+        },
       },
       en: {
         detailsTitle: 'Permission',
         fields: {
           id: 'Id',
           name: 'Name',
-          code: 'Code'
+          code: 'Code',
         },
         itemElements: {
           permissionUsers: {
             title: 'Users with this permission',
             headers: {
-              user: 'User'
-            }
-          }
-        }
-      }
-    }
-  }
+              user: 'User',
+            },
+          },
+        },
+      },
+    },
+  },
 }
 
 </script>

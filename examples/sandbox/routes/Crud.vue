@@ -228,7 +228,7 @@ export default {
       activeFunctions: ['boolean'],
       showButton1: true,
       showButton2: true,
-      item: {}
+      item: {},
     }
   },
   created () {
@@ -241,7 +241,7 @@ export default {
     showForm (item) {
       this.item = item
       this.dialog = true
-    }
+    },
   },
   computed: {
     fieldsInfo () {
@@ -249,7 +249,7 @@ export default {
         text: this.$t('fields.id'),
         name: 'id',
         details: false,
-        table: this.idTable
+        table: this.idTable,
       },
       {
         type: 'input',
@@ -257,7 +257,7 @@ export default {
         text: this.$t('fields.name'),
         name: 'name',
         table: this.nameTable,
-        multiedit: false
+        multiedit: false,
       },
       {
         type: this.descriptionFieldType,
@@ -268,7 +268,7 @@ export default {
         table: this.descriptionTable,
         details: this.descriptionDetails,
         multiedit: this.descriptionMultiedit,
-        textMode: this.descriptionTextMode
+        textMode: this.descriptionTextMode,
       },
       {
         type: 'checkbox',
@@ -281,10 +281,10 @@ export default {
         multiedit: this.activeMultiedit,
         apiObject: {
           name: 'active',
-          functions: this.activeFunctions
+          functions: this.activeFunctions,
         },
-        textMode: this.activeTextMode
-      }
+        textMode: this.activeTextMode,
+      },
       ]
     },
     button1 () {
@@ -292,7 +292,7 @@ export default {
         name: 'showAlert',
         icon: 'notification_important',
         color: 'yellow',
-        text: this.$t('buttons.showAlert')
+        text: this.$t('buttons.showAlert'),
       }]
     },
     button2 () {
@@ -300,7 +300,7 @@ export default {
         name: 'showForm',
         icon: 'insert_comment',
         color: 'blue',
-        text: this.$t('buttons.showForm')
+        text: this.$t('buttons.showForm'),
       }]
     },
     buttons () {
@@ -469,11 +469,11 @@ export default {
             },
           }
         `
-    }
+    },
   },
   components: {
     Crud,
-    AlertBox
+    AlertBox,
   },
   i18n: {
     messages: {
@@ -483,12 +483,12 @@ export default {
           id: 'Id',
           name: 'Name',
           description: 'Description',
-          active: 'Active'
+          active: 'Active',
         },
         buttons: {
           showAlert: 'Show alert',
-          showForm: 'Show form'
-        }
+          showForm: 'Show form',
+        },
       },
       pl: {
         detailsTitle: 'Zadanie',
@@ -496,14 +496,14 @@ export default {
           id: 'Id',
           name: 'Nazwa',
           description: 'Opis',
-          active: 'Aktywne'
+          active: 'Aktywne',
         },
         buttons: {
           showAlert: 'Pokaż alert',
-          showForm: 'Pokaż formularz'
-        }
-      }
-    }
-  }
+          showForm: 'Pokaż formularz',
+        },
+      },
+    },
+  },
 }
 </script>

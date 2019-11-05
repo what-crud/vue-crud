@@ -117,7 +117,7 @@
 import {
   mapState,
   mapMutations,
-  mapActions
+  mapActions,
 } from 'vuex'
 import auth from '@/config/auth'
 
@@ -126,20 +126,20 @@ export default {
   props: {
     redirect: {
       type: String,
-      default: '/'
+      default: '/',
     },
     showLogo: {
       type: Boolean,
-      default: true
+      default: true,
     },
     logo: {
       type: String,
-      default: 'vue-crud-sm.png'
+      default: 'vue-crud-sm.png',
     },
     localeSelectable: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data () {
     return {
@@ -148,16 +148,16 @@ export default {
       user: '',
       passwordHidden: true,
       alphanumericRegex: /^[a-zA-Z0-9]+$/,
-      emailRegex: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+      emailRegex: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
     }
   },
   computed: {
     ...mapState('auth', [
       'loginWait',
-      'loginFailed'
+      'loginFailed',
     ]),
     ...mapState([
-      'locales'
+      'locales',
     ]),
     loginRegex () {
       return auth.loginRegex ? auth.loginRegex : (auth.loginWithEmail ? this.emailRegex : this.alphanumericRegex)
@@ -165,7 +165,7 @@ export default {
     loginRules () {
       return [
         v => !!v || this.$t('global.login.loginRequired'),
-        v => this.emailRegex.test(v) || this.$t('global.login.incorrectLogin')
+        v => this.emailRegex.test(v) || this.$t('global.login.incorrectLogin'),
       ]
     },
     passwordRegex () {
@@ -174,7 +174,7 @@ export default {
     passwordRules () {
       return [
         v => !!v || this.$t('global.login.passwordRequired'),
-        v => this.passwordRegex.test(v) || this.$t('global.login.incorrectPassword')
+        v => this.passwordRegex.test(v) || this.$t('global.login.incorrectPassword'),
       ]
     },
     credential () {
@@ -188,14 +188,14 @@ export default {
     },
     passAppendIcon () {
       return this.passwordHidden ? 'visibility' : 'visibility_off'
-    }
+    },
   },
   methods: {
     ...mapMutations([
-      'setLocale'
+      'setLocale',
     ]),
     ...mapActions('auth', [
-      'login'
+      'login',
     ]),
     changeLocale (locale) {
       this.$i18n.locale = locale
@@ -205,8 +205,8 @@ export default {
       this.login(this.credential).then(() => {
         this.$router.push({ path: this.redirect })
       })
-    }
-  }
+    },
+  },
 }
 
 </script>

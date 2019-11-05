@@ -4,7 +4,7 @@ export default {
       pl: {
         detailsTitle: 'Osoba',
         buttons: {
-          goToItem: 'Przejdź do osoby'
+          goToItem: 'Przejdź do osoby',
         },
         fields: {
           id: 'Id',
@@ -15,13 +15,13 @@ export default {
           sex: 'Płeć',
           language: 'Język',
           email: 'E-mail',
-          phone: 'Telefon'
-        }
+          phone: 'Telefon',
+        },
       },
       en: {
         detailsTitle: 'Person',
         buttons: {
-          goToItem: 'Go to person'
+          goToItem: 'Go to person',
         },
         fields: {
           id: 'Id',
@@ -32,9 +32,9 @@ export default {
           sex: 'Sex',
           language: 'Language',
           email: 'E-mail',
-          phone: 'Phone'
-        }
-      }
-    }
-  }
+          phone: 'Phone',
+        },
+      },
+    },
+  },
 }

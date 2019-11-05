@@ -4,38 +4,38 @@ const resources = [
   {
     type: 'dir',
     sl: 'public',
-    tl: 'public'
+    tl: 'public',
   },
   {
     type: 'dir',
     sl: 'locales',
-    tl: 'src/locales'
+    tl: 'src/locales',
   },
   {
     type: 'dir',
     sl: 'routes',
-    tl: 'src/routes'
+    tl: 'src/routes',
   },
   {
     type: 'dir',
     sl: 'config',
-    tl: 'src/config'
+    tl: 'src/config',
   },
   {
     type: 'file',
     sl: 'main.js',
-    tl: 'src/main.js'
+    tl: 'src/main.js',
   },
   {
     type: 'file',
     sl: 'router.js',
-    tl: 'src/router.js'
+    tl: 'src/router.js',
   },
   {
     type: 'file',
     sl: 'registerServiceWorker.js',
-    tl: 'src/registerServiceWorker.js'
-  }
+    tl: 'src/registerServiceWorker.js',
+  },
 ]
 var args = process.argv.slice(2)
 

@@ -17,7 +17,7 @@ export default {
     return {
       prefix: 'crud/crm',
       path: 'tasks',
-      pageTitle: 'crm.tasks'
+      pageTitle: 'crm.tasks',
     }
   },
   computed: {
@@ -26,20 +26,20 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
           column: 'name',
           text: this.$t('fields.name'),
           name: 'name',
-          multiedit: false
-        }
+          multiedit: false,
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -47,18 +47,18 @@ export default {
         detailsTitle: 'Zadanie',
         fields: {
           id: 'Id',
-          name: 'Nazwa'
-        }
+          name: 'Nazwa',
+        },
       },
       en: {
         detailsTitle: 'Task',
         fields: {
           id: 'Id',
-          name: 'Name'
-        }
-      }
-    }
-  }
+          name: 'Name',
+        },
+      },
+    },
+  },
 }
 
 </script>

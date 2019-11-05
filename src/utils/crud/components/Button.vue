@@ -27,47 +27,47 @@ export default {
   props: {
     xSmall: {
       type: Boolean,
-      default: false
+      default: false,
     },
     small: {
       type: Boolean,
-      default: false
+      default: false,
     },
     large: {
       type: Boolean,
-      default: false
+      default: false,
     },
     xLarge: {
       type: Boolean,
-      default: false
+      default: false,
     },
     dark: {
       type: Boolean,
-      default: true
+      default: true,
     },
     color: {
-      type: String
+      type: String,
     },
     tooltip: {
-      type: String
+      type: String,
     },
     icon: {
-      type: String
+      type: String,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     loading: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     emitClick () {
       this.$emit('clicked')
-    }
-  }
+    },
+  },
 }
 
 </script>

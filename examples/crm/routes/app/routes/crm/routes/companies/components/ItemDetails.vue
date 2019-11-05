@@ -46,19 +46,19 @@ export default {
   components: {
     ItemDetailsContainer,
     CompanyPositions,
-    CompanyComments
+    CompanyComments,
   },
   created () {
     this.setIdColumn('id')
     this.setChildItemsMapping([
       {
         name: 'companyPositions',
-        objName: 'positions'
+        objName: 'positions',
       },
       {
         name: 'companyComments',
-        objName: 'comments'
-      }
+        objName: 'comments',
+      },
     ])
   },
   i18n: {
@@ -68,17 +68,17 @@ export default {
         basicInformation: 'Dane podstawowe',
         positions: 'Stanowiska',
         comments: 'Komentarze',
-        files: 'Pliki'
+        files: 'Pliki',
       },
       en: {
         title: 'Company details',
         basicInformation: 'Basic information',
         positions: 'Positions',
         comments: 'Comments',
-        files: 'Files'
-      }
-    }
-  }
+        files: 'Files',
+      },
+    },
+  },
 }
 
 </script>

@@ -6,5 +6,5 @@ import blog from '@/routes/app/routes/blog/store/'
 export default {
   administration,
   cms,
-  blog
+  blog,
 }

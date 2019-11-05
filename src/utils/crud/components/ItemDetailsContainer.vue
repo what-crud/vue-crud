@@ -53,19 +53,19 @@
 import {
   mapState,
   mapMutations,
-  mapActions
+  mapActions,
 } from 'vuex'
 import ItemDetailsExtended from '@/utils/crud/components/ItemDetailsExtended.vue'
 
 export default {
   name: 'item-details',
   components: {
-    ItemDetailsExtended
+    ItemDetailsExtended,
   },
   props: [
     'fields',
     'basicInformation',
-    'title'
+    'title',
   ],
   data () {
     return {}
@@ -75,13 +75,13 @@ export default {
       'item',
       'itemIdColumn',
       'detailsLoading',
-      'detailsDialog'
-    ])
+      'detailsDialog',
+    ]),
   },
   methods: {
     ...mapActions('crud', [
       'getItems',
-      'getItemDetails'
+      'getItemDetails',
     ]),
     ...mapMutations('crud', [
       'hideItemDetailsDialog',
@@ -89,7 +89,7 @@ export default {
       'setChildItemsMapping',
       'moveItem',
       'setNextItem',
-      'itemDetails'
+      'itemDetails',
     ]),
     escapeHandler (event) {
       if (event.which === 27) {
@@ -107,11 +107,11 @@ export default {
     },
     next () {
       this.moveItem(['next', true])
-    }
+    },
   },
   destroyed () {
     this.itemDetails({})
-  }
+  },
 }
 
 </script>

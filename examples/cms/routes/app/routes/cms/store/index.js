@@ -8,7 +8,7 @@ let cms = {
   state,
   getters,
   mutations,
-  actions
+  actions,
 }
 
 export default cms

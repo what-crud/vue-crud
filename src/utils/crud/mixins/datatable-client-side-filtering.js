@@ -14,7 +14,7 @@ export default {
   watch: {
     selectedStatuses (val) {
       this.pagination.page = 1
-    }
+    },
   },
   computed: {
     filteredItems () {
@@ -83,7 +83,7 @@ export default {
       })
 
       return items
-    }
+    },
   },
   methods: {
     getItemIndex (id) {
@@ -106,9 +106,9 @@ export default {
           data,
           filename: this.excelName,
           autoWidth: true,
-          bookType: 'xlsx'
+          bookType: 'xlsx',
         })
       })
-    }
-  }
+    },
+  },
 }

@@ -6,18 +6,18 @@ let administrationRoutes = [
   {
     path: 'users',
     name: 'users',
-    component: Users
+    component: Users,
   },
   {
     path: 'permissions',
     name: 'permissions',
-    component: Permissions
+    component: Permissions,
   },
   {
     path: 'user-permissions',
     name: 'user-permissions',
-    component: UserPermissions
-  }
+    component: UserPermissions,
+  },
 ]
 
 export default administrationRoutes

@@ -4,7 +4,7 @@ const defaults = {
   title: 'Vue CRUD',
   locales: [{
     name: 'en',
-    text: 'English'
+    text: 'English',
   }],
   defaultLocale: 'en',
   iconfont: 'md',
@@ -17,8 +17,8 @@ const defaults = {
     error: '#FF5252',
     info: '#2196F3',
     success: '#4CAF50',
-    warning: '#FFC107'
-  }
+    warning: '#FFC107',
+  },
 }
 
 const params = Object.assign(defaults, main)
@@ -34,8 +34,8 @@ const state = {
     show: false,
     color: '',
     text: '',
-    icon: ''
-  }
+    icon: '',
+  },
 }
 
 export default state

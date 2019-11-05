@@ -92,7 +92,7 @@ import CrudButton from './Button.vue'
 
 export default {
   components: {
-    CrudButton
+    CrudButton,
   },
   props: [
     'deleteMode',
@@ -103,7 +103,7 @@ export default {
     'refreshButton',
     'selectManyMode',
     'updateManyMode',
-    'removeManyMode'
+    'removeManyMode',
   ],
   methods: {
     create () { this.$emit('create') },
@@ -112,7 +112,7 @@ export default {
     restoreSelected () { this.$emit('restoreSelected') },
     destroySelected () { this.$emit('destroySelected') },
     refreshTable () { this.$emit('refreshTable') },
-    clearFilters () { this.$emit('clearFilters') }
-  }
+    clearFilters () { this.$emit('clearFilters') },
+  },
 }
 </script>

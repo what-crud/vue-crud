@@ -9,14 +9,14 @@ export default {
     characters: 'znaków',
     emailMustBeValid: 'E-mail musi mieć poprawny format',
     passwordMustDiffer: 'Nowe hasło musi się różnić od poprzedniego',
-    passwordMustBeSame: 'Hasła nie mogą się różnić'
+    passwordMustBeSame: 'Hasła nie mogą się różnić',
   },
   user: {
     name: 'Nazwa Użytkownika',
     email: 'Adres e-mail',
     restore: 'Przywróć',
     save: 'Zapisz',
-    updated: 'Dane użytkownika zostały zaktualizowane'
+    updated: 'Dane użytkownika zostały zaktualizowane',
   },
   password: {
     old: 'Stare hasło',
@@ -25,6 +25,6 @@ export default {
     updated: 'Hasło zostało zaktualizowane',
     updateError: 'Wystąpił błąd. Hasło nie zostało zaktualizowane',
     clear: 'Wyczyść',
-    change: 'Zmień hasło'
-  }
+    change: 'Zmień hasło',
+  },
 }

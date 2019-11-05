@@ -17,7 +17,7 @@ export default {
     return {
       prefix: 'crud/crm',
       path: 'company-types',
-      pageTitle: 'crm.companyTypes'
+      pageTitle: 'crm.companyTypes',
     }
   },
   computed: {
@@ -26,27 +26,27 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
           column: 'name',
           text: this.$t('fields.name'),
           name: 'name',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'input',
           column: 'code',
           text: this.$t('fields.code'),
           name: 'code',
-          multiedit: false
-        }
+          multiedit: false,
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -55,19 +55,19 @@ export default {
         fields: {
           id: 'Id',
           name: 'Nazwa',
-          code: 'Kod'
-        }
+          code: 'Kod',
+        },
       },
       en: {
         detailsTitle: 'Company type',
         fields: {
           id: 'Id',
           name: 'Name',
-          code: 'Code'
-        }
-      }
-    }
-  }
+          code: 'Code',
+        },
+      },
+    },
+  },
 }
 
 </script>

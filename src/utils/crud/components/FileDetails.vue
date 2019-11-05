@@ -28,40 +28,40 @@
 import CrudButton from './Button.vue'
 import {
   mapState,
-  mapMutations
+  mapMutations,
 } from 'vuex'
 import {
   humanFileSize,
-  download
+  download,
 } from '../helpers/functions'
 
 export default {
   components: {
-    CrudButton
+    CrudButton,
   },
   props: [
-    'fieldInfo'
+    'fieldInfo',
   ],
   filters: {
     fileSize (size) {
       return size != null ? humanFileSize(size) : ''
-    }
+    },
   },
   computed: {
     ...mapState('crud', [
-      'filesPath'
+      'filesPath',
     ]),
     field () {
       return Object.assign({
         filename: '',
         mime: '',
-        size: null
+        size: null,
       }, this.fieldInfo)
-    }
+    },
   },
   methods: {
     ...mapMutations('crud', [
-      'openImageContainer'
+      'openImageContainer',
     ]),
     download (item) {
       download(`${this.filesPath}/${item.path}`, item.filename)
@@ -72,7 +72,7 @@ export default {
     },
     showImage (image) {
       this.openImageContainer(image)
-    }
-  }
+    },
+  },
 }
 </script>

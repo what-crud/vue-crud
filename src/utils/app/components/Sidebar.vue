@@ -108,7 +108,7 @@
 import {
   mapState,
   mapGetters,
-  mapMutations
+  mapMutations,
 } from 'vuex'
 
 export default {
@@ -116,66 +116,66 @@ export default {
     source: String,
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     titleLink: {
       type: String,
-      default: '/'
+      default: '/',
     },
     showLogo: {
       type: Boolean,
-      default: true
+      default: true,
     },
     logo: {
       type: String,
-      default: 'vue-crud-avatar.png'
+      default: 'vue-crud-avatar.png',
     },
     logoSize: {
       type: Number,
-      default: 50
+      default: 50,
     },
     navColor: {
       type: String,
-      default: ''
+      default: '',
     },
     titleColor: {
       type: String,
-      default: 'secondary'
+      default: 'secondary',
     },
     titleDark: {
       type: Boolean,
-      default: true
+      default: true,
     },
     sidebarColor: {
       type: String,
-      default: 'white'
+      default: 'white',
     },
     sidebarDark: {
       type: Boolean,
-      default: false
+      default: false,
     },
     items: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     expandOn: {
       type: String,
       default: 'mouseover',
       validator (value) {
         return ['click', 'mousover'].indexOf(value) !== -1
-      }
+      },
     },
     lockSidebarBtn: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data: () => ({
     setSidebarMini: false,
     dialog: false,
     locked: false,
     expanded: false,
-    isDisplayed: false
+    isDisplayed: false,
   }),
   computed: {
     ...mapState('app', ['isNavigationDrawerDisplayed']),
@@ -188,13 +188,13 @@ export default {
     },
     isAppLarge () {
       return ['xl', 'lg'].includes(this.breakpoint)
-    }
+    },
   },
   methods: {
     ...mapMutations('app', [
       'toggleSidebarWidth',
       'setSidebarWidth',
-      'hideNavigationDrawer'
+      'hideNavigationDrawer',
     ]),
     toggleLock () {
       this.locked = !this.locked
@@ -215,7 +215,7 @@ export default {
       if (!this.locked && this.isAppLarge) {
         this.expanded = false
       }
-    }
+    },
   },
   created () {
     this.locked = JSON.parse(localStorage.getItem('sidebarLocked')) || false
@@ -237,7 +237,7 @@ export default {
       if (!val) {
         this.hideNavigationDrawer()
       }
-    }
-  }
+    },
+  },
 }
 </script>

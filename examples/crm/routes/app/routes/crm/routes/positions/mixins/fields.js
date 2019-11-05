@@ -5,7 +5,7 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -13,14 +13,14 @@ export default {
           list: {
             value: 'id',
             text: 'common_name',
-            data: []
+            data: [],
           },
           column: 'company_id',
           text: this.$t('fields.company'),
           name: 'company',
           apiObject: {
-            name: 'company.common_name'
-          }
+            name: 'company.common_name',
+          },
         },
         {
           type: 'select',
@@ -28,21 +28,21 @@ export default {
           list: {
             value: 'id',
             text: 'fullname',
-            data: []
+            data: [],
           },
           column: 'person_id',
           text: this.$t('fields.person'),
           name: 'person',
           apiObject: {
-            name: 'person.fullname'
-          }
+            name: 'person.fullname',
+          },
         },
         {
           type: 'input',
           column: 'name',
           text: this.$t('fields.name'),
           name: 'name',
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -50,7 +50,7 @@ export default {
           text: this.$t('fields.email'),
           name: 'email',
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -58,17 +58,17 @@ export default {
           text: this.$t('fields.phone'),
           name: 'phone',
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           text: this.$t('fields.tasks'),
           name: 'tasks',
           apiObject: {
             name: 'position_tasks',
-            functions: ['listTasks']
+            functions: ['listTasks'],
           },
           textMode: 'html',
-          details: false
+          details: false,
         },
         {
           type: 'input',
@@ -76,7 +76,7 @@ export default {
           text: this.$t('fields.email_2'),
           name: 'email_2',
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -84,7 +84,7 @@ export default {
           text: this.$t('fields.phone_2'),
           name: 'phone_2',
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -92,16 +92,16 @@ export default {
           text: this.$t('fields.phone_3'),
           name: 'phone_3',
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
           column: 'comment',
           text: this.$t('fields.comment'),
           table: false,
-          required: false
-        }
+          required: false,
+        },
       ]
-    }
-  }
+    },
+  },
 }

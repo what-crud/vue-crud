@@ -14,16 +14,16 @@ export default {
           phone_3: 'Telefon 3',
           email: 'E-mail',
           email_2: 'E-mail 2',
-          comment: 'Komentarz'
+          comment: 'Komentarz',
         },
         itemElements: {
           positionTasks: {
             title: 'Stanowisko - zadania',
             headers: {
-              task: 'Zadanie'
-            }
-          }
-        }
+              task: 'Zadanie',
+            },
+          },
+        },
       },
       en: {
         detailsTitle: 'Position',
@@ -38,17 +38,17 @@ export default {
           phone_3: 'Phone 3',
           email: 'E-mail',
           email_2: 'E-mail 2',
-          comment: 'Comment'
+          comment: 'Comment',
         },
         itemElements: {
           positionTasks: {
             title: 'Position - tasks',
             headers: {
-              task: 'Task'
-            }
-          }
-        }
-      }
-    }
-  }
+              task: 'Task',
+            },
+          },
+        },
+      },
+    },
+  },
 }

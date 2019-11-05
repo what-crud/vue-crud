@@ -21,58 +21,58 @@ let crmRoutes = [
   {
     path: 'companies',
     name: 'companies',
-    component: Companies
+    component: Companies,
   },
   {
     path: 'people',
     name: 'people',
-    component: People
+    component: People,
   },
   {
     path: 'positions',
     name: 'positions',
-    component: Positions
+    component: Positions,
   },
   {
     path: 'company-comments',
     name: 'companyComments',
-    component: CompanyComments
+    component: CompanyComments,
   },
   {
     path: 'person-comments',
     name: 'personComments',
-    component: PersonComments
+    component: PersonComments,
   },
   {
     path: 'position-tasks',
     name: 'positionTasks',
-    component: PositionTasks
+    component: PositionTasks,
   },
   {
     path: 'company-files',
     name: 'companyFiles',
-    component: CompanyFiles
+    component: CompanyFiles,
   },
   {
     path: 'company-types',
     name: 'companyTypes',
-    component: CompanyTypes
+    component: CompanyTypes,
   },
   {
     path: 'company-comment-types',
     name: 'companyCommentTypes',
-    component: CompanyCommentTypes
+    component: CompanyCommentTypes,
   },
   {
     path: 'person-comment-types',
     name: 'personCommentTypes',
-    component: PersonCommentTypes
+    component: PersonCommentTypes,
   },
   {
     path: 'tasks',
     name: 'tasks',
-    component: Tasks
-  }
+    component: Tasks,
+  },
 ]
 
 export default crmRoutes

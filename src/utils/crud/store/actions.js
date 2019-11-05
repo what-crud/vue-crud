@@ -41,7 +41,7 @@ const actions = {
     })
   },
   updateItem ({
-    getters, dispatch
+    getters, dispatch,
   }, [id, params, successText, errorText]) {
     return new Promise((resolve, reject) => {
       Vue.http.put(`${getters.path('u')}/${id}`, params)
@@ -62,7 +62,7 @@ const actions = {
     })
   },
   storeItem ({
-    commit, state, getters, dispatch
+    commit, state, getters, dispatch,
   }, [params, successText, errorText]) {
     return new Promise((resolve, reject) => {
       Vue.http.post(getters.path('st'), params)
@@ -86,7 +86,7 @@ const actions = {
     })
   },
   deleteItem ({
-    getters, dispatch
+    getters, dispatch,
   }, [id, successText, errorText]) {
     Vue.http.delete(`${getters.path('d')}/${id}`)
       .then(() => {
@@ -97,7 +97,7 @@ const actions = {
       })
   },
   mulitipleItemsUpdate ({
-    getters, dispatch
+    getters, dispatch,
   }, [params, successText, errorText]) {
     Vue.http.post(`${getters.path('mu')}/multiple-update`, params)
       .then(() => {
@@ -108,7 +108,7 @@ const actions = {
       })
   },
   mulitipleItemsDelete ({
-    getters, dispatch
+    getters, dispatch,
   }, [ids, successText, errorText]) {
     Vue.http.post(`${getters.path('md')}/multiple-delete`, ids)
       .then(() => {
@@ -125,7 +125,7 @@ const actions = {
       .then(response => commit('setItemElements', response.body))
   },
   addItemElement ({
-    dispatch, state
+    dispatch, state,
   }, [params, successText, errorText]) {
     Vue.http.post(state.itemElements.controller, params)
       .then(() => {
@@ -136,7 +136,7 @@ const actions = {
       })
   },
   removeItemElement ({
-    dispatch, state
+    dispatch, state,
   }, [id, successText, errorText]) {
     Vue.http.delete(`${state.itemElements.controller}/${id}`)
       .then(() => {
@@ -147,7 +147,7 @@ const actions = {
       })
   },
   addManyItemElements ({
-    dispatch, state
+    dispatch, state,
   }, [params, successText, errorText]) {
     Vue.http.post(`${state.itemElements.controller}/multiple-add`, params)
       .then(() => {
@@ -158,7 +158,7 @@ const actions = {
       })
   },
   removeManyItemElements ({
-    dispatch, state
+    dispatch, state,
   }, [ids, successText, errorText]) {
     Vue.http.post(`${state.itemElements.controller}/multiple-delete`, ids)
       .then(() => {
@@ -184,7 +184,7 @@ const actions = {
     })
   },
   updateItemDetail ({
-    dispatch, state, getters
+    dispatch, state, getters,
   }, [id, params, successText]) {
     Vue.http.put(`${getters.path('u')}/${id}`, params)
       .then((response) => {
@@ -202,7 +202,7 @@ const actions = {
   },
   // child details
   updateChild ({
-    dispatch, state
+    dispatch, state,
   }, [id, params, successText, path]) {
     return new Promise((resolve, reject) => {
       Vue.http.put(`${path}/${id}`, params)
@@ -223,7 +223,7 @@ const actions = {
     })
   },
   deleteChild ({
-    dispatch, state
+    dispatch, state,
   }, [id, successText, errorText, path]) {
     Vue.http.delete(`${path}/${id}`)
       .then((response) => {
@@ -240,7 +240,7 @@ const actions = {
       })
   },
   storeChild ({
-    dispatch, state
+    dispatch, state,
   }, [params, successText, path]) {
     return new Promise((resolve, reject) => {
       Vue.http.post(path, params)
@@ -276,7 +276,7 @@ const actions = {
     setTimeout(() => {
       commit('refreshTable', false)
     }, 2000)
-  }
+  },
 }
 
 export default actions

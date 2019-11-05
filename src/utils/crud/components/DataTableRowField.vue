@@ -22,14 +22,14 @@ import FileDetails from './FileDetails.vue'
 
 export default {
   components: {
-    FileDetails
+    FileDetails,
   },
   props: {
     value: {},
     textMode: {
       type: String,
-      default: 'text'
-    }
+      default: 'text',
+    },
   },
   filters: {
     cropped (value) {
@@ -41,12 +41,12 @@ export default {
         rvalue = value
       }
       return rvalue
-    }
+    },
   },
   methods: {
     fieldInfoToJSON (value) {
       return JSON.parse(value)
-    }
-  }
+    },
+  },
 }
 </script>

@@ -4,19 +4,19 @@ export default {
     options: {
       like: 'Like',
       equals: 'Equals',
-      list: 'List'
-    }
+      list: 'List',
+    },
   },
   noItemsSelected: 'No items selected',
   confirm: 'Are you sure?',
   fields: {
     action: 'Action',
-    status: 'Status'
+    status: 'Status',
   },
   status: {
     title: 'Statuses',
     active: 'Active',
-    inactive: 'Inactive'
+    inactive: 'Inactive',
   },
   searchByColumns: 'Search by fields',
   search: 'Search',
@@ -41,6 +41,6 @@ export default {
     show: 'Show',
     refreshTable: 'Refresh table',
     copyToExcel: 'Copy to Excel',
-    clearFilters: 'Clear filters'
-  }
+    clearFilters: 'Clear filters',
+  },
 }

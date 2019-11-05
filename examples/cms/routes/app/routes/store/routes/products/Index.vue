@@ -22,9 +22,9 @@ export default {
       paths: {
         i: 'store/products',
         st: 'store/products',
-        u: 'store/products'
+        u: 'store/products',
       },
-      pageTitle: 'store.products'
+      pageTitle: 'store.products',
     }
   },
   computed: {
@@ -33,14 +33,14 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
           column: 'name',
           text: this.$t('fields.name'),
           name: 'name',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'input',
@@ -49,12 +49,12 @@ export default {
           name: 'slug',
           multiedit: false,
           required: false,
-          table: false
+          table: false,
         },
         {
           text: this.$t('fields.slug'),
           name: 'slug',
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -62,21 +62,21 @@ export default {
           list: {
             value: 'id',
             text: 'name',
-            data: []
+            data: [],
           },
           column: 'section_id',
           text: this.$t('fields.section'),
           name: 'section_id',
           apiObject: {
-            name: 'section.name'
-          }
+            name: 'section.name',
+          },
         },
         {
           type: 'textarea',
           column: 'description',
           text: this.$t('fields.description'),
           name: 'description',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'file',
@@ -85,7 +85,7 @@ export default {
           name: 'image',
           multiedit: false,
           required: false,
-          textMode: 'file'
+          textMode: 'file',
         },
         {
           type: 'file',
@@ -93,26 +93,26 @@ export default {
           text: this.$t('fields.thumbnail'),
           name: 'thumbnail',
           multiedit: false,
-          textMode: 'file'
+          textMode: 'file',
         },
         {
           type: 'decimal',
           column: 'price',
           text: this.$t('fields.price'),
-          name: 'price'
+          name: 'price',
         },
         {
           type: 'number',
           column: 'quantity',
           text: this.$t('fields.quantity'),
           name: 'quantity',
-          multiedit: false
-        }
+          multiedit: false,
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -128,8 +128,8 @@ export default {
           image: 'Obraz',
           thumbnail: 'Miniatura',
           price: 'Cena',
-          quantity: 'Ilość'
-        }
+          quantity: 'Ilość',
+        },
       },
       en: {
         detailsTitle: 'Product',
@@ -143,11 +143,11 @@ export default {
           image: 'Image',
           thumbnail: 'Thumbnail',
           price: 'Price',
-          quantity: 'Quantity'
-        }
-      }
-    }
-  }
+          quantity: 'Quantity',
+        },
+      },
+    },
+  },
 }
 
 </script>

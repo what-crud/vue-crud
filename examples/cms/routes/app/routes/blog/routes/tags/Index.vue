@@ -21,9 +21,9 @@ export default {
       path: 'tags',
       paths: {
         st: 'blog/tags',
-        u: 'blog/tags'
+        u: 'blog/tags',
       },
-      pageTitle: 'blog.tags'
+      pageTitle: 'blog.tags',
     }
   },
   computed: {
@@ -32,14 +32,14 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
           column: 'name',
           text: this.$t('fields.name'),
           name: 'name',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'input',
@@ -47,13 +47,13 @@ export default {
           text: this.$t('fields.slug'),
           name: 'slug',
           multiedit: false,
-          required: false
-        }
+          required: false,
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -62,19 +62,19 @@ export default {
         fields: {
           id: 'Id',
           name: 'Nazwa',
-          slug: 'Slug'
-        }
+          slug: 'Slug',
+        },
       },
       en: {
         detailsTitle: 'Tag',
         fields: {
           id: 'Id',
           name: 'Name',
-          slug: 'Slug'
-        }
-      }
-    }
-  }
+          slug: 'Slug',
+        },
+      },
+    },
+  },
 }
 
 </script>

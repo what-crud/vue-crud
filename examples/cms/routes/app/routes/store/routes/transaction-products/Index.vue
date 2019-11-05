@@ -20,9 +20,9 @@ export default {
       prefix: 'crud/store',
       path: 'transaction-products',
       paths: {
-        i: 'store/transaction-products'
+        i: 'store/transaction-products',
       },
-      pageTitle: 'store.transactionProducts'
+      pageTitle: 'store.transactionProducts',
     }
   },
   computed: {
@@ -31,7 +31,7 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -40,30 +40,30 @@ export default {
             value: 'id',
             text: 'complexName',
             complexName: ['name', 'section.name'],
-            data: []
+            data: [],
           },
           column: 'product_id',
           text: this.$t('fields.product'),
           name: 'product_id',
           apiObject: {
-            name: 'product.name'
-          }
+            name: 'product.name',
+          },
         },
         {
           text: this.$t('fields.productSection'),
           name: 'product_section',
           apiObject: {
-            name: 'product.section.name'
+            name: 'product.section.name',
           },
-          details: false
+          details: false,
         },
         {
           text: this.$t('fields.productDescription'),
           name: 'product_description',
           apiObject: {
-            name: 'product.description'
+            name: 'product.description',
           },
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -72,48 +72,48 @@ export default {
             value: 'id',
             text: 'complexName',
             complexName: ['id', 'customer.email'],
-            data: []
+            data: [],
           },
           column: 'transaction_id',
           text: this.$t('fields.transaction'),
           name: 'transaction_id',
           apiObject: {
-            name: 'transaction.id'
-          }
+            name: 'transaction.id',
+          },
         },
         {
           text: this.$t('fields.transactionCustomer'),
           name: 'transaction_customer',
           apiObject: {
-            name: 'transaction.customer.email'
+            name: 'transaction.customer.email',
           },
-          details: false
+          details: false,
         },
         {
           text: this.$t('fields.transactionStatus'),
           name: 'transaction_status',
           apiObject: {
-            name: 'transaction.status.name'
+            name: 'transaction.status.name',
           },
-          details: false
+          details: false,
         },
         {
           type: 'number',
           column: 'quantity',
           text: this.$t('fields.quantity'),
-          name: 'quantity'
+          name: 'quantity',
         },
         {
           type: 'decimal',
           column: 'value',
           text: this.$t('fields.value'),
-          name: 'value'
-        }
+          name: 'value',
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -128,8 +128,8 @@ export default {
           transactionCustomer: 'Klient',
           transactionStatus: 'Status zamówienia',
           quantity: 'Ilość',
-          value: 'Wartość'
-        }
+          value: 'Wartość',
+        },
       },
       en: {
         detailsTitle: 'Transaction - product',
@@ -142,11 +142,11 @@ export default {
           transactionCustomer: 'Customer',
           transactionStatus: 'Status',
           quantity: 'Quantity',
-          value: 'Value'
-        }
-      }
-    }
-  }
+          value: 'Value',
+        },
+      },
+    },
+  },
 }
 
 </script>

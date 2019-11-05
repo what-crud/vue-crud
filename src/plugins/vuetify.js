@@ -8,10 +8,10 @@ export default new Vuetify({
   theme: {
     dark: false,
     themes: {
-      light: main.theme
-    }
+      light: main.theme,
+    },
   },
   icons: {
-    iconfont: 'md'
-  }
+    iconfont: 'md',
+  },
 })

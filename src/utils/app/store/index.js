@@ -8,7 +8,7 @@ const app = {
   state,
   getters,
   mutations,
-  actions
+  actions,
 }
 
 export default app

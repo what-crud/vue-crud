@@ -8,7 +8,7 @@ let administration = {
   state,
   getters,
   mutations,
-  actions
+  actions,
 }
 
 export default administration

@@ -1,17 +1,17 @@
 export default {
   home: {
-    name: ''
+    name: '',
   },
   blog: {
     name: 'Blog',
     posts: 'Posty',
     categories: 'Kategorie',
-    tags: 'Tagi'
+    tags: 'Tagi',
   },
   admin: {
     name: 'Administracja',
     permissions: 'Uprawnienia',
     users: 'Użytkownicy',
-    userPermissions: 'Użytkownicy - uprawnienia'
-  }
+    userPermissions: 'Użytkownicy - uprawnienia',
+  },
 }

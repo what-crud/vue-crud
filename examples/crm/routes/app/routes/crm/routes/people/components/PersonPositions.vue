@@ -24,7 +24,7 @@ export default {
   mixins: [FieldsInfoMixin, LocalesMixin, CompanyPositionsChildMixin],
   components: {
     'person-positions-table': ChildrenTable,
-    'person-position-details': ChildDetails
-  }
+    'person-position-details': ChildDetails,
+  },
 }
 </script>

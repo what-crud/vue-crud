@@ -163,7 +163,7 @@
 <script>
 import {
   mapState,
-  mapActions
+  mapActions,
 } from 'vuex'
 import MainMixin from '../mixins/datatable-main'
 import ClientSideFilteringMixin from '../mixins/datatable-client-side-filtering'
@@ -172,7 +172,7 @@ import CrudButton from './Button.vue'
 
 export default {
   components: {
-    CrudButton
+    CrudButton,
   },
   mixins: [MainMixin, ClientSideFilteringMixin, HelperMixin],
   data () {
@@ -195,7 +195,7 @@ export default {
     ...mapState('crud', ['loading', 'detailsDialog', 'tableRefreshing']),
     totalItems () {
       return this.filteredItems.length
-    }
+    },
   },
   watch: {
     detailsDialog (val) {
@@ -207,7 +207,7 @@ export default {
       if (val) {
         this.getItems()
       }
-    }
+    },
   },
   methods: {
     ...mapActions('crud', ['getItems']),
@@ -219,8 +219,8 @@ export default {
       this.getItemDetails([newItemId]).then((response) => {
         this.showItemDetailsDialog()
       })
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

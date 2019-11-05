@@ -28,12 +28,12 @@ const state = {
     id: null,
     action: null,
     formValid: false,
-    item: {}
+    item: {},
   },
   createdElement: {
     mode: 'ignore',
     created: false,
-    id: null
+    id: null,
   },
   itemElements: {
     show: false,
@@ -45,12 +45,12 @@ const state = {
     foreignId: '',
     title: '',
     url: '',
-    data: []
+    data: [],
   },
   availableElements: [],
   imageContainer: {
     show: false,
-    item: {}
+    item: {},
   },
   selectedIds: [],
   // tableRefreshing
@@ -63,7 +63,7 @@ const state = {
   childItems: {},
   // files
   filesPath: joinUrl([api.url, api.path.storage]),
-  uploadPath: joinUrl([api.url, api.path.prefix, api.path.upload])
+  uploadPath: joinUrl([api.url, api.path.prefix, api.path.upload]),
 }
 
 export default state

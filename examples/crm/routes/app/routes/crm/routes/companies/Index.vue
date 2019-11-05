@@ -26,14 +26,14 @@ import ItemDetails from './components/ItemDetails.vue'
 import ExtendedControllerMixin from '@/utils/crud/mixins/extended-controller'
 import {
   mapMutations,
-  mapActions
+  mapActions,
 } from 'vuex'
 
 export default {
   mixins: [ExtendedControllerMixin, FieldsInfoMixin, LocalesMixin],
   components: {
     Crud,
-    ItemDetails
+    ItemDetails,
   },
   data () {
     return {
@@ -41,9 +41,9 @@ export default {
       path: 'companies',
       paths: {
         i: 'crm/companies',
-        sh: 'crm/companies'
+        sh: 'crm/companies',
       },
-      pageTitle: 'crm.companies'
+      pageTitle: 'crm.companies',
     }
   },
   computed: {
@@ -53,14 +53,14 @@ export default {
           name: 'goToItem',
           icon: 'forward',
           color: 'blue',
-          text: this.$t('buttons.goToItem')
-        }
+          text: this.$t('buttons.goToItem'),
+        },
       ]
-    }
+    },
   },
   methods: {
     ...mapMutations(['alertSuccess', 'alertError']),
-    ...mapActions('crud', ['updateItem', 'storeItem'])
-  }
+    ...mapActions('crud', ['updateItem', 'storeItem']),
+  },
 }
 </script>

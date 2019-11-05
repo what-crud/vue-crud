@@ -1,16 +1,16 @@
 import {
-  mapMutations
+  mapMutations,
 } from 'vuex'
 
 export default {
   name: 'item-details',
   props: [
-    'fields'
+    'fields',
   ],
   methods: {
     ...mapMutations('crud', [
       'setIdColumn',
-      'setChildItemsMapping'
-    ])
-  }
+      'setChildItemsMapping',
+    ]),
+  },
 }

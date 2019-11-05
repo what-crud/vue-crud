@@ -106,7 +106,7 @@ import FileDetails from './FileDetails.vue'
 export default {
   components: {
     CrudButton,
-    FileDetails
+    FileDetails,
   },
   props: {
     props: {},
@@ -119,9 +119,9 @@ export default {
     editMode: {},
     selectManyMode: {
       type: Boolean,
-      default: false
+      default: false,
     },
-    currentItemId: {}
+    currentItemId: {},
   },
   filters: {
     cropped (field) {
@@ -133,7 +133,7 @@ export default {
         rField = field
       }
       return rField
-    }
+    },
   },
   methods: {
     fileFieldToJSON (field) {
@@ -156,8 +156,8 @@ export default {
     suspend (id) { this.$emit('suspend', id) },
     restore (id) { this.$emit('restore', id) },
     destroy (id) { this.$emit('destroy', id) },
-    editItemElements (name, id) { this.$emit('editItemElements', name, id) }
-  }
+    editItemElements (name, id) { this.$emit('editItemElements', name, id) },
+  },
 }
 </script>
 

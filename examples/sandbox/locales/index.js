@@ -9,10 +9,10 @@ Vue.use(VueI18n)
 
 const messages = {
   pl: pl,
-  en: en
+  en: en,
 }
 
 export default new VueI18n({
   locale: store.getters.lng,
-  messages
+  messages,
 })

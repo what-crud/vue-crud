@@ -102,13 +102,13 @@ export default {
         children: [
           {
             text: 'cms.settings',
-            route: '/settings'
+            route: '/settings',
           },
           {
             text: 'cms.messages',
-            route: '/messages'
-          }
-        ]
+            route: '/messages',
+          },
+        ],
       },
       {
         icon: 'shopping_cart',
@@ -119,25 +119,25 @@ export default {
         children: [
           {
             text: 'store.sections',
-            route: '/sections'
+            route: '/sections',
           },
           {
             text: 'store.products',
-            route: '/products'
+            route: '/products',
           },
           {
             text: 'store.customers',
-            route: '/customers'
+            route: '/customers',
           },
           {
             text: 'store.transactions',
-            route: '/transactions'
+            route: '/transactions',
           },
           {
             text: 'store.transactionProducts',
-            route: '/transaction-products'
-          }
-        ]
+            route: '/transaction-products',
+          },
+        ],
       },
       {
         icon: 'edit',
@@ -148,21 +148,21 @@ export default {
         children: [
           {
             text: 'blog.posts',
-            route: '/posts'
+            route: '/posts',
           },
           {
             text: 'blog.categories',
-            route: '/categories'
+            route: '/categories',
           },
           {
             text: 'blog.tags',
-            route: '/tags'
+            route: '/tags',
           },
           {
             text: 'blog.postTags',
-            route: '/post-tags'
-          }
-        ]
+            route: '/post-tags',
+          },
+        ],
       },
       {
         icon: 'person_add_disabled',
@@ -173,30 +173,30 @@ export default {
         children: [
           {
             text: 'admin.users',
-            route: '/users'
+            route: '/users',
           },
           {
             text: 'admin.permissions',
-            route: '/permissions'
+            route: '/permissions',
           },
           {
             text: 'admin.userPermissions',
-            route: '/user-permissions'
+            route: '/user-permissions',
           },
           {
             text: 'admin.userTypes',
-            route: '/user-types'
-          }
-        ]
-      }
-    ]
+            route: '/user-types',
+          },
+        ],
+      },
+    ],
   }),
   computed: {
     ...mapGetters('auth', ['isLogged', 'userInfo']),
     year () {
       let year = new Date()
       return year.getFullYear()
-    }
+    },
   },
   components: {
     Sidebar,
@@ -204,8 +204,8 @@ export default {
     AlertBox,
     Footnote,
     BackTop,
-    Profile
-  }
+    Profile,
+  },
 }
 </script>
 <style scoped>

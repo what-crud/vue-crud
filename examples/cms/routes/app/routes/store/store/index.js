@@ -8,7 +8,7 @@ let store = {
   state,
   getters,
   mutations,
-  actions
+  actions,
 }
 
 export default store

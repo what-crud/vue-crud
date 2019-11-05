@@ -13,12 +13,12 @@ export default {
   props: {
     speed: {
       type: Number,
-      default: 0.1
-    }
+      default: 0.1,
+    },
   },
   data () {
     return {
-      top: 0
+      top: 0,
     }
   },
   created () {
@@ -43,8 +43,8 @@ export default {
         document.body.scrollTop = top
       }, 20)
       return false
-    }
-  }
+    },
+  },
 }
 </script>
 

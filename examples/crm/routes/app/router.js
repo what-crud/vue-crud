@@ -8,22 +8,22 @@ let appRoutes = [
   {
     path: 'home',
     name: 'home',
-    component: Home
+    component: Home,
   },
   {
     path: 'crm',
     name: 'crm',
     component: Crm,
     children: crmRoutes,
-    meta: { guard: 'CRM' }
+    meta: { guard: 'CRM' },
   },
   {
     path: 'administration',
     name: 'administration',
     component: Administration,
     children: administrationRoutes,
-    meta: { guard: 'ADMIN' }
-  }
+    meta: { guard: 'ADMIN' },
+  },
 ]
 
 export default appRoutes

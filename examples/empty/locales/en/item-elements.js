@@ -6,12 +6,12 @@ export default {
   fields: {
     action: 'Action',
     name: 'Name',
-    added: 'Added'
+    added: 'Added',
   },
   status: {
     title: 'Status',
     added: 'Added',
-    noAdded: 'No added'
+    noAdded: 'No added',
   },
   search: 'Search',
   noMatchingResults: 'No matching records found',
@@ -26,6 +26,6 @@ export default {
     add: 'Add',
     removeMany: 'Delete many',
     addMany: 'Add many',
-    close: 'Close'
-  }
+    close: 'Close',
+  },
 }

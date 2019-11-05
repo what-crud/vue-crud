@@ -7,7 +7,7 @@
 </template>
 <script>
 import {
-  mapMutations
+  mapMutations,
 } from 'vuex'
 
 export default {
@@ -21,9 +21,9 @@ export default {
   methods: {
     ...mapMutations('app', [
       'setModule',
-      'setPage'
-    ])
-  }
+      'setPage',
+    ]),
+  },
 }
 
 </script>

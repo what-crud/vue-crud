@@ -238,17 +238,17 @@ export default {
         children: [
           {
             text: 'blog.posts',
-            route: ''
+            route: '',
           },
           {
             text: 'blog.categories',
-            route: ''
+            route: '',
           },
           {
             text: 'blog.tags',
-            route: ''
-          }
-        ]
+            route: '',
+          },
+        ],
       },
       {
         icon: 'person_add_disabled',
@@ -257,19 +257,19 @@ export default {
         route: '/app',
         children: [{
           text: 'admin.users',
-          route: ''
+          route: '',
         },
         {
           text: 'admin.permissions',
-          route: ''
+          route: '',
         },
         {
           text: 'admin.userPermissions',
-          route: ''
-        }
-        ]
-      }
-    ]
+          route: '',
+        },
+        ],
+      },
+    ],
   }),
   computed: {
     ...mapGetters('auth', ['isLogged', 'userInfo']),
@@ -471,15 +471,15 @@ export default {
           }
           </style>
         `
-    }
+    },
   },
   components: {
     Sidebar,
     Toolbar,
     Footnote,
     BackTop,
-    Profile
-  }
+    Profile,
+  },
 }
 </script>
 <style scoped>
