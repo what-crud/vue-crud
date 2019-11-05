@@ -76,7 +76,7 @@ export default {
     },
   },
   methods: {
-    emitClick() {
+    emitClick () {
       this.$emit('clicked')
     },
   },

@@ -5,97 +5,97 @@
       class="rich-text-box__menubar"
     >
       <div slot-scope="{ commands, isActive }">
-        <nav-button
+        <menu-button
           icon="format_bold"
-          x-small
-          :dark="isActive.bold()"
+          :active="isActive.bold()"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.bold"
         />
-        <nav-button
+        <menu-button
           icon="format_italic"
-          x-small
-          :dark="isActive.italic()"
+          :active="isActive.italic()"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.italic"
         />
-        <nav-button
+        <menu-button
           icon="format_strikethrough"
-          x-small
-          :dark="isActive.strike()"
+          :active="isActive.strike()"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.strike"
         />
-        <nav-button
+        <menu-button
           icon="format_underlined"
-          x-small
-          :dark="isActive.underline()"
+          :active="isActive.underline()"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.underline"
         />
-        <nav-button
+        <menu-button
           icon="code"
-          x-small
-          :dark="isActive.code()"
+          :active="isActive.code()"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.code"
         />
-        <nav-button
+        <menu-button
           text="P"
-          x-small
-          :dark="isActive.paragraph()"
+          :active="isActive.paragraph()"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.paragraph"
         />
-        <nav-button
+        <menu-button
           text="H1"
-          x-small
-          :dark="isActive.heading({ level: 1 })"
+          :active="isActive.heading({ level: 1 })"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.heading({ level: 1 })"
         />
-        <nav-button
+        <menu-button
           text="H2"
-          x-small
-          :dark="isActive.heading({ level: 2 })"
+          :active="isActive.heading({ level: 2 })"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.heading({ level: 2 })"
         />
-        <nav-button
+        <menu-button
           text="H3"
-          x-small
-          :dark="isActive.heading({ level: 3 })"
+          :active="isActive.heading({ level: 3 })"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.heading({ level: 3 })"
         />
-        <nav-button
+        <menu-button
           icon="format_list_bulleted"
-          x-small
-          :dark="isActive.bullet_list()"
+          :active="isActive.bullet_list()"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.bullet_list"
         />
-        <nav-button
+        <menu-button
           icon="format_list_numbered"
-          x-small
-          :dark="isActive.ordered_list()"
+          :active="isActive.ordered_list()"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.ordered_list"
         />
-        <nav-button
+        <menu-button
           icon="format_quote"
-          x-small
-          :dark="isActive.blockquote()"
+          :active="isActive.blockquote()"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.blockquote"
         />
-        <nav-button
+        <menu-button
           icon="code"
-          x-small
-          :dark="isActive.code_block()"
+          :active="isActive.code_block()"
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.code_block"
         />
-        <nav-button
+        <menu-button
           icon="minimize"
-          x-small
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.horizontal_rule"
         />
-        <nav-button
+        <menu-button
           icon="undo"
-          x-small
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.undo"
         />
-        <nav-button
+        <menu-button
           icon="redo"
-          x-small
+          :tooltip="$t('richTextBox.')"
           @clicked="commands.redo"
         />
       </div>
@@ -127,16 +127,16 @@ import {
   Underline,
   History,
 } from 'tiptap-extensions'
-import NavButton from '../Button.vue'
+import MenuButton from './RichTextBoxButton.vue'
 
 export default {
   components: {
     EditorMenuBar,
     EditorContent,
-    NavButton,
+    MenuButton,
   },
   props: ['value'],
-  data() {
+  data () {
     return {
       editor: null,
     }
@@ -144,12 +144,12 @@ export default {
   watch: {
     value: {
       immediate: true,
-      handler(val) {
+      handler (val) {
         this.setEditorContent(val)
       },
     },
   },
-  mounted() {
+  mounted () {
     this.editor = new Editor({
       extensions: [
         new Blockquote(),
@@ -180,11 +180,11 @@ export default {
     })
     this.setEditorContent(this.value)
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.editor.destroy()
   },
   methods: {
-    setEditorContent(content) {
+    setEditorContent (content) {
       if (this.editor) {
         this.editor.setContent(content || '')
       }
