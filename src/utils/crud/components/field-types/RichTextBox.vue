@@ -107,7 +107,13 @@
   </div>
 </template>
 <script>
-import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
+
+import {
+  Editor,
+  EditorContent,
+  EditorMenuBar,
+} from 'tiptap'
+
 import {
   Blockquote,
   CodeBlock,
@@ -127,7 +133,8 @@ import {
   Underline,
   History,
 } from 'tiptap-extensions'
-import MenuButton from './RichTextBoxButton.vue'
+
+import MenuButton from './RichTextBox/MenuButton.vue'
 
 export default {
   components: {

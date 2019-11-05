@@ -9,7 +9,7 @@
   />
 </template>
 <script>
-import CrudButton from '../Button.vue'
+import CrudButton from '../../Button.vue'
 
 export default {
   components: {
