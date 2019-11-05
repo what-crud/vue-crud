@@ -1,0 +1,18 @@
+export default {
+  bold: 'bold',
+  italic: 'italic',
+  strike: 'strike',
+  underline: 'underline',
+  code: 'code',
+  paragraph: 'paragraph',
+  heading1: 'heading 1',
+  heading2: 'heading 2',
+  heading3: 'heading 3',
+  bulletedList: 'bulleted list',
+  numberedList: 'numbered list',
+  blockquote: 'blockquote',
+  codeBlock: 'code block',
+  horizontalRule: 'horizontal rule',
+  undo: 'undo',
+  redo: 'redo',
+}

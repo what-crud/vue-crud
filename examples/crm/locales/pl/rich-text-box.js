@@ -1,0 +1,18 @@
+export default {
+  bold: 'pobrubienie',
+  italic: 'kursywa',
+  strike: 'przekreślenie',
+  underline: 'podkreślenie',
+  code: 'kod',
+  paragraph: 'akapit',
+  heading1: 'nagłówek 1',
+  heading2: 'nagłówek 2',
+  heading3: 'nagłówek 3',
+  bulletedList: 'wypunktowana lista',
+  numberedList: 'lista numerowana',
+  blockquote: 'cytat',
+  codeBlock: 'blok z kodem',
+  horizontalRule: 'pozioma linia',
+  undo: 'cofnij',
+  redo: 'ponów',
+}
