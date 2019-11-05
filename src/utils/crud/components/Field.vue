@@ -118,6 +118,7 @@
         <label class="field-label">{{field.text}}</label>
         <rich-text-box
           v-model="value"
+          :disabled="field.disabled"
           @change="valueChanged()"
         />
       </div>

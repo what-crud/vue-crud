@@ -142,7 +142,16 @@ export default {
     EditorContent,
     MenuButton,
   },
-  props: ['value'],
+  props: {
+    value: {
+      type: String,
+      default: '',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       editor: null,
@@ -180,6 +189,7 @@ export default {
         new History(),
       ],
       content: ``,
+      editable: !this.disabled,
       onBlur: () => {
         this.$emit('input', this.editor.getHTML())
         this.$emit('change')
