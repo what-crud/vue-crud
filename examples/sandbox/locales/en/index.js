@@ -5,7 +5,6 @@ import profile from './profile.js'
 import datatable from './datatable.js'
 import details from './details.js'
 import itemElements from './item-elements.js'
-import richTextBox from './rich-text-box'
 
 export default {
   global: {
@@ -16,6 +15,5 @@ export default {
     datatable,
     details,
     itemElements,
-    richTextBox,
   },
 }
