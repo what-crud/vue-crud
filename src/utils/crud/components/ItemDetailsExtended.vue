@@ -23,12 +23,12 @@ import Vue from 'vue'
 import Field from './Field.vue'
 import {
   mapState,
-  mapActions
+  mapActions,
 } from 'vuex'
 
 export default {
   components: {
-    Field
+    Field,
   },
   name: 'item-details-extended',
   props: ['fieldsInfo', 'title'],
@@ -38,10 +38,10 @@ export default {
       masks: {
         date: '####-##-##',
         time: '##:##',
-        datetime: '####-##-## ##:##:##'
+        datetime: '####-##-## ##:##:##',
       },
       reload: false,
-      fields: []
+      fields: [],
     }
   },
   mounted () {
@@ -52,8 +52,8 @@ export default {
       handler (val) {
         this.setFields()
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   computed: {
     ...mapState('crud', ['item', 'itemIdColumn', 'detailsDialog']),
@@ -61,9 +61,9 @@ export default {
       const self = this
       return {
         input: [v => !!v || self.$t('global.details.rules.required')],
-        required: v => !!v || self.$t('global.details.rules.required')
+        required: v => !!v || self.$t('global.details.rules.required'),
       }
-    }
+    },
   },
   methods: {
     ...mapActions('crud', ['updateItemDetail']),
@@ -96,7 +96,7 @@ export default {
       this.updateItemDetail([
         this.item[this.itemIdColumn],
         obj,
-        this.$t('global.alerts.updated')
+        this.$t('global.alerts.updated'),
       ])
     },
     fieldRules (field) {
@@ -122,8 +122,8 @@ export default {
     dynamicFieldType (fieldType) {
       const refField = this.fields.find((field) => field.name === fieldType)
       return refField ? refField.value : undefined
-    }
-  }
+    },
+  },
 }
 </script>
 <style scoped>

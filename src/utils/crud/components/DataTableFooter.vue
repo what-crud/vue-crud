@@ -25,17 +25,17 @@ export default {
     'pageStart',
     'pageStop',
     'itemsLength',
-    'pagination'
+    'pagination',
   ],
   computed: {
     calcPages () {
       return Math.ceil(this.itemsLength / this.pagination.itemsPerPage)
-    }
+    },
   },
   methods: {
     setPage (val) {
       this.$emit('setPage', val)
-    }
-  }
+    },
+  },
 }
 </script>

@@ -17,7 +17,7 @@ export default {
     return {
       prefix: 'crm',
       path: 'person-comment-types',
-      pageTitle: 'crm.personCommentTypes'
+      pageTitle: 'crm.personCommentTypes',
     }
   },
   computed: {
@@ -26,20 +26,20 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
           column: 'name',
           text: this.$t('fields.name'),
           name: 'name',
-          multiedit: false
-        }
+          multiedit: false,
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -47,18 +47,18 @@ export default {
         detailsTitle: 'Osoby - typ komentarza',
         fields: {
           id: 'Id',
-          name: 'Nazwa'
-        }
+          name: 'Nazwa',
+        },
       },
       en: {
         detailsTitle: 'People - comment type',
         fields: {
           id: 'Id',
-          name: 'Name'
-        }
-      }
-    }
-  }
+          name: 'Name',
+        },
+      },
+    },
+  },
 }
 
 </script>

@@ -8,28 +8,28 @@ let storeRoutes = [
   {
     path: 'sections',
     name: 'store-sections',
-    component: Sections
+    component: Sections,
   },
   {
     path: 'products',
     name: 'store-products',
-    component: Products
+    component: Products,
   },
   {
     path: 'transaction-products',
     name: 'store-transaction-products',
-    component: TransactionProducts
+    component: TransactionProducts,
   },
   {
     path: 'transactions',
     name: 'store-transactions',
-    component: Transactions
+    component: Transactions,
   },
   {
     path: 'customers',
     name: 'store-customers',
-    component: Customers
-  }
+    component: Customers,
+  },
 ]
 
 export default storeRoutes

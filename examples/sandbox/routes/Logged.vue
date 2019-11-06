@@ -29,14 +29,14 @@ import { mapActions } from 'vuex'
 export default {
   methods: {
     ...mapActions('auth', [
-      'logout'
+      'logout',
     ]),
     logoutAttempt () {
       this.logout().then(() => {
         this.$router.push({ path: '/login' })
       })
-    }
-  }
+    },
+  },
 }
 
 </script>

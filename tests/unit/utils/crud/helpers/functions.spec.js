@@ -1,7 +1,7 @@
 import {
   parseIntIfNumber,
   download,
-  humanFileSize
+  humanFileSize,
 } from '@/utils/crud/helpers/functions'
 
 describe('parseIntIfNumber', () => {

@@ -6,12 +6,12 @@ export default {
   fields: {
     action: 'Akcja',
     name: 'Nazwa',
-    added: 'Dodano'
+    added: 'Dodano',
   },
   status: {
     title: 'Status',
     added: 'Dodane',
-    noAdded: 'Nie dodane'
+    noAdded: 'Nie dodane',
   },
   search: 'Szukaj',
   noMatchingResults: 'Nie znaleziono pasujących rekordów',
@@ -26,6 +26,6 @@ export default {
     add: 'Dodaj',
     removeMany: 'Usuń wiele',
     addMany: 'Dodaj wiele',
-    close: 'Zamknij'
-  }
+    close: 'Zamknij',
+  },
 }

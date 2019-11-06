@@ -5,13 +5,13 @@ let cmsRoutes = [
   {
     path: 'messages',
     name: 'cms-messages',
-    component: Messages
+    component: Messages,
   },
   {
     path: 'settings',
     name: 'cms-settings',
-    component: Settings
-  }
+    component: Settings,
+  },
 ]
 
 export default cmsRoutes

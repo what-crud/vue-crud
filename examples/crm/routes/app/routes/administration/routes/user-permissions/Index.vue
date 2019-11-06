@@ -20,9 +20,9 @@ export default {
       prefix: 'crud/admin',
       path: 'user-permissions',
       paths: {
-        i: 'admin/user-permissions'
+        i: 'admin/user-permissions',
       },
-      pageTitle: 'admin.userPermissions'
+      pageTitle: 'admin.userPermissions',
     }
   },
   computed: {
@@ -31,7 +31,7 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -39,22 +39,22 @@ export default {
           list: {
             value: 'id',
             text: 'name',
-            data: []
+            data: [],
           },
           column: 'user_id',
           text: this.$t('fields.user'),
           name: 'user',
           apiObject: {
-            name: 'user.name'
-          }
+            name: 'user.name',
+          },
         },
         {
           text: this.$t('fields.userEmail'),
           name: 'userEmail',
           apiObject: {
-            name: 'user.email'
+            name: 'user.email',
           },
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -62,20 +62,20 @@ export default {
           list: {
             value: 'id',
             text: 'name',
-            data: []
+            data: [],
           },
           column: 'permission_id',
           text: this.$t('fields.permission'),
           name: 'permission',
           apiObject: {
-            name: 'permission.name'
-          }
-        }
+            name: 'permission.name',
+          },
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -86,8 +86,8 @@ export default {
           user: 'Użytkownik',
           userEmail: 'E-mail użytkownika',
           permission: 'Uprawnienie',
-          permissionCode: 'Kod uprawnienia'
-        }
+          permissionCode: 'Kod uprawnienia',
+        },
       },
       en: {
         detailsTitle: 'User - permission',
@@ -96,11 +96,11 @@ export default {
           user: 'User',
           userEmail: 'User\'s e-mail',
           permission: 'Permission',
-          permissionCode: 'Permission code'
-        }
-      }
-    }
-  }
+          permissionCode: 'Permission code',
+        },
+      },
+    },
+  },
 }
 
 </script>

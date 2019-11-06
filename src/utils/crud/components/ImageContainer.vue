@@ -35,33 +35,33 @@
 <script>
 import {
   mapState,
-  mapMutations
+  mapMutations,
 } from 'vuex'
 import {
-  humanFileSize
+  humanFileSize,
 } from '../helpers/functions'
 
 export default {
   computed: {
     ...mapState('crud', [
-      'filesPath'
+      'filesPath',
     ]),
     ...mapState('crud', [
-      'imageContainer'
+      'imageContainer',
     ]),
     image () {
       return this.imageContainer.show ? `${this.filesPath}/${this.imageContainer.item.path}/${this.imageContainer.item.filename}` : ''
-    }
+    },
   },
   filters: {
     fileSize (size) {
       return humanFileSize(size)
-    }
+    },
   },
   methods: {
     ...mapMutations('crud', [
-      'closeImageContainer'
-    ])
-  }
+      'closeImageContainer',
+    ]),
+  },
 }
 </script>

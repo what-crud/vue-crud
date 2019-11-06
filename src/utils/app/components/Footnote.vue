@@ -13,12 +13,12 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'secondary'
+      default: 'secondary',
     },
     dark: {
       type: Boolean,
-      default: true
-    }
-  }
+      default: true,
+    },
+  },
 }
 </script>

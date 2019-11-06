@@ -37,9 +37,9 @@ export default {
       paths: {
         i: 'blog/posts',
         st: 'blog/posts',
-        u: 'blog/posts'
+        u: 'blog/posts',
       },
-      pageTitle: 'blog.posts'
+      pageTitle: 'blog.posts',
     }
   },
   computed: {
@@ -54,15 +54,15 @@ export default {
             {
               obj: 'name',
               name: 'tag',
-              header: this.$t('itemElements.postTags.headers.tag')
-            }
+              header: this.$t('itemElements.postTags.headers.tag'),
+            },
           ],
           primaryId: 'post_id',
           foreignId: 'tag_id',
           icon: 'local_offer',
           color: 'purple',
-          buttonText: this.$t('itemElements.postTags.title')
-        }
+          buttonText: this.$t('itemElements.postTags.title'),
+        },
       }
     },
     fieldsInfo () {
@@ -70,7 +70,7 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
@@ -80,7 +80,7 @@ export default {
           multiedit: false,
           onChange: (value, fields) => {
             fields.find(field => field.name === 'slug').value = slugify(value)
-          }
+          },
         },
         {
           type: 'input',
@@ -89,12 +89,12 @@ export default {
           name: 'slug',
           multiedit: false,
           required: false,
-          table: false
+          table: false,
         },
         {
           text: this.$t('fields.slug'),
           name: 'slug',
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -102,14 +102,14 @@ export default {
           list: {
             value: 'id',
             text: 'name',
-            data: []
+            data: [],
           },
           column: 'category_id',
           text: this.$t('fields.category'),
           name: 'category_id',
           apiObject: {
-            name: 'category.name'
-          }
+            name: 'category.name',
+          },
         },
         {
           name: 'tags',
@@ -117,16 +117,16 @@ export default {
           details: false,
           apiObject: {
             name: 'post_tags',
-            functions: ['listTags']
+            functions: ['listTags'],
           },
-          textMode: 'html'
+          textMode: 'html',
         },
         {
           type: 'textarea',
           column: 'description',
           text: this.$t('fields.description'),
           name: 'description',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'file',
@@ -135,7 +135,7 @@ export default {
           name: 'image',
           multiedit: false,
           required: false,
-          textMode: 'file'
+          textMode: 'file',
         },
         {
           type: 'file',
@@ -143,7 +143,7 @@ export default {
           text: this.$t('fields.thumbnail'),
           name: 'thumbnail',
           multiedit: false,
-          textMode: 'file'
+          textMode: 'file',
         },
         {
           type: 'richTextBox',
@@ -151,15 +151,15 @@ export default {
           text: this.$t('fields.content'),
           name: 'content',
           multiedit: false,
-          table: false
+          table: false,
         },
         {
           text: this.$t('fields.user'),
           name: 'user',
           apiObject: {
-            name: 'user.name'
+            name: 'user.name',
           },
-          details: false
+          details: false,
         },
         {
           type: 'input',
@@ -168,7 +168,7 @@ export default {
           name: 'created_at',
           multiedit: false,
           disabled: true,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -177,13 +177,13 @@ export default {
           name: 'updated_at',
           multiedit: false,
           disabled: true,
-          required: false
-        }
+          required: false,
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -202,16 +202,16 @@ export default {
           tags: 'Tagi',
           user: 'Autor',
           createdAt: 'Utworzono',
-          updatedAt: 'Edytowano'
+          updatedAt: 'Edytowano',
         },
         itemElements: {
           postTags: {
             title: 'Przypisane tagi',
             headers: {
-              tag: 'Tag'
-            }
-          }
-        }
+              tag: 'Tag',
+            },
+          },
+        },
       },
       en: {
         detailsTitle: 'Post',
@@ -228,19 +228,19 @@ export default {
           tags: 'Tags',
           user: 'Author',
           createdAt: 'Created at',
-          updatedAt: 'Edited at'
+          updatedAt: 'Edited at',
         },
         itemElements: {
           postTags: {
             title: 'Tags',
             headers: {
-              tag: 'Tag'
-            }
-          }
-        }
-      }
-    }
-  }
+              tag: 'Tag',
+            },
+          },
+        },
+      },
+    },
+  },
 }
 
 </script>

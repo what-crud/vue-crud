@@ -17,7 +17,7 @@ export default {
     return {
       prefix: 'crud/admin',
       path: 'user-types',
-      pageTitle: 'admin.userTypes'
+      pageTitle: 'admin.userTypes',
     }
   },
   computed: {
@@ -26,14 +26,14 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
           column: 'name',
           text: this.$t('fields.name'),
           name: 'name',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'checkbox',
@@ -42,9 +42,9 @@ export default {
           name: 'read',
           apiObject: {
             name: 'read',
-            functions: ['boolean']
+            functions: ['boolean'],
           },
-          textMode: 'html'
+          textMode: 'html',
         },
         {
           type: 'checkbox',
@@ -53,9 +53,9 @@ export default {
           name: 'insert',
           apiObject: {
             name: 'insert',
-            functions: ['boolean']
+            functions: ['boolean'],
           },
-          textMode: 'html'
+          textMode: 'html',
         },
         {
           type: 'checkbox',
@@ -64,9 +64,9 @@ export default {
           name: 'update',
           apiObject: {
             name: 'update',
-            functions: ['boolean']
+            functions: ['boolean'],
           },
-          textMode: 'html'
+          textMode: 'html',
         },
         {
           type: 'checkbox',
@@ -75,9 +75,9 @@ export default {
           name: 'delete',
           apiObject: {
             name: 'delete',
-            functions: ['boolean']
+            functions: ['boolean'],
           },
-          textMode: 'html'
+          textMode: 'html',
         },
         {
           type: 'checkbox',
@@ -86,15 +86,15 @@ export default {
           name: 'admin',
           apiObject: {
             name: 'admin',
-            functions: ['boolean']
+            functions: ['boolean'],
           },
-          textMode: 'html'
-        }
+          textMode: 'html',
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -107,8 +107,8 @@ export default {
           insert: 'Dodawanie',
           update: 'Edycja',
           delete: 'Usuwanie',
-          admin: 'Administracja'
-        }
+          admin: 'Administracja',
+        },
       },
       en: {
         detailsTitle: 'Permission',
@@ -119,11 +119,11 @@ export default {
           insert: 'Add',
           update: 'Edit',
           delete: 'Delet',
-          admin: 'Administration'
-        }
-      }
-    }
-  }
+          admin: 'Administration',
+        },
+      },
+    },
+  },
 }
 
 </script>

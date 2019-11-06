@@ -40,7 +40,7 @@ const getters = {
       )
     )
     return result
-  }
+  },
 }
 
 export default getters

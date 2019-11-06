@@ -25,7 +25,7 @@ const mutations = {
   },
   closeAlertBox (state) {
     state.alert.show = false
-  }
+  },
 }
 
 export default mutations

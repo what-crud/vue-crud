@@ -26,14 +26,14 @@ export default {
         u: 'crud/crm/company-files',
         d: 'crud/crm/company-files',
         mu: 'crud/crm/company-files',
-        md: 'crud/crm/company-files'
+        md: 'crud/crm/company-files',
       },
       pageTitle: 'crm.companyFiles',
       meta: [
         {
-          name: 'path'
-        }
-      ]
+          name: 'path',
+        },
+      ],
     }
   },
   computed: {
@@ -42,7 +42,7 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -50,14 +50,14 @@ export default {
           list: {
             value: 'id',
             text: 'common_name',
-            data: []
+            data: [],
           },
           column: 'company_id',
           text: this.$t('fields.company'),
           name: 'company',
           apiObject: {
-            name: 'company.common_name'
-          }
+            name: 'company.common_name',
+          },
         },
         {
           type: 'file',
@@ -65,7 +65,7 @@ export default {
           text: this.$t('fields.file'),
           name: 'file',
           textMode: 'file',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'file',
@@ -73,21 +73,21 @@ export default {
           text: this.$t('fields.file2'),
           name: 'file_2',
           textMode: 'file',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'textarea',
           column: 'description',
           text: this.$t('fields.description'),
           name: 'description',
-          required: false
-        }
+          required: false,
+        },
       ]
-    }
+    },
   },
   methods: {},
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -100,8 +100,8 @@ export default {
           file2: 'Plik 2',
           description: 'Opis',
           type: 'Typ pliku',
-          size: 'Rozmiar'
-        }
+          size: 'Rozmiar',
+        },
       },
       en: {
         detailsTitle: 'File',
@@ -112,11 +112,11 @@ export default {
           file2: 'File 2',
           description: 'Description',
           type: 'File type',
-          size: 'Size'
-        }
-      }
-    }
-  }
+          size: 'Size',
+        },
+      },
+    },
+  },
 }
 
 </script>

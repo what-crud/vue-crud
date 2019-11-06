@@ -14,16 +14,16 @@
 </template>
 <script>
 import {
-  mapState
+  mapState,
 } from 'vuex'
 
 export default {
   name: 'alert',
   computed: {
     ...mapState([
-      'alert'
-    ])
-  }
+      'alert',
+    ]),
+  },
 }
 
 </script>

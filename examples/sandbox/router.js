@@ -14,12 +14,12 @@ const router = new Router({
     {
       path: '/crud',
       name: 'crud',
-      component: Crud
+      component: Crud,
     },
     {
       path: '/app',
       name: 'app',
-      component: App
+      component: App,
     },
     {
       path: '/login',
@@ -32,7 +32,7 @@ const router = new Router({
         } else {
           next()
         }
-      }
+      },
     },
     {
       path: '/',
@@ -51,9 +51,9 @@ const router = new Router({
               next('/login')
             })
         }
-      }
-    }
-  ]
+      },
+    },
+  ],
 })
 
 export default router

@@ -13,5 +13,5 @@ export default {
   addError: 'Error! Add unsuccessful',
   removed: 'Removed',
   removeError: 'Error! Remove unsuccessful',
-  confirm: 'Are you sure?'
+  confirm: 'Are you sure?',
 }

@@ -22,12 +22,12 @@ export default {
     return {
       prefix: 'crm',
       path: 'positions',
-      pageTitle: 'crm.positions'
+      pageTitle: 'crm.positions',
     }
   },
   components: {
-    Crud
-  }
+    Crud,
+  },
 }
 
 </script>

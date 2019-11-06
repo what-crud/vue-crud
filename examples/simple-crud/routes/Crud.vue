@@ -72,7 +72,7 @@ export default {
       editButton: true,
       selectManyMode: true,
       updateManyMode: true,
-      removeManyMode: true
+      removeManyMode: true,
     }
   },
   created () {
@@ -84,28 +84,28 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
           column: 'name',
           text: this.$t('fields.name'),
           name: 'name',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'textarea',
           column: 'description',
           text: this.$t('fields.description'),
           name: 'description',
-          required: false
-        }
+          required: false,
+        },
       ]
-    }
+    },
   },
   components: {
     Crud,
-    AlertBox
+    AlertBox,
   },
   i18n: {
     messages: {
@@ -114,11 +114,11 @@ export default {
         fields: {
           id: 'Id',
           name: 'Name',
-          description: 'Description'
-        }
-      }
-    }
-  }
+          description: 'Description',
+        },
+      },
+    },
+  },
 }
 
 </script>

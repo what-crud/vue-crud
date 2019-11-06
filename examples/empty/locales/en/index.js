@@ -8,6 +8,6 @@ export default {
     alerts,
     datatable,
     details,
-    itemElements
-  }
+    itemElements,
+  },
 }

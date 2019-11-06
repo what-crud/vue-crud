@@ -8,7 +8,7 @@ let crm = {
   state,
   getters,
   mutations,
-  actions
+  actions,
 }
 
 export default crm

@@ -3,6 +3,6 @@ export default {
   path: {
     prefix: 'api',
     storage: 'storage',
-    upload: 'files/file-upload'
-  }
+    upload: 'files/file-upload',
+  },
 }

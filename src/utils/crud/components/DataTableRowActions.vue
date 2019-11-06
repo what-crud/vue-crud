@@ -69,7 +69,7 @@ import CrudButton from './Button.vue'
 
 export default {
   components: {
-    CrudButton
+    CrudButton,
   },
   props: {
     item: {},
@@ -81,8 +81,8 @@ export default {
     editMode: {},
     selectManyMode: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     edit (id) { this.$emit('edit', id) },
@@ -90,7 +90,7 @@ export default {
     suspend (id) { this.$emit('suspend', id) },
     restore (id) { this.$emit('restore', id) },
     destroy (id) { this.$emit('destroy', id) },
-    editItemElements (name, id) { this.$emit('editItemElements', name, id) }
-  }
+    editItemElements (name, id) { this.$emit('editItemElements', name, id) },
+  },
 }
 </script>

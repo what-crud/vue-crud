@@ -9,13 +9,13 @@ const getters = {
     return JSON.parse(state.user) || {
       active: null,
       email: null,
-      name: null
+      name: null,
     }
   },
   userUpdated: state => state.userUpdated,
   userPasswordUpdated: state => state.userPasswordUpdated,
   userPasswordUpdateError: state => state.userPasswordUpdateError,
-  userPasswordUpdateErrorMsg: state => state.userPasswordUpdateErrorMsg
+  userPasswordUpdateErrorMsg: state => state.userPasswordUpdateErrorMsg,
 }
 
 export default getters

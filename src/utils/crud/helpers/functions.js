@@ -37,7 +37,7 @@ function getItemsList (obj, fields, meta, primaryKey, customButtons, activeColum
     id: obj[primaryKey],
     active: obj[activeColumnName],
     buttons: {},
-    item: {}
+    item: {},
   }
   for (const field in obj) {
     if (typeof obj[field] !== 'object' || obj[field] === null) {
@@ -113,5 +113,5 @@ export {
   parseIntIfNumber,
   download,
   humanFileSize,
-  getItemsList
+  getItemsList,
 }

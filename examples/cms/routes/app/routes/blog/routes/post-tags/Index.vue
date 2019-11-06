@@ -20,9 +20,9 @@ export default {
       prefix: 'crud/blog',
       path: 'post-tags',
       paths: {
-        i: 'blog/post-tags'
+        i: 'blog/post-tags',
       },
-      pageTitle: 'blog.postTags'
+      pageTitle: 'blog.postTags',
     }
   },
   computed: {
@@ -31,7 +31,7 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -39,38 +39,38 @@ export default {
           list: {
             value: 'id',
             text: 'title',
-            data: []
+            data: [],
           },
           column: 'post_id',
           text: this.$t('fields.post'),
           name: 'post_id',
           apiObject: {
-            name: 'post.title'
-          }
+            name: 'post.title',
+          },
         },
         {
           text: this.$t('fields.postCategory'),
           name: 'post_category',
           apiObject: {
-            name: 'post.category.name'
+            name: 'post.category.name',
           },
-          details: false
+          details: false,
         },
         {
           text: this.$t('fields.postDescription'),
           name: 'post_description',
           apiObject: {
-            name: 'post.description'
+            name: 'post.description',
           },
-          details: false
+          details: false,
         },
         {
           text: this.$t('fields.postCreatedAt'),
           name: 'post_created_at',
           apiObject: {
-            name: 'post.created_at'
+            name: 'post.created_at',
           },
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -78,20 +78,20 @@ export default {
           list: {
             value: 'id',
             text: 'name',
-            data: []
+            data: [],
           },
           column: 'tag_id',
           text: this.$t('fields.tag'),
           name: 'tag_id',
           apiObject: {
-            name: 'tag.name'
-          }
-        }
+            name: 'tag.name',
+          },
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -103,8 +103,8 @@ export default {
           postDescription: 'Opis posta',
           postCreatedAt: 'Data utw. posta',
           postCategory: 'Kategoria posta',
-          tag: 'Tag'
-        }
+          tag: 'Tag',
+        },
       },
       en: {
         detailsTitle: 'Post - tag',
@@ -114,11 +114,11 @@ export default {
           postDescription: 'Post description',
           postCreatedAt: 'Post creation date',
           postCategory: 'Post category',
-          tag: 'Tag'
-        }
-      }
-    }
-  }
+          tag: 'Tag',
+        },
+      },
+    },
+  },
 }
 
 </script>

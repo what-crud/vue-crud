@@ -9,14 +9,14 @@ export default {
     characters: 'characters',
     emailMustBeValid: 'E-mail must be valid',
     passwordMustDiffer: 'New password must be different from the old password',
-    passwordMustBeSame: 'Password can\'t be different'
+    passwordMustBeSame: 'Password can\'t be different',
   },
   user: {
     name: 'User name',
     email: 'E-mail address',
     restore: 'Restore',
     save: 'Save',
-    updated: 'User data has been updated'
+    updated: 'User data has been updated',
   },
   password: {
     old: 'Old password',
@@ -25,6 +25,6 @@ export default {
     updated: 'Password has been updated',
     updateError: 'Password update error',
     clear: 'Clear',
-    change: 'Change passowrd'
-  }
+    change: 'Change passowrd',
+  },
 }

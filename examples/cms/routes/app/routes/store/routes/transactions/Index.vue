@@ -21,9 +21,9 @@ export default {
       path: 'transactions',
       paths: {
         i: 'store/transactions',
-        sh: 'store/transactions'
+        sh: 'store/transactions',
       },
-      pageTitle: 'store.transactions'
+      pageTitle: 'store.transactions',
     }
   },
   computed: {
@@ -32,7 +32,7 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -40,14 +40,14 @@ export default {
           list: {
             value: 'id',
             text: 'email',
-            data: []
+            data: [],
           },
           column: 'customer_id',
           text: this.$t('fields.customer'),
           name: 'customer_id',
           apiObject: {
-            name: 'customer.email'
-          }
+            name: 'customer.email',
+          },
         },
         {
           type: 'select',
@@ -55,14 +55,14 @@ export default {
           list: {
             value: 'id',
             text: 'name',
-            data: []
+            data: [],
           },
           column: 'status_id',
           text: this.$t('fields.status'),
           name: 'status_id',
           apiObject: {
-            name: 'status.name'
-          }
+            name: 'status.name',
+          },
         },
         {
           type: 'datetime',
@@ -70,7 +70,7 @@ export default {
           text: this.$t('fields.accepted_at'),
           name: 'accepted_at',
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'datetime',
@@ -78,7 +78,7 @@ export default {
           text: this.$t('fields.started_at'),
           name: 'started_at',
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'datetime',
@@ -86,7 +86,7 @@ export default {
           text: this.$t('fields.sent_at'),
           name: 'sent_at',
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'datetime',
@@ -94,13 +94,13 @@ export default {
           text: this.$t('fields.delivered_at'),
           name: 'delivered_at',
           multiedit: false,
-          required: false
-        }
+          required: false,
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -113,8 +113,8 @@ export default {
           accepted_at: 'Przyjęto',
           started_at: 'Rozpoczęto',
           sent_at: 'Wysłano',
-          delivered_at: 'Dostarczono'
-        }
+          delivered_at: 'Dostarczono',
+        },
       },
       en: {
         detailsTitle: 'Transaction',
@@ -125,11 +125,11 @@ export default {
           accepted_at: 'Accepted at',
           started_at: 'Started at',
           sent_at: 'Sent at',
-          delivered_at: 'Delivered at'
-        }
-      }
-    }
-  }
+          delivered_at: 'Delivered at',
+        },
+      },
+    },
+  },
 }
 
 </script>

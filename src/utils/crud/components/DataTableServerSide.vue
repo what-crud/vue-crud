@@ -168,7 +168,7 @@
 import Vue from 'vue'
 import {
   mapState,
-  mapActions
+  mapActions,
 } from 'vuex'
 import MainMixin from '../mixins/datatable-main'
 import HelperMixin from '../mixins/datatable-helper'
@@ -177,7 +177,7 @@ import CrudButton from './Button.vue'
 
 export default {
   components: {
-    CrudButton
+    CrudButton,
   },
   mixins: [MainMixin, HelperMixin],
   data () {
@@ -185,7 +185,7 @@ export default {
       searching: false,
       newSearchRequest: false,
       ignorePaginationWatcher: false,
-      searchTimeout: null
+      searchTimeout: null,
     }
   },
   created () {
@@ -214,9 +214,9 @@ export default {
         selectedStatuses: this.selectedStatuses,
         deleteMode: this.deleteMode,
         activeColumnName: this.activeColumnName,
-        mode: 'paginate'
+        mode: 'paginate',
       }
-    }
+    },
   },
   watch: {
     pagination: {
@@ -226,7 +226,7 @@ export default {
         }
         this.ignorePaginationWatcher = false
       },
-      deep: true
+      deep: true,
     },
     detailsDialog (val) {
       if (!val) {
@@ -240,12 +240,12 @@ export default {
       if (val) {
         this.getItemsServerSide([this.params])
       }
-    }
+    },
   },
   methods: {
     ...mapActions('crud', ['getItemsServerSide']),
     ...mapActions([
-      'openAlertBox'
+      'openAlertBox',
     ]),
     updateColumnFilterModeEvent (val, index) {
       this.updateColumnFilterMode(val, index)
@@ -306,15 +306,15 @@ export default {
               data,
               filename: this.excelName,
               autoWidth: true,
-              bookType: 'xlsx'
+              bookType: 'xlsx',
             })
           })
         }, (error) => {
           this.excelLoading = false
           this.openAlertBox(['alertError', error.statusText])
         })
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

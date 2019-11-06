@@ -17,7 +17,7 @@ export default {
     return {
       prefix: 'crud/crm',
       path: 'company-comment-types',
-      pageTitle: 'crm.companyCommentTypes'
+      pageTitle: 'crm.companyCommentTypes',
     }
   },
   computed: {
@@ -26,20 +26,20 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
           column: 'name',
           text: this.$t('fields.name'),
           name: 'name',
-          multiedit: false
-        }
+          multiedit: false,
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -47,17 +47,17 @@ export default {
         detailsTitle: 'Firmy - typ komentarza',
         fields: {
           id: 'Id',
-          name: 'Nazwa'
-        }
+          name: 'Nazwa',
+        },
       },
       en: {
         detailsTitle: 'Companies - comment type',
         fields: {
           id: 'Id',
-          name: 'Name'
-        }
-      }
-    }
-  }
+          name: 'Name',
+        },
+      },
+    },
+  },
 }
 </script>

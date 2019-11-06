@@ -8,8 +8,8 @@ const router = new Router({
   routes: [{
     path: '/',
     name: 'crud',
-    component: Crud
-  }]
+    component: Crud,
+  }],
 })
 
 export default router

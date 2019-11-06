@@ -18,7 +18,7 @@ export default {
     return {
       prefix: 'crud/cms',
       path: 'settings',
-      pageTitle: 'cms.settings'
+      pageTitle: 'cms.settings',
     }
   },
   computed: {
@@ -27,7 +27,7 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -37,44 +37,44 @@ export default {
             data: [
               {
                 name: 'input',
-                label: this.$t('fieldTypes.input')
+                label: this.$t('fieldTypes.input'),
               },
               {
                 name: 'textarea',
-                label: this.$t('fieldTypes.textarea')
+                label: this.$t('fieldTypes.textarea'),
               },
               {
                 name: 'file',
-                label: this.$t('fieldTypes.file')
-              }
-            ]
+                label: this.$t('fieldTypes.file'),
+              },
+            ],
           },
           stringId: true,
           column: 'type',
           text: this.$t('fields.type'),
-          name: 'type'
+          name: 'type',
         },
         {
           type: 'input',
           column: 'name',
           text: this.$t('fields.name'),
-          name: 'name'
+          name: 'name',
         },
         {
           type: 'dynamic',
           typeField: 'type',
           textModes: {
-            file: 'file'
+            file: 'file',
           },
           column: 'value',
           text: this.$t('fields.value'),
-          name: 'value'
-        }
+          name: 'value',
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -84,13 +84,13 @@ export default {
           id: 'Id',
           type: 'Typ pola',
           name: 'Nazwa parametru',
-          value: 'Wartość'
+          value: 'Wartość',
         },
         fieldTypes: {
           input: 'Tekst',
           textarea: 'Długi tekst',
-          file: 'Plik'
-        }
+          file: 'Plik',
+        },
       },
       en: {
         detailsTitle: 'Parameter',
@@ -98,16 +98,16 @@ export default {
           id: 'Id',
           type: 'Field type',
           name: 'Name',
-          value: 'Value'
+          value: 'Value',
         },
         fieldTypes: {
           input: 'Input',
           textarea: 'Textarea',
-          file: 'File'
-        }
-      }
-    }
-  }
+          file: 'File',
+        },
+      },
+    },
+  },
 }
 
 </script>

@@ -75,7 +75,7 @@
 import {
   mapState,
   mapMutations,
-  mapActions
+  mapActions,
 } from 'vuex'
 
 export default {
@@ -83,70 +83,71 @@ export default {
   props: {
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     titleLink: {
       type: String,
-      default: '/'
+      default: '/',
     },
     showLogo: {
       type: Boolean,
-      default: false
+      default: false,
     },
     logo: {
       type: String,
-      default: 'vue-crud-sm.png'
+      default: 'vue-crud-sm.png',
     },
     color: {
       type: String,
-      default: 'primary'
+      default: 'primary',
     },
     dark: {
       type: Boolean,
-      default: true
+      default: true,
     },
     profileBtn: {
       type: Boolean,
-      default: true
+      default: true,
     },
     localesBtn: {
       type: Boolean,
-      default: true
+      default: true,
     },
     logoutBtn: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data () {
     return {}
   },
   computed: {
     ...mapState([
-      'locales'
-    ])
+      'locales',
+    ]),
   },
   methods: {
     ...mapActions('auth', [
-      'logout'
+      'logout',
     ]),
     ...mapMutations([
-      'setLocale'
+      'setLocale',
     ]),
     ...mapMutations('app', [
       'openProfileDialog',
-      'showNavigationDrawer'
+      'showNavigationDrawer',
     ]),
     changeLocale (locale) {
       this.$i18n.locale = locale
+      this.$vuetify.lang.current = locale
       this.setLocale(locale)
     },
     logoutAttempt () {
       this.logout().then(() => {
         this.$router.push({ path: '/login' })
       })
-    }
-  }
+    },
+  },
 }
 
 </script>

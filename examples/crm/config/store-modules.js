@@ -4,5 +4,5 @@ import crm from '@/routes/app/routes/crm/store/'
 
 export default {
   administration,
-  crm
+  crm,
 }

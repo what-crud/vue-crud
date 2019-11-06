@@ -2,7 +2,7 @@ import {
   mapState,
   mapGetters,
   mapMutations,
-  mapActions
+  mapActions,
 } from 'vuex'
 
 export default {
@@ -13,27 +13,27 @@ export default {
     fkName: String,
     exclude: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     activeColumnName: {
       type: String,
-      default: 'active'
-    }
+      default: 'active',
+    },
   },
   data () {
     return {
-      detailsLoader: false
+      detailsLoader: false,
     }
   },
   computed: {
     ...mapState('crud', [
       'childItems',
       'itemIdColumn',
-      'childTitle'
+      'childTitle',
     ]),
     ...mapGetters('crud', [
       'item',
-      'childrenList'
+      'childrenList',
     ]),
     details () {
       return this.childItems[this.childItemName].details
@@ -43,7 +43,7 @@ export default {
     },
     fileteredDetailsFields () {
       return this.fieldsInfo.filter(field => field.details !== false && field.type !== 'divider' && field.childTable !== false && !this.exclude.includes(field.name))
-    }
+    },
   },
   methods: {
     ...mapMutations('crud', [
@@ -51,14 +51,14 @@ export default {
       'resetChild',
       'editChildDialog',
       'createChildDialog',
-      'setChildTitle'
+      'setChildTitle',
     ]),
     ...mapActions('crud', [
       'getItemDetails',
       'updateChild',
       'storeChild',
       'getChild',
-      'deleteChild'
+      'deleteChild',
     ]),
     edit (id) {
       this.detailsLoader = true
@@ -78,7 +78,7 @@ export default {
         id,
         obj,
         this.$t('global.alerts.suspended'),
-        this.path
+        this.path,
       ])
     },
     restore (id) {
@@ -88,7 +88,7 @@ export default {
         id,
         obj,
         this.$t('global.alerts.restored'),
-        this.path
+        this.path,
       ])
     },
     reset () {
@@ -103,7 +103,7 @@ export default {
           id,
           this.$t('global.alerts.deleted'),
           this.$t('global.alerts.deleteError'),
-          this.path
+          this.path,
         ])
       }
     },
@@ -112,7 +112,7 @@ export default {
         id,
         data,
         this.$t('global.alerts.updated'),
-        this.path
+        this.path,
       ]).then((response) => {
         this.close()
       })
@@ -122,13 +122,13 @@ export default {
       this.storeChild([
         data,
         this.$t('global.alerts.stored'),
-        this.path
+        this.path,
       ]).then((response) => {
         this.close()
       })
     },
     itemElementsClosed () {
       this.getItemDetails([this.item[this.itemIdColumn]])
-    }
-  }
+    },
+  },
 }

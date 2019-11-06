@@ -38,6 +38,6 @@ export default {
       if (param.length > 0) {
         return '<nobr>' + param[param.length - 1].reset_time.substring(0, 19) + '</nobr>'
       }
-    }
-  }
+    },
+  },
 }

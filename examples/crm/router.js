@@ -26,14 +26,14 @@ const router = new Router({
             next('/login')
           })
       }
-    }
+    },
   },
   {
     path: '/login',
     name: 'login',
-    component: Login
-  }
-  ]
+    component: Login,
+  },
+  ],
 })
 
 router.beforeEach(function (to, from, next) {

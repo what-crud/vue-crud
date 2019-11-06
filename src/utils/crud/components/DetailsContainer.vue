@@ -33,7 +33,7 @@ export default {
   props: ['fieldsInfo'],
   data () {
     return {
-      files: null
+      files: null,
     }
   },
   created () {
@@ -74,15 +74,15 @@ export default {
   computed: {
     fields () {
       return this.fieldsInfo
-    }
+    },
   },
   methods: {
     update (field) {
       setTimeout(() => {
         this.$parent.update(field.column, field.value)
       }, 100)
-    }
-  }
+    },
+  },
 }
 </script>
 <style>

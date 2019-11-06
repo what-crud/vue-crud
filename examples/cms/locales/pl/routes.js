@@ -1,11 +1,11 @@
 export default {
   home: {
-    name: 'Strona główna'
+    name: 'Strona główna',
   },
   cms: {
     name: 'CMS',
     settings: 'Ustawienia',
-    messages: 'Wiadomości'
+    messages: 'Wiadomości',
   },
   store: {
     name: 'Sklep',
@@ -13,20 +13,20 @@ export default {
     products: 'Produkty',
     transactions: 'Transakcje',
     customers: 'Klienci',
-    transactionProducts: 'Transakcje - produkty'
+    transactionProducts: 'Transakcje - produkty',
   },
   blog: {
     name: 'Blog',
     categories: 'Kategorie',
     tags: 'Tagi',
     posts: 'Posty',
-    postTags: 'Posty - tagi'
+    postTags: 'Posty - tagi',
   },
   admin: {
     name: 'Administracja',
     permissions: 'Uprawnienia',
     users: 'Użytkownicy',
     userPermissions: 'Użytkownicy - uprawnienia',
-    userTypes: 'Typy użytkowników'
-  }
+    userTypes: 'Typy użytkowników',
+  },
 }

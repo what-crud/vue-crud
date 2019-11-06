@@ -8,5 +8,5 @@ export default {
   passwordRequired: 'Hasło jest wymagane',
   incorrectPassword: 'Hasło ma niepoprawny format',
   loginRequired: 'Adres e-mail jest wymagany',
-  incorrectLogin: 'E-mail ma niepoprawny format'
+  incorrectLogin: 'E-mail ma niepoprawny format',
 }

@@ -10,6 +10,6 @@ export default {
     routes,
     datatable,
     details,
-    itemElements
-  }
+    itemElements,
+  },
 }

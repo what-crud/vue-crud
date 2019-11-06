@@ -9,23 +9,23 @@ export default {
     characters: 'znaków',
     emailMustBeValid: 'E-mail musi mieć poprawny format',
     passwordMustDiffer: 'Nowe hasło musi się różnić od poprzedniego',
-    passwordMustBeSame: 'Hasła nie mogą się różnić'
+    passwordMustBeSame: 'Hasła nie mogą się różnić',
   },
   alerts: {
     updated: 'Zaktualizowano',
     updateError: 'Błąd! Aktualizacja nie powiodła się',
     stored: 'Dodano',
-    storeError: 'Błąd! Nie udało się dodać rekordu'
+    storeError: 'Błąd! Nie udało się dodać rekordu',
   },
   buttons: {
     create: 'Utwórz',
     modify: 'Modyfikuj',
     modifySelected: 'Modyfikuj wybrane rekordy',
-    close: 'Zamknij'
+    close: 'Zamknij',
   },
   files: {
     upload: 'Wgraj plik',
     show: 'Pokaż',
-    download: 'Pobierz'
-  }
+    download: 'Pobierz',
+  },
 }

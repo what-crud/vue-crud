@@ -7,7 +7,7 @@ export default {
     getUser: 'user',
     refreshToken: 'refresh-token',
     editUser: 'user',
-    changePassword: 'user-password'
+    changePassword: 'user-password',
   },
   loginWithEmail: true,
   loginFieldName: 'email',
@@ -26,7 +26,7 @@ export default {
       editable: true,
       minLength: 0,
       maxLength: 100,
-      required: true
-    }
-  ]
+      required: true,
+    },
+  ],
 }

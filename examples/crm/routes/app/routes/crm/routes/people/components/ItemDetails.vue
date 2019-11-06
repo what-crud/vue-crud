@@ -42,19 +42,19 @@ export default {
   components: {
     ItemDetailsContainer,
     PersonPositions,
-    PersonComments
+    PersonComments,
   },
   created () {
     this.setIdColumn('id')
     this.setChildItemsMapping([
       {
         name: 'personPositions',
-        objName: 'positions'
+        objName: 'positions',
       },
       {
         name: 'personComments',
-        objName: 'comments'
-      }
+        objName: 'comments',
+      },
     ])
   },
   i18n: {
@@ -63,16 +63,16 @@ export default {
         title: 'Szczegóły osoby',
         basicInformation: 'Dane podstawowe',
         positions: 'Stanowiska',
-        comments: 'Komentarze'
+        comments: 'Komentarze',
       },
       en: {
         title: 'Person details',
         basicInformation: 'Basic information',
         positions: 'Positions',
-        comments: 'Comments'
-      }
-    }
-  }
+        comments: 'Comments',
+      },
+    },
+  },
 }
 
 </script>

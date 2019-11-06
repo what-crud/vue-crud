@@ -1,5 +1,5 @@
 import {
-  mapState, mapGetters, mapMutations, mapActions
+  mapState, mapGetters, mapMutations, mapActions,
 } from 'vuex'
 
 export default {
@@ -15,8 +15,8 @@ export default {
           this.setCreatedItemStatus([false, null])
         }
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   computed: {
     ...mapState('crud', ['createdElement']),
@@ -27,13 +27,13 @@ export default {
           name: 'goToItem',
           icon: 'forward',
           color: 'blue',
-          text: this.$t('global.details.title')
-        }
+          text: this.$t('global.details.title'),
+        },
       ]
     },
     itemFields () {
       return this.fieldsInfo.filter(field => field.details !== false)
-    }
+    },
   },
   methods: {
     ...mapMutations('crud', ['showItemDetailsDialog', 'setCreatedItemStatus', 'setCurrentItem']),
@@ -43,6 +43,6 @@ export default {
       this.getItemDetails([item.meta.id]).then(() => {
         this.showItemDetailsDialog()
       })
-    }
-  }
+    },
+  },
 }

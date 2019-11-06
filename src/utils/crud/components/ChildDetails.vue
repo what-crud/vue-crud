@@ -52,11 +52,11 @@ import { fieldModifiers } from '@/utils/crud/helpers/functions'
 
 export default {
   components: {
-    Field
+    Field,
   },
   props: {
     details: Object,
-    fieldsInfo: Array
+    fieldsInfo: Array,
   },
   data () {
     return {
@@ -64,7 +64,7 @@ export default {
       masks: {
         date: '####-##-##',
         time: '##:##',
-        datetime: '####-##-## ##:##:##'
+        datetime: '####-##-## ##:##:##',
       },
       reload: false,
       customFilter (item, queryText, itemText) {
@@ -77,7 +77,7 @@ export default {
             .toLowerCase()
             .indexOf(query.toString().toLowerCase()) >= -1
         )
-      }
+      },
     }
   },
   mounted () {
@@ -96,12 +96,12 @@ export default {
       const self = this
       return {
         input: [v => !!v || self.$t('global.details.rules.required')],
-        required: v => !!v || self.$t('global.details.rules.required')
+        required: v => !!v || self.$t('global.details.rules.required'),
       }
     },
     detailsShow () {
       return this.details.show
-    }
+    },
   },
   watch: {
     detailsShow: function (val) {
@@ -112,7 +112,7 @@ export default {
           this.reload = false
         }, 100)
       }
-    }
+    },
   },
   methods: {
     setFields () {
@@ -181,8 +181,8 @@ export default {
     },
     store () {
       this.$parent.store(this.itemData)
-    }
-  }
+    },
+  },
 }
 </script>
 <style scoped>

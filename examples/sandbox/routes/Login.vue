@@ -88,7 +88,7 @@ export default {
     redirect: '/',
     localeSelectable: true,
     showLogo: true,
-    logo: 'vue-crud-lg.png'
+    logo: 'vue-crud-lg.png',
   }),
   computed: {
     template () {
@@ -113,11 +113,11 @@ export default {
             }
           }
         `
-    }
+    },
   },
   components: {
-    LoginForm
-  }
+    LoginForm,
+  },
 }
 
 </script>

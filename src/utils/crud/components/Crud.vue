@@ -41,7 +41,7 @@
 import {
   mapState,
   mapMutations,
-  mapActions
+  mapActions,
 } from 'vuex'
 import ItemDetails from './ItemDetails.vue'
 import ItemElements from './ItemElements.vue'
@@ -52,113 +52,113 @@ export default {
   components: {
     ItemDetails,
     ItemElements,
-    ImageContainer
+    ImageContainer,
   },
   props: {
     prefix: {
       type: String,
-      default: null
+      default: null,
     },
     path: {
       type: String,
-      default: null
+      default: null,
     },
     paths: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     fieldsInfo: Array,
     detailsTitle: String,
     pageTitle: String,
     editButton: {
       type: Boolean,
-      default: crud.editButton || true
+      default: crud.editButton || true,
     },
     deleteMode: {
       type: String,
       validator (value) {
         return ['none', 'soft', 'hard', 'both', 'filter'].indexOf(value) !== -1
       },
-      default: crud.deleteMode || 'soft'
+      default: crud.deleteMode || 'soft',
     },
     customHeaderButtons: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     customButtons: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     meta: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     itemElements: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     watchForCreation: {
       type: Boolean,
-      default: false
+      default: false,
     },
     primaryKey: {
       type: String,
-      default: crud.primaryKey || 'id'
+      default: crud.primaryKey || 'id',
     },
     activeColumnName: {
       type: String,
-      default: crud.activityColumnName || 'active'
+      default: crud.activityColumnName || 'active',
     },
     mode: {
       type: String,
       validator (value) {
         return ['ClientSide', 'ServerSide'].indexOf(value) !== -1
       },
-      default: 'ClientSide'
+      default: 'ClientSide',
     },
     createMode: {
       type: Boolean,
-      default: crud.createMode === undefined ? true : crud.createMode
+      default: crud.createMode === undefined ? true : crud.createMode,
     },
     editMode: {
       type: Boolean,
-      default: crud.editMode === undefined ? true : crud.editMode
+      default: crud.editMode === undefined ? true : crud.editMode,
     },
     mainFilter: {
       type: Boolean,
-      default: crud.mainFilter === undefined ? true : crud.mainFilter
+      default: crud.mainFilter === undefined ? true : crud.mainFilter,
     },
     fieldFilters: {
       type: Boolean,
-      default: crud.fieldFilters === undefined ? true : crud.fieldFilters
+      default: crud.fieldFilters === undefined ? true : crud.fieldFilters,
     },
     exportButton: {
       type: Boolean,
-      default: crud.exportButton === undefined ? true : crud.exportButton
+      default: crud.exportButton === undefined ? true : crud.exportButton,
     },
     refreshButton: {
       type: Boolean,
-      default: crud.refreshButton === undefined ? true : crud.refreshButton
+      default: crud.refreshButton === undefined ? true : crud.refreshButton,
     },
     selectManyMode: {
       type: Boolean,
-      default: crud.selectManyMode === undefined ? true : crud.selectManyMode
+      default: crud.selectManyMode === undefined ? true : crud.selectManyMode,
     },
     updateManyMode: {
       type: Boolean,
-      default: crud.updateManyMode === undefined ? true : crud.updateManyMode
+      default: crud.updateManyMode === undefined ? true : crud.updateManyMode,
     },
     removeManyMode: {
       type: Boolean,
-      default: crud.removeManyMode === undefined ? true : crud.removeManyMode
-    }
+      default: crud.removeManyMode === undefined ? true : crud.removeManyMode,
+    },
   },
   data () {
     return {}
   },
   computed: {
     ...mapState('crud', [
-      'detailsLoading'
+      'detailsLoading',
     ]),
     tableFields () {
       return this.fieldsInfo.filter(field => field.table !== false && field.type !== 'divider')
@@ -168,7 +168,7 @@ export default {
     },
     componentLoader () {
       return () => import(`./DataTable${this.mode}.vue`)
-    }
+    },
   },
   created () {
     this.setPrefix(this.prefix)
@@ -180,24 +180,24 @@ export default {
   },
   methods: {
     ...mapMutations('app', [
-      'setPage'
+      'setPage',
     ]),
     ...mapMutations('crud', [
       'setPrefix',
       'setPath',
       'setPaths',
-      'setCreationMode'
+      'setCreationMode',
     ]),
     ...mapActions('crud', [
-      'runTableRefreshing'
+      'runTableRefreshing',
     ]),
     custom (name, item, index) {
       this.$parent[name](item, index)
     },
     itemElementsClosed () {
       this.runTableRefreshing()
-    }
-  }
+    },
+  },
 }
 
 </script>

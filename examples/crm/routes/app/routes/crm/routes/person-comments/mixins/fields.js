@@ -5,7 +5,7 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -13,30 +13,30 @@ export default {
           list: {
             value: 'id',
             text: 'fullname',
-            data: []
+            data: [],
           },
           column: 'person_id',
           text: this.$t('fields.person'),
           name: 'person',
           apiObject: {
-            name: 'person.fullname'
-          }
+            name: 'person.fullname',
+          },
         },
         {
           text: this.$t('fields.user'),
           name: 'user',
           apiObject: {
-            name: 'user.name'
+            name: 'user.name',
           },
-          details: false
+          details: false,
         },
         {
           text: this.$t('fields.userEmail'),
           name: 'userEmail',
           apiObject: {
-            name: 'user.email'
+            name: 'user.email',
           },
-          details: false
+          details: false,
         },
         {
           type: 'select',
@@ -44,14 +44,14 @@ export default {
           list: {
             value: 'id',
             text: 'name',
-            data: []
+            data: [],
           },
           column: 'person_comment_type_id',
           text: this.$t('fields.commentType'),
           name: 'personCommentType',
           apiObject: {
-            name: 'person_comment_type.name'
-          }
+            name: 'person_comment_type.name',
+          },
         },
         {
           type: 'textarea',
@@ -60,11 +60,11 @@ export default {
           name: 'content',
           apiObject: {
             name: 'content',
-            functions: ['croppedText']
+            functions: ['croppedText'],
           },
-          multiedit: false
-        }
+          multiedit: false,
+        },
       ]
-    }
-  }
+    },
+  },
 }

@@ -24,7 +24,7 @@ export default {
   mixins: [FieldsInfoMixin, LocalesMixin, CompanyCommentsChildMixin],
   components: {
     'person-comments-table': ChildrenTable,
-    'person-comment-details': ChildDetails
-  }
+    'person-comment-details': ChildDetails,
+  },
 }
 </script>

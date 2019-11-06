@@ -13,8 +13,8 @@ import LoginForm from '@/utils/auth/components/LoginForm.vue'
 
 export default {
   components: {
-    LoginForm
-  }
+    LoginForm,
+  },
 }
 
 </script>

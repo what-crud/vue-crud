@@ -12,36 +12,36 @@ let appRoutes = [
   {
     path: 'home',
     name: 'home',
-    component: Home
+    component: Home,
   },
   {
     path: 'cms',
     name: 'cms',
     component: Cms,
     children: cmsRoutes,
-    meta: { guard: 'CMS' }
+    meta: { guard: 'CMS' },
   },
   {
     path: 'blog',
     name: 'blog',
     component: Blog,
     children: blogRoutes,
-    meta: { guard: 'BLOG' }
+    meta: { guard: 'BLOG' },
   },
   {
     path: 'store',
     name: 'store',
     component: Store,
     children: storeRoutes,
-    meta: { guard: 'STORE' }
+    meta: { guard: 'STORE' },
   },
   {
     path: 'administration',
     name: 'administration',
     component: Administration,
     children: administrationRoutes,
-    meta: { guard: 'ADMIN' }
-  }
+    meta: { guard: 'ADMIN' },
+  },
 ]
 
 export default appRoutes

@@ -29,7 +29,7 @@ export default {
   components: {
     'company-positions-table': ChildrenTable,
     'company-position-details': ChildDetails,
-    'company-position-tasks': ItemElements
-  }
+    'company-position-tasks': ItemElements,
+  },
 }
 </script>

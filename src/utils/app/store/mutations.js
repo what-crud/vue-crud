@@ -13,7 +13,7 @@ const mutations = {
   },
   hideNavigationDrawer (state) {
     state.isNavigationDrawerDisplayed = false
-  }
+  },
 }
 
 export default mutations

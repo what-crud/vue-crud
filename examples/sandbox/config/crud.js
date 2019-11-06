@@ -15,6 +15,6 @@ export default {
   fieldModifiers: {
     boolean: (param) => {
       return `<i aria-hidden class="v-icon material-icons">${parseInt(param) === 1 ? 'check' : 'clear'}</i>`
-    }
-  }
+    },
+  },
 }

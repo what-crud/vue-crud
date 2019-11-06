@@ -5,7 +5,7 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
@@ -13,7 +13,7 @@ export default {
           text: this.$t('fields.name'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'name',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'input',
@@ -22,9 +22,9 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'commonName',
           apiObject: {
-            name: 'common_name'
+            name: 'common_name',
           },
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'select',
@@ -32,15 +32,15 @@ export default {
           list: {
             value: 'id',
             text: 'name',
-            data: []
+            data: [],
           },
           column: 'company_type_id',
           text: this.$t('fields.companyType'),
           grid: 'xs12 sm6 md4 lg6 xl4',
           name: 'companyType',
           apiObject: {
-            name: 'company_type.name'
-          }
+            name: 'company_type.name',
+          },
         },
         {
           type: 'input',
@@ -50,7 +50,7 @@ export default {
           name: 'nip',
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -60,7 +60,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -70,7 +70,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'select',
@@ -78,23 +78,23 @@ export default {
           list: {
             value: 'id',
             text: 'description',
-            data: []
+            data: [],
           },
           column: 'street_prefix_id',
           text: this.$t('fields.streetPrefix'),
           grid: 'xs6 sm3 md2 lg3 xl2',
           name: 'streetPrefix',
           apiObject: {
-            name: 'street_prefix.name'
+            name: 'street_prefix.name',
           },
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           text: this.$t('fields.address'),
           name: 'address',
-          details: false
+          details: false,
         },
         {
           type: 'input',
@@ -104,7 +104,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -114,7 +114,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -124,7 +124,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -134,7 +134,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -143,7 +143,7 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl3',
           name: 'city',
           create: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -152,7 +152,7 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl3',
           table: false,
           create: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -161,7 +161,7 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl3',
           table: false,
           create: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -170,7 +170,7 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl3',
           table: false,
           create: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -180,7 +180,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -190,7 +190,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -200,7 +200,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -210,7 +210,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -220,7 +220,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -230,7 +230,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'checkbox',
@@ -239,7 +239,7 @@ export default {
           grid: 'xs12 sm6 md4 lg6 xl4',
           table: false,
           create: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -249,7 +249,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'select',
@@ -257,7 +257,7 @@ export default {
           list: {
             value: 'id',
             text: 'description',
-            data: []
+            data: [],
           },
           column: 'correspondence_street_prefix_id',
           text: this.$t('fields.correspondenceStreetPrefix'),
@@ -265,7 +265,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -275,7 +275,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -285,7 +285,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -295,7 +295,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -305,7 +305,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -315,7 +315,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -325,7 +325,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -335,7 +335,7 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -345,9 +345,9 @@ export default {
           table: false,
           create: false,
           multiedit: false,
-          required: false
-        }
+          required: false,
+        },
       ]
-    }
-  }
+    },
+  },
 }

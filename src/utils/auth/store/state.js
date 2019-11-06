@@ -8,7 +8,7 @@ const state = {
   userPasswordUpdateError: false,
   userPasswordUpdateErrorMsg: '',
   loginWait: false,
-  loginFailed: false
+  loginFailed: false,
 }
 
 export default state

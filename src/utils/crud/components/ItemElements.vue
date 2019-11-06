@@ -134,13 +134,13 @@ import CrudButton from './Button.vue'
 import DataTableFooter from '../components/DataTableFooter.vue'
 import {
   mapState,
-  mapActions
+  mapActions,
 } from 'vuex'
 
 export default {
   components: {
     CrudButton,
-    DataTableFooter
+    DataTableFooter,
   },
   props: ['details'],
   data () {
@@ -150,9 +150,9 @@ export default {
       search: '',
       pagination: {
         sortBy: ['added'],
-        sorDesc: [true]
+        sorDesc: [true],
       },
-      selectedStatuses: [1, 0]
+      selectedStatuses: [1, 0],
     }
   },
   computed: {
@@ -161,12 +161,12 @@ export default {
       return [
         {
           text: this.$t('global.itemElements.status.added'),
-          value: 1
+          value: 1,
         },
         {
           text: this.$t('global.itemElements.status.noAdded'),
-          value: 0
-        }
+          value: 0,
+        },
       ]
     },
     headers () {
@@ -181,19 +181,19 @@ export default {
         {
           text: this.$t('global.itemElements.fields.action'),
           value: 'actions',
-          sortable: false
-        }
+          sortable: false,
+        },
       ]
       const addedHeader = [
         {
           text: this.$t('global.itemElements.fields.added'),
-          value: 'added'
-        }
+          value: 'added',
+        },
       ]
       return [
         ...actionHeader,
         ...headers,
-        ...addedHeader
+        ...addedHeader,
       ]
     },
     itemsPerPageOptions () {
@@ -202,14 +202,14 @@ export default {
         10,
         20,
         50,
-        100
+        100,
       ]
     },
     footerProps () {
       return {
         showFirstLastPage: true,
         rowsPerPageText: this.$t('global.datatable.rowsPerPageText'),
-        itemsPerPageOptions: this.itemsPerPageOptions
+        itemsPerPageOptions: this.itemsPerPageOptions,
       }
     },
     items () {
@@ -263,14 +263,14 @@ export default {
         return found
       })
       return filteredItems
-    }
+    },
   },
   methods: {
     ...mapActions('crud', [
       'addItemElement',
       'removeItemElement',
       'addManyItemElements',
-      'removeManyItemElements'
+      'removeManyItemElements',
     ]),
     add (foreignId) {
       const obj = {}
@@ -279,14 +279,14 @@ export default {
       this.addItemElement([
         obj,
         this.$t('global.alerts.added'),
-        this.$t('global.alerts.addError')
+        this.$t('global.alerts.addError'),
       ])
     },
     remove (id) {
       this.removeItemElement([
         id,
         this.$t('global.alerts.removed'),
-        this.$t('global.alerts.removeError')
+        this.$t('global.alerts.removeError'),
       ])
     },
     addMany () {
@@ -300,10 +300,10 @@ export default {
         })
       this.addManyItemElements([
         {
-          items: obj
+          items: obj,
         },
         this.$t('global.alerts.added'),
-        this.$t('global.alerts.addError')
+        this.$t('global.alerts.addError'),
       ])
       this.clearSelected()
     },
@@ -313,10 +313,10 @@ export default {
         .map(item => item.connectionId)
       this.removeManyItemElements([
         {
-          ids: obj
+          ids: obj,
         },
         this.$t('global.alerts.removed'),
-        this.$t('global.alerts.removeError')
+        this.$t('global.alerts.removeError'),
       ])
       this.clearSelected()
     },
@@ -329,8 +329,8 @@ export default {
     },
     setPage (page) {
       this.pagination.page = parseInt(page)
-    }
-  }
+    },
+  },
 }
 </script>
 <style scoped>

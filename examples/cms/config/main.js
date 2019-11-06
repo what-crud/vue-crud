@@ -2,12 +2,12 @@ export default {
   title: 'YourCMS',
   locales: [{
     name: 'en',
-    text: 'English'
+    text: 'English',
   },
   {
     name: 'pl',
-    text: 'Polski'
-  }
+    text: 'Polski',
+  },
   ],
   defaultLocale: 'en',
   iconfont: 'md',
@@ -20,6 +20,6 @@ export default {
     error: '#FF5252',
     info: '#2196F3',
     success: '#4CAF50',
-    warning: '#FFC107'
-  }
+    warning: '#FFC107',
+  },
 }

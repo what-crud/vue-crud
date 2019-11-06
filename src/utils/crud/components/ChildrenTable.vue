@@ -195,7 +195,7 @@
 import {
   mapState,
   mapMutations,
-  mapActions
+  mapActions,
 } from 'vuex'
 import ClientSideFilteringMixin from '../mixins/datatable-client-side-filtering'
 import HelperMixin from '../mixins/datatable-helper'
@@ -209,7 +209,7 @@ export default {
   components: {
     DataTableRowActions,
     DataTableRowField,
-    CrudButton
+    CrudButton,
   },
   props: {
     title: String,
@@ -219,48 +219,48 @@ export default {
       validator (value) {
         return ['none', 'soft', 'hard', 'both'].indexOf(value) !== -1
       },
-      default: 'soft'
+      default: 'soft',
     },
     customHeaderButtons: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     customButtons: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     itemElements: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     createButton: {
       type: Boolean,
-      default: true
+      default: true,
     },
     editButton: {
       type: Boolean,
-      default: true
+      default: true,
     },
     meta: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     primaryKey: {
       type: String,
-      default: 'id'
+      default: 'id',
     },
     tableData: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     detailsLoader: {
       type: Boolean,
-      default: false
+      default: false,
     },
     editMode: {
       type: Boolean,
-      default: crud.editMode === undefined ? true : crud.editMode
-    }
+      default: crud.editMode === undefined ? true : crud.editMode,
+    },
   },
   computed: {
     ...mapState('app', ['page']),
@@ -276,15 +276,15 @@ export default {
     },
     columnTextModes () {
       return this.setColumnTextModes()
-    }
+    },
   },
   methods: {
     ...mapMutations('crud', [
       'setItemElementsInfo',
-      'editItemElementsDialog'
+      'editItemElementsDialog',
     ]),
     ...mapActions('crud', [
-      'getItemElements'
+      'getItemElements',
     ]),
     resolveRowDoubleClick (item) {
       this.edit(item.meta.id)
@@ -324,8 +324,8 @@ export default {
       const obj = this.itemElements[name]
       this.setItemElementsInfo([id, obj])
       this.getItemElements()
-    }
-  }
+    },
+  },
 }
 </script>
 

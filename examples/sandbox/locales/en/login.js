@@ -8,5 +8,5 @@ export default {
   passwordRequired: 'Password is required',
   incorrectPassword: 'Password is incorrect',
   loginRequired: 'E-mail is required',
-  incorrectLogin: 'E-mail format is incorrect'
+  incorrectLogin: 'E-mail format is incorrect',
 }

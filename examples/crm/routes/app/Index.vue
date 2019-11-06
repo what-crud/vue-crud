@@ -101,49 +101,49 @@ export default {
         route: '/crm',
         children: [{
           text: 'crm.companies',
-          route: '/companies'
+          route: '/companies',
         },
         {
           text: 'crm.companyTypes',
-          route: '/company-types'
+          route: '/company-types',
         },
         {
           text: 'crm.companyFiles',
-          route: '/company-files'
+          route: '/company-files',
         },
         {
           text: 'crm.companyComments',
-          route: '/company-comments'
+          route: '/company-comments',
         },
         {
           text: 'crm.companyCommentTypes',
-          route: '/company-comment-types'
+          route: '/company-comment-types',
         },
         {
           text: 'crm.people',
-          route: '/people'
+          route: '/people',
         },
         {
           text: 'crm.personComments',
-          route: '/person-comments'
+          route: '/person-comments',
         },
         {
           text: 'crm.personCommentTypes',
-          route: '/person-comment-types'
+          route: '/person-comment-types',
         },
         {
           text: 'crm.positions',
-          route: '/positions'
+          route: '/positions',
         },
         {
           text: 'crm.positionTasks',
-          route: '/position-tasks'
+          route: '/position-tasks',
         },
         {
           text: 'crm.tasks',
-          route: '/tasks'
-        }
-        ]
+          route: '/tasks',
+        },
+        ],
       },
       {
         icon: 'person_add_disabled',
@@ -153,26 +153,26 @@ export default {
         route: '/administration',
         children: [{
           text: 'admin.users',
-          route: '/users'
+          route: '/users',
         },
         {
           text: 'admin.permissions',
-          route: '/permissions'
+          route: '/permissions',
         },
         {
           text: 'admin.userPermissions',
-          route: '/user-permissions'
-        }
-        ]
-      }
-    ]
+          route: '/user-permissions',
+        },
+        ],
+      },
+    ],
   }),
   computed: {
     ...mapGetters('auth', ['isLogged', 'userInfo']),
     year () {
       let year = new Date()
       return year.getFullYear()
-    }
+    },
   },
   components: {
     Sidebar,
@@ -180,8 +180,8 @@ export default {
     AlertBox,
     Footnote,
     BackTop,
-    Profile
-  }
+    Profile,
+  },
 }
 </script>
 <style scoped>

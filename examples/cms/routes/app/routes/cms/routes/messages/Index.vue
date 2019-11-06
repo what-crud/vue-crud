@@ -19,9 +19,9 @@ export default {
       prefix: 'crud/cms',
       path: 'messages',
       paths: {
-        i: 'cms/messages'
+        i: 'cms/messages',
       },
-      pageTitle: 'cms.messages'
+      pageTitle: 'cms.messages',
     }
   },
   computed: {
@@ -30,28 +30,28 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
           column: 'email',
           text: this.$t('fields.email'),
           name: 'email',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'input',
           column: 'sender',
           text: this.$t('fields.sender'),
           name: 'sender',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'textarea',
           column: 'content',
           text: this.$t('fields.content'),
           name: 'content',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'input',
@@ -60,13 +60,13 @@ export default {
           name: 'created_at',
           multiedit: false,
           disabled: true,
-          required: false
-        }
+          required: false,
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -77,8 +77,8 @@ export default {
           email: 'E-mail',
           sender: 'Nadawca',
           content: 'Treść',
-          createdAt: 'Wysłano'
-        }
+          createdAt: 'Wysłano',
+        },
       },
       en: {
         detailsTitle: 'Message',
@@ -87,11 +87,11 @@ export default {
           email: 'E-mail',
           sender: 'Sender',
           content: 'Content',
-          createdAt: 'Sent at'
-        }
-      }
-    }
-  }
+          createdAt: 'Sent at',
+        },
+      },
+    },
+  },
 }
 
 </script>

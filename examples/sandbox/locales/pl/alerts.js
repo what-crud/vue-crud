@@ -13,5 +13,5 @@ export default {
   addError: 'Błąd! Nie udało się dodać elementu',
   removed: 'Usunięto',
   removeError: 'Błąd! Nie udało się usunąć elementu',
-  confirm: 'Czy na pewno chcesz to zrobić?'
+  confirm: 'Czy na pewno chcesz to zrobić?',
 }

@@ -18,7 +18,7 @@ export default {
     return {
       prefix: 'crud/store',
       path: 'customers',
-      pageTitle: 'store.customers'
+      pageTitle: 'store.customers',
     }
   },
   computed: {
@@ -27,21 +27,21 @@ export default {
         {
           text: this.$t('fields.id'),
           name: 'id',
-          details: false
+          details: false,
         },
         {
           type: 'input',
           column: 'firstname',
           text: this.$t('fields.firstname'),
           name: 'firstname',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'input',
           column: 'lastname',
           text: this.$t('fields.lastname'),
           name: 'lastname',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'checkbox',
@@ -50,10 +50,10 @@ export default {
           name: 'company',
           apiObject: {
             name: 'company',
-            functions: ['boolean']
+            functions: ['boolean'],
           },
           textMode: 'html',
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -61,7 +61,7 @@ export default {
           text: this.$t('fields.registration_number'),
           name: 'registration_number',
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
@@ -69,47 +69,47 @@ export default {
           text: this.$t('fields.phone'),
           name: 'phone',
           multiedit: false,
-          required: false
+          required: false,
         },
         {
           type: 'input',
           column: 'email',
           text: this.$t('fields.email'),
           name: 'email',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'input',
           column: 'street',
           text: this.$t('fields.street'),
           name: 'street',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'input',
           column: 'zip_code',
           text: this.$t('fields.zip_code'),
           name: 'zip_code',
-          multiedit: false
+          multiedit: false,
         },
         {
           type: 'input',
           column: 'city',
           text: this.$t('fields.city'),
-          name: 'city'
+          name: 'city',
         },
         {
           type: 'input',
           column: 'comments',
           text: this.$t('fields.comments'),
           name: 'comments',
-          required: false
-        }
+          required: false,
+        },
       ]
-    }
+    },
   },
   components: {
-    Crud
+    Crud,
   },
   i18n: {
     messages: {
@@ -126,8 +126,8 @@ export default {
           street: 'Ulica',
           zip_code: 'Kod pocztowy',
           city: 'Miejscowość',
-          comments: 'Komentarze'
-        }
+          comments: 'Komentarze',
+        },
       },
       en: {
         detailsTitle: 'Post',
@@ -142,11 +142,11 @@ export default {
           street: 'Street',
           zip_code: 'Zip code',
           city: 'City',
-          comments: 'Comments'
-        }
-      }
-    }
-  }
+          comments: 'Comments',
+        },
+      },
+    },
+  },
 }
 
 </script>

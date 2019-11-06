@@ -1,11 +1,11 @@
 export default {
   home: {
-    name: 'Home page'
+    name: 'Home page',
   },
   cms: {
     name: 'CMS',
     settings: 'Settings',
-    messages: 'Messages'
+    messages: 'Messages',
   },
   store: {
     name: 'Store',
@@ -13,20 +13,20 @@ export default {
     products: 'Products',
     transactions: 'Transactions',
     customers: 'Customers',
-    transactionProducts: 'Transactions - products'
+    transactionProducts: 'Transactions - products',
   },
   blog: {
     name: 'Blog',
     categories: 'Categories',
     tags: 'Tags',
     posts: 'Posts',
-    postTags: 'Posts - tags'
+    postTags: 'Posts - tags',
   },
   admin: {
     name: 'Administration',
     permissions: 'Permissions',
     users: 'Users',
     userPermissions: 'Users - permissions',
-    userTypes: 'User types'
-  }
+    userTypes: 'User types',
+  },
 }
