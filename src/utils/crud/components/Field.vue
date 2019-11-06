@@ -119,6 +119,7 @@
         <rich-text-box
           v-model="value"
           :disabled="field.disabled"
+          :available-extensions="field.richTextBoxOperations"
           @change="valueChanged()"
         />
       </div>

@@ -39,37 +39,76 @@ export default {
       type: Boolean,
       default: false,
     },
+    availableExtensions: {
+      type: Array,
+      default: () => {
+        return [
+          'History',
+          'Bold',
+          'Italic',
+          'Underline',
+          'Strike',
+          'Paragraph',
+          'ListItem',
+          'BulletList',
+          'OrderedList',
+          {
+            name: 'Heading',
+            options: {
+              levels: [1, 2, 3, 4, 5, 6],
+            },
+          },
+          'HardBreak',
+          'HorizontalRule',
+          'Blockquote',
+          'Code',
+          'Link',
+          'Image',
+        ]
+      },
+    },
   },
   data: () => ({
-    extensions: [
-      History,
-      Blockquote,
-      Link,
-      Underline,
-      Strike,
+    content: ``,
+    extensionsMap: {
+      Heading,
+      Bold,
       Italic,
-      ListItem,
+      Strike,
+      Underline,
+      Code,
+      Paragraph,
       BulletList,
       OrderedList,
-      [
-        Heading,
-        {
-          options: {
-            levels: [1, 2, 3],
-          },
-        },
-      ],
-      Bold,
-      Code,
-      HorizontalRule,
-      Paragraph,
+      ListItem,
+      Link,
+      Blockquote,
       HardBreak,
+      HorizontalRule,
+      History,
       Image,
-    ],
-    content: ``,
+    },
   }),
   computed: {
-    editorProperties () {
+    extensions() {
+      const extensions = []
+      for (const extension of this.availableExtensions) {
+        if (extension) {
+          if (typeof extension === 'string' && this.extensionsExists(extension)) {
+            extensions.push(this.extensionsMap[extension])
+          } else if (extension.name && typeof extension.name === 'string' && this.extensionsExists(extension.name)) {
+            extensions.push([
+              this.extensionsMap[extension.name],
+              {
+                options: extension.options || {},
+              },
+            ])
+          }
+        }
+      }
+      return extensions
+    },
+    editorProperties() {
       return {
         onBlur: this.onBlur,
         editable: !this.disabled,
@@ -77,7 +116,10 @@ export default {
     },
   },
   methods: {
-    onBlur () {
+    extensionsExists(extensionName) {
+      return this.extensionsMap[extensionName] !== undefined
+    },
+    onBlur() {
       this.$emit('input', this.content)
       this.$emit('change')
     },
@@ -85,7 +127,7 @@ export default {
   watch: {
     value: {
       immediate: true,
-      handler (val) {
+      handler(val) {
         this.content = val
       },
     },
