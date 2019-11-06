@@ -45,22 +45,22 @@ Parameters:
 - `data`: array of list elements. Array item should contain keys from `value` and `text` property. Example:
 ```js
 {
-    value: 'name',
-    text: 'label',
-    data: [
-        {
-            name: 'input',
-            label: 'Input'
-        },
-        {
-            name: 'textarea',
-            label: 'Textarea'
-        },
-        {
-            name: 'file',
-            label: 'File'
-        }
-    ]
+  value: 'name',
+  text: 'label',
+  data: [
+    {
+      name: 'input',
+      label: 'Input'
+    },
+    {
+      name: 'textarea',
+      label: 'Textarea'
+    },
+    {
+      name: 'file',
+      label: 'File'
+    }
+  ]
 }
 ```
 
@@ -70,6 +70,40 @@ If `url` property has been set, `data` content will be ignored and it will be up
 
 ## `stringId`
 *Boolean*, default **false**. Property can be specified if field `type` is **select**. Information, whether this field is non-numeric ID.
+
+## `richTextBoxOperations`
+*Array*, optional. Property is used only if field `type` is **richTextBox**. If not defined rich text box will be displayed with all available operations. Buttons order in menu will be the same as items order in array. Full example:
+```js
+{
+  type: 'richTextBox',
+  richTextBoxOperations: [
+    'History',
+    'Bold',
+    'Italic',
+    'Underline',
+    'Strike',
+    'Paragraph',
+    'ListItem',
+    'BulletList',
+    'OrderedList',
+    {
+      name: 'Heading',
+      options: {
+        levels: [1, 2, 3, 4, 5, 6],
+      },
+    },
+    'HardBreak',
+    'HorizontalRule',
+    'Blockquote',
+    'Code',
+    'Link',
+    'Image',
+  ],
+  column: 'content',
+  text: 'Content',
+  name: 'content',
+},
+```
 
 ## `table`
 *Boolean*, default: **true**. Responsible for displaying the field in the CRUD table.
