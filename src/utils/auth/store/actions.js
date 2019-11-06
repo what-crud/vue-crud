@@ -88,7 +88,6 @@ const actions = {
     Vue.http.post(getUrl(path), data)
       .then(response => {
         let result = response.body
-        console.log(result)
         commit('editPassword', result)
       }, (error) => {
         dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
