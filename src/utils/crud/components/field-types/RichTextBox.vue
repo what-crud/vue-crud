@@ -90,7 +90,7 @@ export default {
     },
   }),
   computed: {
-    extensions() {
+    extensions () {
       const extensions = []
       for (const extension of this.availableExtensions) {
         if (extension) {
@@ -108,7 +108,7 @@ export default {
       }
       return extensions
     },
-    editorProperties() {
+    editorProperties () {
       return {
         onBlur: this.onBlur,
         editable: !this.disabled,
@@ -116,10 +116,10 @@ export default {
     },
   },
   methods: {
-    extensionsExists(extensionName) {
+    extensionsExists (extensionName) {
       return this.extensionsMap[extensionName] !== undefined
     },
-    onBlur() {
+    onBlur () {
       this.$emit('input', this.content)
       this.$emit('change')
     },
@@ -127,7 +127,7 @@ export default {
   watch: {
     value: {
       immediate: true,
-      handler(val) {
+      handler (val) {
         this.content = val
       },
     },
