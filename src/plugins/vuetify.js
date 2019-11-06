@@ -3,7 +3,9 @@ import Vue from 'vue'
 import { TiptapVuetifyPlugin } from 'tiptap-vuetify'
 import Vuetify from 'vuetify/lib'
 import main from '@/config/main'
+import vuetifyLocales from '@/locales/vuetify'
 import 'tiptap-vuetify/dist/main.css'
+import store from '@/store/index'
 
 Vue.use(Vuetify)
 
@@ -18,8 +20,8 @@ const vuetify = new Vuetify({
     iconfont: 'md',
   },
   lang: {
-    locales: main.vuetifyLocales,
-    current: main.defaultLocale,
+    locales: vuetifyLocales || {},
+    current: store.getters.lng,
   },
 })
 
