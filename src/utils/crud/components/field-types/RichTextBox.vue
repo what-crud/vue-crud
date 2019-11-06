@@ -3,7 +3,7 @@
     v-model="content"
     :extensions="extensions"
     :card-props="{ flat: true }"
-    :editor-properties="{ onBlur }"
+    :editor-properties="editorProperties"
   />
 </template>
 
@@ -68,6 +68,14 @@ export default {
     ],
     content: ``,
   }),
+  computed: {
+    editorProperties () {
+      return {
+        onBlur: this.onBlur,
+        editable: !this.disabled,
+      }
+    },
+  },
   methods: {
     onBlur () {
       this.$emit('input', this.content)
