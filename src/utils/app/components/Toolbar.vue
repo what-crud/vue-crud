@@ -139,6 +139,7 @@ export default {
     ]),
     changeLocale (locale) {
       this.$i18n.locale = locale
+      this.$vuetify.lang.current = locale
       this.setLocale(locale)
     },
     logoutAttempt () {
