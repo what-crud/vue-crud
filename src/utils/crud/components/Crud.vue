@@ -214,7 +214,7 @@ export default {
     componentLoader () {
       const typeNamePart = this.componentTypesMap[this.listViewType]
       const modeNamePart = this.componentModesMap[this.listViewMode]
-      return () => import(`./${typeNamePart}${modeNamePart}.vue`)
+      return () => import(`./Crud${typeNamePart}${modeNamePart}.vue`)
     },
   },
   methods: {

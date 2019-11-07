@@ -6,13 +6,13 @@ import {
 } from 'vuex'
 import ListItemActions from '../components/ListItemActions.vue'
 import ListItemField from '../components/ListItemField.vue'
-import DataTableControls from '../components/DataTableControls.vue'
+import CrudControls from '../components/CrudControls.vue'
 
 export default {
   components: {
     ListItemActions,
     ListItemField,
-    DataTableControls,
+    CrudControls,
   },
   props: [
     'tableFields',

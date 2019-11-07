@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <data-table-controls
+    <crud-controls
       :delete-mode="deleteMode"
       :create-mode="createMode"
       :edit-mode="editMode"
@@ -101,7 +101,7 @@
           :loading="excelLoading"
         ></crud-button>
       </template>
-    </data-table-controls>
+    </crud-controls>
 
     <!-- Table -->
     <v-data-table
@@ -152,13 +152,13 @@
         </span>
       </template>
       <template slot="footer.page-text" slot-scope="{ pageStart, pageStop, itemsLength }">
-        <data-table-footer
+        <table-footer
           @setPage="setPage"
           :pagination="pagination"
           :page-start="pageStart"
           :page-stop="pageStop"
           :items-length="itemsLength"
-        ></data-table-footer>
+        ></table-footer>
       </template>
     </v-data-table>
   </v-card>
@@ -170,8 +170,8 @@ import {
   mapState,
   mapActions,
 } from 'vuex'
-import MainMixin from '../mixins/datatable-main'
-import HelperMixin from '../mixins/datatable-helper'
+import CrudTableMixin from '../mixins/crud-table'
+import HelperMixin from '../mixins/table'
 import { getItemsList } from '../helpers/functions'
 import CrudButton from './Button.vue'
 
@@ -179,7 +179,7 @@ export default {
   components: {
     CrudButton,
   },
-  mixins: [MainMixin, HelperMixin],
+  mixins: [CrudTableMixin, HelperMixin],
   data () {
     return {
       searching: false,

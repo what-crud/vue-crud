@@ -309,7 +309,7 @@ export default {
 <!-- @vuese:[name]:mixIns:start -->
 |MixIn|
 |---|
-|ClientSideFilteringMixin|
+|ClientModeFilteringMixin|
 |HelperMixin|
 
 <!-- @vuese:[name]:mixIns:end -->

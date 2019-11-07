@@ -164,7 +164,7 @@
         slot="footer.page-text"
         slot-scope="{ pageStart, pageStop, itemsLength }"
       >
-        <data-table-footer
+        <table-footer
           :pagination="pagination"
           :pageStart="pageStart"
           :pageStop="pageStop"
@@ -197,15 +197,15 @@ import {
   mapMutations,
   mapActions,
 } from 'vuex'
-import ClientSideFilteringMixin from '../mixins/datatable-client-side-filtering'
-import HelperMixin from '../mixins/datatable-helper'
+import ClientModeFilteringMixin from '../mixins/table-client-mode-filtering'
+import HelperMixin from '../mixins/table'
 import ListItemActions from '../components/ListItemActions.vue'
 import ListItemField from '../components/ListItemField.vue'
 import CrudButton from './Button.vue'
 import crud from '@/config/crud'
 
 export default {
-  mixins: [ClientSideFilteringMixin, HelperMixin],
+  mixins: [ClientModeFilteringMixin, HelperMixin],
   components: {
     ListItemActions,
     ListItemField,

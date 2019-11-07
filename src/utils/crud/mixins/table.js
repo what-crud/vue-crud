@@ -1,8 +1,8 @@
-import DataTableFooter from '../components/DataTableFooter.vue'
+import TableFooter from '../components/TableFooter.vue'
 
 export default {
   components: {
-    DataTableFooter,
+    TableFooter,
   },
   data () {
     return {
