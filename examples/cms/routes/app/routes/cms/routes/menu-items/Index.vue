@@ -31,7 +31,7 @@ export default {
           flat: true,
           parentColumnName: 'parent_menu_item_id',
         },
-      }
+      },
     }
   },
   computed: {

@@ -4,14 +4,14 @@ import {
   mapMutations,
   mapActions,
 } from 'vuex'
-import DataTableRowActions from '../components/DataTableRowActions.vue'
-import DataTableRowField from '../components/DataTableRowField.vue'
+import ListItemActions from '../components/ListItemActions.vue'
+import ListItemField from '../components/ListItemField.vue'
 import DataTableControls from '../components/DataTableControls.vue'
 
 export default {
   components: {
-    DataTableRowActions,
-    DataTableRowField,
+    ListItemActions,
+    ListItemField,
     DataTableControls,
   },
   props: [

@@ -136,7 +136,7 @@
         v-slot:[`item.${header.value}`]="{ item }"
       >
         <span :key="i">
-          <data-table-row-actions
+          <list-item-actions
             v-if="header.value==='actions'"
             :item="item"
             :edit-button='editButton'
@@ -153,7 +153,7 @@
             @doubleClick="resolveRowDoubleClick"
           />
           <span v-else>
-            <data-table-row-field
+            <list-item-field
               :value="item[header.value]"
               :text-mode="textMode(item, header.value)"
             />
@@ -199,16 +199,16 @@ import {
 } from 'vuex'
 import ClientSideFilteringMixin from '../mixins/datatable-client-side-filtering'
 import HelperMixin from '../mixins/datatable-helper'
-import DataTableRowActions from '../components/DataTableRowActions.vue'
-import DataTableRowField from '../components/DataTableRowField.vue'
+import ListItemActions from '../components/ListItemActions.vue'
+import ListItemField from '../components/ListItemField.vue'
 import CrudButton from './Button.vue'
 import crud from '@/config/crud'
 
 export default {
   mixins: [ClientSideFilteringMixin, HelperMixin],
   components: {
-    DataTableRowActions,
-    DataTableRowField,
+    ListItemActions,
+    ListItemField,
     CrudButton,
   },
   props: {

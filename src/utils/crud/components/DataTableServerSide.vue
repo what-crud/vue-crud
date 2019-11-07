@@ -126,7 +126,7 @@
         v-slot:[`item.${header.value}`]="{ item }"
       >
         <span :key="i">
-          <data-table-row-actions
+          <list-item-actions
             v-if="header.value==='actions'"
             :item="item"
             :edit-button='editButton'
@@ -144,7 +144,7 @@
             @doubleClick="resolveRowDoubleClick"
           />
           <span v-else>
-            <data-table-row-field
+            <list-item-field
               :value="item[header.value]"
               :text-mode="textMode(item, header.value)"
             />
