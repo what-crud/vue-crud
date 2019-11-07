@@ -108,6 +108,10 @@ export default {
             text: 'cms.messages',
             route: '/messages',
           },
+          {
+            text: 'cms.menuItems',
+            route: '/menu-items',
+          },
         ],
       },
       {

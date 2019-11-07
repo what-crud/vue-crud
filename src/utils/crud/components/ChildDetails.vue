@@ -130,7 +130,7 @@ export default {
         rField.value = this.details.item[field.column]
         if (typeof rField.value !== 'undefined') {
           if (field.type === 'select') {
-            const defaultVal = field.list.default || 1
+            const defaultVal = field.list.default || field.required ? 1 : undefined
             rField.value = field.stringId ? this.details.item[field.column] : parseInt(this.details.item[field.column]) || defaultVal
           } else if (field.type === 'date') {
             rField.value = (this.details.item[field.column] || '').substring(0, 10)
