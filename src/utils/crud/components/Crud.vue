@@ -3,6 +3,7 @@
     <div>
       <component
         :is="componentLoader"
+        :listViewConfig="listViewConfig"
         :meta="meta"
         :custom-buttons="customButtons"
         :item-elements="itemElements"
@@ -116,6 +117,20 @@ export default {
       },
       default: 'ClientSide',
     },
+    listView: {
+      type: Object,
+      validator (value) {
+        const isTypeCorrect = (field) => {
+          const fieldType = field ? field.type : 'table'
+          return ['table', 'tree'].indexOf(fieldType) !== -1
+        }
+        const isModeCorrect = (field) => {
+          const fieldMode = field ? field.mode : 'client'
+          return ['client', 'server'].indexOf(fieldMode) !== -1
+        }
+        return isTypeCorrect(value) && isModeCorrect(value)
+      },
+    },
     createMode: {
       type: Boolean,
       default: crud.createMode === undefined ? true : crud.createMode,
@@ -154,7 +169,18 @@ export default {
     },
   },
   data () {
-    return {}
+    return {
+      defaultListViewMode: 'client',
+      defaultListViewType: 'table',
+      componentTypesMap: {
+        'table': 'Table',
+        'tree': 'Tree',
+      },
+      componentModesMap: {
+        'server': 'ServerMode',
+        'client': 'ClientMode',
+      },
+    }
   },
   computed: {
     ...mapState('crud', [
@@ -166,17 +192,30 @@ export default {
     detailsFields () {
       return this.fieldsInfo.filter(field => field.details !== false && field.type !== 'divider')
     },
-    componentLoader () {
-      return () => import(`./DataTable${this.mode}.vue`)
+    listViewType () {
+      return this.listView && this.listView.type ? this.listView.type : this.defaultListViewType
     },
-  },
-  created () {
-    this.setPrefix(this.prefix)
-    this.setPath(this.path)
-    this.setPaths(this.paths)
-    this.setPage(this.pageTitle)
-    const creationMode = this.watchForCreation ? 'inform' : 'ignore'
-    this.setCreationMode(creationMode)
+    listViewMode () {
+      let listViewMode
+      if (this.listView && this.listView.mode) {
+        listViewMode = this.listView.mode
+      } else if (this.mode) {
+        listViewMode = this.calcListViewMode(this.mode)
+      }
+      return listViewMode || this.defaultListViewMode
+    },
+    listViewConfig () {
+      let config = {}
+      if (this.listViewType === 'tree' && this.listView) {
+        config = this.listView.config || {}
+      }
+      return config
+    },
+    componentLoader () {
+      const typeNamePart = this.componentTypesMap[this.listViewType]
+      const modeNamePart = this.componentModesMap[this.listViewMode]
+      return () => import(`./${typeNamePart}${modeNamePart}.vue`)
+    },
   },
   methods: {
     ...mapMutations('app', [
@@ -197,6 +236,21 @@ export default {
     itemElementsClosed () {
       this.runTableRefreshing()
     },
+    calcListViewMode (mode) {
+      const modesMap = {
+        ServerSide: 'server',
+        ClientSide: 'client',
+      }
+      return modesMap[mode]
+    },
+  },
+  created () {
+    this.setPrefix(this.prefix)
+    this.setPath(this.path)
+    this.setPaths(this.paths)
+    this.setPage(this.pageTitle)
+    const creationMode = this.watchForCreation ? 'inform' : 'ignore'
+    this.setCreationMode(creationMode)
   },
 }
 

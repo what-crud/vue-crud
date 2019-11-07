@@ -27,7 +27,7 @@ export default {
       listView: {
         type: 'tree',
         mode: 'client',
-        config: {
+        treeConfig: {
           flat: true,
           parentColumnName: 'parent_menu_item_id',
         },
