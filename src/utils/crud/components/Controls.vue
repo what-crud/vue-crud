@@ -166,7 +166,7 @@
         v-if="refreshButton"
         large
         color="blue"
-        @clicked="refreshTable()"
+        @clicked="refreshItemsView()"
         icon="refresh"
         :tooltip="$t('global.datatable.buttons.refreshTable')"
       />
@@ -267,8 +267,8 @@ export default {
     destroySelected () {
       this.$emit('destroySelected')
     },
-    refreshTable () {
-      this.$emit('refreshTable')
+    refreshItemsView () {
+      this.$emit('refreshItemsView')
     },
     updateSearch () {
       this.$emit('updateSearch', this.search)

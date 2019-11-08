@@ -119,7 +119,8 @@ import {
   mapActions,
 } from 'vuex'
 
-import CrudMixin from '../mixins/crud'
+import ControlsHandlerMixin from '../mixins/controls-handler'
+import ItemsViewMixin from '../mixins/items-view'
 import ClientModeFilteringMixin from '../mixins/table-client-mode-filtering'
 import HelperMixin from '../mixins/table'
 
@@ -131,7 +132,8 @@ import crud from '@/config/crud'
 export default {
   name: 'ChildrenTable',
   mixins: [
-    CrudMixin,
+    ControlsHandlerMixin,
+    ItemsViewMixin,
     ClientModeFilteringMixin,
     HelperMixin,
   ],

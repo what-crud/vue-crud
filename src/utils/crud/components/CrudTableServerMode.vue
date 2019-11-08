@@ -20,7 +20,7 @@
       @suspendSelected="suspendSelected"
       @restoreSelected="restoreSelected"
       @destroySelected="destroySelected"
-      @refreshTable="refreshTable"
+      @refreshItemsView="refreshItemsView"
       @updateColumnFilterMode="updateColumnFilterMode"
       @updateColumnFilterValue="updateColumnFilterValue"
       @updateSearch="updateSearch"
@@ -99,7 +99,9 @@ import {
   mapActions,
 } from 'vuex'
 
-import CrudMixin from '../mixins/crud'
+import CrudInstanceMixin from '../mixins/crud-instance'
+import ControlsHandlerMixin from '../mixins/controls-handler'
+import ItemsViewMixin from '../mixins/items-view'
 import CrudTableMixin from '../mixins/crud-table'
 import HelperMixin from '../mixins/table'
 
@@ -110,7 +112,9 @@ import Controls from './Controls.vue'
 export default {
   name: 'CrudTableServerMode',
   mixins: [
-    CrudMixin,
+    CrudInstanceMixin,
+    ControlsHandlerMixin,
+    ItemsViewMixin,
     CrudTableMixin,
     HelperMixin,
   ],

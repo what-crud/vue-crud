@@ -100,7 +100,7 @@ export default {
     startSearching () {},
   },
   watch: {
-    selectedStatuses (val) {
+    selectedStatuses () {
       this.pagination.page = 1
     },
   },

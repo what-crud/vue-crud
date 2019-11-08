@@ -20,7 +20,7 @@
       @suspendSelected="suspendSelected"
       @restoreSelected="restoreSelected"
       @destroySelected="destroySelected"
-      @refreshTable="refreshTable"
+      @refreshItemsView="refreshItemsView"
       @updateColumnFilterMode="updateColumnFilterMode"
       @updateColumnFilterValue="updateColumnFilterValue"
       @updateSearch="updateSearch"
@@ -36,25 +36,30 @@
 </template>
 
 <script>
+
 import {
   mapState,
   mapActions,
 } from 'vuex'
-import CrudMixin from '../mixins/crud'
+
+import CrudInstanceMixin from '../mixins/crud-instance'
+import ControlsHandlerMixin from '../mixins/controls-handler'
+import ItemsViewMixin from '../mixins/items-view'
+
 import Controls from './Controls.vue'
 
 export default {
   name: 'CrudTableClientMode',
-  mixins: [CrudMixin],
+  mixins: [
+    CrudInstanceMixin,
+    ControlsHandlerMixin,
+    ItemsViewMixin,
+  ],
   components: {
     Controls,
   },
   data () {
     return {}
-  },
-  created () {
-    this.resetItems()
-    this.getItems()
   },
   computed: {
     ...mapState('crud', [
@@ -62,6 +67,13 @@ export default {
       'detailsDialog',
       'isItemsViewRefreshed',
     ]),
+  },
+  methods: {
+    ...mapActions('crud', ['getItems']),
+  },
+  created () {
+    this.resetItems()
+    this.getItems()
   },
   watch: {
     detailsDialog (val) {
@@ -73,18 +85,6 @@ export default {
       if (val) {
         this.getItems()
       }
-    },
-  },
-  methods: {
-    ...mapActions('crud', ['getItems']),
-    moveDetailsItem (page, index) {
-      this.pagination.page = page
-      const realIndex = (page - 1) * this.pagination.itemsPerPage + index
-      const newItemId = this.filteredItems[realIndex].meta.id
-      this.setCurrentItem({ id: newItemId, index })
-      this.getItemDetails([newItemId]).then((response) => {
-        this.showItemDetailsDialog()
-      })
     },
   },
 }

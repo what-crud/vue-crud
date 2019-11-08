@@ -20,7 +20,7 @@
       @suspendSelected="suspendSelected"
       @restoreSelected="restoreSelected"
       @destroySelected="destroySelected"
-      @refreshTable="refreshTable"
+      @refreshItemsView="refreshItemsView"
       @updateColumnFilterMode="updateColumnFilterMode"
       @updateColumnFilterValue="updateColumnFilterValue"
       @updateSearch="updateSearch"
@@ -90,20 +90,27 @@
 </template>
 
 <script>
+
 import {
   mapState,
   mapActions,
 } from 'vuex'
-import CrudMixin from '../mixins/crud'
+
+import CrudInstanceMixin from '../mixins/crud-instance'
+import ControlsHandlerMixin from '../mixins/controls-handler'
+import ItemsViewMixin from '../mixins/items-view'
 import CrudTableMixin from '../mixins/crud-table'
 import ClientModeFilteringMixin from '../mixins/table-client-mode-filtering'
 import HelperMixin from '../mixins/table'
+
 import Controls from './Controls.vue'
 
 export default {
   name: 'CrudTableClientMode',
   mixins: [
-    CrudMixin,
+    CrudInstanceMixin,
+    ControlsHandlerMixin,
+    ItemsViewMixin,
     CrudTableMixin,
     ClientModeFilteringMixin,
     HelperMixin,
@@ -114,10 +121,6 @@ export default {
   data () {
     return {}
   },
-  created () {
-    this.resetItems()
-    this.getItems()
-  },
   computed: {
     ...mapState('crud', [
       'loading',
@@ -126,18 +129,6 @@ export default {
     ]),
     totalItems () {
       return this.filteredItems.length
-    },
-  },
-  watch: {
-    detailsDialog (val) {
-      if (!val) {
-        this.getItems()
-      }
-    },
-    isItemsViewRefreshed (val) {
-      if (val) {
-        this.getItems()
-      }
     },
   },
   methods: {
@@ -150,6 +141,22 @@ export default {
       this.getItemDetails([newItemId]).then((response) => {
         this.showItemDetailsDialog()
       })
+    },
+  },
+  created () {
+    this.resetItems()
+    this.getItems()
+  },
+  watch: {
+    detailsDialog (val) {
+      if (!val) {
+        this.getItems()
+      }
+    },
+    isItemsViewRefreshed (val) {
+      if (val) {
+        this.getItems()
+      }
     },
   },
 }
