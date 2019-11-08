@@ -31,7 +31,10 @@ export default {
     Field,
   },
   name: 'item-details-extended',
-  props: ['fieldsInfo', 'title'],
+  props: [
+    'fieldsInfo',
+    'title',
+  ],
   data () {
     return {
       files: null,
@@ -56,7 +59,11 @@ export default {
     },
   },
   computed: {
-    ...mapState('crud', ['item', 'itemIdColumn', 'detailsDialog']),
+    ...mapState('crud', [
+      'item',
+      'itemIdColumn',
+      'detailsDialog',
+    ]),
     rules () {
       const self = this
       return {

@@ -122,17 +122,11 @@ export default {
     return {}
   },
   computed: {
-    ...mapState([
-      'locales',
-    ]),
+    ...mapState(['locales']),
   },
   methods: {
-    ...mapActions('auth', [
-      'logout',
-    ]),
-    ...mapMutations([
-      'setLocale',
-    ]),
+    ...mapActions('auth', ['logout']),
+    ...mapMutations(['setLocale']),
     ...mapMutations('app', [
       'openProfileDialog',
       'showNavigationDrawer',

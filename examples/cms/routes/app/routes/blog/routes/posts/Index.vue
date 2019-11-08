@@ -160,7 +160,11 @@ export default {
             {
               name: 'Heading',
               options: {
-                levels: [1, 2, 3],
+                levels: [
+                  1,
+                  2,
+                  3,
+                ],
               },
             },
             'HardBreak',

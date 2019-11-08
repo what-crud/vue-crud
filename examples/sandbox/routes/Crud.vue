@@ -245,68 +245,76 @@ export default {
   },
   computed: {
     fieldsInfo () {
-      return [{
-        text: this.$t('fields.id'),
-        name: 'id',
-        details: false,
-        table: this.idTable,
-      },
-      {
-        type: 'input',
-        column: 'name',
-        text: this.$t('fields.name'),
-        name: 'name',
-        table: this.nameTable,
-        multiedit: false,
-      },
-      {
-        type: this.descriptionFieldType,
-        column: 'description',
-        text: this.$t('fields.description'),
-        name: 'description',
-        required: this.descriptionRequired,
-        table: this.descriptionTable,
-        details: this.descriptionDetails,
-        multiedit: this.descriptionMultiedit,
-        textMode: this.descriptionTextMode,
-      },
-      {
-        type: 'checkbox',
-        column: 'active',
-        text: this.$t('fields.active'),
-        name: 'active',
-        table: this.activeTable,
-        create: false,
-        details: this.activeDetails,
-        multiedit: this.activeMultiedit,
-        apiObject: {
-          name: 'active',
-          functions: this.activeFunctions,
+      return [
+        {
+          text: this.$t('fields.id'),
+          name: 'id',
+          details: false,
+          table: this.idTable,
         },
-        textMode: this.activeTextMode,
-      },
+        {
+          type: 'input',
+          column: 'name',
+          text: this.$t('fields.name'),
+          name: 'name',
+          table: this.nameTable,
+          multiedit: false,
+        },
+        {
+          type: this.descriptionFieldType,
+          column: 'description',
+          text: this.$t('fields.description'),
+          name: 'description',
+          required: this.descriptionRequired,
+          table: this.descriptionTable,
+          details: this.descriptionDetails,
+          multiedit: this.descriptionMultiedit,
+          textMode: this.descriptionTextMode,
+        },
+        {
+          type: 'checkbox',
+          column: 'active',
+          text: this.$t('fields.active'),
+          name: 'active',
+          table: this.activeTable,
+          create: false,
+          details: this.activeDetails,
+          multiedit: this.activeMultiedit,
+          apiObject: {
+            name: 'active',
+            functions: this.activeFunctions,
+          },
+          textMode: this.activeTextMode,
+        },
       ]
     },
     button1 () {
-      return [{
-        name: 'showAlert',
-        icon: 'notification_important',
-        color: 'yellow',
-        text: this.$t('buttons.showAlert'),
-      }]
+      return [
+        {
+          name: 'showAlert',
+          icon: 'notification_important',
+          color: 'yellow',
+          text: this.$t('buttons.showAlert'),
+        },
+      ]
     },
     button2 () {
-      return [{
-        name: 'showForm',
-        icon: 'insert_comment',
-        color: 'blue',
-        text: this.$t('buttons.showForm'),
-      }]
+      return [
+        {
+          name: 'showForm',
+          icon: 'insert_comment',
+          color: 'blue',
+          text: this.$t('buttons.showForm'),
+        },
+      ]
     },
     buttons () {
       let obj1 = this.showButton1 ? this.button1 : []
       let obj2 = this.showButton2 ? this.button2 : []
-      return [...obj1, ...obj2]
+      return [
+        ...obj1,
+        ...obj2,
+      ]
     },
     template () {
       return `

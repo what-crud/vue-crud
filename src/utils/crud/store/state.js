@@ -62,8 +62,15 @@ const state = {
   childItemsMapping: [],
   childItems: {},
   // files
-  filesPath: joinUrl([api.url, api.path.storage]),
-  uploadPath: joinUrl([api.url, api.path.prefix, api.path.upload]),
+  filesPath: joinUrl([
+    api.url,
+    api.path.storage,
+  ]),
+  uploadPath: joinUrl([
+    api.url,
+    api.path.prefix,
+    api.path.upload,
+  ]),
 }
 
 export default state

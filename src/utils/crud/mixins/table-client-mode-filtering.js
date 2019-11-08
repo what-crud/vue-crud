@@ -2,7 +2,10 @@
 export default {
   computed: {
     filteredItems () {
-      let items = ['soft', 'both'].includes(this.deleteMode)
+      let items = [
+        'soft',
+        'both',
+      ].includes(this.deleteMode)
         ? this.items.filter(item => this.selectedStatuses.includes(parseInt(item.meta.active)))
         : this.items
 

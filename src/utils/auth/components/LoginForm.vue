@@ -156,9 +156,7 @@ export default {
       'loginWait',
       'loginFailed',
     ]),
-    ...mapState([
-      'locales',
-    ]),
+    ...mapState(['locales']),
     loginRegex () {
       return auth.loginRegex ? auth.loginRegex : (auth.loginWithEmail ? this.emailRegex : this.alphanumericRegex)
     },
@@ -191,12 +189,8 @@ export default {
     },
   },
   methods: {
-    ...mapMutations([
-      'setLocale',
-    ]),
-    ...mapActions('auth', [
-      'login',
-    ]),
+    ...mapMutations(['setLocale']),
+    ...mapActions('auth', ['login']),
     changeLocale (locale) {
       this.$i18n.locale = locale
       this.$vuetify.lang.current = locale

@@ -53,7 +53,11 @@ const actions = {
       Vue.http.get(getUrl(path))
         .then(response => response.json())
         .then((response) => {
-          if ([400, 401, 403].includes(response.status)) {
+          if ([
+            400,
+            401,
+            403,
+          ].includes(response.status)) {
             commit('logout')
           }
           resolve()
@@ -77,7 +81,10 @@ const actions = {
         let result = response.body
         commit('editUser', result)
       }, (error) => {
-        dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
+        dispatch('openAlertBox', [
+          'alertError',
+          error.statusText,
+        ], { root: true })
       })
   },
   editPassword ({
@@ -90,7 +97,10 @@ const actions = {
         let result = response.body
         commit('editPassword', result)
       }, (error) => {
-        dispatch('openAlertBox', ['alertError', error.statusText], { root: true })
+        dispatch('openAlertBox', [
+          'alertError',
+          error.statusText,
+        ], { root: true })
       })
   },
 }

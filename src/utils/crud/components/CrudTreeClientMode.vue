@@ -119,7 +119,11 @@ export default {
     this.getItems()
   },
   computed: {
-    ...mapState('crud', ['loading', 'detailsDialog', 'tableRefreshing']),
+    ...mapState('crud', [
+      'loading',
+      'detailsDialog',
+      'tableRefreshing',
+    ]),
     totalItems () {
       return this.filteredItems.length
     },

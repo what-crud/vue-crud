@@ -43,12 +43,8 @@ import {
 
 export default {
   computed: {
-    ...mapState('crud', [
-      'filesPath',
-    ]),
-    ...mapState('crud', [
-      'imageContainer',
-    ]),
+    ...mapState('crud', ['filesPath']),
+    ...mapState('crud', ['imageContainer']),
     image () {
       return this.imageContainer.show ? `${this.filesPath}/${this.imageContainer.item.path}/${this.imageContainer.item.filename}` : ''
     },
@@ -59,9 +55,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('crud', [
-      'closeImageContainer',
-    ]),
+    ...mapMutations('crud', ['closeImageContainer']),
   },
 }
 </script>

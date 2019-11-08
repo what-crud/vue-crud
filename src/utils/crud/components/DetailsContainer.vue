@@ -63,7 +63,10 @@ export default {
             const nullElement = {}
             nullElement[field.list.value] = ''
             nullElement[field.list.text] = '----'
-            field.list.data = [nullElement, ...selectItems]
+            field.list.data = [
+              nullElement,
+              ...selectItems,
+            ]
           } else {
             field.list.data = selectItems
           }

@@ -2,10 +2,12 @@ import main from '@/config/main'
 
 const defaults = {
   title: 'Vue CRUD',
-  locales: [{
-    name: 'en',
-    text: 'English',
-  }],
+  locales: [
+    {
+      name: 'en',
+      text: 'English',
+    },
+  ],
   defaultLocale: 'en',
   iconfont: 'md',
   primaryTheme: 'dark',

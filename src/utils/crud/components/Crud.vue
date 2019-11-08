@@ -78,7 +78,13 @@ export default {
     deleteMode: {
       type: String,
       validator (value) {
-        return ['none', 'soft', 'hard', 'both', 'filter'].indexOf(value) !== -1
+        return [
+          'none',
+          'soft',
+          'hard',
+          'both',
+          'filter',
+        ].indexOf(value) !== -1
       },
       default: crud.deleteMode || 'soft',
     },
@@ -113,7 +119,10 @@ export default {
     mode: {
       type: String,
       validator (value) {
-        return ['ClientSide', 'ServerSide'].indexOf(value) !== -1
+        return [
+          'ClientSide',
+          'ServerSide',
+        ].indexOf(value) !== -1
       },
       default: 'ClientSide',
     },
@@ -122,11 +131,17 @@ export default {
       validator (value) {
         const isTypeCorrect = (field) => {
           const fieldType = field ? field.type : 'table'
-          return ['table', 'tree'].indexOf(fieldType) !== -1
+          return [
+            'table',
+            'tree',
+          ].indexOf(fieldType) !== -1
         }
         const isModeCorrect = (field) => {
           const fieldMode = field ? field.mode : 'client'
-          return ['client', 'server'].indexOf(fieldMode) !== -1
+          return [
+            'client',
+            'server',
+          ].indexOf(fieldMode) !== -1
         }
         return isTypeCorrect(value) && isModeCorrect(value)
       },
@@ -183,9 +198,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('crud', [
-      'detailsLoading',
-    ]),
+    ...mapState('crud', ['detailsLoading']),
     tableFields () {
       return this.fieldsInfo.filter(field => field.table !== false && field.type !== 'divider')
     },
@@ -218,18 +231,14 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('app', [
-      'setPage',
-    ]),
+    ...mapMutations('app', ['setPage']),
     ...mapMutations('crud', [
       'setPrefix',
       'setPath',
       'setPaths',
       'setCreationMode',
     ]),
-    ...mapActions('crud', [
-      'runTableRefreshing',
-    ]),
+    ...mapActions('crud', ['runTableRefreshing']),
     custom (name, item, index) {
       this.$parent[name](item, index)
     },

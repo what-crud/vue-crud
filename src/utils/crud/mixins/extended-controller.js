@@ -12,7 +12,10 @@ export default {
           if (id) {
             this.goToItem({ id })
           }
-          this.setCreatedItemStatus([false, null])
+          this.setCreatedItemStatus([
+            false,
+            null,
+          ])
         }
       },
       deep: true,
@@ -36,7 +39,11 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('crud', ['showItemDetailsDialog', 'setCreatedItemStatus', 'setCurrentItem']),
+    ...mapMutations('crud', [
+      'showItemDetailsDialog',
+      'setCreatedItemStatus',
+      'setCurrentItem',
+    ]),
     ...mapActions('crud', ['getItemDetails']),
     goToItem (item, index) {
       this.setCurrentItem({ id: item.meta.id, index })

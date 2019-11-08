@@ -16,7 +16,10 @@ import FieldsInfoMixin from './mixins/fields'
 import LocalesMixin from './mixins/locales'
 
 export default {
-  mixins: [FieldsInfoMixin, LocalesMixin],
+  mixins: [
+    FieldsInfoMixin,
+    LocalesMixin,
+  ],
   data () {
     return {
       prefix: 'crud/crm',

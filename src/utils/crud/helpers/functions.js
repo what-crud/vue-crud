@@ -20,9 +20,27 @@ function humanFileSize (bytes, si) {
     return `${bytes} B`
   }
   const units = si
-    ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+    ? [
+      'kB',
+      'MB',
+      'GB',
+      'TB',
+      'PB',
+      'EB',
+      'ZB',
+      'YB',
+    ]
     // : ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB'];
-    : ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+    : [
+      'KB',
+      'MB',
+      'GB',
+      'TB',
+      'PB',
+      'EB',
+      'ZB',
+      'YB',
+    ]
   let u = -1
   do {
     bytes /= thresh

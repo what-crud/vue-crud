@@ -21,7 +21,11 @@ import ChildrenTable from '@/utils/crud/components/ChildrenTable.vue'
 import ChildDetails from '@/utils/crud/components/ChildDetails.vue'
 
 export default {
-  mixins: [FieldsInfoMixin, LocalesMixin, CompanyCommentsChildMixin],
+  mixins: [
+    FieldsInfoMixin,
+    LocalesMixin,
+    CompanyCommentsChildMixin,
+  ],
   components: {
     'company-comments-table': ChildrenTable,
     'company-comment-details': ChildDetails,

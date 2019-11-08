@@ -80,7 +80,10 @@ export default {
   components: {
     Field,
   },
-  props: ['title', 'detailsFields'],
+  props: [
+    'title',
+    'detailsFields',
+  ],
   data () {
     return {
       reload: false,
@@ -105,7 +108,12 @@ export default {
     this.setFields()
   },
   computed: {
-    ...mapState('crud', ['details', 'path', 'prefix', 'selectedIds']),
+    ...mapState('crud', [
+      'details',
+      'path',
+      'prefix',
+      'selectedIds',
+    ]),
     itemData () {
       const result = {}
       for (const field of this.fields) {
@@ -118,10 +126,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions('crud', ['updateItem', 'storeItem', 'mulitipleItemsUpdate']),
-    ...mapActions([
-      'openAlertBox',
+    ...mapActions('crud', [
+      'updateItem',
+      'storeItem',
+      'mulitipleItemsUpdate',
     ]),
+    ...mapActions(['openAlertBox']),
     ...mapMutations('crud', ['resetItem']),
     setFields () {
       const result = this.detailsFields.map((field) => {
@@ -142,9 +152,19 @@ export default {
           } else if (field.type === 'date') {
             rField.value = (fieldValue || '').substring(0, 10)
           } else if (field.type === 'checkbox') {
-            if ([1, '1', true, 'true'].includes(fieldValue)) {
+            if ([
+              1,
+              '1',
+              true,
+              'true',
+            ].includes(fieldValue)) {
               rField.value = 1
-            } else if ([0, '0', false, 'false'].includes(fieldValue)) {
+            } else if ([
+              0,
+              '0',
+              false,
+              'false',
+            ].includes(fieldValue)) {
               rField.value = 0
             }
           }

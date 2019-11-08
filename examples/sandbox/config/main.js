@@ -1,13 +1,14 @@
 export default {
   title: 'Your App',
-  locales: [{
-    name: 'en',
-    text: 'English',
-  },
-  {
-    name: 'pl',
-    text: 'Polski',
-  },
+  locales: [
+    {
+      name: 'en',
+      text: 'English',
+    },
+    {
+      name: 'pl',
+      text: 'Polski',
+    },
   ],
   defaultLocale: 'en',
   iconfont: 'md',

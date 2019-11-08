@@ -152,7 +152,10 @@ export default {
         sortBy: ['added'],
         sorDesc: [true],
       },
-      selectedStatuses: [1, 0],
+      selectedStatuses: [
+        1,
+        0,
+      ],
     }
   },
   computed: {

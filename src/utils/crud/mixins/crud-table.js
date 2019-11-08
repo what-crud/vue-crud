@@ -84,9 +84,7 @@ export default {
       'getItemDetails',
       'runTableRefreshing',
     ]),
-    ...mapActions([
-      'openAlertBox',
-    ]),
+    ...mapActions(['openAlertBox']),
     resolveRowDoubleClick (item, index) {
       if (this.editMode) {
         let goToItemButton = false
@@ -151,7 +149,10 @@ export default {
     },
     checkSelected () {
       if (this.selected.length === 0) {
-        this.openAlertBox(['alertError', this.$t('global.datatable.noItemsSelected')])
+        this.openAlertBox([
+          'alertError',
+          this.$t('global.datatable.noItemsSelected'),
+        ])
         return false
       }
       if (confirm(this.$t('global.datatable.confirm'))) {
@@ -161,7 +162,10 @@ export default {
     },
     editSelected () {
       if (this.selected.length === 0) {
-        this.openAlertBox(['alertError', this.$t('global.datatable.noItemsSelected')])
+        this.openAlertBox([
+          'alertError',
+          this.$t('global.datatable.noItemsSelected'),
+        ])
         return false
       }
 
@@ -171,37 +175,40 @@ export default {
     },
     suspendSelected () {
       if (this.checkSelected()) {
-        this.mulitipleItemsUpdate([{
-          ids: this.selectedIds,
-          request: {
-            active: 0,
+        this.mulitipleItemsUpdate([
+          {
+            ids: this.selectedIds,
+            request: {
+              active: 0,
+            },
           },
-        },
-        this.$t('global.alerts.suspended'),
-        this.$t('global.alerts.suspendError'),
+          this.$t('global.alerts.suspended'),
+          this.$t('global.alerts.suspendError'),
         ])
       }
     },
     restoreSelected () {
       if (this.checkSelected()) {
-        this.mulitipleItemsUpdate([{
-          ids: this.selectedIds,
-          request: {
-            active: 1,
+        this.mulitipleItemsUpdate([
+          {
+            ids: this.selectedIds,
+            request: {
+              active: 1,
+            },
           },
-        },
-        this.$t('global.alerts.restored'),
-        this.$t('global.alerts.restoreError'),
+          this.$t('global.alerts.restored'),
+          this.$t('global.alerts.restoreError'),
         ])
       }
     },
     destroySelected () {
       if (this.checkSelected()) {
-        this.mulitipleItemsDelete([{
-          ids: this.selectedIds,
-        },
-        this.$t('global.alerts.deleted'),
-        this.$t('global.alerts.deleteError'),
+        this.mulitipleItemsDelete([
+          {
+            ids: this.selectedIds,
+          },
+          this.$t('global.alerts.deleted'),
+          this.$t('global.alerts.deleteError'),
         ])
       }
     },
@@ -211,7 +218,10 @@ export default {
     },
     editItemElements (name, id) {
       const obj = this.itemElements[name]
-      this.setItemElementsInfo([id, obj])
+      this.setItemElementsInfo([
+        id,
+        obj,
+      ])
       this.getItemElements()
     },
     rowDblclickAction (item) {
@@ -271,7 +281,10 @@ export default {
         if (possible) {
           this.moveDetailsItem(page, currentIndex)
         }
-        this.moveItem(['', false])
+        this.moveItem([
+          '',
+          false,
+        ])
       }
     },
   },

@@ -28,12 +28,17 @@ export default {
       return headers
     },
     headers () {
-      const actionHeader = [{
-        text: this.$t('global.datatable.fields.action'),
-        value: 'actions',
-        sortable: false,
-      }]
-      return [...actionHeader, ...this.cleanHeaders]
+      const actionHeader = [
+        {
+          text: this.$t('global.datatable.fields.action'),
+          value: 'actions',
+          sortable: false,
+        },
+      ]
+      return [
+        ...actionHeader,
+        ...this.cleanHeaders,
+      ]
     },
     itemsPerPageOptions () {
       return [

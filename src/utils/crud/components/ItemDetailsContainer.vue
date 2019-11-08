@@ -103,10 +103,16 @@ export default {
       this.hideItemDetailsDialog()
     },
     previous () {
-      this.moveItem(['previous', true])
+      this.moveItem([
+        'previous',
+        true,
+      ])
     },
     next () {
-      this.moveItem(['next', true])
+      this.moveItem([
+        'next',
+        true,
+      ])
     },
   },
   destroyed () {

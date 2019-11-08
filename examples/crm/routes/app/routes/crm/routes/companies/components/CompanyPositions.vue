@@ -25,7 +25,12 @@ import ChildDetails from '@/utils/crud/components/ChildDetails.vue'
 import ItemElements from '@/utils/crud/components/ItemElements.vue'
 
 export default {
-  mixins: [FieldsInfoMixin, LocalesMixin, ChildElementsMixin, CompanyPositionsChildMixin],
+  mixins: [
+    FieldsInfoMixin,
+    LocalesMixin,
+    ChildElementsMixin,
+    CompanyPositionsChildMixin,
+  ],
   components: {
     'company-positions-table': ChildrenTable,
     'company-position-details': ChildDetails,

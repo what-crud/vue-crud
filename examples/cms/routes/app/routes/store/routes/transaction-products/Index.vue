@@ -39,7 +39,10 @@ export default {
           list: {
             value: 'id',
             text: 'complexName',
-            complexName: ['name', 'section.name'],
+            complexName: [
+              'name',
+              'section.name',
+            ],
             data: [],
           },
           column: 'product_id',
@@ -71,7 +74,10 @@ export default {
           list: {
             value: 'id',
             text: 'complexName',
-            complexName: ['id', 'customer.email'],
+            complexName: [
+              'id',
+              'customer.email',
+            ],
             data: [],
           },
           column: 'transaction_id',

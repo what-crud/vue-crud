@@ -99,50 +99,51 @@ export default {
         model: false,
         guard: 'CRM',
         route: '/crm',
-        children: [{
-          text: 'crm.companies',
-          route: '/companies',
-        },
-        {
-          text: 'crm.companyTypes',
-          route: '/company-types',
-        },
-        {
-          text: 'crm.companyFiles',
-          route: '/company-files',
-        },
-        {
-          text: 'crm.companyComments',
-          route: '/company-comments',
-        },
-        {
-          text: 'crm.companyCommentTypes',
-          route: '/company-comment-types',
-        },
-        {
-          text: 'crm.people',
-          route: '/people',
-        },
-        {
-          text: 'crm.personComments',
-          route: '/person-comments',
-        },
-        {
-          text: 'crm.personCommentTypes',
-          route: '/person-comment-types',
-        },
-        {
-          text: 'crm.positions',
-          route: '/positions',
-        },
-        {
-          text: 'crm.positionTasks',
-          route: '/position-tasks',
-        },
-        {
-          text: 'crm.tasks',
-          route: '/tasks',
-        },
+        children: [
+          {
+            text: 'crm.companies',
+            route: '/companies',
+          },
+          {
+            text: 'crm.companyTypes',
+            route: '/company-types',
+          },
+          {
+            text: 'crm.companyFiles',
+            route: '/company-files',
+          },
+          {
+            text: 'crm.companyComments',
+            route: '/company-comments',
+          },
+          {
+            text: 'crm.companyCommentTypes',
+            route: '/company-comment-types',
+          },
+          {
+            text: 'crm.people',
+            route: '/people',
+          },
+          {
+            text: 'crm.personComments',
+            route: '/person-comments',
+          },
+          {
+            text: 'crm.personCommentTypes',
+            route: '/person-comment-types',
+          },
+          {
+            text: 'crm.positions',
+            route: '/positions',
+          },
+          {
+            text: 'crm.positionTasks',
+            route: '/position-tasks',
+          },
+          {
+            text: 'crm.tasks',
+            route: '/tasks',
+          },
         ],
       },
       {
@@ -151,24 +152,28 @@ export default {
         model: false,
         guard: 'ADMIN',
         route: '/administration',
-        children: [{
-          text: 'admin.users',
-          route: '/users',
-        },
-        {
-          text: 'admin.permissions',
-          route: '/permissions',
-        },
-        {
-          text: 'admin.userPermissions',
-          route: '/user-permissions',
-        },
+        children: [
+          {
+            text: 'admin.users',
+            route: '/users',
+          },
+          {
+            text: 'admin.permissions',
+            route: '/permissions',
+          },
+          {
+            text: 'admin.userPermissions',
+            route: '/user-permissions',
+          },
         ],
       },
     ],
   }),
   computed: {
-    ...mapGetters('auth', ['isLogged', 'userInfo']),
+    ...mapGetters('auth', [
+      'isLogged',
+      'userInfo',
+    ]),
     year () {
       let year = new Date()
       return year.getFullYear()

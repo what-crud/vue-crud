@@ -28,9 +28,7 @@ import { mapActions } from 'vuex'
 
 export default {
   methods: {
-    ...mapActions('auth', [
-      'logout',
-    ]),
+    ...mapActions('auth', ['logout']),
     logoutAttempt () {
       this.logout().then(() => {
         this.$router.push({ path: '/login' })

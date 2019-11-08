@@ -20,9 +20,7 @@ import {
 export default {
   name: 'alert',
   computed: {
-    ...mapState([
-      'alert',
-    ]),
+    ...mapState(['alert']),
   },
 }
 

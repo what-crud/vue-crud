@@ -62,8 +62,15 @@ export default {
     ]),
     edit (id) {
       this.detailsLoader = true
-      this.getChild([id, this.path, this.childItemName]).then((response) => {
-        this.editChildDialog([id, this.childItemName])
+      this.getChild([
+        id,
+        this.path,
+        this.childItemName,
+      ]).then((response) => {
+        this.editChildDialog([
+          id,
+          this.childItemName,
+        ])
         this.detailsLoader = false
       })
     },

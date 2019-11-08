@@ -149,7 +149,12 @@ export default {
     deleteMode: {
       type: String,
       validator (value) {
-        return ['none', 'soft', 'hard', 'both'].indexOf(value) !== -1
+        return [
+          'none',
+          'soft',
+          'hard',
+          'both',
+        ].indexOf(value) !== -1
       },
       default: 'soft',
     },
@@ -204,7 +209,10 @@ export default {
   },
   computed: {
     ...mapState('app', ['page']),
-    ...mapState('crud', ['prefix', 'path']),
+    ...mapState('crud', [
+      'prefix',
+      'path',
+    ]),
     tableFields () {
       return this.fieldsInfo.filter(field => field.table !== false && field.type !== 'divider')
     },
@@ -223,9 +231,7 @@ export default {
       'setItemElementsInfo',
       'editItemElementsDialog',
     ]),
-    ...mapActions('crud', [
-      'getItemElements',
-    ]),
+    ...mapActions('crud', ['getItemElements']),
     resolveRowDoubleClick (item) {
       this.edit(item.meta.id)
     },
@@ -252,7 +258,10 @@ export default {
     },
     editItemElements (name, id) {
       const obj = this.itemElements[name]
-      this.setItemElementsInfo([id, obj])
+      this.setItemElementsInfo([
+        id,
+        obj,
+      ])
       this.getItemElements()
     },
   },

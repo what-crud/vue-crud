@@ -16,9 +16,7 @@ export default {
     this.setModule('blog.name')
   },
   methods: {
-    ...mapMutations('app', [
-      'setModule',
-    ]),
+    ...mapMutations('app', ['setModule']),
   },
 }
 

@@ -196,7 +196,10 @@ export default {
     ],
   }),
   computed: {
-    ...mapGetters('auth', ['isLogged', 'userInfo']),
+    ...mapGetters('auth', [
+      'isLogged',
+      'userInfo',
+    ]),
     year () {
       let year = new Date()
       return year.getFullYear()

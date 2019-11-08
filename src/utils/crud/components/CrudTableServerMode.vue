@@ -126,7 +126,12 @@ export default {
     }
   },
   computed: {
-    ...mapState('crud', ['totalItems', 'loading', 'detailsDialog', 'tableRefreshing']),
+    ...mapState('crud', [
+      'totalItems',
+      'loading',
+      'detailsDialog',
+      'tableRefreshing',
+    ]),
     params () {
       return {
         sortBy: this.pagination.sortBy,
@@ -144,9 +149,7 @@ export default {
   },
   methods: {
     ...mapActions('crud', ['getItemsServerSide']),
-    ...mapActions([
-      'openAlertBox',
-    ]),
+    ...mapActions(['openAlertBox']),
     searchItems (resetPage) {
       clearTimeout(this.searchTimeout)
       if (resetPage) {
@@ -206,7 +209,10 @@ export default {
           })
         }, (error) => {
           this.excelLoading = false
-          this.openAlertBox(['alertError', error.statusText])
+          this.openAlertBox([
+            'alertError',
+            error.statusText,
+          ])
         })
     },
   },

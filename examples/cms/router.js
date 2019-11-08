@@ -8,31 +8,32 @@ import store from '@/store/'
 Vue.use(Router)
 
 const router = new Router({
-  routes: [{
-    path: '/',
-    name: 'app',
-    component: App,
-    children: appRoutes,
-    beforeEnter: (to, from, next) => {
-      var auth = localStorage.getItem('token')
-      if (!auth) {
-        store.commit('auth/logout')
-        next('/login')
-      } else {
-        Vue.http.get('auth/user')
-          .then(response => {
-            next()
-          }, response => {
-            next('/login')
-          })
-      }
+  routes: [
+    {
+      path: '/',
+      name: 'app',
+      component: App,
+      children: appRoutes,
+      beforeEnter: (to, from, next) => {
+        var auth = localStorage.getItem('token')
+        if (!auth) {
+          store.commit('auth/logout')
+          next('/login')
+        } else {
+          Vue.http.get('auth/user')
+            .then(response => {
+              next()
+            }, response => {
+              next('/login')
+            })
+        }
+      },
     },
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: Login,
-  },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+    },
   ],
 })
 
