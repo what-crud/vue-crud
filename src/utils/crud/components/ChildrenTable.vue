@@ -220,7 +220,7 @@ export default {
       return this.tableData
     },
     excelName () {
-      return `${this.$t(`global.routes.${this.page}`)} - ${this.title}`
+      return this.title || 'export'
     },
     columnTextModes () {
       return this.setColumnTextModes()

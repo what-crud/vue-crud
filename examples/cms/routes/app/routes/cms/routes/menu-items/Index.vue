@@ -5,7 +5,7 @@
     :paths="paths"
     :page-title="pageTitle"
     :fields-info="fieldsInfo"
-    :list-view="listView"
+    :items-view="itemsView"
     delete-mode="both"
     :details-title="$t('detailsTitle')"
   >
@@ -24,7 +24,7 @@ export default {
         i: 'cms/menu-items',
       },
       pageTitle: 'cms.menuItems',
-      listView: {
+      itemsView: {
         type: 'tree',
         mode: 'client',
         treeConfig: {

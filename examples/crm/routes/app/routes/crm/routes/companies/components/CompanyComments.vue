@@ -1,6 +1,7 @@
 <template>
   <div>
       <company-comments-table
+        :title="$t('global.routes.crm.companyComments')"
         :fields-info="fileteredTableFields"
         :details-loader="detailsLoader"
         :table-data="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"

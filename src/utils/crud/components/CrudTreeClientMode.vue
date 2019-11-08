@@ -29,63 +29,9 @@
       @exportToExcel="exportToExcel"
     >
     </controls>
-    <!-- Table -->
-    <v-data-table
-      v-model="selected"
-      :show-select="selectManyMode"
-      :options.sync="pagination"
-      :headers="headers"
-      :items="filteredItems"
-      item-key="meta.id"
-      :no-results-text="$t('global.datatable.noMatchingResults')"
-      :no-data-text="$t('global.datatable.noDataAvailable')"
-      :footer-props="footerProps"
-      :items-per-page="20"
-      :loading="loading"
-      light
-      multi-sort
-      dense
-    >
-      <template
-        v-for="(header, i) in headers"
-        v-slot:[`item.${header.value}`]="{ item }"
-      >
-        <span :key="i">
-          <list-item-actions
-            v-if="header.value==='actions'"
-            :item="item"
-            :edit-button='editButton'
-            :custom-buttons='customButtons'
-            :delete-mode='deleteMode'
-            :item-elements="itemElements"
-            :edit-mode="editMode"
-            :select-many-mode="selectManyMode"
-            @edit="edit"
-            @custom="custom"
-            @suspend="suspend"
-            @restore="restore"
-            @destroy="destroy"
-            @editItemElements="editItemElements"
-            @doubleClick="resolveRowDoubleClick"
-          />
-          <span v-else>
-            <list-item-field
-              :value="item[header.value]"
-              :text-mode="textMode(item, header.value)"
-            />
-          </span>
-        </span>
-      </template>
-      <template slot="footer.page-text" slot-scope="{ pageStart, pageStop, itemsLength }">
-        <table-footer
-          @setPage="setPage"
-          :pagination="pagination"
-          :page-start="pageStart"
-          :page-stop="pageStop"
-          :items-length="itemsLength"
-        ></table-footer>
-      </template>
-    </v-data-table>
+
+    <!-- Tree -->
+
   </v-card>
 </template>
 
@@ -95,19 +41,11 @@ import {
   mapActions,
 } from 'vuex'
 import CrudMixin from '../mixins/crud'
-import CrudTableMixin from '../mixins/crud-table'
-import ClientModeFilteringMixin from '../mixins/table-client-mode-filtering'
-import HelperMixin from '../mixins/table'
 import Controls from './Controls.vue'
 
 export default {
   name: 'CrudTableClientMode',
-  mixins: [
-    CrudMixin,
-    CrudTableMixin,
-    ClientModeFilteringMixin,
-    HelperMixin,
-  ],
+  mixins: [CrudMixin],
   components: {
     Controls,
   },
@@ -124,9 +62,6 @@ export default {
       'detailsDialog',
       'tableRefreshing',
     ]),
-    totalItems () {
-      return this.filteredItems.length
-    },
   },
   watch: {
     detailsDialog (val) {

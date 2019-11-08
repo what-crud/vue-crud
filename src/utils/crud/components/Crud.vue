@@ -3,7 +3,7 @@
     <div>
       <component
         :is="componentLoader"
-        :listViewConfig="listViewConfig"
+        :itemsViewConfig="itemsViewConfig"
         :meta="meta"
         :custom-buttons="customButtons"
         :item-elements="itemElements"
@@ -126,7 +126,7 @@ export default {
       },
       default: 'ClientSide',
     },
-    listView: {
+    itemsView: {
       type: Object,
       validator (value) {
         const isTypeCorrect = (field) => {
@@ -185,8 +185,8 @@ export default {
   },
   data () {
     return {
-      defaultListViewMode: 'client',
-      defaultListViewType: 'table',
+      defaultItemsViewMode: 'client',
+      defaultItemsViewType: 'table',
       componentTypesMap: {
         'table': 'Table',
         'tree': 'Tree',
@@ -205,28 +205,28 @@ export default {
     detailsFields () {
       return this.fieldsInfo.filter(field => field.details !== false && field.type !== 'divider')
     },
-    listViewType () {
-      return this.listView && this.listView.type ? this.listView.type : this.defaultListViewType
+    itemsViewType () {
+      return this.itemsView && this.itemsView.type ? this.itemsView.type : this.defaultItemsViewType
     },
-    listViewMode () {
-      let listViewMode
-      if (this.listView && this.listView.mode) {
-        listViewMode = this.listView.mode
+    itemsViewMode () {
+      let itemsViewMode
+      if (this.itemsView && this.itemsView.mode) {
+        itemsViewMode = this.itemsView.mode
       } else if (this.mode) {
-        listViewMode = this.calcListViewMode(this.mode)
+        itemsViewMode = this.calcitemsViewMode(this.mode)
       }
-      return listViewMode || this.defaultListViewMode
+      return itemsViewMode || this.defaultItemsViewMode
     },
-    listViewConfig () {
+    itemsViewConfig () {
       let config = {}
-      if (this.listViewType === 'tree' && this.listView) {
-        config = this.listView.config || {}
+      if (this.itemsViewType === 'tree' && this.itemsView) {
+        config = this.itemsView.config || {}
       }
       return config
     },
     componentLoader () {
-      const typeNamePart = this.componentTypesMap[this.listViewType]
-      const modeNamePart = this.componentModesMap[this.listViewMode]
+      const typeNamePart = this.componentTypesMap[this.itemsViewType]
+      const modeNamePart = this.componentModesMap[this.itemsViewMode]
       return () => import(`./Crud${typeNamePart}${modeNamePart}.vue`)
     },
   },
@@ -245,7 +245,7 @@ export default {
     itemElementsClosed () {
       this.runTableRefreshing()
     },
-    calcListViewMode (mode) {
+    calcitemsViewMode (mode) {
       const modesMap = {
         ServerSide: 'server',
         ClientSide: 'client',

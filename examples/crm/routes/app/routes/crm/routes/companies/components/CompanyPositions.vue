@@ -1,6 +1,7 @@
 <template>
   <div>
       <company-positions-table
+        :title="$t('global.routes.crm.positions')"
         :fields-info="fileteredTableFields"
         :details-loader="detailsLoader"
         :table-data="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"
