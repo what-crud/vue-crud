@@ -105,7 +105,6 @@ import HelperMixin from '../mixins/table'
 
 import { getItemsList } from '../helpers/functions'
 
-import CrudButton from './Button.vue'
 import Controls from './Controls.vue'
 
 export default {
@@ -116,7 +115,6 @@ export default {
     HelperMixin,
   ],
   components: {
-    CrudButton,
     Controls,
   },
   data () {

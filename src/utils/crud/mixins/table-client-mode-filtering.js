@@ -94,7 +94,7 @@ export default {
         })
       })
     },
-    startSearching () {}
+    startSearching () {},
   },
   watch: {
     selectedStatuses (val) {
