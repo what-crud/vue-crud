@@ -1,17 +1,17 @@
+import ListItemActions from '../components/ListItemActions.vue'
+import ListItemField from '../components/ListItemField.vue'
 import TableFooter from '../components/TableFooter.vue'
 
 export default {
   components: {
+    ListItemActions,
+    ListItemField,
     TableFooter,
   },
   data () {
     return {
-      selectedStatuses: [1],
-      filterColumns: [],
       tmp: '',
-      search: '',
       pagination: {},
-      excelLoading: false,
     }
   },
   computed: {
@@ -35,34 +35,6 @@ export default {
       }]
       return [...actionHeader, ...this.cleanHeaders]
     },
-    statuses () {
-      return [
-        {
-          text: this.$t('global.datatable.status.active'),
-          value: 1,
-        },
-        {
-          text: this.$t('global.datatable.status.inactive'),
-          value: 0,
-        },
-      ]
-    },
-    filterModes () {
-      return [
-        {
-          name: 'like',
-          text: this.$t('global.datatable.filterModes.options.like'),
-        },
-        {
-          name: 'equals',
-          text: this.$t('global.datatable.filterModes.options.equals'),
-        },
-        {
-          name: 'list',
-          text: this.$t('global.datatable.filterModes.options.list'),
-        },
-      ]
-    },
     itemsPerPageOptions () {
       return [
         5,
@@ -81,26 +53,11 @@ export default {
     },
   },
   methods: {
-    updateColumnFilterMode (val, index) {
-      const obj = this.filterColumns
-      obj[index].mode = val
-      this.$set(this, 'filterColumns', obj)
-    },
-    updateFilterColumns (val, index) {
-      const obj = this.filterColumns
-      obj[index].value = val
-      this.$set(this, 'filterColumns', obj)
-    },
     setPage (page) {
       this.pagination.page = parseInt(page)
     },
     clearFilters () {
-      for (const column of this.filterColumns) {
-        column.value = ''
-      }
       this.pagination.page = 1
-      this.search = ''
-      this.selectedStatuses = [1]
     },
     setColumnTextModes (props) {
       const columnTextModes = {}

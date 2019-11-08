@@ -290,11 +290,12 @@ export default {
 |---|---|---|---|---|
 |title|-|`String`|`false`|-|
 |fieldsInfo|-|`Array`|`false`|-|
+|createMode|-|`Boolean`|`false`|true|
+|editMode|-|`Boolean`|`false`|true|
 |deleteMode|-|`String`|`false`|'soft'|
 |customHeaderButtons|-|`Array`|`false`||
 |customButtons|-|`Array`|`false`||
 |itemElements|-|`Object`|`false`|-|
-|createButton|-|`Boolean`|`false`|true|
 |editButton|-|`Boolean`|`false`|true|
 |meta|-|`Array`|`false`||
 |primaryKey|-|`String`|`false`|'id'|

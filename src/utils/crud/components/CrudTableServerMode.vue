@@ -1,107 +1,34 @@
 <template>
   <v-card flat>
-    <crud-controls
-      :delete-mode="deleteMode"
+    <controls
       :create-mode="createMode"
       :edit-mode="editMode"
-      :main-filter="mainFilter"
-      :field-filters="fieldFilters"
-      :refresh-button="refreshButton"
+      :delete-mode="deleteMode"
       :select-many-mode="selectManyMode"
       :update-many-mode="updateManyMode"
       :remove-many-mode="removeManyMode"
+      :main-filter="mainFilter"
+      :field-filters="fieldFilters"
+      :refresh-button="refreshButton"
+      :export-button="exportButton"
+      :excel-loading="excelLoading"
+      :initialSearch="search"
+      :initialSelectedStatuses="selectedStatuses"
+      :initialColumnFilters="columnFilters"
       @create="create"
       @editSelected="editSelected"
       @suspendSelected="suspendSelected"
       @restoreSelected="restoreSelected"
       @destroySelected="destroySelected"
       @refreshTable="refreshTable"
+      @updateColumnFilterMode="updateColumnFilterMode"
+      @updateColumnFilterValue="updateColumnFilterValue"
+      @updateSearch="updateSearch"
+      @updateSelectedStatuses="updateSelectedStatuses"
       @clearFilters="clearFilters"
+      @exportToExcel="exportToExcel"
     >
-      <template slot="center">
-        <!-- Search by fields -->
-        <v-menu
-          offset-y
-          :close-on-content-click="false"
-          max-height="50vh"
-          style="margin-right:15px;margin-left:15px;"
-          v-if="fieldFilters"
-        >
-          <template v-slot:activator="{ on }">
-            <v-btn
-              large
-              color="grey"
-              icon
-              v-on="on"
-            >
-              <v-icon>filter_list</v-icon>
-            </v-btn>
-          </template>
-          <v-list style="overflow-y:false;">
-            <v-list-item v-for="(item, index) in filterColumns" :key="index">
-              <v-autocomplete
-                :items="filterModes"
-                v-model="item.mode"
-                item-text="text"
-                item-value="name"
-                :label="$t('global.datatable.filterModes.label')"
-                hide-details
-                @input="updateColumnFilterModeEvent($event, index)"
-              ></v-autocomplete>
-              <v-text-field
-                v-model="item.value"
-                hide-details
-                :label="item.text"
-                @input="filterColumnsEvent($event, index)"
-              ></v-text-field>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-
-        <!-- Search in table -->
-        <span
-          v-if="mainFilter"
-          class="data-table__search"
-        >
-          <v-text-field
-            class="data-table__search-input"
-            append-icon="search"
-            :label="$t('global.datatable.search')"
-            single-line hide-details
-            v-model="search"
-            min-width="200"
-            @input="searchItems(true)"
-          ></v-text-field>
-        </span>
-
-        <!-- Select statuses (active/inactive) -->
-        <template v-if="['soft', 'both', 'filter'].includes(deleteMode)">
-          <span class="data-table__select-statuses">
-            <v-autocomplete
-              :label="$t('global.datatable.status.title')"
-              v-bind:items="statuses"
-              v-model="selectedStatuses"
-              single-line
-              item-text="text"
-              item-value="value"
-              multiple
-              chips
-            ></v-autocomplete>
-          </span>
-        </template>
-      </template>
-      <template slot="right">
-        <crud-button
-          v-if="exportButton"
-          large
-          color="green darken-4"
-          @clicked="exportToExcel()"
-          icon="save_alt"
-          :tooltip="$t('global.datatable.buttons.copyToExcel')"
-          :loading="excelLoading"
-        ></crud-button>
-      </template>
-    </crud-controls>
+    </controls>
 
     <!-- Table -->
     <v-data-table
@@ -165,21 +92,33 @@
 </template>
 
 <script>
+
 import Vue from 'vue'
 import {
   mapState,
   mapActions,
 } from 'vuex'
+
+import CrudMixin from '../mixins/crud'
 import CrudTableMixin from '../mixins/crud-table'
 import HelperMixin from '../mixins/table'
+
 import { getItemsList } from '../helpers/functions'
+
 import CrudButton from './Button.vue'
+import Controls from './Controls.vue'
 
 export default {
+  name: 'CrudTableServerMode',
+  mixins: [
+    CrudMixin,
+    CrudTableMixin,
+    HelperMixin,
+  ],
   components: {
     CrudButton,
+    Controls,
   },
-  mixins: [CrudTableMixin, HelperMixin],
   data () {
     return {
       searching: false,
@@ -187,19 +126,6 @@ export default {
       ignorePaginationWatcher: false,
       searchTimeout: null,
     }
-  },
-  created () {
-    this.resetItems()
-    this.filterColumns = this.tableFields
-      .map((field) => {
-        const item = {}
-        item.mode = 'like'
-        item.text = field.text
-        item.name = field.name
-        item.column = field.column
-        item.value = ''
-        return item
-      })
   },
   computed: {
     ...mapState('crud', ['totalItems', 'loading', 'detailsDialog', 'tableRefreshing']),
@@ -210,35 +136,11 @@ export default {
         rowsPerPage: this.pagination.itemsPerPage,
         page: this.pagination.page,
         search: this.search,
-        filterColumns: this.filterColumns,
+        filterColumns: this.columnFilters,
         selectedStatuses: this.selectedStatuses,
         deleteMode: this.deleteMode,
         activeColumnName: this.activeColumnName,
         mode: 'paginate',
-      }
-    },
-  },
-  watch: {
-    pagination: {
-      handler () {
-        if (!this.ignorePaginationWatcher) {
-          this.searchItems(false)
-        }
-        this.ignorePaginationWatcher = false
-      },
-      deep: true,
-    },
-    detailsDialog (val) {
-      if (!val) {
-        this.getItemsServerSide([this.params])
-      }
-    },
-    selectedStatuses (val) {
-      this.searchItems(true)
-    },
-    tableRefreshing (val) {
-      if (val) {
-        this.getItemsServerSide([this.params])
       }
     },
   },
@@ -247,14 +149,6 @@ export default {
     ...mapActions([
       'openAlertBox',
     ]),
-    updateColumnFilterModeEvent (val, index) {
-      this.updateColumnFilterMode(val, index)
-      this.searchItems(true)
-    },
-    filterColumnsEvent (val, index) {
-      this.updateFilterColumns(val, index)
-      this.searchItems(true)
-    },
     searchItems (resetPage) {
       clearTimeout(this.searchTimeout)
       if (resetPage) {
@@ -264,6 +158,9 @@ export default {
       this.searchTimeout = setTimeout(() => {
         this.getItemsServerSide([this.params])
       }, 500)
+    },
+    startSearching () {
+      this.searchItems(true)
     },
     moveDetailsItem (page, index) {
       this.ignorePaginationWatcher = true
@@ -315,22 +212,29 @@ export default {
         })
     },
   },
+  created () {
+    this.resetItems()
+  },
+  watch: {
+    pagination: {
+      handler () {
+        if (!this.ignorePaginationWatcher) {
+          this.searchItems(false)
+        }
+        this.ignorePaginationWatcher = false
+      },
+      deep: true,
+    },
+    detailsDialog (val) {
+      if (!val) {
+        this.getItemsServerSide([this.params])
+      }
+    },
+    tableRefreshing (val) {
+      if (val) {
+        this.getItemsServerSide([this.params])
+      }
+    },
+  },
 }
 </script>
-<style lang="scss" scoped>
-  .data-table {
-    &__search {
-      margin: 0 15px;
-      display: inline-block;
-      width: 250px;
-    }
-    &__search-input {
-      margin-top: -8px;
-    }
-    &__select-statuses {
-      margin: 0 15px;
-      display: inline-block;
-      width: 250px;
-    }
-  }
-</style>

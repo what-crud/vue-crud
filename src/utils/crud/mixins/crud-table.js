@@ -4,16 +4,8 @@ import {
   mapMutations,
   mapActions,
 } from 'vuex'
-import ListItemActions from '../components/ListItemActions.vue'
-import ListItemField from '../components/ListItemField.vue'
-import CrudControls from '../components/CrudControls.vue'
 
 export default {
-  components: {
-    ListItemActions,
-    ListItemField,
-    CrudControls,
-  },
   props: [
     'tableFields',
     'deleteMode',
@@ -64,50 +56,6 @@ export default {
     },
     excelName () {
       return this.$t(`global.routes.${this.page}`)
-    },
-  },
-  watch: {
-    moveItemRun (val) {
-      if (val) {
-        const {
-          moveItemDirection,
-        } = this
-        let currentIndex = this.currentItemIndex
-        let {
-          page,
-        } = this.pagination
-        const {
-          itemsPerPage,
-        } = this.pagination
-        const {
-          totalItems,
-        } = this
-        let possible = true
-        if (moveItemDirection === 'previous') {
-          if (currentIndex > 0) {
-            currentIndex -= 1
-          } else if (page > 1) {
-            page -= 1
-            currentIndex = itemsPerPage - 1
-          } else {
-            possible = false
-          }
-        } else if (moveItemDirection === 'next') {
-          if (currentIndex < itemsPerPage - 1 && (page - 1) * itemsPerPage + currentIndex + 1 <
-            totalItems) {
-            currentIndex += 1
-          } else if (page < Math.ceil(totalItems / itemsPerPage)) {
-            page += 1
-            currentIndex = 0
-          } else {
-            possible = false
-          }
-        }
-        if (possible) {
-          this.moveDetailsItem(page, currentIndex)
-        }
-        this.moveItem(['', false])
-      }
     },
   },
   methods: {
@@ -280,6 +228,50 @@ export default {
         if (goToItemButton) {
           this.custom('goToItem', item)
         }
+      }
+    },
+  },
+  watch: {
+    moveItemRun (val) {
+      if (val) {
+        const {
+          moveItemDirection,
+        } = this
+        let currentIndex = this.currentItemIndex
+        let {
+          page,
+        } = this.pagination
+        const {
+          itemsPerPage,
+        } = this.pagination
+        const {
+          totalItems,
+        } = this
+        let possible = true
+        if (moveItemDirection === 'previous') {
+          if (currentIndex > 0) {
+            currentIndex -= 1
+          } else if (page > 1) {
+            page -= 1
+            currentIndex = itemsPerPage - 1
+          } else {
+            possible = false
+          }
+        } else if (moveItemDirection === 'next') {
+          if (currentIndex < itemsPerPage - 1 && (page - 1) * itemsPerPage + currentIndex + 1 <
+            totalItems) {
+            currentIndex += 1
+          } else if (page < Math.ceil(totalItems / itemsPerPage)) {
+            page += 1
+            currentIndex = 0
+          } else {
+            possible = false
+          }
+        }
+        if (possible) {
+          this.moveDetailsItem(page, currentIndex)
+        }
+        this.moveItem(['', false])
       }
     },
   },
