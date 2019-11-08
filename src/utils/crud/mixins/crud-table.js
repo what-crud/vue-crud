@@ -82,7 +82,7 @@ export default {
       'mulitipleItemsUpdate',
       'mulitipleItemsDelete',
       'getItemDetails',
-      'runTableRefreshing',
+      'runItemsViewRefreshing',
     ]),
     ...mapActions(['openAlertBox']),
     resolveRowDoubleClick (item, index) {
@@ -102,7 +102,7 @@ export default {
       }
     },
     refreshTable () {
-      this.runTableRefreshing()
+      this.runItemsViewRefreshing()
     },
     edit (id) {
       const index = this.getItemIndex(id)

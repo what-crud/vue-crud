@@ -130,7 +130,7 @@ export default {
       'totalItems',
       'loading',
       'detailsDialog',
-      'tableRefreshing',
+      'isItemsViewRefreshed',
     ]),
     params () {
       return {
@@ -234,7 +234,7 @@ export default {
         this.getItemsServerSide([this.params])
       }
     },
-    tableRefreshing (val) {
+    isItemsViewRefreshed (val) {
       if (val) {
         this.getItemsServerSide([this.params])
       }

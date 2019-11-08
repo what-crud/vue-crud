@@ -65,7 +65,7 @@ const actions = {
               'alertSuccess',
               successText,
             ], { root: true })
-            dispatch('runTableRefreshing')
+            dispatch('runItemsViewRefreshing')
             resolve()
           } else if (response.body.status === -1) {
             dispatch('openAlertBox', [
@@ -102,7 +102,7 @@ const actions = {
               'alertSuccess',
               successText,
             ], { root: true })
-            dispatch('runTableRefreshing')
+            dispatch('runItemsViewRefreshing')
             resolve()
           } else if (response.body.status === -1) {
             dispatch('openAlertBox', [
@@ -143,7 +143,7 @@ const actions = {
           'alertSuccess',
           successText,
         ], { root: true })
-        dispatch('runTableRefreshing')
+        dispatch('runItemsViewRefreshing')
       }, () => {
         dispatch('openAlertBox', [
           'alertError',
@@ -164,7 +164,7 @@ const actions = {
           'alertSuccess',
           successText,
         ], { root: true })
-        dispatch('runTableRefreshing')
+        dispatch('runItemsViewRefreshing')
       }, () => {
         dispatch('openAlertBox', [
           'alertError',
@@ -185,7 +185,7 @@ const actions = {
           'alertSuccess',
           successText,
         ], { root: true })
-        dispatch('runTableRefreshing')
+        dispatch('runItemsViewRefreshing')
       }, () => {
         dispatch('openAlertBox', [
           'alertError',
@@ -465,7 +465,7 @@ const actions = {
         })
     })
   },
-  runTableRefreshing ({ commit }) {
+  runItemsViewRefreshing ({ commit }) {
     commit('refreshTable', true)
     setTimeout(() => {
       commit('refreshTable', false)

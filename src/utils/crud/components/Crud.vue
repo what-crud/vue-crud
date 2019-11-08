@@ -238,12 +238,12 @@ export default {
       'setPaths',
       'setCreationMode',
     ]),
-    ...mapActions('crud', ['runTableRefreshing']),
+    ...mapActions('crud', ['runItemsViewRefreshing']),
     custom (name, item, index) {
       this.$parent[name](item, index)
     },
     itemElementsClosed () {
-      this.runTableRefreshing()
+      this.runItemsViewRefreshing()
     },
     calcitemsViewMode (mode) {
       const modesMap = {

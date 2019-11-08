@@ -115,7 +115,7 @@ const mutations = {
   },
   // refresh table
   refreshTable (state, status) {
-    state.tableRefreshing = status
+    state.isItemsViewRefreshed = status
   },
   // extended details
   showItemDetailsDialog (state) {

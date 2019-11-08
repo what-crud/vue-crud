@@ -53,8 +53,8 @@ const state = {
     item: {},
   },
   selectedIds: [],
-  // tableRefreshing
-  tableRefreshing: false,
+  // isItemsViewRefreshed
+  isItemsViewRefreshed: false,
   // extended details
   detailsDialog: false,
   item: {},

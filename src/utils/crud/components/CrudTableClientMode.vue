@@ -122,7 +122,7 @@ export default {
     ...mapState('crud', [
       'loading',
       'detailsDialog',
-      'tableRefreshing',
+      'isItemsViewRefreshed',
     ]),
     totalItems () {
       return this.filteredItems.length
@@ -134,7 +134,7 @@ export default {
         this.getItems()
       }
     },
-    tableRefreshing (val) {
+    isItemsViewRefreshed (val) {
       if (val) {
         this.getItems()
       }
