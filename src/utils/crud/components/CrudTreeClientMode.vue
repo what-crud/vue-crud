@@ -70,6 +70,9 @@ export default {
   },
   methods: {
     ...mapActions('crud', ['getItems']),
+    clearFilters () {},
+    exportToExcel () {},
+    startSearching () {},
   },
   created () {
     this.resetItems()
