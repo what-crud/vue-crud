@@ -12,7 +12,10 @@ export default {
     ]),
   },
   methods: {
-    ...mapMutations('crud', ['moveItem']),
+    ...mapMutations('crud', [
+      'setCurrentItem',
+      'moveItem',
+    ]),
     beforeGetItem (id) {
       const index = this.getItemIndex(id)
       this.setCurrentItem({

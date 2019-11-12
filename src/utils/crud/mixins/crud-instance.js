@@ -68,7 +68,6 @@ export default {
       'setItemElementsInfo',
       'editItemElementsDialog',
       'setSelectedIds',
-      'setCurrentItem',
     ]),
     ...mapActions('crud', [
       'getItem',

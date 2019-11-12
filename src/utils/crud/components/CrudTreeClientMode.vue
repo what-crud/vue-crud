@@ -35,7 +35,7 @@
       v-model="selected"
       :selectable="selectManyMode"
       :items="treeItems"
-      :search="search"
+      :search="searchIterationNumber"
       :filter="filter"
       class="tree"
       selected-color="#666666"
@@ -44,6 +44,8 @@
       activatable
       hoverable
       dense
+      transition
+      return-object
     >
       <template v-slot:label="{ item }">
         <div class="tree-item">
@@ -123,7 +125,9 @@ export default {
     Controls,
   },
   data () {
-    return {}
+    return {
+      searchIterationNumber: '0',
+    }
   },
   computed: {
     ...mapState('crud', [
@@ -161,20 +165,69 @@ export default {
       return computedItems
     },
     filter () {
-      return (item, search) => {
-        const lCaseSearch = search.toString().toLowerCase()
-        let isFound = false
-        for (const field of item.fields) {
-          let fieldValue = field.value
-          if (typeof fieldValue === 'string' || fieldValue instanceof String || typeof fieldValue === 'number') {
-            fieldValue = fieldValue.toString().toLowerCase()
-            if (fieldValue.indexOf(lCaseSearch) > -1) {
-              isFound = true
-              break
+      return (item) => {
+        let isTestPassed
+
+        // check if selected statuses contain item status
+        isTestPassed = [
+          'soft',
+          'both',
+        ].includes(this.deleteMode)
+          ? this.selectedStatuses.includes(parseInt(item.meta.active))
+          : true
+        if (!isTestPassed) return false
+
+        // check if item contain all search phrases
+        const phrases = this.search === '' ? [] : this.search.toLowerCase().split(' ')
+        for (const phrase of phrases) {
+          isTestPassed = false
+          for (const field of item.fields) {
+            let fieldValue = field.value
+            if (typeof fieldValue === 'string' || fieldValue instanceof String || typeof fieldValue === 'number') {
+              fieldValue = fieldValue.toString().toLowerCase()
+              if (fieldValue.indexOf(phrase) > -1) {
+                isTestPassed = true
+                break
+              }
             }
           }
+          if (!isTestPassed) return false
         }
-        return isFound
+
+        // check if item contain phrases from column filters
+        for (const filter of this.columnFilters) {
+          if (filter.value !== '') {
+            isTestPassed = false
+            const colName = filter.name
+            let field = item.meta.item[colName]
+            if (typeof field === 'string' || field instanceof String || typeof field === 'number') {
+              field = field.toString().toLowerCase()
+              switch (filter.mode) {
+                case 'like':
+                  if (field.includes(filter.value)) {
+                    isTestPassed = true
+                  }
+                  break
+                case 'equals':
+                  if (field === filter.value) {
+                    isTestPassed = true
+                  }
+                  break
+                case 'list':
+                  const tmpList = filter.value.split(';')
+                  if (tmpList.includes(field)) {
+                    isTestPassed = true
+                  }
+                  break
+                default:
+                  break
+              }
+            }
+            if (!isTestPassed) return false
+          }
+        }
+
+        return true
       }
     },
   },
@@ -182,7 +235,9 @@ export default {
     ...mapActions('crud', ['getItems']),
     clearFilters () {},
     exportToExcel () {},
-    startSearching () {},
+    startSearching () {
+      this.searchIterationNumber = parseInt(this.searchIterationNumber + 1).toString()
+    },
     beforeGetItem (id) {},
   },
   created () {
