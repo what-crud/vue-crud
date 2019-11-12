@@ -2,7 +2,7 @@
   <v-tooltip top>
     <template v-slot:activator="{ on }">
       <v-btn
-        class="mr-1"
+        :class="noMargin ? '' : 'mr-1'"
         :icon="!dark"
         :fab="dark"
         :dark="dark"
@@ -71,6 +71,10 @@ export default {
       default: false,
     },
     active: {
+      type: Boolean,
+      default: false,
+    },
+    noMargin: {
       type: Boolean,
       default: false,
     },

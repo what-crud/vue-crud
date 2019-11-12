@@ -13,6 +13,13 @@ export default {
   },
   methods: {
     ...mapMutations('crud', ['moveItem']),
+    beforeGetItem (id) {
+      const index = this.getItemIndex(id)
+      this.setCurrentItem({
+        id,
+        index,
+      })
+    },
     resolveRowDoubleClick (item, index) {
       if (this.editMode) {
         let goToItemButton = false

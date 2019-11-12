@@ -7,6 +7,7 @@ import {
 
 export default {
   props: [
+    'itemsViewConfig',
     'tableFields',
     'deleteMode',
     'customButtons',
@@ -85,11 +86,7 @@ export default {
       this.runItemsViewRefreshing()
     },
     edit (id) {
-      const index = this.getItemIndex(id)
-      this.setCurrentItem({
-        id,
-        index,
-      })
+      this.beforeGetItem(id)
       this.getItem([id]).then(() => {
         this.editItemDialog(id)
       })
@@ -203,6 +200,36 @@ export default {
         obj,
       ])
       this.getItemElements()
+    },
+    setColumnTextModes (props) {
+      const columnTextModes = {}
+      for (const field of this.tableFields) {
+        let textMode = 'cropped'
+        if (field.textMode) {
+          textMode = field.textMode
+        }
+        if (field.type === 'dynamic') {
+          if (field.textModes) {
+            const refField = props.item[field.typeField]
+            if (field.textModes[refField]) {
+              textMode = field.textModes[refField]
+            }
+          }
+        }
+        columnTextModes[field.name.toLowerCase()] = textMode
+      }
+      return columnTextModes
+    },
+    textMode (item, key) {
+      const field = this.tableFields.find((field) => field.name === key) || {}
+      let textMode = field.textMode || 'cropped'
+      if (field.type === 'dynamic' && field.textModes) {
+        const refField = item[field.typeField]
+        if (field.textModes[refField]) {
+          textMode = field.textModes[refField]
+        }
+      }
+      return textMode
     },
   },
 }
