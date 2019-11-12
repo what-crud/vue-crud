@@ -35,6 +35,8 @@
       v-model="selected"
       :selectable="selectManyMode"
       :items="treeItems"
+      :search="search"
+      :filter="filter"
       class="tree"
       selected-color="#666666"
       color="primary"
@@ -157,6 +159,23 @@ export default {
       }
       let computedItems = addChildrenToItem(null)
       return computedItems
+    },
+    filter () {
+      return (item, search) => {
+        const lCaseSearch = search.toString().toLowerCase()
+        let isFound = false
+        for (const field of item.fields) {
+          let fieldValue = field.value
+          if (typeof fieldValue === 'string' || fieldValue instanceof String || typeof fieldValue === 'number') {
+            fieldValue = fieldValue.toString().toLowerCase()
+            if (fieldValue.indexOf(lCaseSearch) > -1) {
+              isFound = true
+              break
+            }
+          }
+        }
+        return isFound
+      }
     },
   },
   methods: {
