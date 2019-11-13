@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     v-model="details.show"
-    max-width="600"
+    :max-width="width"
     style="position:static !important;"
     persistent
   >
@@ -28,13 +28,13 @@
                 >
               </v-flex>
               <v-flex :class="details.action == 'multiedit' ? 'sm11' : 'sm12'">
-                <field
+                <item-details-field
                   :field="field"
                   :dynamic-field-type="dynamicFieldType(field.typeField)"
                   :field-value="field.value"
                   :reload="reload"
                   @valueChanged="valueChanged"
-                ></field>
+                />
               </v-flex>
             </v-layout>
           </div>
@@ -68,7 +68,7 @@
   </v-dialog>
 </template>
 <script>
-import Field from './Field.vue'
+import ItemDetailsField from './ItemDetailsField.vue'
 import { fieldModifiers } from '@/utils/crud/helpers/functions'
 import {
   mapState,
@@ -78,11 +78,12 @@ import {
 
 export default {
   components: {
-    Field,
+    ItemDetailsField,
   },
   props: [
     'title',
     'detailsFields',
+    'width',
   ],
   data () {
     return {
@@ -240,7 +241,7 @@ export default {
 
 <style scoped>
 .details-list {
-  max-height: 60vh;
+  max-height: 100vh;
   overflow-y: auto;
 }
 </style>

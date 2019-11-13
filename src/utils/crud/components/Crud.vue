@@ -25,6 +25,7 @@
       <item-details
         :title="detailsTitle"
         :details-fields="detailsFields"
+        :width="itemDetailsWidth"
       ></item-details>
       <item-elements></item-elements>
       <image-container></image-container>
@@ -181,6 +182,9 @@ export default {
     removeManyMode: {
       type: Boolean,
       default: crud.removeManyMode === undefined ? true : crud.removeManyMode,
+    },
+    itemDetailsWidth: {
+      default: 600,
     },
   },
   data () {

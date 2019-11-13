@@ -41,6 +41,7 @@
       selected-color="#666666"
       color="primary"
       item-key="meta.id"
+      selection-type="independent"
       activatable
       hoverable
       dense

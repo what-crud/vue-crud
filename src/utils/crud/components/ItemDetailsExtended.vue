@@ -5,14 +5,14 @@
       <v-flex class="field" :class="field.grid" v-for="(field, i) in fields" :key="i" pr-2>
         <!-- divider -->
         <h3 v-if="field.type == 'divider'" class="text-xs-center section-header">{{ field.text }}</h3>
-        <field
+        <item-details-field
           v-else
           :field="field"
           :dynamic-field-type="dynamicFieldType(field.typeField)"
           :field-value="field.value"
           :reload="reload"
           @valueChanged="valueChanged"
-        ></field>
+        />
       </v-flex>
     </v-row>
   </div>
@@ -20,7 +20,7 @@
 
 <script>
 import Vue from 'vue'
-import Field from './Field.vue'
+import ItemDetailsField from './ItemDetailsField.vue'
 import {
   mapState,
   mapActions,
@@ -28,7 +28,7 @@ import {
 
 export default {
   components: {
-    Field,
+    ItemDetailsField,
   },
   name: 'item-details-extended',
   props: [

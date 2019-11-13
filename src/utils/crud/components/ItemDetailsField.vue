@@ -57,7 +57,9 @@
       @blur="valueChanged()"
     ></v-textarea>
     <!-- file upload -->
-    <div v-else-if="fieldType == 'file'" class="field-container">
+    <field-wrapper
+      v-else-if="fieldType == 'file'"
+    >
       <v-row dense>
         <v-col cols="12" sm="5">
           <v-btn
@@ -89,7 +91,7 @@
           ></v-text-field>
         </v-col>
       </v-row>
-    </div>
+    </field-wrapper>
     <!-- select -->
     <template v-else-if="fieldType == 'select'">
       <v-autocomplete
@@ -112,18 +114,29 @@
         </template>
       </v-autocomplete>
     </template>
+    <!-- tree -->
+    <field-wrapper
+      v-else-if="fieldType == 'tree'"
+      :label="field.text"
+    >
+      <tree
+        v-model="value"
+        :disabled="field.disabled"
+        @change="valueChanged()"
+      />
+    </field-wrapper>
     <!-- rich text editor -->
-    <template v-else-if="fieldType == 'richTextBox'">
-      <div class="field-container">
-        <label class="field-label">{{field.text}}</label>
-        <rich-text-box
-          v-model="value"
-          :disabled="field.disabled"
-          :available-extensions="field.richTextBoxOperations"
-          @change="valueChanged()"
-        />
-      </div>
-    </template>
+    <field-wrapper
+      v-else-if="fieldType == 'richTextBox'"
+      :label="field.text"
+    >
+      <rich-text-box
+        v-model="value"
+        :disabled="field.disabled"
+        :available-extensions="field.richTextBoxOperations"
+        @change="valueChanged()"
+      />
+    </field-wrapper>
     <!-- checkbox -->
     <v-checkbox
       v-else-if="fieldType == 'checkbox'"
@@ -140,13 +153,19 @@
 import Vue from 'vue'
 import crud from '@/config/crud'
 
+import FieldWrapper from './ItemDetailsFieldWrapper.vue'
+
 import RichTextBox from './field-types/RichTextBox.vue'
+import Tree from './field-types/Tree.vue'
 
 import { mapState } from 'vuex'
 
 export default {
+  name: 'ItemDetailsField',
   components: {
+    FieldWrapper,
     RichTextBox,
+    Tree,
   },
   props: [
     'field',
@@ -378,13 +397,6 @@ export default {
 </script>
 
 <style scoped>
-.field-label {
-  font-size: 12px;
-  color: #777;
-}
-.field-container {
-  margin-top: 10px;
-}
 .jbtn-file {
   cursor: pointer;
   position: relative;
