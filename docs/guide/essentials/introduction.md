@@ -27,9 +27,12 @@ Vue CRUD provides a set of utilities, from which you can compose your own applic
     - Show active/inactive records,
     - Search phrase in whole table,
     - Search phrase in selected column (exact, like and list mode)
-  - versions:
-    - client side (small tables < 2000 records)
-    - server side (> 2000 records)
+  - items view versions:
+    - client side (small tables),
+    - server side (big tables)
+  - items view types:
+    - table,
+    - **NEW!** tree
   - other functions and features:
     - datatable mechanism allows selection of the number of records per page, page transition and sorting,
     - management of a child table from the parent table module,
@@ -63,21 +66,40 @@ The record creation / editing form supports the following types of fields:
 * Decimal
 * Textarea,
 * Rich Text Box,
-* Select (list from related table),
+* Select (hardcoded list or obtained from API),
 * Datepicker,
 * Timepicker,
 * Checkbox,
-* Files
+* Files,
+* **NEW!** Dynamic (user can select field type separately for each record)
 
-## Demo
+## Support for mobile devices
 
-- **<a href="http://vue-crud-simple.id-a.pl" target="_blank">Simple CRUD demo</a>**
-- **<a href="http://vue-crud-crm.id-a.pl" target="_blank">CRM demo</a>**\
-    Credentials with limited privileges (readonly):\
-    Login:  guest@vue-crud.com\
-    Pass:   ajSGenC0\
-    To get full user account, contact me (Szczepan Masny) on my
-    <a href="http://id-a.pl" target="_blank">company site</a>.
+### App layout on desktop...
+ <img
+  width="auto"
+  height="400"
+  src="https://user-images.githubusercontent.com/18534115/68077595-9fed6d00-fdc6-11e9-9e52-37dad9bb4bc1.png"
+  alt="app layout on desktop"
+/>
+
+### ... and on mobile device
+ <img
+  width="auto"
+  height="400"
+  src="https://user-images.githubusercontent.com/18534115/68077552-3ff6c680-fdc6-11e9-9b8c-3e92dce596c5.png"
+  alt="app layout on mobile device"
+/>
+
+## Demo versions
+
+#### <a href="http://vue-crud-demo.id-a.pl" target="_blank">DEMO / SANDBOX</a>
+
+#### <a href="http://vue-crud-crm.id-a.pl" target="_blank">CRM DEMO</a>
+Credentials with limited privileges (readonly):\
+Login:  guest@vue-crud.com\
+Pass:   ajSGenC0\
+To get full user account, contact me on my <a href="http://id-a.pl" target="_blank">company site</a>.
 
 ## License
 [MIT](https://opensource.org/licenses/MIT)

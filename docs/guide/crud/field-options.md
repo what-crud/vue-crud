@@ -21,6 +21,9 @@ Parameters:
 ## `grid`
 *String*, optional. Vuetify grid used in extended details. This parameter is used to determine the field width on different screens.
 
+## `edit`
+*Boolean*, default: **true**. Responsible for displaying the field in the update form.
+
 ## `multiedit`
 *Boolean*, default: **true**. Responsible for displaying the field in the multiple update form.
 

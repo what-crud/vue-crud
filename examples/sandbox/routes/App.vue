@@ -255,24 +255,28 @@ export default {
         text: 'admin.name',
         model: false,
         route: '/app',
-        children: [{
-          text: 'admin.users',
-          route: '',
-        },
-        {
-          text: 'admin.permissions',
-          route: '',
-        },
-        {
-          text: 'admin.userPermissions',
-          route: '',
-        },
+        children: [
+          {
+            text: 'admin.users',
+            route: '',
+          },
+          {
+            text: 'admin.permissions',
+            route: '',
+          },
+          {
+            text: 'admin.userPermissions',
+            route: '',
+          },
         ],
       },
     ],
   }),
   computed: {
-    ...mapGetters('auth', ['isLogged', 'userInfo']),
+    ...mapGetters('auth', [
+      'isLogged',
+      'userInfo',
+    ]),
     template () {
       return `
           <template>

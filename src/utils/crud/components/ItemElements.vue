@@ -107,7 +107,7 @@
           slot="footer.page-text"
           slot-scope="{ pageStart, pageStop, itemsLength }"
         >
-          <data-table-footer
+          <table-footer
             :pagination="pagination"
             :pageStart="pageStart"
             :pageStop="pageStop"
@@ -131,7 +131,7 @@
 </template>
 <script>
 import CrudButton from './Button.vue'
-import DataTableFooter from '../components/DataTableFooter.vue'
+import TableFooter from '../components/TableFooter.vue'
 import {
   mapState,
   mapActions,
@@ -140,7 +140,7 @@ import {
 export default {
   components: {
     CrudButton,
-    DataTableFooter,
+    TableFooter,
   },
   props: ['details'],
   data () {
@@ -152,7 +152,10 @@ export default {
         sortBy: ['added'],
         sorDesc: [true],
       },
-      selectedStatuses: [1, 0],
+      selectedStatuses: [
+        1,
+        0,
+      ],
     }
   },
   computed: {

@@ -20,9 +20,7 @@ import {
 export default {
   name: 'alert',
   computed: {
-    ...mapState([
-      'alert',
-    ]),
+    ...mapState(['alert']),
   },
 }
 
@@ -30,7 +28,7 @@ export default {
 <style scoped>
   .alert {
     position: fixed;
-    top: 40vh;
+    top: 3px;
     margin: auto;
     z-index: 100000;
   }

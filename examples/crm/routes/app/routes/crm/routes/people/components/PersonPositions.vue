@@ -21,7 +21,11 @@ import ChildrenTable from '@/utils/crud/components/ChildrenTable.vue'
 import ChildDetails from '@/utils/crud/components/ChildDetails.vue'
 
 export default {
-  mixins: [FieldsInfoMixin, LocalesMixin, CompanyPositionsChildMixin],
+  mixins: [
+    FieldsInfoMixin,
+    LocalesMixin,
+    CompanyPositionsChildMixin,
+  ],
   components: {
     'person-positions-table': ChildrenTable,
     'person-position-details': ChildDetails,

@@ -6,12 +6,12 @@
         <v-card-text>
 
           <div v-for="(field, i) in fields" :key="i">
-            <field
+            <item-details-field
               :field="field"
               :field-value="field.value"
               :reload="reload"
               @valueChanged="valueChanged"
-            ></field>
+            />
           </div>
         </v-card-text>
         <v-card-actions>
@@ -47,12 +47,12 @@
   </v-dialog>
 </template>
 <script>
-import Field from './Field.vue'
+import ItemDetailsField from './ItemDetailsField.vue'
 import { fieldModifiers } from '@/utils/crud/helpers/functions'
 
 export default {
   components: {
-    Field,
+    ItemDetailsField,
   },
   props: {
     details: Object,
@@ -130,7 +130,7 @@ export default {
         rField.value = this.details.item[field.column]
         if (typeof rField.value !== 'undefined') {
           if (field.type === 'select') {
-            const defaultVal = field.list.default || 1
+            const defaultVal = field.list.default || field.required ? 1 : undefined
             rField.value = field.stringId ? this.details.item[field.column] : parseInt(this.details.item[field.column]) || defaultVal
           } else if (field.type === 'date') {
             rField.value = (this.details.item[field.column] || '').substring(0, 10)

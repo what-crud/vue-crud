@@ -1,5 +1,11 @@
 const fs = require('fs-extra')
-const templates = ['empty', 'simple-crud', 'sandbox', 'crm', 'cms']
+const templates = [
+  'empty',
+  'simple-crud',
+  'sandbox',
+  'crm',
+  'cms',
+]
 const resources = [
   {
     type: 'dir',

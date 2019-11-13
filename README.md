@@ -4,7 +4,7 @@
 <h1 align="center">Vue CRUD</h1>
 <div align="center">
   <a><img alt="license" src="https://img.shields.io/badge/license-MIT-brightgreen.svg"></a>
-  <a><img alt="version" src="https://img.shields.io/badge/version-v0.14.2-yellow.svg"></a>
+  <a><img alt="version" src="https://img.shields.io/badge/version-v0.15.0-yellow.svg"></a>
   <a><img alt="build" src="https://travis-ci.org/what-crud/vue-crud.svg?branch=master"></a>
   <a><img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
 </div>
@@ -34,9 +34,12 @@ Vue CRUD provides a set of utilities, from which you can compose your own applic
     - Show active/inactive records,
     - Search phrase in whole table,
     - Search phrase in selected column (exact, like and list mode)
-  - versions:
-    - client side (small tables)
+  - items view versions:
+    - client side (small tables),
     - server side (big tables)
+  - items view types:
+    - table,
+    - **NEW!** tree
   - other functions and features:
     - datatable mechanism allows selection of the number of records per page, page transition and sorting,
     - management of a child table from the parent table module,

@@ -30,7 +30,11 @@ import {
 } from 'vuex'
 
 export default {
-  mixins: [ExtendedControllerMixin, FieldsInfoMixin, LocalesMixin],
+  mixins: [
+    ExtendedControllerMixin,
+    FieldsInfoMixin,
+    LocalesMixin,
+  ],
   components: {
     Crud,
     ItemDetails,
@@ -59,8 +63,14 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['alertSuccess', 'alertError']),
-    ...mapActions('crud', ['updateItem', 'storeItem']),
+    ...mapMutations([
+      'alertSuccess',
+      'alertError',
+    ]),
+    ...mapActions('crud', [
+      'updateItem',
+      'storeItem',
+    ]),
   },
 }
 </script>

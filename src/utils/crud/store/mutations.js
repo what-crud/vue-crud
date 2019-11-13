@@ -11,6 +11,11 @@ const mutations = {
   setPaths (state, paths) {
     state.paths = paths
   },
+  // items view type
+  setItemsViewType (state, type) {
+    state.itemsViewType = type
+    state.isItemsViewFlat = type === 'table'
+  },
   // table items
   setItems (state, data) {
     state.items = data
@@ -36,7 +41,10 @@ const mutations = {
     state.currentItemId = item.id
     state.currentItemIndex = item.index
   },
-  moveItem (state, [direction, run]) {
+  moveItem (state, [
+    direction,
+    run,
+  ]) {
     state.moveItemRun = run
     state.moveItemDirection = direction
   },
@@ -72,7 +80,10 @@ const mutations = {
   setCreationMode (state, creationMode) {
     state.createdElement.mode = creationMode
   },
-  setCreatedItemStatus (state, [created, id]) {
+  setCreatedItemStatus (state, [
+    created,
+    id,
+  ]) {
     state.createdElement.created = created
     state.createdElement.id = id
   },
@@ -83,7 +94,10 @@ const mutations = {
   resetItemElements (state) {
     state.itemElements.data = []
   },
-  setItemElementsInfo (state, [id, obj]) {
+  setItemElementsInfo (state, [
+    id,
+    obj,
+  ]) {
     state.itemElements.id = id
     state.itemElements.title = obj.title
     state.itemElements.url = obj.url
@@ -106,7 +120,7 @@ const mutations = {
   },
   // refresh table
   refreshTable (state, status) {
-    state.tableRefreshing = status
+    state.isItemsViewRefreshed = status
   },
   // extended details
   showItemDetailsDialog (state) {
@@ -142,7 +156,10 @@ const mutations = {
     }
   },
   // child
-  editChildDialog (state, [id, childItemName]) {
+  editChildDialog (state, [
+    id,
+    childItemName,
+  ]) {
     const child = state.childItems[childItemName]
     child.details.action = 'edit'
     child.details.id = id
@@ -167,7 +184,10 @@ const mutations = {
     child.details.item = {}
     Vue.set(state.childItems, childItemName, child)
   },
-  setChild (state, [data, childItemName]) {
+  setChild (state, [
+    data,
+    childItemName,
+  ]) {
     const child = state.childItems[childItemName]
     child.details.item = data
     Vue.set(state.childItems, childItemName, child)

@@ -51,7 +51,11 @@ export default {
           list: {
             value: 'id',
             text: 'complexName',
-            complexName: ['person.fullname', 'company.common_name', 'name'],
+            complexName: [
+              'person.fullname',
+              'company.common_name',
+              'name',
+            ],
             data: [],
           },
           column: 'position_id',

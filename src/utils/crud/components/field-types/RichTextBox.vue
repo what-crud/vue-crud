@@ -29,6 +29,7 @@ import {
 } from 'tiptap-vuetify'
 
 export default {
+  name: 'RichTextBox',
   components: { TiptapVuetify },
   props: {
     value: {
@@ -55,7 +56,14 @@ export default {
           {
             name: 'Heading',
             options: {
-              levels: [1, 2, 3, 4, 5, 6],
+              levels: [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+              ],
             },
           },
           'HardBreak',

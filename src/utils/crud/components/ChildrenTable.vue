@@ -1,24 +1,29 @@
 <template>
   <div class="child-card">
-    <div
-      class="
-        card-title
-        table-controls
-        px-3
-        d-flex
-        justify-space-between
-      "
+    <controls
+      :create-mode="createMode"
+      :edit-mode="editMode"
+      :delete-mode="deleteMode"
+      :select-many-mode="false"
+      :update-many-mode="false"
+      :remove-many-mode="false"
+      :main-filter="mainFilter"
+      :field-filters="fieldFilters"
+      :refresh-button="false"
+      :export-button="exportButton"
+      :excel-loading="excelLoading"
+      :initialSearch="search"
+      :initialSelectedStatuses="selectedStatuses"
+      :initialColumnFilters="columnFilters"
+      @create="create"
+      @updateColumnFilterMode="updateColumnFilterMode"
+      @updateColumnFilterValue="updateColumnFilterValue"
+      @updateSearch="updateSearch"
+      @updateSelectedStatuses="updateSelectedStatuses"
+      @clearFilters="clearFilters"
+      @exportToExcel="exportToExcel"
     >
-      <div>
-        <!-- Dialog for creating item -->
-        <crud-button
-          v-if="createButton"
-          x-large
-          color="light-blue lighten-2"
-          @clicked="create()"
-          icon="add"
-          :tooltip="$t('global.datatable.add')"
-        />
+      <template slot="left">
         <!-- custom buttons -->
         <crud-button
           v-for="(customHeaderButton) in customHeaderButtons"
@@ -29,93 +34,8 @@
           :icon="customHeaderButton.icon"
           :tooltip="customHeaderButton.text"
         />
-      </div>
-
-      <div>
-        <!-- Search by fields -->
-        <v-menu offset-y :close-on-content-click="false" max-height="50vh" style="margin-right:30px;">
-          <template v-slot:activator="{ on }">
-            <v-btn
-              large
-              color="grey"
-              icon
-              v-on="on"
-            >
-              <v-icon>filter_list</v-icon>
-            </v-btn>
-          </template>
-          <v-list style="overflow-y:false;">
-            <v-list-item v-for="(item, index) in filterColumns" :key="index">
-              <v-autocomplete
-                :items="filterModes"
-                v-model="item.mode"
-                item-text="text"
-                item-value="name"
-                :label="$t('global.datatable.filterModes.label')"
-                hide-details
-                @input="updateColumnFilterMode($event, index)"
-              />
-              <v-text-field
-                v-model="item.value"
-                hide-details
-                :label="item.text"
-                @input="updateFilterColumns($event, index)"
-              />
-            </v-list-item>
-          </v-list>
-        </v-menu>
-
-        <!-- Search in table -->
-        <span style="margin-right:30px;display:inline-block;width:250px;">
-          <v-text-field
-            v-model="search"
-            :label="$t('global.datatable.search')"
-            append-icon="search"
-            min-width="200"
-            single-line
-            hide-details
-          />
-        </span>
-
-        <!-- Select statuses (active/inactive) -->
-        <template v-if="['soft', 'both'].includes(deleteMode)">
-          <span style="margin-right:30px;display:inline-block;width:250px;">
-            <v-autocomplete
-              v-model="selectedStatuses"
-              :label="$t('global.datatable.status.title')"
-              :items="statuses"
-              item-text="text"
-              item-value="value"
-              single-line
-              multiple
-              chips
-            />
-          </span>
-        </template>
-      </div>
-
-      <div>
-        <!-- Clear filters -->
-        <crud-button
-          large
-          color="grey"
-          @clicked="clearFilters()"
-          icon="delete_sweep"
-          :tooltip="$t('global.datatable.buttons.clearFilters')"
-        />
-
-        <!-- Export to Excel -->
-        <crud-button
-          large
-          color="green darken-4"
-          @clicked="exportToExcel()"
-          icon="save_alt"
-          :tooltip="$t('global.datatable.buttons.copyToExcel')"
-          :loading="excelLoading"
-        />
-      </div>
-
-    </div>
+      </template>
+    </controls>
 
     <!-- Table -->
     <v-data-table
@@ -136,7 +56,7 @@
         v-slot:[`item.${header.value}`]="{ item }"
       >
         <span :key="i">
-          <data-table-row-actions
+          <list-item-actions
             v-if="header.value==='actions'"
             :item="item"
             :edit-button='editButton'
@@ -153,7 +73,7 @@
             @doubleClick="resolveRowDoubleClick"
           />
           <span v-else>
-            <data-table-row-field
+            <list-item-field
               :value="item[header.value]"
               :text-mode="textMode(item, header.value)"
             />
@@ -164,7 +84,7 @@
         slot="footer.page-text"
         slot-scope="{ pageStart, pageStop, itemsLength }"
       >
-        <data-table-footer
+        <table-footer
           :pagination="pagination"
           :pageStart="pageStart"
           :pageStop="pageStop"
@@ -192,32 +112,51 @@
 </template>
 
 <script>
+
 import {
   mapState,
   mapMutations,
   mapActions,
 } from 'vuex'
-import ClientSideFilteringMixin from '../mixins/datatable-client-side-filtering'
-import HelperMixin from '../mixins/datatable-helper'
-import DataTableRowActions from '../components/DataTableRowActions.vue'
-import DataTableRowField from '../components/DataTableRowField.vue'
+
+import ControlsHandlerMixin from '../mixins/controls-handler'
+import ItemsViewMixin from '../mixins/items-view'
+import ClientModeFilteringMixin from '../mixins/table-client-mode-filtering'
+import HelperMixin from '../mixins/table'
+
 import CrudButton from './Button.vue'
+import Controls from './Controls.vue'
+
 import crud from '@/config/crud'
 
 export default {
-  mixins: [ClientSideFilteringMixin, HelperMixin],
+  name: 'ChildrenTable',
+  mixins: [
+    ControlsHandlerMixin,
+    ItemsViewMixin,
+    ClientModeFilteringMixin,
+    HelperMixin,
+  ],
   components: {
-    DataTableRowActions,
-    DataTableRowField,
     CrudButton,
+    Controls,
   },
   props: {
     title: String,
     fieldsInfo: Array,
+    editButton: {
+      type: Boolean,
+      default: crud.editButton || true,
+    },
     deleteMode: {
       type: String,
       validator (value) {
-        return ['none', 'soft', 'hard', 'both'].indexOf(value) !== -1
+        return [
+          'none',
+          'soft',
+          'hard',
+          'both',
+        ].indexOf(value) !== -1
       },
       default: 'soft',
     },
@@ -232,14 +171,6 @@ export default {
     itemElements: {
       type: Object,
       default: () => {},
-    },
-    createButton: {
-      type: Boolean,
-      default: true,
-    },
-    editButton: {
-      type: Boolean,
-      default: true,
     },
     meta: {
       type: Array,
@@ -257,14 +188,33 @@ export default {
       type: Boolean,
       default: false,
     },
+    createMode: {
+      type: Boolean,
+      default: crud.createMode === undefined ? true : crud.createMode,
+    },
     editMode: {
       type: Boolean,
       default: crud.editMode === undefined ? true : crud.editMode,
     },
+    mainFilter: {
+      type: Boolean,
+      default: crud.mainFilter === undefined ? true : crud.mainFilter,
+    },
+    fieldFilters: {
+      type: Boolean,
+      default: crud.fieldFilters === undefined ? true : crud.fieldFilters,
+    },
+    exportButton: {
+      type: Boolean,
+      default: crud.exportButton === undefined ? true : crud.exportButton,
+    },
   },
   computed: {
     ...mapState('app', ['page']),
-    ...mapState('crud', ['prefix', 'path']),
+    ...mapState('crud', [
+      'prefix',
+      'path',
+    ]),
     tableFields () {
       return this.fieldsInfo.filter(field => field.table !== false && field.type !== 'divider')
     },
@@ -272,7 +222,7 @@ export default {
       return this.tableData
     },
     excelName () {
-      return `${this.$t(`global.routes.${this.page}`)} - ${this.title}`
+      return this.title || 'export'
     },
     columnTextModes () {
       return this.setColumnTextModes()
@@ -283,9 +233,7 @@ export default {
       'setItemElementsInfo',
       'editItemElementsDialog',
     ]),
-    ...mapActions('crud', [
-      'getItemElements',
-    ]),
+    ...mapActions('crud', ['getItemElements']),
     resolveRowDoubleClick (item) {
       this.edit(item.meta.id)
     },
@@ -310,19 +258,12 @@ export default {
     custom (name, item, index) {
       this.$parent[name](item, index)
     },
-    updateColumnFilterMode (val, index) {
-      const obj = this.filterColumns
-      obj[index].mode = val
-      this.$set(this, 'filterColumns', obj)
-    },
-    updateFilterColumns (val, index) {
-      const obj = this.filterColumns
-      obj[index].value = val
-      this.$set(this, 'filterColumns', obj)
-    },
     editItemElements (name, id) {
       const obj = this.itemElements[name]
-      this.setItemElementsInfo([id, obj])
+      this.setItemElementsInfo([
+        id,
+        obj,
+      ])
       this.getItemElements()
     },
   },

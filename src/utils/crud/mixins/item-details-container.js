@@ -4,9 +4,7 @@ import {
 
 export default {
   name: 'item-details',
-  props: [
-    'fields',
-  ],
+  props: ['fields'],
   methods: {
     ...mapMutations('crud', [
       'setIdColumn',

@@ -162,7 +162,10 @@ export default {
       type: String,
       default: 'mouseover',
       validator (value) {
-        return ['click', 'mousover'].indexOf(value) !== -1
+        return [
+          'click',
+          'mousover',
+        ].indexOf(value) !== -1
       },
     },
     lockSidebarBtn: {
@@ -187,7 +190,10 @@ export default {
       return this.$vuetify.breakpoint.name
     },
     isAppLarge () {
-      return ['xl', 'lg'].includes(this.breakpoint)
+      return [
+        'xl',
+        'lg',
+      ].includes(this.breakpoint)
     },
   },
   methods: {

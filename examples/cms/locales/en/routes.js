@@ -6,6 +6,7 @@ export default {
     name: 'CMS',
     settings: 'Settings',
     messages: 'Messages',
+    menuItems: 'Menu items',
   },
   store: {
     name: 'Store',

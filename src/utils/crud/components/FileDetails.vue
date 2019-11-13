@@ -27,7 +27,7 @@
 <script>
 import CrudButton from './Button.vue'
 import {
-  mapState,
+  mapGetters,
   mapMutations,
 } from 'vuex'
 import {
@@ -39,18 +39,14 @@ export default {
   components: {
     CrudButton,
   },
-  props: [
-    'fieldInfo',
-  ],
+  props: ['fieldInfo'],
   filters: {
     fileSize (size) {
       return size != null ? humanFileSize(size) : ''
     },
   },
   computed: {
-    ...mapState('crud', [
-      'filesPath',
-    ]),
+    ...mapGetters('crud', ['filesPath']),
     field () {
       return Object.assign({
         filename: '',
@@ -60,14 +56,16 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('crud', [
-      'openImageContainer',
-    ]),
+    ...mapMutations('crud', ['openImageContainer']),
     download (item) {
       download(`${this.filesPath}/${item.path}`, item.filename)
     },
     isImage (mime) {
-      const supportedMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
+      const supportedMimeTypes = [
+        'image/jpeg',
+        'image/png',
+        'image/gif',
+      ]
       return supportedMimeTypes.includes(mime)
     },
     showImage (image) {

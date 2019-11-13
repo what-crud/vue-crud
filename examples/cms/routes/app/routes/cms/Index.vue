@@ -16,9 +16,7 @@ export default {
     this.setModule('cms.name')
   },
   methods: {
-    ...mapMutations('app', [
-      'setModule',
-    ]),
+    ...mapMutations('app', ['setModule']),
   },
 }
 

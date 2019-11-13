@@ -1,50 +1,37 @@
 
 export default {
-  created () {
-    this.filterColumns = this.tableFields.map((field) => {
-      const item = {}
-      item.mode = 'like'
-      item.text = field.text
-      item.name = field.name.toLowerCase()
-      item.column = field.column
-      item.value = ''
-      return item
-    })
-  },
-  watch: {
-    selectedStatuses (val) {
-      this.pagination.page = 1
-    },
-  },
   computed: {
     filteredItems () {
-      let items = ['soft', 'both'].includes(this.deleteMode)
+      let items = [
+        'soft',
+        'both',
+      ].includes(this.deleteMode)
         ? this.items.filter(item => this.selectedStatuses.includes(parseInt(item.meta.active)))
         : this.items
 
-      const { filterColumns } = this
+      const { columnFilters } = this
       items = items.filter((item) => {
         let found = true
-        for (let i = 0; i < filterColumns.length; i++) {
-          if (filterColumns[i].value !== '') {
+        for (let i = 0; i < columnFilters.length; i++) {
+          if (columnFilters[i].value !== '') {
             found = false
-            const colName = filterColumns[i].name
+            const colName = columnFilters[i].name
             let field = item[colName]
             if (typeof field === 'string' || field instanceof String || typeof field === 'number') {
               field = field.toString().toLowerCase()
-              switch (filterColumns[i].mode) {
+              switch (columnFilters[i].mode) {
                 case 'like':
-                  if (field.includes(filterColumns[i].value)) {
+                  if (field.includes(columnFilters[i].value)) {
                     found = true
                   }
                   break
                 case 'equals':
-                  if (field === filterColumns[i].value) {
+                  if (field === columnFilters[i].value) {
                     found = true
                   }
                   break
                 case 'list':
-                  const tmpList = filterColumns[i].value.split(';')
+                  const tmpList = columnFilters[i].value.split(';')
                   if (tmpList.includes(field)) {
                     found = true
                   }
@@ -109,6 +96,12 @@ export default {
           bookType: 'xlsx',
         })
       })
+    },
+    startSearching () {},
+  },
+  watch: {
+    selectedStatuses () {
+      this.pagination.page = 1
     },
   },
 }

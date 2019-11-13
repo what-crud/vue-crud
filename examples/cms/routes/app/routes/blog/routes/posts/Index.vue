@@ -7,6 +7,7 @@
     :fields-info="fieldsInfo"
     :details-title="$t('detailsTitle')"
     :item-elements="itemElements"
+    item-details-width="1200"
   >
   </crud>
 </template>
@@ -160,7 +161,11 @@ export default {
             {
               name: 'Heading',
               options: {
-                levels: [1, 2, 3],
+                levels: [
+                  1,
+                  2,
+                  3,
+                ],
               },
             },
             'HardBreak',

@@ -108,6 +108,10 @@ export default {
             text: 'cms.messages',
             route: '/messages',
           },
+          {
+            text: 'cms.menuItems',
+            route: '/menu-items',
+          },
         ],
       },
       {
@@ -192,7 +196,10 @@ export default {
     ],
   }),
   computed: {
-    ...mapGetters('auth', ['isLogged', 'userInfo']),
+    ...mapGetters('auth', [
+      'isLogged',
+      'userInfo',
+    ]),
     year () {
       let year = new Date()
       return year.getFullYear()

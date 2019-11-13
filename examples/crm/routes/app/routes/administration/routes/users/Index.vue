@@ -56,12 +56,14 @@ export default {
       }
     },
     buttons () {
-      return [{
-        name: 'resetPassword',
-        icon: 'autorenew',
-        color: 'blue',
-        text: this.$t('buttons.resetPassword'),
-      }]
+      return [
+        {
+          name: 'resetPassword',
+          icon: 'autorenew',
+          color: 'blue',
+          text: this.$t('buttons.resetPassword'),
+        },
+      ]
     },
     fieldsInfo () {
       return [
@@ -111,16 +113,15 @@ export default {
     },
   },
   methods: {
-    ...mapActions('crud', [
-      'getItems',
-    ]),
-    ...mapActions([
-      'openAlertBox',
-    ]),
+    ...mapActions('crud', ['getItems']),
+    ...mapActions(['openAlertBox']),
     resetPassword (item) {
       Vue.http.put('admin/users/' + item.id + '/reset-password')
         .then((response) => {
-          this.openAlertBox(['alertSuccess', this.$t('passwordReseted')])
+          this.openAlertBox([
+            'alertSuccess',
+            this.$t('passwordReseted'),
+          ])
           this.getItems()
         })
     },

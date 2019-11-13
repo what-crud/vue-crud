@@ -2,17 +2,18 @@
   <span v-if="field.show">
     <!-- text field: input / number / decimal / date / time / datetime -->
     <v-text-field
-      hide-details
-      :rules="fieldRules(field)"
       v-if="['input', 'number', 'decimal', 'time', 'datetime'].includes(fieldType)"
-      :label="field.text"
       v-model="value"
-      :disabled="field.disabled"
       :type="['number', 'decimal'].includes(fieldType) ? 'number' : 'text'"
+      :label="field.text"
+      :disabled="field.disabled"
+      :rules="fieldRules(field)"
       :step="fieldType == 'decimal' ? 0.01 : 1"
-      min="0"
       :mask="['date', 'time', 'datetime'].includes(fieldType) ? masks[fieldType] : undefined"
       :return-masked-value="['date', 'time', 'datetime'].includes(fieldType) ? true : false"
+      min="0"
+      class="field--limited-width"
+      hide-details
       @blur="valueChanged()"
     ></v-text-field>
     <!-- date -->
@@ -34,6 +35,7 @@
           prepend-icon="event"
           readonly
           v-on="on"
+          class="field--limited-width"
           @blur="valueChanged()"
         ></v-text-field>
       </template>
@@ -57,7 +59,10 @@
       @blur="valueChanged()"
     ></v-textarea>
     <!-- file upload -->
-    <div v-else-if="fieldType == 'file'" class="field-container">
+    <field-wrapper
+      v-else-if="fieldType == 'file'"
+      class="field--limited-width"
+    >
       <v-row dense>
         <v-col cols="12" sm="5">
           <v-btn
@@ -89,23 +94,24 @@
           ></v-text-field>
         </v-col>
       </v-row>
-    </div>
+    </field-wrapper>
     <!-- select -->
     <template v-else-if="fieldType == 'select'">
       <v-autocomplete
-        hide-details
+        v-model="value"
         :rules="fieldRules(field)"
         :items="listData"
         :loading="listLoader"
-        v-model="value"
         :item-text="field.list.text"
         :item-value="field.list.value"
-        item-disabled="itemDisabled"
         :label="field.text"
-        menu-props="bottom"
-        :disabled="field.disabled"
-        @change="valueChanged()"
         :search-input.sync="listSearch"
+        :disabled="field.disabled"
+        menu-props="bottom"
+        class="field--limited-width"
+        item-disabled="itemDisabled"
+        hide-details
+        @change="valueChanged()"
       >
         <template v-if="listRefreshable" v-slot:append-outer>
           <v-icon color="blue" @click="refreshList(field.url)">refresh</v-icon>
@@ -113,17 +119,17 @@
       </v-autocomplete>
     </template>
     <!-- rich text editor -->
-    <template v-else-if="fieldType == 'richTextBox'">
-      <div class="field-container">
-        <label class="field-label">{{field.text}}</label>
-        <rich-text-box
-          v-model="value"
-          :disabled="field.disabled"
-          :available-extensions="field.richTextBoxOperations"
-          @change="valueChanged()"
-        />
-      </div>
-    </template>
+    <field-wrapper
+      v-else-if="fieldType == 'richTextBox'"
+      :label="field.text"
+    >
+      <rich-text-box
+        v-model="value"
+        :disabled="field.disabled"
+        :available-extensions="field.richTextBoxOperations"
+        @change="valueChanged()"
+      />
+    </field-wrapper>
     <!-- checkbox -->
     <v-checkbox
       v-else-if="fieldType == 'checkbox'"
@@ -140,15 +146,27 @@
 import Vue from 'vue'
 import crud from '@/config/crud'
 
+import FieldWrapper from './ItemDetailsFieldWrapper.vue'
+
 import RichTextBox from './field-types/RichTextBox.vue'
 
-import { mapState } from 'vuex'
+import {
+  mapState,
+  mapGetters,
+} from 'vuex'
 
 export default {
+  name: 'ItemDetailsField',
   components: {
+    FieldWrapper,
     RichTextBox,
   },
-  props: ['field', 'fieldValue', 'reload', 'dynamicFieldType'],
+  props: [
+    'field',
+    'fieldValue',
+    'reload',
+    'dynamicFieldType',
+  ],
   data () {
     return {
       listData: [],
@@ -220,8 +238,12 @@ export default {
     }
   },
   computed: {
-    ...mapState('crud', ['uploadPath']),
-    ...mapState('crud', ['details', 'path', 'prefix']),
+    ...mapState('crud', [
+      'details',
+      'path',
+      'prefix',
+    ]),
+    ...mapGetters('crud', ['uploadPath']),
     fieldType () {
       return this.field.type === 'dynamic' ? this.dynamicFieldType : this.field.type
     },
@@ -285,7 +307,10 @@ export default {
           const nullElement = {}
           nullElement[this.field.list.value] = ''
           nullElement[this.field.list.text] = '-'
-          this.listData = [nullElement, ...selectItems]
+          this.listData = [
+            nullElement,
+            ...selectItems,
+          ]
         } else {
           this.listData = selectItems
         }
@@ -341,9 +366,15 @@ export default {
             } else {
               this.uploadStatus = 'error'
               if (response.body.status === -1) {
-                this.openAlertBox(['alertError', response.body.msg])
+                this.openAlertBox([
+                  'alertError',
+                  response.body.msg,
+                ])
               } else if (response.body.status === -2) {
-                this.openAlertBox(['alertValidationError', response.body.msg])
+                this.openAlertBox([
+                  'alertValidationError',
+                  response.body.msg,
+                ])
               }
             }
             this.uploadLoader = false
@@ -359,13 +390,11 @@ export default {
 }
 </script>
 
-<style scoped>
-.field-label {
-  font-size: 12px;
-  color: #777;
-}
-.field-container {
-  margin-top: 10px;
+<style lang="scss" scoped>
+.field {
+  &--limited-width {
+    max-width: 600px;
+  }
 }
 .jbtn-file {
   cursor: pointer;

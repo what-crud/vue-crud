@@ -17,7 +17,11 @@ import ItemElementsMixin from './mixins/item-elements'
 import LocalesMixin from './mixins/locales'
 
 export default {
-  mixins: [FieldsInfoMixin, LocalesMixin, ItemElementsMixin],
+  mixins: [
+    FieldsInfoMixin,
+    LocalesMixin,
+    ItemElementsMixin,
+  ],
   data () {
     return {
       prefix: 'crm',

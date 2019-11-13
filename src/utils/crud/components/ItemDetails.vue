@@ -1,9 +1,9 @@
 <template>
   <v-dialog
     v-model="details.show"
-    max-width="600"
-    style="position:static !important;"
+    :max-width="width"
     persistent
+    no-click-animation
   >
     <v-card>
       <v-card-title
@@ -28,13 +28,13 @@
                 >
               </v-flex>
               <v-flex :class="details.action == 'multiedit' ? 'sm11' : 'sm12'">
-                <field
+                <item-details-field
                   :field="field"
                   :dynamic-field-type="dynamicFieldType(field.typeField)"
                   :field-value="field.value"
                   :reload="reload"
                   @valueChanged="valueChanged"
-                ></field>
+                />
               </v-flex>
             </v-layout>
           </div>
@@ -68,7 +68,7 @@
   </v-dialog>
 </template>
 <script>
-import Field from './Field.vue'
+import ItemDetailsField from './ItemDetailsField.vue'
 import { fieldModifiers } from '@/utils/crud/helpers/functions'
 import {
   mapState,
@@ -78,9 +78,13 @@ import {
 
 export default {
   components: {
-    Field,
+    ItemDetailsField,
   },
-  props: ['title', 'detailsFields'],
+  props: [
+    'title',
+    'detailsFields',
+    'width',
+  ],
   data () {
     return {
       reload: false,
@@ -105,7 +109,12 @@ export default {
     this.setFields()
   },
   computed: {
-    ...mapState('crud', ['details', 'path', 'prefix', 'selectedIds']),
+    ...mapState('crud', [
+      'details',
+      'path',
+      'prefix',
+      'selectedIds',
+    ]),
     itemData () {
       const result = {}
       for (const field of this.fields) {
@@ -118,10 +127,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions('crud', ['updateItem', 'storeItem', 'mulitipleItemsUpdate']),
-    ...mapActions([
-      'openAlertBox',
+    ...mapActions('crud', [
+      'updateItem',
+      'storeItem',
+      'mulitipleItemsUpdate',
     ]),
+    ...mapActions(['openAlertBox']),
     ...mapMutations('crud', ['resetItem']),
     setFields () {
       const result = this.detailsFields.map((field) => {
@@ -131,20 +142,32 @@ export default {
           show = field.create !== false
         } else if (this.details.action === 'multiedit') {
           show = field.multiedit !== false
+        } else if (this.details.action === 'edit') {
+          show = field.edit !== false
         }
         rField.show = show
         rField.value = this.details.item[field.column]
         if (typeof rField.value !== 'undefined') {
           const fieldValue = this.details.item[field.column]
           if (field.type === 'select') {
-            const defaultVal = field.list.default || 1
+            const defaultVal = field.list.default || field.required ? 1 : undefined
             rField.value = field.stringId ? fieldValue : parseInt(fieldValue) || defaultVal
           } else if (field.type === 'date') {
             rField.value = (fieldValue || '').substring(0, 10)
           } else if (field.type === 'checkbox') {
-            if ([1, '1', true, 'true'].includes(fieldValue)) {
+            if ([
+              1,
+              '1',
+              true,
+              'true',
+            ].includes(fieldValue)) {
               rField.value = 1
-            } else if ([0, '0', false, 'false'].includes(fieldValue)) {
+            } else if ([
+              0,
+              '0',
+              false,
+              'false',
+            ].includes(fieldValue)) {
               rField.value = 0
             }
           }
@@ -220,7 +243,7 @@ export default {
 
 <style scoped>
 .details-list {
-  max-height: 60vh;
+  max-height: calc(100vh - 200px);
   overflow-y: auto;
 }
 </style>

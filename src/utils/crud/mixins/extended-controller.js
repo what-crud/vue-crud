@@ -5,14 +5,17 @@ import {
 export default {
   watch: {
     createdElement: {
-      handler (val) {
+      handler () {
         const { created } = this.createdElement
         if (created) {
           const { id } = this.createdElement
           if (id) {
-            this.goToItem({ id })
+            this.goToItem({ meta: { id } })
           }
-          this.setCreatedItemStatus([false, null])
+          this.setCreatedItemStatus([
+            false,
+            null,
+          ])
         }
       },
       deep: true,
@@ -36,7 +39,11 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('crud', ['showItemDetailsDialog', 'setCreatedItemStatus', 'setCurrentItem']),
+    ...mapMutations('crud', [
+      'showItemDetailsDialog',
+      'setCreatedItemStatus',
+      'setCurrentItem',
+    ]),
     ...mapActions('crud', ['getItemDetails']),
     goToItem (item, index) {
       this.setCurrentItem({ id: item.meta.id, index })

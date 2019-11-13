@@ -3,6 +3,7 @@
     <div>
       <component
         :is="componentLoader"
+        :itemsViewConfig="itemsViewConfig"
         :meta="meta"
         :custom-buttons="customButtons"
         :item-elements="itemElements"
@@ -24,6 +25,7 @@
       <item-details
         :title="detailsTitle"
         :details-fields="detailsFields"
+        :width="itemDetailsWidth"
       ></item-details>
       <item-elements></item-elements>
       <image-container></image-container>
@@ -77,7 +79,13 @@ export default {
     deleteMode: {
       type: String,
       validator (value) {
-        return ['none', 'soft', 'hard', 'both', 'filter'].indexOf(value) !== -1
+        return [
+          'none',
+          'soft',
+          'hard',
+          'both',
+          'filter',
+        ].indexOf(value) !== -1
       },
       default: crud.deleteMode || 'soft',
     },
@@ -112,9 +120,32 @@ export default {
     mode: {
       type: String,
       validator (value) {
-        return ['ClientSide', 'ServerSide'].indexOf(value) !== -1
+        return [
+          'ClientSide',
+          'ServerSide',
+        ].indexOf(value) !== -1
       },
       default: 'ClientSide',
+    },
+    itemsView: {
+      type: Object,
+      validator (value) {
+        const isTypeCorrect = (field) => {
+          const fieldType = field ? field.type : 'table'
+          return [
+            'table',
+            'tree',
+          ].indexOf(fieldType) !== -1
+        }
+        const isModeCorrect = (field) => {
+          const fieldMode = field ? field.mode : 'client'
+          return [
+            'client',
+            'server',
+          ].indexOf(fieldMode) !== -1
+        }
+        return isTypeCorrect(value) && isModeCorrect(value)
+      },
     },
     createMode: {
       type: Boolean,
@@ -152,22 +183,79 @@ export default {
       type: Boolean,
       default: crud.removeManyMode === undefined ? true : crud.removeManyMode,
     },
+    itemDetailsWidth: {
+      default: 600,
+    },
   },
   data () {
-    return {}
+    return {
+      defaultItemsViewMode: 'client',
+      defaultItemsViewType: 'table',
+      componentTypesMap: {
+        'table': 'Table',
+        'tree': 'Tree',
+      },
+      componentModesMap: {
+        'server': 'ServerMode',
+        'client': 'ClientMode',
+      },
+    }
   },
   computed: {
-    ...mapState('crud', [
-      'detailsLoading',
-    ]),
+    ...mapState('crud', ['detailsLoading']),
     tableFields () {
       return this.fieldsInfo.filter(field => field.table !== false && field.type !== 'divider')
     },
     detailsFields () {
       return this.fieldsInfo.filter(field => field.details !== false && field.type !== 'divider')
     },
+    itemsViewType () {
+      return this.itemsView && this.itemsView.type ? this.itemsView.type : this.defaultItemsViewType
+    },
+    itemsViewMode () {
+      let itemsViewMode
+      if (this.itemsView && this.itemsView.mode) {
+        itemsViewMode = this.itemsView.mode
+      } else if (this.mode) {
+        itemsViewMode = this.calcitemsViewMode(this.mode)
+      }
+      return itemsViewMode || this.defaultItemsViewMode
+    },
+    itemsViewConfig () {
+      let config = {}
+      if (this.itemsViewType === 'tree' && this.itemsView) {
+        config = this.itemsView.config || {}
+      }
+      return config
+    },
     componentLoader () {
-      return () => import(`./DataTable${this.mode}.vue`)
+      const typeNamePart = this.componentTypesMap[this.itemsViewType]
+      const modeNamePart = this.componentModesMap[this.itemsViewMode]
+      return () => import(`./Crud${typeNamePart}${modeNamePart}.vue`)
+    },
+  },
+  methods: {
+    ...mapMutations('app', ['setPage']),
+    ...mapMutations('crud', [
+      'setPrefix',
+      'setPath',
+      'setPaths',
+      'setCreationMode',
+      'setItemsViewType',
+    ]),
+    ...mapActions('crud', ['runItemsViewRefreshing']),
+    custom (name, item, index) {
+      this.$parent[name](item, index)
+    },
+    itemElementsClosed () {
+      this.runItemsViewRefreshing()
+    },
+    calcitemsViewMode (mode) {
+      const modesMap = {
+        ServerSide: 'server',
+        ClientSide: 'client',
+      }
+      return modesMap[mode]
     },
   },
   created () {
@@ -177,26 +265,7 @@ export default {
     this.setPage(this.pageTitle)
     const creationMode = this.watchForCreation ? 'inform' : 'ignore'
     this.setCreationMode(creationMode)
-  },
-  methods: {
-    ...mapMutations('app', [
-      'setPage',
-    ]),
-    ...mapMutations('crud', [
-      'setPrefix',
-      'setPath',
-      'setPaths',
-      'setCreationMode',
-    ]),
-    ...mapActions('crud', [
-      'runTableRefreshing',
-    ]),
-    custom (name, item, index) {
-      this.$parent[name](item, index)
-    },
-    itemElementsClosed () {
-      this.runTableRefreshing()
-    },
+    this.setItemsViewType(this.itemsViewType)
   },
 }
 

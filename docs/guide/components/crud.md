@@ -25,7 +25,8 @@
 |watchForCreation|-|`Boolean`|`false`|false|
 |primaryKey|-|`String`|`false`|crud.primaryKey || 'id'|
 |activeColumnName|-|`String`|`false`|crud.activityColumnName || 'active'|
-|mode|-|`String`|`false`|'ClientSide'|
+|mode (obsolete)|'ClientSide' or 'ServerSide'|`String`|`false`|'ClientSide'|
+|itemsView|[See list of available properties](/guide/crud/items-view.html)|`Object`|`false`|{type: 'table', mode: 'client'}|
 |createMode|-|`Boolean`|`false`|crud.createMode === undefined ? true : crud.createMode|
 |editMode|-|`Boolean`|`false`|crud.editMode === undefined ? true : crud.editMode|
 |mainFilter|-|`Boolean`|`false`|crud.mainFilter === undefined ? true : crud.mainFilter|
@@ -35,6 +36,7 @@
 |selectManyMode|-|`Boolean`|`false`|crud.selectManyMode === undefined ? true : crud.selectManyMode|
 |updateManyMode|-|`Boolean`|`false`|crud.updateManyMode === undefined ? true : crud.updateManyMode|
 |removeManyMode|-|`Boolean`|`false`|crud.removeManyMode === undefined ? true : crud.removeManyMode|
+|itemDetailsWidth|-|`Any`|`false`|600|
 
 <!-- @vuese:[name]:props:end -->
 
@@ -290,11 +292,12 @@ export default {
 |---|---|---|---|---|
 |title|-|`String`|`false`|-|
 |fieldsInfo|-|`Array`|`false`|-|
+|createMode|-|`Boolean`|`false`|true|
+|editMode|-|`Boolean`|`false`|true|
 |deleteMode|-|`String`|`false`|'soft'|
 |customHeaderButtons|-|`Array`|`false`||
 |customButtons|-|`Array`|`false`||
 |itemElements|-|`Object`|`false`|-|
-|createButton|-|`Boolean`|`false`|true|
 |editButton|-|`Boolean`|`false`|true|
 |meta|-|`Array`|`false`||
 |primaryKey|-|`String`|`false`|'id'|
@@ -309,7 +312,7 @@ export default {
 <!-- @vuese:[name]:mixIns:start -->
 |MixIn|
 |---|
-|ClientSideFilteringMixin|
+|ClientModeFilteringMixin|
 |HelperMixin|
 
 <!-- @vuese:[name]:mixIns:end -->
