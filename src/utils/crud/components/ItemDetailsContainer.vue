@@ -18,14 +18,16 @@
         </div>
         <v-spacer></v-spacer>
         <div>
+          <template v-if="isItemsViewFlat">
+            <v-btn icon dark @click.native="previous()">
+              <v-icon>navigate_before</v-icon>
+            </v-btn>
+            <v-btn icon dark @click.native="next()">
+              <v-icon>navigate_next</v-icon>
+            </v-btn>
+          </template>
           <v-btn icon dark @click.native="refresh()">
             <v-icon>refresh</v-icon>
-          </v-btn>
-          <v-btn icon dark @click.native="previous()">
-            <v-icon>navigate_before</v-icon>
-          </v-btn>
-          <v-btn icon dark @click.native="next()">
-            <v-icon>navigate_next</v-icon>
           </v-btn>
           <v-btn icon @click.native="close()" dark>
             <v-icon>close</v-icon>
@@ -76,6 +78,7 @@ export default {
       'itemIdColumn',
       'detailsLoading',
       'detailsDialog',
+      'isItemsViewFlat',
     ]),
   },
   methods: {

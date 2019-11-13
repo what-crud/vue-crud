@@ -11,6 +11,11 @@ const mutations = {
   setPaths (state, paths) {
     state.paths = paths
   },
+  // items view type
+  setItemsViewType (state, type) {
+    state.itemsViewType = type
+    state.isItemsViewFlat = type === 'table'
+  },
   // table items
   setItems (state, data) {
     state.items = data

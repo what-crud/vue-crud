@@ -150,7 +150,10 @@ import FieldWrapper from './ItemDetailsFieldWrapper.vue'
 
 import RichTextBox from './field-types/RichTextBox.vue'
 
-import { mapState } from 'vuex'
+import {
+  mapState,
+  mapGetters,
+} from 'vuex'
 
 export default {
   name: 'ItemDetailsField',
@@ -235,12 +238,12 @@ export default {
     }
   },
   computed: {
-    ...mapState('crud', ['uploadPath']),
     ...mapState('crud', [
       'details',
       'path',
       'prefix',
     ]),
+    ...mapGetters('crud', ['uploadPath']),
     fieldType () {
       return this.field.type === 'dynamic' ? this.dynamicFieldType : this.field.type
     },

@@ -27,7 +27,7 @@
 <script>
 import CrudButton from './Button.vue'
 import {
-  mapState,
+  mapGetters,
   mapMutations,
 } from 'vuex'
 import {
@@ -46,7 +46,7 @@ export default {
     },
   },
   computed: {
-    ...mapState('crud', ['filesPath']),
+    ...mapGetters('crud', ['filesPath']),
     field () {
       return Object.assign({
         filename: '',

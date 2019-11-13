@@ -1,19 +1,11 @@
 import api from '@/config/api'
 
-const joinUrl = (items) => {
-  let urlArray = []
-  for (let item of items) {
-    if (item) {
-      urlArray.push(item)
-    }
-  }
-  return urlArray.join('/')
-}
-
 const state = {
   prefix: '',
   path: '',
   paths: {},
+  itemsViewType: undefined,
+  isItemsViewFlat: false,
   tableReady: false,
   detailsLoading: false,
   items: [],
@@ -61,16 +53,9 @@ const state = {
   itemIdColumn: '',
   childItemsMapping: [],
   childItems: {},
-  // files
-  filesPath: joinUrl([
-    api.url,
-    api.path.storage,
-  ]),
-  uploadPath: joinUrl([
-    api.url,
-    api.path.prefix,
-    api.path.upload,
-  ]),
+  // api
+  apiUrl: api.url,
+  apiPath: api.path,
 }
 
 export default state

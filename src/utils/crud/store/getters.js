@@ -1,5 +1,15 @@
 import { getItemsList } from '@/utils/crud/helpers/functions'
 
+const joinUrl = (items) => {
+  let urlArray = []
+  for (let item of items) {
+    if (item) {
+      urlArray.push(item)
+    }
+  }
+  return urlArray.join('/')
+}
+
 const getters = {
   path: state => (operation) => {
     let path
@@ -40,6 +50,20 @@ const getters = {
       )
     )
     return result
+  },
+  // files
+  filesPath: state => {
+    return joinUrl([
+      state.apiUrl,
+      state.apiPath.storage,
+    ])
+  },
+  uploadPath: state => {
+    return joinUrl([
+      state.apiUrl,
+      state.apiPath.prefix,
+      state.apiPath.upload,
+    ])
   },
 }
 
