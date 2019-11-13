@@ -28,7 +28,7 @@ export default {
 <style scoped>
   .alert {
     position: fixed;
-    top: 40vh;
+    top: 3px;
     margin: auto;
     z-index: 100000;
   }

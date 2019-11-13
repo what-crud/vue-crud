@@ -28,9 +28,26 @@
       @clearFilters="clearFilters"
       @exportToExcel="exportToExcel"
     >
+      <template slot="left">
+        <template v-if="movingItemStarted">
+          <crud-button
+            small
+            color="pink darken-4"
+            icon="play_for_work"
+            :tooltip="$t('global.datatable.buttons.insert')"
+            @clicked="insertItem(unassignedItemParent)"
+          />
+          <crud-button
+            v-if="movingItemStarted"
+            color="pink darken-4"
+            icon="cancel"
+            :tooltip="$t('global.datatable.buttons.cancelMove')"
+            @clicked="cancelMovingItem()"
+          />
+        </template>
+      </template>
     </controls>
     <!-- Tree -->
-    <div style="margin: 0 10px;">
     <v-treeview
       v-model="selected"
       :selectable="selectManyMode"
@@ -74,6 +91,24 @@
                   @destroy="destroy"
                   @editItemElements="editItemElements"
                 />
+                <template v-if="editMode">
+                  <crud-button
+                    v-if="!movingItemStarted"
+                    small
+                    color="pink darken-4"
+                    icon="swap_vert"
+                    :tooltip="$t('global.datatable.buttons.move')"
+                    @clicked="moveItem(item)"
+                  />
+                  <crud-button
+                    v-else-if="isInsertAllowed(item)"
+                    small
+                    color="pink darken-4"
+                    icon="play_for_work"
+                    :tooltip="$t('global.datatable.buttons.insert')"
+                    @clicked="insertItem(item.meta.id)"
+                  />
+                </template>
               </span>
             </v-col>
           </v-row>
@@ -98,7 +133,6 @@
         </div>
       </template>
     </v-treeview>
-    </div>
   </div>
 </template>
 
@@ -114,6 +148,7 @@ import ControlsHandlerMixin from '../mixins/controls-handler'
 import ItemsViewMixin from '../mixins/items-view'
 
 import Controls from './Controls.vue'
+import CrudButton from './Button.vue'
 
 export default {
   name: 'CrudTreeClientMode',
@@ -124,10 +159,14 @@ export default {
   ],
   components: {
     Controls,
+    CrudButton,
   },
   data () {
     return {
       searchIterationNumber: '0',
+      movingItemStarted: false,
+      itemsDisabledForInsert: [],
+      movedItemId: undefined,
     }
   },
   computed: {
@@ -136,8 +175,14 @@ export default {
       'detailsDialog',
       'isItemsViewRefreshed',
     ]),
+    parentColumnName () {
+      return this.itemsViewConfig.parentColumnName || 'parent_id'
+    },
+    unassignedItemParent () {
+      return this.itemsViewConfig.unassignedItemParent || null
+    },
     treeItems () {
-      const parentColumnName = this.itemsViewConfig.parentColumnName || 'parent_id'
+      const parentColumnName = this.parentColumnName
       let otherItems = this.items
       const addChildrenToItem = (id) => {
         let children = []
@@ -162,7 +207,7 @@ export default {
         }
         return children
       }
-      let computedItems = addChildrenToItem(null)
+      let computedItems = addChildrenToItem(this.unassignedItemParent)
       return computedItems
     },
     filter () {
@@ -240,6 +285,37 @@ export default {
       this.searchIterationNumber = parseInt(this.searchIterationNumber + 1).toString()
     },
     beforeGetItem (id) {},
+    moveItem (item) {
+      const addItemsDisabledForInsert = (node) => {
+        this.itemsDisabledForInsert.push(node.meta.id)
+        if (node.children) {
+          for (const child of node.children) {
+            addItemsDisabledForInsert(child)
+          }
+        }
+      }
+      this.itemsDisabledForInsert = []
+      addItemsDisabledForInsert(item)
+      this.movedItemId = item.meta.id
+      this.movingItemStarted = true
+    },
+    insertItem (id) {
+      this.movingItemStarted = false
+      const obj = {}
+      obj[this.parentColumnName] = id
+      this.updateItem([
+        this.movedItemId,
+        obj,
+        this.$t('global.alerts.updated'),
+        this.$t('global.alerts.updateError'),
+      ])
+    },
+    cancelMovingItem () {
+      this.movingItemStarted = false
+    },
+    isInsertAllowed (item) {
+      return !this.itemsDisabledForInsert.includes(item.meta.id)
+    },
   },
   created () {
     this.resetItems()
@@ -263,6 +339,7 @@ export default {
 <style lang="scss" scoped>
 .tree {
   max-width: 100%;
+  margin: 0 10px;
 }
 .tree-item {
   padding-left: 10px;
