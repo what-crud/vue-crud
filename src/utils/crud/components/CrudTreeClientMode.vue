@@ -55,11 +55,9 @@
       :search="searchIterationNumber"
       :filter="filter"
       class="tree"
-      selected-color="#666666"
-      color="primary"
+      color="default"
       item-key="meta.id"
       selection-type="independent"
-      activatable
       hoverable
       dense
       transition
@@ -76,6 +74,14 @@
             </v-col>
             <v-col>
               <span class="tree-item__field-value">
+                <crud-button
+                  v-if="createMode"
+                  small
+                  color="light-blue lighten-2"
+                  @clicked="createChildNode(item.meta.id)"
+                  icon="add"
+                  :tooltip="$t('global.datatable.add')"
+                />
                 <list-item-actions
                   :item="item"
                   :edit-button='editButton'
@@ -140,6 +146,7 @@
 
 import {
   mapState,
+  mapMutations,
   mapActions,
 } from 'vuex'
 
@@ -279,6 +286,7 @@ export default {
   },
   methods: {
     ...mapActions('crud', ['getItems']),
+    ...mapMutations('crud', ['setItem']),
     clearFilters () {},
     exportToExcel () {},
     startSearching () {
@@ -315,6 +323,13 @@ export default {
     },
     isInsertAllowed (item) {
       return !this.itemsDisabledForInsert.includes(item.meta.id)
+    },
+    createChildNode (id) {
+      this.resetItem()
+      const initialItem = {}
+      initialItem[this.parentColumnName] = id
+      this.setItem(initialItem)
+      this.createItemDialog()
     },
   },
   created () {
