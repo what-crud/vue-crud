@@ -2,17 +2,18 @@
   <span v-if="field.show">
     <!-- text field: input / number / decimal / date / time / datetime -->
     <v-text-field
-      hide-details
-      :rules="fieldRules(field)"
       v-if="['input', 'number', 'decimal', 'time', 'datetime'].includes(fieldType)"
-      :label="field.text"
       v-model="value"
-      :disabled="field.disabled"
       :type="['number', 'decimal'].includes(fieldType) ? 'number' : 'text'"
+      :label="field.text"
+      :disabled="field.disabled"
+      :rules="fieldRules(field)"
       :step="fieldType == 'decimal' ? 0.01 : 1"
-      min="0"
       :mask="['date', 'time', 'datetime'].includes(fieldType) ? masks[fieldType] : undefined"
       :return-masked-value="['date', 'time', 'datetime'].includes(fieldType) ? true : false"
+      min="0"
+      class="field--limited-width"
+      hide-details
       @blur="valueChanged()"
     ></v-text-field>
     <!-- date -->
@@ -34,6 +35,7 @@
           prepend-icon="event"
           readonly
           v-on="on"
+          class="field--limited-width"
           @blur="valueChanged()"
         ></v-text-field>
       </template>
@@ -59,6 +61,7 @@
     <!-- file upload -->
     <field-wrapper
       v-else-if="fieldType == 'file'"
+      class="field--limited-width"
     >
       <v-row dense>
         <v-col cols="12" sm="5">
@@ -95,19 +98,20 @@
     <!-- select -->
     <template v-else-if="fieldType == 'select'">
       <v-autocomplete
-        hide-details
+        v-model="value"
         :rules="fieldRules(field)"
         :items="listData"
         :loading="listLoader"
-        v-model="value"
         :item-text="field.list.text"
         :item-value="field.list.value"
-        item-disabled="itemDisabled"
         :label="field.text"
-        menu-props="bottom"
-        :disabled="field.disabled"
-        @change="valueChanged()"
         :search-input.sync="listSearch"
+        :disabled="field.disabled"
+        menu-props="bottom"
+        class="field--limited-width"
+        item-disabled="itemDisabled"
+        hide-details
+        @change="valueChanged()"
       >
         <template v-if="listRefreshable" v-slot:append-outer>
           <v-icon color="blue" @click="refreshList(field.url)">refresh</v-icon>
@@ -383,7 +387,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.field {
+  &--limited-width {
+    max-width: 600px;
+  }
+}
 .jbtn-file {
   cursor: pointer;
   position: relative;

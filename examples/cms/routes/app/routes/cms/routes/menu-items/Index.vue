@@ -27,9 +27,9 @@ export default {
       itemsView: {
         type: 'tree',
         mode: 'client',
-        treeConfig: {
-          flat: true,
+        config: {
           parentColumnName: 'parent_menu_item_id',
+          unassignedItemParent: null,
         },
       },
     }
@@ -66,9 +66,10 @@ export default {
           },
           column: 'parent_menu_item_id',
           text: this.$t('fields.parent'),
-          name: 'parent',
+          name: 'parent_menu_item_id',
           required: false,
           table: false,
+          edit: false,
         },
         {
           type: 'number',

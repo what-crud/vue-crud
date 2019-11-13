@@ -7,6 +7,7 @@
     :fields-info="fieldsInfo"
     :details-title="$t('detailsTitle')"
     :item-elements="itemElements"
+    item-details-width="1200"
   >
   </crud>
 </template>

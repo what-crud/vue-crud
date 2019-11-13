@@ -2,8 +2,8 @@
   <v-dialog
     v-model="details.show"
     :max-width="width"
-    style="position:static !important;"
     persistent
+    no-click-animation
   >
     <v-card>
       <v-card-title
@@ -243,7 +243,7 @@ export default {
 
 <style scoped>
 .details-list {
-  max-height: 100vh;
+  max-height: calc(100vh - 200px);
   overflow-y: auto;
 }
 </style>
