@@ -34,7 +34,7 @@
             small
             color="pink darken-4"
             icon="play_for_work"
-            :tooltip="$t('global.datatable.buttons.insert')"
+            :tooltip="$t('global.datatable.buttons.insertUnassigned')"
             @clicked="insertItem(unassignedItemParent)"
           />
           <crud-button

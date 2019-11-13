@@ -5,12 +5,12 @@ import {
 export default {
   watch: {
     createdElement: {
-      handler (val) {
+      handler () {
         const { created } = this.createdElement
         if (created) {
           const { id } = this.createdElement
           if (id) {
-            this.goToItem({ id })
+            this.goToItem({ meta: { id } })
           }
           this.setCreatedItemStatus([
             false,

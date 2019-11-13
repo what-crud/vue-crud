@@ -241,6 +241,7 @@ export default {
       'setPath',
       'setPaths',
       'setCreationMode',
+      'setItemsViewType',
     ]),
     ...mapActions('crud', ['runItemsViewRefreshing']),
     custom (name, item, index) {
@@ -264,6 +265,7 @@ export default {
     this.setPage(this.pageTitle)
     const creationMode = this.watchForCreation ? 'inform' : 'ignore'
     this.setCreationMode(creationMode)
+    this.setItemsViewType(this.itemsViewType)
   },
 }
 

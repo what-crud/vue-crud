@@ -116,6 +116,7 @@ const actions = {
             ], { root: true })
           }
           if (state.createdElement.mode === 'inform') {
+            console.log('response id', response.body.id)
             commit('setCreatedItemStatus', [
               true,
               response.body.id,
