@@ -42,5 +42,9 @@ export default {
     refreshTable: 'Refresh table',
     copyToExcel: 'Copy to Excel',
     clearFilters: 'Clear filters',
+    move: 'Move',
+    insert: 'Insert',
+    insertUnassigned: 'Insert unassigned',
+    cancelMove: 'Cancel move',
   },
 }
