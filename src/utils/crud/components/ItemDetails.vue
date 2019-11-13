@@ -142,6 +142,8 @@ export default {
           show = field.create !== false
         } else if (this.details.action === 'multiedit') {
           show = field.multiedit !== false
+        } else if (this.details.action === 'edit') {
+          show = field.edit !== false
         }
         rField.show = show
         rField.value = this.details.item[field.column]

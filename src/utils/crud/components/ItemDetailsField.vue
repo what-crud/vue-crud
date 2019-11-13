@@ -114,17 +114,6 @@
         </template>
       </v-autocomplete>
     </template>
-    <!-- tree -->
-    <field-wrapper
-      v-else-if="fieldType == 'tree'"
-      :label="field.text"
-    >
-      <tree
-        v-model="value"
-        :disabled="field.disabled"
-        @change="valueChanged()"
-      />
-    </field-wrapper>
     <!-- rich text editor -->
     <field-wrapper
       v-else-if="fieldType == 'richTextBox'"
@@ -156,7 +145,6 @@ import crud from '@/config/crud'
 import FieldWrapper from './ItemDetailsFieldWrapper.vue'
 
 import RichTextBox from './field-types/RichTextBox.vue'
-import Tree from './field-types/Tree.vue'
 
 import { mapState } from 'vuex'
 
@@ -165,7 +153,6 @@ export default {
   components: {
     FieldWrapper,
     RichTextBox,
-    Tree,
   },
   props: [
     'field',
