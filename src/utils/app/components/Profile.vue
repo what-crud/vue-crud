@@ -9,7 +9,7 @@
         <!-- edit user form -->
         <v-form v-model="userValid">
           <v-card-text>
-            <v-alert v-if="userUpdated" outline color="success" icon="check_circle" value="true">
+            <v-alert :value="userUpdated" outlined color="success" icon="check_circle">
               {{ $t('global.profile.user.updated') }}
             </v-alert>
             <!-- User login -->
@@ -53,10 +53,10 @@
         <!-- edit password form -->
         <v-form v-model="passwordValid">
           <v-card-text>
-            <v-alert v-if="userPasswordUpdated" outline color="success" icon="check_circle" value="true">
+            <v-alert :value="userPasswordUpdated" outlined color="success" icon="check_circle">
               {{ $t('global.profile.password.updated') }}
             </v-alert>
-            <v-alert v-else-if="userPasswordUpdateError" outline color="error" icon="warning" value="true">
+            <v-alert :value="userPasswordUpdateError" outlined color="error" icon="warning">
               {{ $t('global.profile.password.updateError') }}
               <br> {{ password.updateErrorMsg }}
             </v-alert>
