@@ -129,6 +129,7 @@ module.exports = {
             '/guide/crud/basics',
             '/guide/crud/custom-configuration',
             '/guide/crud/field-options',
+            '/guide/crud/items-view',
             '/guide/crud/extended-details',
             '/guide/crud/item-elements',
           ]
