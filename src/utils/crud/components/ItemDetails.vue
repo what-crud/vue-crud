@@ -6,13 +6,19 @@
     no-click-animation
   >
     <v-card>
-      <v-card-title
-        class="headline"
+      <slot
+        name="title"
+        :title="title"
       >
-        {{ details.action == 'multiedit' ? $t('global.details.multipleUpdateTitle') : title }}
-      </v-card-title>
+        <v-card-title
+          class="headline"
+        >
+          {{ details.action == 'multiedit' ? $t('global.details.multipleUpdateTitle') : title }}
+        </v-card-title>
+      </slot>
       <v-form v-model="details.formValid">
         <v-card-text class="details-list">
+          <slot name="over-fields" />
           <div
             v-for="(field, i) in fields"
             :key="i"
@@ -34,13 +40,36 @@
                   :field-value="field.value"
                   :reload="reload"
                   @valueChanged="valueChanged"
-                />
+                >
+                  <template
+                    #default="{
+                      value,
+                      fieldType,
+                      field,
+                      reload,
+                      rules,
+                      changeValue,
+                    }"
+                  >
+                    <slot
+                      :name="`field:${field.name}`"
+                      :value="value"
+                      :field-type="fieldType"
+                      :field="field"
+                      :reload="reload"
+                      :rules="rules"
+                      :change-value="changeValue"
+                    />
+                  </template>
+                </item-details-field>
               </v-flex>
             </v-layout>
           </div>
+          <slot name="under-fields" />
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
+          <slot name="custom-actions" />
           <v-btn color="black" text @click.native="close()">{{ $t('global.details.buttons.close') }}</v-btn>
           <v-btn
             :disabled="!details.formValid"

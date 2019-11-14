@@ -71,7 +71,8 @@ The record creation / editing form supports the following types of fields:
 * Timepicker,
 * Checkbox,
 * Files,
-* **NEW!** Dynamic (user can select field type separately for each record)
+* **NEW!** Dynamic (user can select field type separately for each record),
+* **NEW!** Custom (with slots)
 
 ## Support for mobile devices
 
