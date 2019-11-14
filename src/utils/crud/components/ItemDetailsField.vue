@@ -97,33 +97,23 @@
     </field-wrapper>
     <!-- select -->
     <template v-else-if="fieldType == 'select'">
-      <v-autocomplete
+      <select-field
         v-model="value"
         :rules="fieldRules(field)"
-        :items="listData"
-        :loading="listLoader"
-        :item-text="field.list.text"
-        :item-value="field.list.value"
         :label="field.text"
-        :search-input.sync="listSearch"
         :disabled="field.disabled"
-        menu-props="bottom"
-        class="field--limited-width"
-        item-disabled="itemDisabled"
-        hide-details
+        :options="field.list"
+        :async="field.async"
+        :url="field.url"
         @change="valueChanged()"
-      >
-        <template v-if="listRefreshable" v-slot:append-outer>
-          <v-icon color="blue" @click="refreshList(field.url)">refresh</v-icon>
-        </template>
-      </v-autocomplete>
+      />
     </template>
     <!-- rich text editor -->
     <field-wrapper
       v-else-if="fieldType == 'richTextBox'"
       :label="field.text"
     >
-      <rich-text-box
+      <rich-text-box-field
         v-model="value"
         :disabled="field.disabled"
         :available-extensions="field.richTextBoxOperations"
@@ -143,12 +133,12 @@
   </span>
 </template>
 <script>
-import Vue from 'vue'
 import crud from '@/config/crud'
 
 import FieldWrapper from './ItemDetailsFieldWrapper.vue'
 
-import RichTextBox from './field-types/RichTextBox.vue'
+import RichTextBoxField from './field-types/RichTextBox.vue'
+import SelectField from './field-types/Select.vue'
 
 import {
   mapState,
@@ -159,7 +149,8 @@ export default {
   name: 'ItemDetailsField',
   components: {
     FieldWrapper,
-    RichTextBox,
+    RichTextBoxField,
+    SelectField,
   },
   props: [
     'field',
@@ -169,10 +160,6 @@ export default {
   ],
   data () {
     return {
-      listData: [],
-      listSearch: '',
-      listOldSearch: '',
-      listLoader: false,
       value: null,
       uploadStatus: 'ready',
       uploadLoader: false,
@@ -181,7 +168,6 @@ export default {
         time: '##:##',
         datetime: '####-##-## ##:##:##',
       },
-      searchActive: true,
       datepicker: false,
     }
   },
@@ -212,30 +198,6 @@ export default {
         }, 1000)
       }
     },
-    listSearch: function (val) {
-      setTimeout(() => {
-        if (this.fieldType === 'select' && this.field.async && this.searchActive) {
-          if (this.listSearch === val) {
-            const url = `${this.field.url}/phrase/${val}`
-            this.refreshList(url)
-          }
-        }
-      }, 500)
-    },
-  },
-  mounted () {
-    if (this.fieldType === 'select') {
-      if (!this.field.url) {
-        this.listData = this.field.list.data
-      } else {
-        this.listData = []
-        if (this.field.async) {
-          this.listLoader = false
-        } else {
-          this.refreshList(this.field.url)
-        }
-      }
-    }
   },
   computed: {
     ...mapState('crud', [
@@ -252,9 +214,6 @@ export default {
       return {
         required: (v) => !!v || self.$t('global.details.rules.required'),
       }
-    },
-    listRefreshable () {
-      return !this.field.async && this.field.url !== undefined
     },
     filename () {
       let filename
@@ -281,42 +240,6 @@ export default {
     },
     valueChanged () {
       this.$emit('valueChanged', this.value, this.field.column)
-    },
-    refreshList (url) {
-      this.searchActive = false
-      let selectItems
-      this.listLoader = true
-      const required = this.field.required !== undefined ? this.field.required : true
-      Vue.http.get(url).then((response) => {
-        const items = response.body
-        selectItems = items.map((item) => {
-          const rItem = item
-          if (typeof this.field.list.activeColumn !== 'undefined') {
-            rItem.itemDisabled = item[this.field.list.activeColumn] === 0
-          }
-          if (typeof this.field.list.complexName !== 'undefined') {
-            const textArray = this.field.list.complexName.map((textInfo) => {
-              const splittedText = textInfo.split('.').reduce((object, property) => object[property] || '', item)
-              return splittedText
-            })
-            rItem.complexName = textArray.join(', ')
-          }
-          return rItem
-        })
-        if (!required) {
-          const nullElement = {}
-          nullElement[this.field.list.value] = ''
-          nullElement[this.field.list.text] = '-'
-          this.listData = [
-            nullElement,
-            ...selectItems,
-          ]
-        } else {
-          this.listData = selectItems
-        }
-        this.listLoader = false
-        this.searchActive = true
-      })
     },
     fileUploadBtn (status) {
       const btnClasses = {

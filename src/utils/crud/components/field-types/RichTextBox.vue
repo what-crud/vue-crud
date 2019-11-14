@@ -29,7 +29,7 @@ import {
 } from 'tiptap-vuetify'
 
 export default {
-  name: 'RichTextBox',
+  name: 'RichTextBoxField',
   components: { TiptapVuetify },
   props: {
     value: {
