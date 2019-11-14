@@ -1,157 +1,22 @@
 <template>
-  <span v-if="field.show">
-    <!-- text field: input / number / decimal / date / time / datetime -->
-    <v-text-field
-      v-if="['input', 'number', 'decimal', 'time', 'datetime'].includes(fieldType)"
+  <div
+    v-if="field.show"
+    :class="{'field--limited-width': isWidthLimited}"
+  >
+    <component
       v-model="value"
-      :type="['number', 'decimal'].includes(fieldType) ? 'number' : 'text'"
-      :label="field.text"
-      :disabled="field.disabled"
+      :is="fieldComponent"
+      :field-type="fieldType"
+      :field="field"
+      :reload="reload"
       :rules="fieldRules(field)"
-      :step="fieldType == 'decimal' ? 0.01 : 1"
-      :mask="['date', 'time', 'datetime'].includes(fieldType) ? masks[fieldType] : undefined"
-      :return-masked-value="['date', 'time', 'datetime'].includes(fieldType) ? true : false"
-      min="0"
-      class="field--limited-width"
-      hide-details
-      @blur="valueChanged()"
-    ></v-text-field>
-    <!-- date -->
-    <v-menu
-      v-else-if="fieldType == 'date'"
-      v-model="datepicker"
-      :close-on-content-click="false"
-      :nudge-right="40"
-      lazy
-      transition="scale-transition"
-      offset-y
-      full-width
-      min-width="290px"
-    >
-      <template v-slot:activator="{ on }">
-        <v-text-field
-          v-model="value"
-          :label="field.text"
-          prepend-icon="event"
-          readonly
-          v-on="on"
-          class="field--limited-width"
-          @blur="valueChanged()"
-        ></v-text-field>
-      </template>
-      <v-date-picker
-        v-model="value"
-        @input="datepicker = false"
-        :first-day-of-week="firstDayOfWeek"
-        :locale="locale"
-        scrollable
-        @change="valueChanged()"
-      ></v-date-picker>
-    </v-menu>
-    <!-- text area -->
-    <v-textarea
-      hide-details
-      :rules="fieldRules(field)"
-      v-else-if="fieldType == 'textarea'"
-      :label="field.text"
-      v-model="value"
-      :disabled="field.disabled"
-      @blur="valueChanged()"
-    ></v-textarea>
-    <!-- file upload -->
-    <field-wrapper
-      v-else-if="fieldType == 'file'"
-      class="field--limited-width"
-    >
-      <v-row dense>
-        <v-col cols="12" sm="5">
-          <v-btn
-            :loading="uploadLoader"
-            :class="fileUploadBtn(uploadStatus)"
-            class="jbtn-file"
-            dark
-          >
-            {{ $t('global.details.files.upload') }}
-            <v-icon dark right>{{ fileUploadIcon(uploadStatus) }}</v-icon>
-            <input
-              :id="field.name"
-              :multiple="false"
-              :disabled="field.disabled"
-              type="file"
-              accept="*"
-              ref="fileInput"
-              @change="fileSelected($event, field)"
-            />
-          </v-btn>
-        </v-col>
-        <v-col cols="12" sm="7">
-          <v-text-field
-            hide-details
-            :rules="fieldRules(field)"
-            :label="field.text"
-            :value="filename"
-            disabled
-          ></v-text-field>
-        </v-col>
-      </v-row>
-    </field-wrapper>
-    <!-- select -->
-    <template v-else-if="fieldType == 'select'">
-      <select-field
-        v-model="value"
-        :rules="fieldRules(field)"
-        :label="field.text"
-        :disabled="field.disabled"
-        :options="field.list"
-        :async="field.async"
-        :url="field.url"
-        @change="valueChanged()"
-      />
-    </template>
-    <!-- rich text editor -->
-    <field-wrapper
-      v-else-if="fieldType == 'richTextBox'"
-      :label="field.text"
-    >
-      <rich-text-box-field
-        v-model="value"
-        :disabled="field.disabled"
-        :available-extensions="field.richTextBoxOperations"
-        @change="valueChanged()"
-      />
-    </field-wrapper>
-    <!-- checkbox -->
-    <v-checkbox
-      v-else-if="fieldType == 'checkbox'"
-      hide-details
-      color="primary"
-      v-model="value"
-      :label="field.text"
-      :disabled="field.disabled"
-      @change="checkboxUpdated()"
-    ></v-checkbox>
-  </span>
+    />
+  </div>
 </template>
 <script>
-import crud from '@/config/crud'
-
-import FieldWrapper from './ItemDetailsFieldWrapper.vue'
-
-import RichTextBoxField from './field-types/RichTextBox.vue'
-import SelectField from './field-types/Select.vue'
-
-import {
-  mapState,
-  mapGetters,
-} from 'vuex'
 
 export default {
   name: 'ItemDetailsField',
-  components: {
-    FieldWrapper,
-    RichTextBoxField,
-    SelectField,
-  },
   props: [
     'field',
     'fieldValue',
@@ -161,53 +26,37 @@ export default {
   data () {
     return {
       value: null,
-      uploadStatus: 'ready',
-      uploadLoader: false,
-      masks: {
-        date: '####-##-##',
-        time: '##:##',
-        datetime: '####-##-## ##:##:##',
+      isEmitLocked: false,
+      componentsMap: {
+        input: 'Text',
+        number: 'Text',
+        decimal: 'Text',
+        time: 'Text',
+        datetime: 'Text',
+        date: 'Date',
+        textarea: 'Textarea',
+        file: 'File',
+        richTextBox: 'RichTextBox',
+        select: 'Select',
+        checkbox: 'Checkbox',
       },
-      datepicker: false,
     }
   },
-  watch: {
-    fieldValue: {
-      immediate: true,
-      handler (val) {
-        this.value = val
-      },
-    },
-    reload: function (val) {
-      if (val) {
-        if (this.fieldType === 'file') {
-          this.uploadLoader = false
-          this.uploadStatus = 'ready'
-        } else if (this.fieldType === 'select' && this.field.async) {
-          this.listOldSearch = ''
-          let val = this.value || ''
-          const url = `${this.field.url}/id/${val}`
-          this.refreshList(url)
-        }
-      }
-    },
-    uploadStatus: function (val) {
-      if (val !== 'ready') {
-        setTimeout(() => {
-          this.uploadStatus = 'ready'
-        }, 1000)
-      }
-    },
-  },
   computed: {
-    ...mapState('crud', [
-      'details',
-      'path',
-      'prefix',
-    ]),
-    ...mapGetters('crud', ['uploadPath']),
     fieldType () {
       return this.field.type === 'dynamic' ? this.dynamicFieldType : this.field.type
+    },
+    componentName () {
+      return this.componentsMap[this.fieldType]
+    },
+    fieldComponent () {
+      return this.componentName ? () => import(`./field-types/${this.componentName}.vue`) : undefined
+    },
+    isWidthLimited () {
+      return ![
+        'richTextBox',
+        'textarea',
+      ].includes(this.fieldType)
     },
     rules () {
       const self = this
@@ -215,48 +64,8 @@ export default {
         required: (v) => !!v || self.$t('global.details.rules.required'),
       }
     },
-    filename () {
-      let filename
-      if (this.fieldType === 'file' && this.value !== undefined && this.value !== null) {
-        try {
-          filename = JSON.parse(this.value).filename
-        } catch (e) {
-          return ''
-        }
-      }
-      return filename
-    },
-    locale () {
-      return crud.locale || 'en-us'
-    },
-    firstDayOfWeek () {
-      return crud.firstDayOfWeek || 0
-    },
   },
   methods: {
-    checkboxUpdated () {
-      this.value = this.value ? 1 : 0
-      this.valueChanged()
-    },
-    valueChanged () {
-      this.$emit('valueChanged', this.value, this.field.column)
-    },
-    fileUploadBtn (status) {
-      const btnClasses = {
-        ready: 'primary',
-        success: 'success',
-        error: 'error',
-      }
-      return btnClasses[status]
-    },
-    fileUploadIcon (status) {
-      const icons = {
-        ready: 'save_alt',
-        success: 'check',
-        error: 'close',
-      }
-      return icons[status]
-    },
     fieldRules (field) {
       const rules = []
       const required = field.required !== undefined ? field.required : true
@@ -265,49 +74,22 @@ export default {
       }
       return rules
     },
-    fileSelected (e, field) {
-      const file = e.target.files[0]
-      if (file) {
-        this.uploadLoader = true
-        const formData = new FormData()
-        formData.append('file', file)
-        formData.append('module', this.prefix)
-        formData.append('table', this.path)
-        formData.append('field', field.column)
-        this.$http.post(this.uploadPath, formData, {}).then(
-          (response) => {
-            if (response.body.status === 0) {
-              this.value = JSON.stringify({
-                filename: file.name,
-                mime: file.type,
-                size: file.size,
-                path: response.body.path,
-                uploaded: 1,
-              })
-              this.valueChanged()
-              this.uploadStatus = 'success'
-            } else {
-              this.uploadStatus = 'error'
-              if (response.body.status === -1) {
-                this.openAlertBox([
-                  'alertError',
-                  response.body.msg,
-                ])
-              } else if (response.body.status === -2) {
-                this.openAlertBox([
-                  'alertValidationError',
-                  response.body.msg,
-                ])
-              }
-            }
-            this.uploadLoader = false
-          },
-          () => {
-            this.uploadLoader = false
-            this.uploadStatus = 'error'
-          },
-        )
-      }
+  },
+  watch: {
+    fieldValue: {
+      immediate: true,
+      handler (val) {
+        this.isEmitLocked = true
+        this.value = val
+        this.isEmitLocked = false
+      },
+    },
+    value: {
+      handler (val) {
+        if (!this.isEmitLocked) {
+          this.$emit('valueChanged', val, this.field.column)
+        }
+      },
     },
   },
 }
@@ -318,26 +100,5 @@ export default {
   &--limited-width {
     max-width: 600px;
   }
-}
-.jbtn-file {
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  margin: 0px;
-  width: 100%;
-}
-.jbtn-file input[type='file'] {
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
-  font-size: 100px;
-  text-align: right;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  outline: none;
-  cursor: inherit;
-  display: block;
 }
 </style>

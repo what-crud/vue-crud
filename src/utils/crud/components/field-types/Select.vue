@@ -4,11 +4,11 @@
     :rules="rules"
     :items="items"
     :loading="loading"
-    :item-text="options.text"
-    :item-value="options.value"
+    :item-text="field.list.text"
+    :item-value="field.list.value"
     :search-input.sync="search"
-    :label="label"
-    :disabled="disabled"
+    :label="field.text"
+    :disabled="field.disabled"
     menu-props="bottom"
     class="field--limited-width"
     item-disabled="itemDisabled"
@@ -21,7 +21,7 @@
     >
       <v-icon
         color="blue"
-        @click="refreshList(url)"
+        @click="refreshList(field.url)"
       >
         refresh
       </v-icon>
@@ -35,6 +35,16 @@ import Vue from 'vue'
 
 export default {
   name: 'SelectField',
+  props: {
+    value: {},
+    rules: {
+      type: Array,
+      default: () => [],
+    },
+    field: {
+      type: Object,
+    },
+  },
   data: () => ({
     selection: undefined,
     items: [],
@@ -43,54 +53,29 @@ export default {
     loading: false,
     searchActive: true,
   }),
-  props: {
-    value: {},
-    rules: {
-      type: Array,
-      default: () => [],
-    },
-    label: {
-      type: String,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    options: {
-      type: Object,
-    },
-    async: {
-      type: Boolean,
-      default: false,
-    },
-    url: {
-      type: String,
-    },
-  },
   computed: {
     listRefreshable () {
-      return !this.async && this.url !== undefined
+      return !this.field.async && this.field.url !== undefined
     },
   },
   methods: {
     onChange () {
       this.$emit('input', this.selection)
-      this.$emit('change')
     },
     refreshList (url) {
       this.searchActive = false
       let selectItems
       this.loading = true
-      const required = this.required !== undefined ? this.required : true
+      const required = this.field.required !== undefined ? this.field.required : true
       Vue.http.get(url).then((response) => {
         const items = response.body
         selectItems = items.map((item) => {
           const rItem = item
-          if (typeof this.options.activeColumn !== 'undefined') {
-            rItem.itemDisabled = item[this.options.activeColumn] === 0
+          if (typeof this.field.list.activeColumn !== 'undefined') {
+            rItem.itemDisabled = item[this.field.list.activeColumn] === 0
           }
-          if (typeof this.options.complexName !== 'undefined') {
-            const textArray = this.options.complexName.map((textInfo) => {
+          if (typeof this.field.list.complexName !== 'undefined') {
+            const textArray = this.field.list.complexName.map((textInfo) => {
               const splittedText = textInfo.split('.').reduce((object, property) => object[property] || '', item)
               return splittedText
             })
@@ -100,8 +85,8 @@ export default {
         })
         if (!required) {
           const nullElement = {}
-          nullElement[this.options.value] = ''
-          nullElement[this.options.text] = '-'
+          nullElement[this.field.list.value] = ''
+          nullElement[this.field.list.text] = '-'
           this.items = [
             nullElement,
             ...selectItems,
@@ -115,14 +100,14 @@ export default {
     },
   },
   mounted () {
-    if (!this.url) {
-      this.items = this.options.data
+    if (!this.field.url) {
+      this.items = this.field.list.data
     } else {
       this.items = []
-      if (this.async) {
+      if (this.field.async) {
         this.loading = false
       } else {
-        this.refreshList(this.url)
+        this.refreshList(this.field.url)
       }
     }
   },
@@ -136,9 +121,9 @@ export default {
     search: {
       handler (val) {
         setTimeout(() => {
-          if (this.async && this.searchActive) {
+          if (this.field.async && this.searchActive) {
             if (this.search === val) {
-              const url = `${this.url}/phrase/${val}`
+              const url = `${this.field.url}/phrase/${val}`
               this.refreshList(url)
             }
           }

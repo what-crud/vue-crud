@@ -1,13 +1,17 @@
 <template>
-  <tiptap-vuetify
-    v-model="content"
-    :extensions="extensions"
-    :card-props="{ flat: true }"
-    :editor-properties="editorProperties"
-  />
+
+  <field-wrapper :label="field.text">
+    <tiptap-vuetify
+      v-model="content"
+      :extensions="extensions"
+      :card-props="{ flat: true }"
+      :editor-properties="editorProperties"
+    />
+  </field-wrapper>
 </template>
 
 <script>
+import FieldWrapper from './components/FieldWrapper.vue'
 import {
   TiptapVuetify,
   Heading,
@@ -30,15 +34,17 @@ import {
 
 export default {
   name: 'RichTextBoxField',
-  components: { TiptapVuetify },
+  components: {
+    FieldWrapper,
+    TiptapVuetify,
+  },
   props: {
     value: {
       type: String,
       default: '',
     },
-    disabled: {
-      type: Boolean,
-      default: false,
+    field: {
+      type: Object,
     },
     availableExtensions: {
       type: Array,
@@ -77,7 +83,7 @@ export default {
     },
   },
   data: () => ({
-    content: ``,
+    content: '',
     extensionsMap: {
       Heading,
       Bold,
@@ -129,7 +135,6 @@ export default {
     },
     onBlur () {
       this.$emit('input', this.content)
-      this.$emit('change')
     },
   },
   watch: {
