@@ -1,16 +1,23 @@
 <template>
-  <div
-    v-if="field.show"
-    :class="{'field--limited-width': isWidthLimited}"
-  >
-    <component
-      v-model="value"
-      :is="fieldComponent"
+  <div v-if="field.show">
+    <slot
+      :value="value"
       :field-type="fieldType"
       :field="field"
       :reload="reload"
       :rules="fieldRules(field)"
-    />
+      :change-value="changeValue"
+    >
+      <component
+        v-model="value"
+        :is="fieldComponent"
+        :field-type="fieldType"
+        :field="field"
+        :reload="reload"
+        :rules="fieldRules(field)"
+        :class="{'field--limited-width': isWidthLimited}"
+      />
+    </slot>
   </div>
 </template>
 <script>
@@ -74,6 +81,10 @@ export default {
       }
       return rules
     },
+    changeValue (forcedValue) {
+      if (forcedValue) this.value = forcedValue
+      this.$emit('valueChanged', this.value, this.field.column)
+    },
   },
   watch: {
     fieldValue: {
@@ -87,7 +98,7 @@ export default {
     value: {
       handler (val) {
         if (!this.isEmitLocked) {
-          this.$emit('valueChanged', val, this.field.column)
+          this.changeValue()
         }
       },
     },
