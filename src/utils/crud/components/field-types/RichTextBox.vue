@@ -46,41 +46,6 @@ export default {
     field: {
       type: Object,
     },
-    availableExtensions: {
-      type: Array,
-      default: () => {
-        return [
-          'History',
-          'Bold',
-          'Italic',
-          'Underline',
-          'Strike',
-          'Paragraph',
-          'ListItem',
-          'BulletList',
-          'OrderedList',
-          {
-            name: 'Heading',
-            options: {
-              levels: [
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-              ],
-            },
-          },
-          'HardBreak',
-          'HorizontalRule',
-          'Blockquote',
-          'Code',
-          'Link',
-          'Image',
-        ]
-      },
-    },
   },
   data: () => ({
     content: '',
@@ -102,11 +67,42 @@ export default {
       History,
       Image,
     },
+    availableExtensions: [
+      'History',
+      'Bold',
+      'Italic',
+      'Underline',
+      'Strike',
+      'Paragraph',
+      'ListItem',
+      'BulletList',
+      'OrderedList',
+      {
+        name: 'Heading',
+        options: {
+          levels: [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+          ],
+        },
+      },
+      'HardBreak',
+      'HorizontalRule',
+      'Blockquote',
+      'Code',
+      'Link',
+      'Image',
+    ],
   }),
   computed: {
     extensions () {
       const extensions = []
-      for (const extension of this.availableExtensions) {
+      const selectedExtensions = this.field.richTextBoxOperations || this.availableExtensions
+      for (const extension of selectedExtensions) {
         if (extension) {
           if (typeof extension === 'string' && this.extensionsExists(extension)) {
             extensions.push(this.extensionsMap[extension])
