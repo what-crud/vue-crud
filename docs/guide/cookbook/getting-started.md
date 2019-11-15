@@ -131,7 +131,7 @@ new Vue({
 ```
 
 **YourComponent.vue**:
-```vue
+``` html
 <template>
   <div id="app">
     ...
@@ -185,7 +185,7 @@ export default router
 ```
 
 **src/routes/Crud.vue**:
-```vue
+``` html
 <template>
   ...
 </template>

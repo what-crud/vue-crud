@@ -4,7 +4,7 @@
 The CRUD mechanism requires the supported table to contain the primary key. Ie. that the API, by sending data to the table, must also include in it a column that is the primary key. Thanks to this after clicking, for example, editing or deleting the key record 43, an appropriate request will be sent to the API (eg DELETE or PUT http://127.0.0.1/api/automotive/car-brands/43), thanks to which the backend application will know what to do.\
 By default primary key column is `id`. That's why in last example primary key wasn't defined.\
 If the primary key in your table is called differently (eg. 'CODE'), you must pass it as a parameter to the Crud component:
-```vue
+``` html
 <template>
   <crud
     ...
@@ -22,7 +22,7 @@ Vue CRUD supports 2 (or 3) delete modes:
 
 By default, the soft mode is set. This means that a record activation/deactivation button will appear next to each record, and a filter of active/inactive records will appear above the table. If soft mode is enabled, the record activity will be determined from the **active** column (bit/boolean) in the object sent by the API.\
 To enable hard delete mode you must pass `deleteMode` parameter to the Crud component:
-```vue
+``` html
 <template>
   <crud
     ...
@@ -37,7 +37,7 @@ Set `deleteMode` to **both** if you want to show both activation/deactivation an
 
 ## Activity column name
 If the activity column is called differently (eg. 'ACTIVE' or 'activity' or 'opened'), you must pass `activeColumnName` to the Crud component:
-```vue
+``` html
 <template>
   <crud
     ...
@@ -50,7 +50,7 @@ If the activity column is called differently (eg. 'ACTIVE' or 'activity' or 'ope
 ## Large table
 If you want to manage a relatively small table, such as a list of all car brands, then the most efficient solution is to download the entire table when loading the page and managing it (sorting, filtering, pagination, etc.) on the client's side. But if the table you want to display is too big to download completely, you have to solve the problem by downloading only part of the records (selected page, with a given number of records on the page and specific filters and sorting).\
 To enable server-side table management, pass the `mode` parameter to the component with **ServerSide** value:
-```vue
+``` html
 <template>
   <crud
     ...

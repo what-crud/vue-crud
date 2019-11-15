@@ -21,7 +21,19 @@
         :select-many-mode="selectManyMode"
         :update-many-mode="updateManyMode"
         :remove-many-mode="removeManyMode"
-      ></component>
+      >
+        <!-- slots for fields -->
+        <template
+          v-for="field in tableFields"
+          #[`field:${field.name}`]="{ value, item }"
+        >
+          <slot
+            :name="`list-item-field:${field.name}`"
+            :item="item"
+            :value="value"
+          />
+        </template>
+      </component>
       <item-details
         :title="detailsTitle"
         :details-fields="detailsFields"

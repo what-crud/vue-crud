@@ -129,10 +129,16 @@
             </v-col>
             <v-col>
               <span class="tree-item__field-value">
-                <list-item-field
+                <slot
+                  :name="`field:${field.name}`"
                   :value="field.value"
-                  :text-mode="textMode(item, key)"
-                />
+                  :item="item"
+                >
+                  <list-item-field
+                    :value="field.value"
+                    :text-mode="textMode(item, field.name)"
+                  />
+                </slot>
               </span>
             </v-col>
           </v-row>
@@ -201,6 +207,7 @@ export default {
             const computeFields = (item) => {
               return this.tableFields.map(field => {
                 return {
+                  name: field.name,
                   label: field.text,
                   value: item[field.name],
                 }

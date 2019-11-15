@@ -1,21 +1,46 @@
 <template>
   <v-dialog persistent v-model="details.show" max-width="480">
     <v-card>
-      <v-card-title class="headline">{{ $t('global.details.title') }}</v-card-title>
+      <slot name="title">
+        <v-card-title class="headline">{{ $t('global.details.title') }}</v-card-title>
+      </slot>
       <v-form v-model="details.formValid">
         <v-card-text>
-
+          <slot name="over-fields" />
           <div v-for="(field, i) in fields" :key="i">
             <item-details-field
               :field="field"
               :field-value="field.value"
               :reload="reload"
               @valueChanged="valueChanged"
-            />
+            >
+              <template
+                #default="{
+                  value,
+                  fieldType,
+                  field,
+                  reload,
+                  rules,
+                  changeValue,
+                }"
+              >
+                <slot
+                  :name="`field:${field.name}`"
+                  :value="value"
+                  :field-type="fieldType"
+                  :field="field"
+                  :reload="reload"
+                  :rules="rules"
+                  :change-value="changeValue"
+                />
+              </template>
+            </item-details-field>
           </div>
+          <slot name="under-fields" />
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
+          <slot name="custom-actions" />
           <v-btn
             color="black"
             text

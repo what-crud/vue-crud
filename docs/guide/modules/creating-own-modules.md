@@ -33,7 +33,7 @@ Once you've created a new module, add the necessary files to it:
 
 Core of your module is **Index.vue** file. This file doesn't have to, but can be a nested router to the right target locations. Then it will look just like this:
 
-```vue
+``` html
 <template>
   <div>
     <router-view></router-view>
