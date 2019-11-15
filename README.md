@@ -152,7 +152,7 @@ npm run serve
 ### Usage
 
 The simplest possible code that supports CRUD operations for one table will look something like this:
-```vue
+``` html
 <template>
   <div>
     <crud

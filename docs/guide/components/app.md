@@ -35,7 +35,7 @@
 
 ### Example:
 
-```vue
+``` html
 <template>
   <div>
     <toolbar
@@ -111,7 +111,7 @@ export default {
 
 ### Example:
 
-```vue
+``` html
 <template>
   <div>
     <sidebar
@@ -217,7 +217,7 @@ export default {
 
 ### Example:
 
-```vue
+``` html
 <template>
   <div>
     <footnote v-if="footer">
@@ -268,7 +268,7 @@ export default {
 
 ### Example:
 
-```vue
+``` html
 <template>
   <div>
     <back-top></back-top>
@@ -295,7 +295,7 @@ export default {
 
 ### Example:
 
-```vue
+``` html
 <template>
   <div>
     <v-content class="content">

@@ -186,7 +186,7 @@ If `url` and `path.default` property has been set in **src/config/api.js** file,
 
 Example (slugify title od post):
 
-```vue
+``` html
 <template>
   <crud
     :prefix="prefix"

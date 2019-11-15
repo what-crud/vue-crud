@@ -38,11 +38,154 @@
 |removeManyMode|-|`Boolean`|`false`|crud.removeManyMode === undefined ? true : crud.removeManyMode|
 |itemDetailsWidth|-|`Any`|`false`|600|
 
+
+### Slots:
+
+<!-- @vuese:item-details:slots:start -->
+|Name|Description|Default Slot Content|Slot scope|
+|---|---|---|---|
+|list-item-field:[name]|Slot for custom list item field template|ListItemField component|{ value, item }|
+|item-details-title|-|Title|{ title }|
+|item-details-over-fields|-|-|-|
+|item-details-field:[name]|Slot for custom item details field template|ItemDetailsField component|*See below|
+|item-details-under-fields|-|-|-|
+|item-details-custom-actions|-|-|-|
+
+If standard configuration of Crud component is not enough for you, you can customize it with slots:
+
+``` html
+<template>
+  <crud
+    :prefix="prefix"
+    :path="path"
+    :page-title="pageTitle"
+    :fields-info="fieldsInfo"
+    :details-title="$t('detailsTitle')"
+  >
+
+    <!-- Example of slot usage: -->
+    <template #item-details-under-fields>
+      Lorem ipsum...
+    </template>
+
+  </crud>
+</template>
+```
+
+#### **list-item-field:[name]**
+
+Dynamic slot for selected field in table/tree.
+
+Slot scope: {
+  value,
+  item,
+}
+
+Example:
+```html
+<template #list-item-field:name="{ value }">
+  <span style="color:red;">{{ value }}</span>
+</template>
+```
+
+#### **item-details-title**
+
+Slot for dialog title.
+
+Slot scope: { title }
+
+Default template:
+
+```html
+<v-card-title
+    class="headline"
+>
+    {{ details.action == 'multiedit' ? $t('global.details.multipleUpdateTitle') : title }}
+</v-card-title>
+```
+
+Example:
+```html
+<template #item-details-title="{ title }">
+    {{ title }}
+</template>
+```
+
+#### **item-details-over-fields**
+
+Slot for content over the item fields.
+
+Slot scope: {}
+
+Example:
+```html
+<template #item-details-over-fields>
+    Lorem ipsum...
+</template>
+```
+
+#### **item-details-field:[name]**
+
+Dynamic slot for selected field.
+
+Slot scope: {
+  value,
+  fieldType,
+  field,
+  reload,
+  rules,
+  changeValue,
+}
+
+Example:
+```html
+<template #item-details-field:name="{ value, changeValue }">
+    <input
+        style="border: 1px solid black"
+        v-model="value"
+        @change="changeValue(value)"
+    />
+</template>
+<template #item-details-field:code="{ value, changeValue }">
+    <input
+        style="border: 1px solid black; color: white; background-color: red;"
+        v-model="value"
+        @change="changeValue(value)"
+    />
+</template>
+```
+
+#### **item-details-under-fields**
+
+Slot for content under the item fields.
+
+Slot scope: {}
+
+Example:
+```html
+<template #item-details-under-fields>
+    Lorem ipsum...
+</template>
+```
+
+#### **item-details-custom-actions**
+
+Slot for custom actions.
+
+Slot scope: {}
+
+Example:
+```html
+<template #item-details-custom-actions>
+    <button>Custom action</button>
+</template>
+```
+
 <!-- @vuese:[name]:props:end -->
 
 ### Example:
 
-```vue
+``` html
 <template>
   <crud
     :meta="meta"
@@ -164,15 +307,59 @@
 ### Slots:
 
 <!-- @vuese:item-details:slots:start -->
-|Name|Description|Default Slot Content|
-|---|---|---|
-|default|-|-|
+|Name|Description|Default Slot Content|Slot scope|
+|---|---|---|---|
+|default|-|-|-|
+|item-details-field:[name]|Slot for custom item details field template|ItemDetailsField component|*See below|
 
 <!-- @vuese:item-details:slots:end -->
 
+#### **default**
+
+Slot for content you want to display in extended item details
+
+Slot scope: {}
+
+Example:
+```html
+<template #default>
+  whatever
+</template>
+```
+
+or just
+
+```html
+whatever
+```
+
+#### **item-details-field:[name]**
+
+Dynamic slot for selected field.
+
+Slot scope: {
+  value,
+  fieldType,
+  field,
+  reload,
+  rules,
+  changeValue,
+}
+
+Example:
+```html
+<template #item-details-field:name="{ value, changeValue }">
+    <input
+        style="border: 1px solid black"
+        v-model="value"
+        @change="changeValue(value)"
+    />
+</template>
+```
+
 ### Example:
 
-```vue
+``` html
 <template>
   <item-details-container
     :title="$t('title')"
@@ -230,7 +417,7 @@
 </script>
 ```
 
-## **Children:**
+## **Children**
 
 ### Import:
 
@@ -242,7 +429,7 @@
 
 ### Example:
 
-```vue
+``` html
 <template>
   <div>
       <company-positions-table
@@ -306,6 +493,62 @@ export default {
 
 <!-- @vuese:[name]:props:end -->
 
+### Slots:
+
+<!-- @vuese:item-details:slots:start -->
+|Name|Description|Default Slot Content|Slot scope|
+|---|---|---|---|
+|field:[name]|Slot for custom list item field template|ListItemField component|{ value, item }|
+
+If standard configuration of ChildrenTable component is not enough for you, you can customize it with slots:
+
+``` html
+<template>
+  <div>
+    <company-positions-table
+      :fields-info="fileteredTableFields"
+      :details-loader="detailsLoader"
+      :table-data="childrenList(fileteredTableFields, [], 'id', childItemName, 'active')"
+      delete-mode="both"
+    >
+      <!-- Example of slot usage: -->
+      <template #field:name="{ value }">
+        <strong>{{ value }}</strong>
+      </template>
+    </company-positions-table>
+  </div>
+</template>
+
+<script>
+import FieldsInfoMixin from '../../positions/mixins/fields.js'
+import LocalesMixin from '../../positions/mixins/locales.js'
+import CompanyPositionsChildMixin from "@/utils/crud/mixins/child.js";
+import ChildrenTable from "@/utils/crud/components/ChildrenTable.vue";
+
+export default {
+  mixins: [FieldsInfoMixin, LocalesMixin, CompanyPositionsChildMixin],
+  components: {
+    "company-positions-table": ChildrenTable,
+  },
+};
+</script>
+```
+
+#### **field:[name]**
+
+Dynamic slot for selected field in table/tree.
+
+Slot scope: {
+  value,
+  item,
+}
+
+Example:
+```html
+<template #field:name="{ value }">
+  <span style="color:red;">{{ value }}</span>
+</template>
+```
 
 ### MixIns:
 
@@ -318,7 +561,7 @@ export default {
 <!-- @vuese:[name]:mixIns:end -->
 ### Example:
 
-```vue
+``` html
 <template>
   <div>
     <company-positions-table
@@ -360,9 +603,135 @@ export default {
 
 <!-- @vuese:[name]:props:end -->
 
+
+### Slots:
+
+|Name|Description|Default Slot Content|Slot scope|
+|---|---|---|---|
+|title|-|Title|{ title }|
+|over-fields|-|-|-|
+|field:[name]|Slot for custom item details field template|ItemDetailsField component|*See below|
+|under-fields|-|-|-|
+|custom-actions|-|-|-|
+
+If standard configuration of ChildDetails component is not enough for you, you can customize it with slots:
+
+``` html
+<template>
+  <div>
+    <company-position-details
+      :details="details"
+      :fields-info="fileteredDetailsFields"
+    >
+      <!-- Example of slot usage: -->
+      <template #under-fields>
+        Lorem ipsum...
+      </template>
+    </company-position-details>
+  </div>
+</template>
+
+<script>
+import FieldsInfoMixin from '../../positions/mixins/fields.js'
+import LocalesMixin from '../../positions/mixins/locales.js'
+import CompanyPositionsChildMixin from "@/utils/crud/mixins/child.js";
+import ChildDetails from "@/utils/crud/components/ChildDetails.vue";
+
+export default {
+  mixins: [FieldsInfoMixin, LocalesMixin, CompanyPositionsChildMixin],
+  components: {
+    "company-position-details": ChildDetails,
+  },
+};
+</script>
+```
+
+#### **title**
+
+Slot for dialog title.
+
+Slot scope: {}
+
+Example:
+```html
+<template #title>
+  Details
+</template>
+```
+
+#### **over-fields**
+
+Slot for content over the item fields.
+
+Slot scope: {}
+
+Example:
+```html
+<template #over-fields>
+  Lorem ipsum...
+</template>
+```
+
+#### **field:[name]**
+
+Dynamic slot for selected field.
+
+Slot scope: {
+  value,
+  fieldType,
+  field,
+  reload,
+  rules,
+  changeValue,
+}
+
+Example:
+```html
+<template #field:name="{ value, changeValue }">
+  <input
+    style="border: 1px solid black"
+    v-model="value"
+    @change="changeValue(value)"
+  />
+</template>
+<template #field:code="{ value, changeValue }">
+  <input
+    style="border: 1px solid black; color: white; background-color: red;"
+    v-model="value"
+    @change="changeValue(value)"
+  />
+</template>
+```
+
+#### **under-fields**
+
+Slot for content under the item fields.
+
+Slot scope: {}
+
+Example:
+```html
+<template #under-fields>
+    Lorem ipsum...
+</template>
+```
+
+#### **custom-actions**
+
+Slot for custom actions.
+
+Slot scope: {}
+
+Example:
+```html
+<template #custom-actions>
+  <button>Custom action</button>
+</template>
+```
+
 ### Example:
 
-```vue
+``` html
 <template>
   <div>
     <company-position-details

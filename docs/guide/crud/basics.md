@@ -6,7 +6,7 @@ CRUD is an abbreviation of the 4 most popular operations performed on tables: Cr
 ## Example
 If you have read the previous chapters and have already done the steps described in them, then you should have created your own module with several nested paths. Let's assume that you created the *automotive* module and in it you added your CRUD system to manage the *car_brands* table. Your CRUD should be located in the file `src/routes/main/routes/automotive/routes/car-brands/Index.vue` and it should look like that:
 
-```vue
+``` html
 <template>
   <crud
     :prefix="prefix"

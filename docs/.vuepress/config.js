@@ -130,7 +130,6 @@ module.exports = {
             '/guide/crud/custom-configuration',
             '/guide/crud/field-options',
             '/guide/crud/items-view',
-            '/guide/crud/item-details',
             '/guide/crud/extended-details',
             '/guide/crud/item-elements',
           ]

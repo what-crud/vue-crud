@@ -19,7 +19,7 @@
 
 #### Example:
 
-```vue
+``` html
 <template>
   <login-form
     redirect="/home"
