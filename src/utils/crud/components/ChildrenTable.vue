@@ -73,10 +73,16 @@
             @doubleClick="resolveRowDoubleClick"
           />
           <span v-else>
-            <list-item-field
+            <slot
+              :name="`field:${header.value}`"
               :value="item[header.value]"
-              :text-mode="textMode(item, header.value)"
-            />
+              :item="item"
+            >
+              <list-item-field
+                :value="item[header.value]"
+                :text-mode="textMode(item, header.value)"
+              />
+            </slot>
           </span>
         </span>
       </template>
@@ -170,7 +176,7 @@ export default {
     },
     itemElements: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
     meta: {
       type: Array,
@@ -278,15 +284,15 @@ export default {
 }
 .details-loader-container {
   position: absolute;
-  top:200px;
+  top: 200px;
   text-align: center;
   width: 100%;
 }
 .details-loader {
-  height:100px !important;
-  width:100px;
-  background-color:rgba(255, 255, 255, 0.6);
-  border-radius:100%;
+  height: 100px !important;
+  width: 100px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 100%;
   display: inline-block;
 }
 </style>

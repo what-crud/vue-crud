@@ -129,10 +129,16 @@
             </v-col>
             <v-col>
               <span class="tree-item__field-value">
-                <list-item-field
-                  :value="field.value"
-                  :text-mode="textMode(item, key)"
-                />
+                <slot
+                  :name="`field:${header.value}`"
+                  :value="item[header.value]"
+                  :item="item"
+                >
+                  <list-item-field
+                    :value="item[header.value]"
+                    :text-mode="textMode(item, header.value)"
+                  />
+                </slot>
               </span>
             </v-col>
           </v-row>

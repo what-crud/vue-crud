@@ -71,10 +71,16 @@
             @doubleClick="resolveRowDoubleClick"
           />
           <span v-else>
-            <list-item-field
+            <slot
+              :name="`field:${header.value}`"
               :value="item[header.value]"
-              :text-mode="textMode(item, header.value)"
-            />
+              :item="item"
+            >
+              <list-item-field
+                :value="item[header.value]"
+                :text-mode="textMode(item, header.value)"
+              />
+            </slot>
           </span>
         </span>
       </template>
