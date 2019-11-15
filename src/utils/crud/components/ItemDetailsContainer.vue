@@ -39,7 +39,29 @@
           <item-details-extended
             :title="basicInformation"
             :fields-info="fields"
-          ></item-details-extended>
+          >
+            <template
+              v-for="field in fields"
+              #[`field:${field.name}`]="{
+                value,
+                fieldType,
+                field,
+                reload,
+                rules,
+                changeValue,
+              }"
+            >
+              <slot
+                :name="`item-details-field:${field.name}`"
+                :value="value"
+                :field-type="fieldType"
+                :field="field"
+                :reload="reload"
+                :rules="rules"
+                :change-value="changeValue"
+              />
+            </template>
+          </item-details-extended>
         </v-col>
         <v-col cols="12" lg="7" class="pa-3">
           <v-tabs slider-color="secondary">

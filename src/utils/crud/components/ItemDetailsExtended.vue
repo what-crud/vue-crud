@@ -12,7 +12,28 @@
           :field-value="field.value"
           :reload="reload"
           @valueChanged="valueChanged"
-        />
+        >
+          <template
+            #default="{
+              value,
+              fieldType,
+              field,
+              reload,
+              rules,
+              changeValue,
+            }"
+          >
+            <slot
+              :name="`field:${field.name}`"
+              :value="value"
+              :field-type="fieldType"
+              :field="field"
+              :reload="reload"
+              :rules="rules"
+              :change-value="changeValue"
+            />
+          </template>
+        </item-details-field>
       </v-flex>
     </v-row>
   </div>
