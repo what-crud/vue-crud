@@ -14,10 +14,16 @@
         <router-link to="/CRUD">CRUD demo/sandbox</router-link>
       </li>
       <li>
-        <a href="https://github.com/what-crud/vue-crud" target="_blank">GitHub</a>
+        <a
+          href="https://github.com/what-crud/vue-crud"
+          target="_blank"
+        >GitHub</a>
       </li>
       <li>
-        <a href="https://vue-crud.github.io/" target="_blank">Docs</a>
+        <a
+          href="https://vue-crud.github.io/"
+          target="_blank"
+        >Docs</a>
       </li>
     </ul>
   </div>
