@@ -57,8 +57,10 @@ Usage:
   available templates:
 
   empty         - empty template for creating applications from scratch
-  crm           - extended example of crm app (with auth, app layout and various CRUD exmples)
   simple-crud   - simple CRUD example (with table configuration)
+  sandbox       - Vue CRUD demo (with configuration)
+  crm           - extended example of crm app (with auth, app layout and various CRUD exmples)
+  cms           - extended example of cms app (with auth, app layout and various CRUD exmples)
   `
 
   console.log(usageText)
