@@ -1,4 +1,4 @@
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/what-crud/vue-crud) 
+
 
 <p align="center">
   <img width="300" height="auto" src="https://user-images.githubusercontent.com/18534115/49319435-29ccf000-f4fd-11e8-9fc6-8678864132bd.png">
@@ -9,6 +9,7 @@
   <a><img alt="version" src="https://img.shields.io/badge/version-v0.15.2-yellow.svg"></a>
   <a><img alt="build" src="https://travis-ci.org/what-crud/vue-crud.svg?branch=master"></a>
   <a><img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
+  <a><img alt="Gitpod Ready-to-Code" src="https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod"></a>
 </div>
 
 <h4 align="center">Vue.js based REST-ful CRUD system.</h4>
