@@ -605,8 +605,8 @@ export default {
       ]
     },
     buttons () {
-      let obj1 = this.showButton1 ? this.button1 : []
-      let obj2 = this.showButton2 ? this.button2 : []
+      const obj1 = this.showButton1 ? this.button1 : []
+      const obj2 = this.showButton2 ? this.button2 : []
       return [
         ...obj1,
         ...obj2,

@@ -3,7 +3,7 @@ import api from '@/config/api'
 import auth from '@/config/auth'
 
 const getUrl = (url) => {
-  let urlArray = []
+  const urlArray = []
   if (auth.api) {
     urlArray.push(auth.api)
   } else {
@@ -78,7 +78,7 @@ const actions = {
     const path = auth.paths.editUser || 'user'
     Vue.http.post(getUrl(path), data)
       .then(response => {
-        let result = response.body
+        const result = response.body
         commit('editUser', result)
       }, (error) => {
         dispatch('openAlertBox', [
@@ -94,7 +94,7 @@ const actions = {
     const path = auth.paths.changePassword || 'password'
     Vue.http.post(getUrl(path), data)
       .then(response => {
-        let result = response.body
+        const result = response.body
         commit('editPassword', result)
       }, (error) => {
         dispatch('openAlertBox', [

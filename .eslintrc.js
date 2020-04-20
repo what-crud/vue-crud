@@ -11,31 +11,39 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'array-element-newline': [
       'error',  {
-        "multiline": true,
-        "minItems": 2,
+        multiline: true,
+        minItems: 2,
       },
     ],
     'array-bracket-newline': [
       'error',  {
-        "multiline": true,
-        "minItems": 2,
+        multiline: true,
+        minItems: 2,
       },
     ],
     'array-bracket-spacing': ['error', 'never'],
     'object-curly-newline': [
       'error',  {
-        'consistent': true,
+        consistent: true,
       },
     ],
     'object-curly-spacing': ['error', 'always'],
   },
 
+  parser: "vue-eslint-parser",
+
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: "babel-eslint",
+    sourceType: "module",
+    ecmaVersion: 2017,
   },
 
   extends: [
     'plugin:vue/essential',
     '@vue/standard',
+  ],
+
+  plugins: [
+    'vue',
   ],
 }

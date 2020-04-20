@@ -123,7 +123,7 @@ export default {
         setTimeout(() => {
           if (this.field.async && this.searchActive) {
             if (this.search === val) {
-              const url = `${this.field.url}/phrase/${val}`
+              const url = this.field.url + '/phrase/' + val
               this.refreshList(url)
             }
           }

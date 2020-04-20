@@ -17,7 +17,7 @@ import PersonCommentTypes from './routes/person-comment-types/Index.vue'
 
 import Tasks from './routes/tasks/Index.vue'
 
-let crmRoutes = [
+const crmRoutes = [
   {
     path: 'companies',
     name: 'companies',

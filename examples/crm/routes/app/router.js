@@ -4,7 +4,7 @@ import crmRoutes from './routes/crm/router'
 import Administration from './routes/administration/Index.vue'
 import administrationRoutes from './routes/administration/router'
 
-let appRoutes = [
+const appRoutes = [
   {
     path: 'home',
     name: 'home',

@@ -261,12 +261,12 @@ export default {
       defaultItemsViewMode: 'client',
       defaultItemsViewType: 'table',
       componentTypesMap: {
-        'table': 'Table',
-        'tree': 'Tree',
+        table: 'Table',
+        tree: 'Tree',
       },
       componentModesMap: {
-        'server': 'ServerMode',
-        'client': 'ClientMode',
+        server: 'ServerMode',
+        client: 'ClientMode',
       },
     }
   },
@@ -300,7 +300,8 @@ export default {
     componentLoader () {
       const typeNamePart = this.componentTypesMap[this.itemsViewType]
       const modeNamePart = this.componentModesMap[this.itemsViewMode]
-      return () => import(`./Crud${typeNamePart}${modeNamePart}.vue`)
+      return () => import('./Crud' + typeNamePart + modeNamePart + '.vue')
+      // return () => import(`./Crud${typeNamePart}${modeNamePart}.vue`)
     },
   },
   methods: {

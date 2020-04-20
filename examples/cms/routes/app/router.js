@@ -8,7 +8,7 @@ import storeRoutes from './routes/store/router'
 import Administration from './routes/administration/Index.vue'
 import administrationRoutes from './routes/administration/router'
 
-let appRoutes = [
+const appRoutes = [
   {
     path: 'home',
     name: 'home',

@@ -4,7 +4,7 @@ import TransactionProducts from './routes/transaction-products/Index.vue'
 import Transactions from './routes/transactions/Index.vue'
 import Customers from './routes/customers/Index.vue'
 
-let storeRoutes = [
+const storeRoutes = [
   {
     path: 'sections',
     name: 'store-sections',

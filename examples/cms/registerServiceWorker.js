@@ -7,6 +7,7 @@ if (process.env.NODE_ENV === 'production') {
     ready () {
       console.log(
         'App is being served from cache by a service worker.\n' +
+        // eslint-disable-next-line comma-dangle
         'For more details, visit https://goo.gl/AFskqB'
       )
     },

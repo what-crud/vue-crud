@@ -58,7 +58,7 @@ export default {
   methods: {
     ...mapMutations('crud', ['openImageContainer']),
     download (item) {
-      download(`${this.filesPath}/${item.path}`, item.filename)
+      download(this.filesPath + '/' + item.path, item.filename)
     },
     isImage (mime) {
       const supportedMimeTypes = [

@@ -1,4 +1,4 @@
-let state = {
+const state = {
   // permissions
 
   // user permissions

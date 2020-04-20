@@ -196,9 +196,9 @@ export default {
     },
     treeItems () {
       const parentColumnName = this.parentColumnName
-      let otherItems = this.items
+      const otherItems = this.items
       const addChildrenToItem = (id) => {
-        let children = []
+        const children = []
         for (const child of otherItems) {
           const parentId = child.meta.item[parentColumnName]
           if (id === parentId) {
@@ -221,7 +221,7 @@ export default {
         }
         return children
       }
-      let computedItems = addChildrenToItem(this.unassignedItemParent)
+      const computedItems = addChildrenToItem(this.unassignedItemParent)
       return computedItems
     },
     filter () {
@@ -262,6 +262,7 @@ export default {
             let field = item.meta.item[colName]
             if (typeof field === 'string' || field instanceof String || typeof field === 'number') {
               field = field.toString().toLowerCase()
+              const tmpList = filter.value.split(';')
               switch (filter.mode) {
                 case 'like':
                   if (field.includes(filter.value)) {
@@ -274,7 +275,6 @@ export default {
                   }
                   break
                 case 'list':
-                  const tmpList = filter.value.split(';')
                   if (tmpList.includes(field)) {
                     isTestPassed = true
                   }

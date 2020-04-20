@@ -514,9 +514,9 @@ export default {
                 title="${this.toolbarTitle}"
                 titleLink="${this.toolbarTitleLink}" ${this.toolbarShowLogo ? `
                 logo="${this.toolbarLogo}"` : `
-                :showLogo="false"`} ${this.toolbarProfileBtn ? `` : `
-                :profileBtn="false"`} ${this.toolbarLocalesBtn ? `` : `
-                :loclesBtn="false"`} ${this.toolbarLogoutBtn ? `` : `
+                :showLogo="false"`} ${this.toolbarProfileBtn ? '' : `
+                :profileBtn="false"`} ${this.toolbarLocalesBtn ? '' : `
+                :loclesBtn="false"`} ${this.toolbarLogoutBtn ? '' : `
                 :logoutBtn="false"`}
               > ${this.toolbarLeftSlot ? `
                 <template slot="left" v-if="toolbarLeftSlot">

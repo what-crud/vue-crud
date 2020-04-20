@@ -68,7 +68,7 @@ function getItemsList (obj, fields, meta, primaryKey, customButtons, activeColum
       let showButton = false
       const colVal = obj[button.condition.field]
       const reqValues = button.condition.values
-      let { operator } = button.condition
+      const { operator } = button.condition
       if (operator === '==') {
         for (const reqVal of reqValues) {
           if (colVal === reqVal) {
