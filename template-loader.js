@@ -67,23 +67,15 @@ Usage:
 }
 
 function errorLog (error) {
-  console.log(
-    `
-\x1b[41m\x1b[30m  Error \x1b[0m\x1b[31m ${error}
-    `
-  )
+  console.log('\x1b[41m\x1b[30m  Error \x1b[0m\x1b[31m' + error)
 }
 
 function successLog () {
-  console.log(
-    `
-\x1b[42m\x1b[30m DONE \x1b[0m\x1b[32m Template has been successfuly loaded.
-    `
-  )
+  console.log('\x1b[42m\x1b[30m DONE \x1b[0m\x1b[32m Template has been successfuly loaded.')
 }
 
 if (args.length !== 1) {
-  errorLog(`Only one argument can be passed`)
+  errorLog('Only one argument can be passed')
   usage()
 } else {
   var arg = args[0]
@@ -102,7 +94,7 @@ if (args.length !== 1) {
     })
     successLog()
   } else {
-    errorLog(`Specified template doesn't exist.`)
+    errorLog('Specified template doesn\'t exist.')
     usage()
   }
 }
