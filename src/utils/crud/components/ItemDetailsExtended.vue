@@ -139,8 +139,8 @@ export default {
       field.oldValue = field.value
     },
     valueChanged (val, fieldColumn) {
-      let field = this.fields[this.fields.findIndex(el => el.column === fieldColumn)]
-      let oldVal = field.value
+      const field = this.fields[this.fields.findIndex(el => el.column === fieldColumn)]
+      const oldVal = field.value
       if (oldVal !== val) {
         this.$set(field, 'value', val)
         Vue.set(this.item, field.column, field.value)
