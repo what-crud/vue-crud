@@ -19,6 +19,7 @@
 
 <script>
 import FileDetails from './FileDetails.vue'
+import crud from '@/config/crud'
 
 export default {
   components: {
@@ -34,7 +35,7 @@ export default {
   filters: {
     cropped (value) {
       let rvalue
-      const maxLength = 40
+      const maxLength = crud.maxLength || 40
       if (typeof value === 'string' || value instanceof String) {
         rvalue = value.length <= maxLength ? value : `${value.substring(0, maxLength - 3)}...`
       } else {
