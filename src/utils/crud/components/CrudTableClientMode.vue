@@ -76,7 +76,7 @@
             >
               <list-item-field
                 :value="item[header.value]"
-				:options="header.options"
+				        :options="header.options"
                 :text-mode="textMode(item, header.value)"
               />
             </slot>
