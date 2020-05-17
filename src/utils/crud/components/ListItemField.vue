@@ -1,17 +1,17 @@
 <template>
   <span>
     <!-- html -->
-    <span v-if="textMode === 'html'" v-html="value"></span>
+    <span v-if="textMode === 'html'" v-html="value" :class="options.cssClass"></span>
     <!-- cropped text -->
-    <span v-else-if="textMode === 'cropped'" class="cell-nowrap">
+    <span v-else-if="textMode === 'cropped'" class="cell-nowrap" :class="options.cssClass">
       {{ value | cropped }}
     </span>
     <!-- text -->
-    <span v-else-if="textMode === 'text'">
+    <span v-else-if="textMode === 'text'" :class="options.cssClass">
       {{ value }}
     </span>
     <!-- file -->
-    <span v-else-if="textMode === 'file'">
+    <span v-else-if="textMode === 'file'" :class="options.cssClass">
       <file-details :fieldInfo="fieldInfoToJSON(value)"></file-details>
     </span>
   </span>
@@ -27,6 +27,7 @@ export default {
   },
   props: {
     value: {},
+	options: {},
     textMode: {
       type: String,
       default: 'text',
