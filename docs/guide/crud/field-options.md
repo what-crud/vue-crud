@@ -9,6 +9,21 @@ Parameters:
 - `name`: eg. 'car_brand.name',
 - `functions`: array of functions used to modify given field. You can define your functions in **src/helpers/functions.js** file.
 
+## `options`
+*Object*, optional. property to personilze the field in table.
+
+Parameters:
+- `cssClass`: name of css class.
+```js
+{
+	...
+    options: {
+		cssClass: 'my-class',
+	}
+	...
+}
+```
+
 ## `column`
 *String*. The column in the table referenced by the field.
 
