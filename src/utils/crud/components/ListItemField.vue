@@ -27,7 +27,7 @@ export default {
   },
   props: {
     value: {},
-	  options: {},
+    options: {},
     textMode: {
       type: String,
       default: 'text',

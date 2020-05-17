@@ -16,7 +16,7 @@ export default {
         const header = {}
         header.text = field.text
         header.value = field.name.toLowerCase()
-		    header.options = field.options || {}
+        header.options = field.options || {}
         if (field.sortable !== undefined) {
           header.sortable = field.sortable
         }
