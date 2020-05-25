@@ -3,7 +3,7 @@ import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
 
-let cms = {
+const cms = {
   namespaced: true,
   state,
   getters,

@@ -141,9 +141,8 @@ export default {
   },
   methods: {
     setFields () {
-      let filteredFields
-      filteredFields = this.fieldsInfo.filter(
-        field => field.details !== false && field.type !== 'divider'
+      const filteredFields = this.fieldsInfo.filter(
+        field => field.details !== false && field.type !== 'divider',
       )
       const result = filteredFields.map((field) => {
         const rField = field

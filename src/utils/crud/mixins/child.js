@@ -79,7 +79,7 @@ export default {
       this.createChildDialog(this.childItemName)
     },
     suspend (id) {
-      let obj = {}
+      const obj = {}
       obj[this.activeColumnName] = 0
       this.updateChild([
         id,
@@ -89,7 +89,7 @@ export default {
       ])
     },
     restore (id) {
-      let obj = {}
+      const obj = {}
       obj[this.activeColumnName] = 1
       this.updateChild([
         id,

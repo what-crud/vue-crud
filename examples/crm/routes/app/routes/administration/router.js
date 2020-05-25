@@ -2,7 +2,7 @@ import Users from './routes/users/Index.vue'
 import Permissions from './routes/permissions/Index.vue'
 import UserPermissions from './routes/user-permissions/Index.vue'
 
-let administrationRoutes = [
+const administrationRoutes = [
   {
     path: 'users',
     name: 'users',

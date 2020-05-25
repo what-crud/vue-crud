@@ -57,7 +57,7 @@ export default {
       return this.componentsMap[this.fieldType]
     },
     fieldComponent () {
-      return this.componentName ? () => import(`./field-types/${this.componentName}.vue`) : undefined
+      return this.componentName ? () => import('./field-types/' + this.componentName + '.vue') : undefined
     },
     isWidthLimited () {
       return ![

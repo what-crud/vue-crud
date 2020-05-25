@@ -1,4 +1,4 @@
-let mutations = {
+const mutations = {
   // permissions
 
   // user permissions

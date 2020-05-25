@@ -17,7 +17,7 @@ export default {
       return param.substring(0, 10)
     },
     timeFromTimestamp: (param) => {
-      let tmp = param || ''
+      const tmp = param || ''
       return tmp.substring(0, 5)
     },
     datetimeFromTimestamp: (param) => {

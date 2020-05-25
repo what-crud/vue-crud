@@ -19,6 +19,7 @@ export default {
             let field = item[colName]
             if (typeof field === 'string' || field instanceof String || typeof field === 'number') {
               field = field.toString().toLowerCase()
+              const tmpList = columnFilters[i].value.split(';')
               switch (columnFilters[i].mode) {
                 case 'like':
                   if (field.includes(columnFilters[i].value)) {
@@ -31,7 +32,6 @@ export default {
                   }
                   break
                 case 'list':
-                  const tmpList = columnFilters[i].value.split(';')
                   if (tmpList.includes(field)) {
                     found = true
                   }

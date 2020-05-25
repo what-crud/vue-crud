@@ -1,4 +1,4 @@
-let getters = {
+const getters = {
   // permissions
 
   // user permissions

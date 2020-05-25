@@ -201,7 +201,7 @@ export default {
       'userInfo',
     ]),
     year () {
-      let year = new Date()
+      const year = new Date()
       return year.getFullYear()
     },
   },

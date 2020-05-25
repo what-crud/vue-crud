@@ -49,7 +49,7 @@ export default {
         this.meta,
         this.primaryKey,
         this.customButtons,
-        this.activeColumnName
+        this.activeColumnName,
       )
     },
     excelName () {

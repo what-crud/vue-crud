@@ -1,8 +1,8 @@
 import { getItemsList } from '@/utils/crud/helpers/functions'
 
 const joinUrl = (items) => {
-  let urlArray = []
-  for (let item of items) {
+  const urlArray = []
+  for (const item of items) {
     if (item) {
       urlArray.push(item)
     }
@@ -16,7 +16,7 @@ const getters = {
     if (state.paths[operation] !== undefined) {
       path = state.paths[operation]
     } else {
-      path = (state.prefix != null ? `${state.prefix}/` : '') + state.path
+      path = (state.prefix != null ? state.prefix + '/' : '') + state.path
     }
     return path
   },
@@ -29,8 +29,8 @@ const getters = {
         meta,
         primaryKey,
         customButtons,
-        activeColumnName
-      )
+        activeColumnName,
+      ),
     )
     return result
   },
@@ -46,8 +46,8 @@ const getters = {
         meta,
         primaryKey,
         [],
-        activeColumnName
-      )
+        activeColumnName,
+      ),
     )
     return result
   },

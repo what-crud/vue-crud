@@ -176,7 +176,7 @@ export default {
       ]
     },
     credential () {
-      let credentials = {}
+      const credentials = {}
       credentials[auth.loginFieldName || 'login'] = this.user
       credentials[auth.passwordFieldName || 'password'] = this.password
       return credentials

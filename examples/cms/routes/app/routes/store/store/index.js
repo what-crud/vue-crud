@@ -3,7 +3,7 @@ import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
 
-let store = {
+const store = {
   namespaced: true,
   state,
   getters,

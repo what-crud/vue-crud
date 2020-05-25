@@ -191,9 +191,9 @@ export default {
       }
     },
     user () {
-      let user = {}
+      const user = {}
       user[this.loginFieldName] = this.login
-      for (let field of this.customFields) {
+      for (const field of this.customFields) {
         user[field.name] = field.value
       }
       return user
@@ -214,7 +214,7 @@ export default {
       this.login = user[this.loginFieldName]
       const customFields = auth.customFields || []
       this.customFields = customFields.map((field) => {
-        let rField = field
+        const rField = field
         rField.value = user[field.name]
         rField.label = this.$t(`global.profile.user.${field.name}`)
         return rField

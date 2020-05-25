@@ -1,4 +1,4 @@
-let actions = {
+const actions = {
   // permissions
 
   // user permissions
