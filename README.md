@@ -1,4 +1,9 @@
-<h1 align="center" style="color:red;">the project is not supported</h1>
+<div align="center" style="color:red;">
+  <h1>the project is not supported</h1>
+  <h2>
+    If you want to contribute to this project please fork from this project or email me to add you to what-crud group
+  </h2>
+</div>
 <p align="center">
   <img width="300" height="auto" src="https://user-images.githubusercontent.com/18534115/49319435-29ccf000-f4fd-11e8-9fc6-8678864132bd.png">
 </p>
